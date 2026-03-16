@@ -15,3 +15,6 @@ brand_assets/*.png
 brand_assets/optimized/pyramid-nobg-600.png
 # Keep favicon PNG
 !brand_assets/optimized/paradigm a .png
+
+# Local Netlify folder
+.netlify

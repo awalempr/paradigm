@@ -1,0 +1,12 @@
+node_modules/
+temporary screenshots/
+.claude/
+.git/
+.netlify/
+screenshot.mjs
+serve.mjs
+claude.md
+package.json
+package-lock.json
+CLAUDE.md
+*.mjs
