@@ -4551,12 +4551,12 @@
     /* ── MOBILE: 480px ── */
     @media (max-width: 480px) {
       /* Hero adjustments */
-      #hero { padding-top: 120px; min-height: auto; }
+      #hero { padding-top: 140px; min-height: auto; }
       .hero-content { padding: 0 20px 32px; }
       .hero-headline { margin-bottom: 0; margin-top: -12px; }
-      .hero-eyebrow { margin-bottom: 0; margin-top: -24px; width: 100%; justify-content: space-between; padding-left: 4px; }
+      .hero-eyebrow { margin-bottom: 0; margin-top: -64px; width: 100%; justify-content: space-between; padding-left: 4px; }
       .hero-eyebrow-line { display: none; }
-      .hero-eyebrow-text { font-size: 9px; width: 100%; letter-spacing: 0.12em; white-space: nowrap; }
+      .hero-eyebrow-text { font-size: 10px; width: 100%; letter-spacing: 0.1em; white-space: nowrap; }
       .hero-pillars { transform: perspective(900px) rotateY(-3deg) rotateX(1deg); padding-bottom: 20px; }
       .hero-pillar { width: 88px; height: 210px; margin-left: -12px; }
       .hero-pillar-letter { font-size: 40px; }
@@ -4567,15 +4567,15 @@
       .hero-video-pill-title { font-size: 14px; white-space: nowrap; }
       .hero-video-pill-play-circle { width: 22px; height: 22px; }
       .hero-video-pill-play-circle svg { width: 8px; height: 8px; }
-      .hero-video-pill-sub { font-size: 12px; color: rgba(255,255,255,0.55); }
+      .hero-video-pill-sub { font-size: 13px; color: rgba(255,255,255,0.55); }
       .hero-diagnostic { width: 100%; }
-      .hero-diag-list li { font-size: 12px; padding: 6px 0; }
-      .hero-diag-warning { font-size: 12px; }
+      .hero-diag-list li { font-size: 14px; padding: 6px 0; }
+      .hero-diag-warning { font-size: 13px; }
       .hero-card { padding: 18px 18px; border-radius: 14px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
       .hero-diag-sub { font-size: 14px; }
       .hero-diag-sub strong { color: #fff; }
       .hero-diag-header { margin-bottom: 6px; }
-      .hero-diag-title { font-size: 12px; }
+      .hero-diag-title { font-size: 13px; }
       .hero-diag-icon { width: 20px; height: 20px; }
       .hero-diag-icon svg { width: 9px; height: 9px; }
 
@@ -4595,9 +4595,9 @@
       .btn-primary { height: 42px; padding: 4px 42px 4px 12px; font-size: 11px; letter-spacing: 0.03em; }
       .btn-primary .arrow { width: 32px; height: 32px; }
       .btn-outline { padding: 10px 12px; font-size: 11px; min-height: 42px; gap: 4px; white-space: nowrap !important; letter-spacing: 0.03em; }
-      .nav-cta { height: 40px; padding: 4px 40px 4px 16px; font-size: 10px; }
+      .nav-cta { height: 40px; padding: 4px 40px 4px 16px; font-size: 11px; }
       .nav-cta .arrow { width: 32px; height: 32px; }
-      .nav-cta .btn-label { font-size: 10px; }
+      .nav-cta .btn-label { font-size: 11px; }
 
       /* Global spacing tightening */
       #truth-cards { padding: 56px 0 72px; }
@@ -4614,7 +4614,7 @@
 
       /* Structure Problem */
       .sp-header { padding-left: 20px; padding-right: 20px; padding-bottom: 36px; }
-      .sp-para { font-size: 16px; }
+      .sp-para { font-size: 15px; }
       .sp-copy-abstract .sp-typo-huge { font-size: clamp(48px, 14vw, 80px); }
 
       /* Framework — tighter padding */
@@ -4634,13 +4634,13 @@
       .sym-card:nth-child(2) { min-height: 260px; }
       .sym-header { margin-bottom: 40px; }
       .sym-closing { padding: 28px 0 36px; }
-      .sym-closing-lead { font-size: 18px; }
+      .sym-closing-lead { font-size: 16px; }
 
       /* Methodology */
       .meth-feature { padding: 0 20px; }
       .meth-feature-steps { padding: 28px 0; gap: 20px; }
       .meth-feature-item { gap: 14px; }
-      .meth-feature-indicator { width: 32px; height: 32px; font-size: 12px; }
+      .meth-feature-indicator { width: 32px; height: 32px; font-size: 13px; }
       .meth-feature-visual { min-height: 240px; }
       .meth-headline { padding: 0 20px; margin-bottom: 48px; }
       .meth-closing {
@@ -4654,12 +4654,12 @@
       /* Engagement cards */
       .eng-card { padding: 28px 22px 24px; border-radius: 18px; }
       .eng-header { margin-bottom: 40px; }
-      .eng-subcopy { font-size: 14px; }
+      .eng-subcopy { font-size: 14px; line-height: 1.6; }
 
       /* Philosophy */
       .phil-inner { padding: 0 20px; }
       .phil-headline { margin-bottom: 36px; }
-      .phil-opening { font-size: 16px; }
+      .phil-opening { font-size: 15px; }
       .phil-principle {
         padding: 28px 20px;
         gap: 16px;
@@ -4683,7 +4683,7 @@
 
       /* Final CTA */
       .final-cta-inner { padding: 72px 20px 60px; }
-      .final-cta-body { font-size: 15px; margin-bottom: 32px; }
+      .final-cta-body { font-size: 14px; margin-bottom: 32px; line-height: 1.6; }
 
       /* Footer */
       .site-footer { margin: 12px; border-radius: 16px; }
@@ -5167,9 +5167,16 @@
     .dx-btn-outline:hover svg { transform: translateX(3px); }
 
     @media (max-width: 600px) {
+      .modal-container { width: 85vw; max-height: 80vh; }
       .modal-inner-pad { padding: 12px 24px 36px; }
       .dx-form-grid { grid-template-columns: 1fr; }
-      .dx-cover-headline { font-size: 24px; }
+      .dx-cover { padding: 20px 0 8px; }
+      .dx-cover-headline { font-size: 22px; margin-bottom: 10px; }
+      .dx-cover-body { font-size: 14px; margin-bottom: 20px; line-height: 1.6; }
+      .dx-cover-muted { margin-top: 10px; font-size: 11px; }
+      .dx-step-label { font-size: 13px; }
+      .dx-step-hint { font-size: 13px; }
+      .dx-q-text { font-size: 15px; }
     }
   </style>
   <!-- Structured Data: Organization + AggregateRating (rich snippet with stars) -->
