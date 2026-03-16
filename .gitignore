@@ -9,6 +9,9 @@ website_reference/*.mov
 website_reference/*.png
 brand_assets/Paradigm GIF.gif
 brand_assets/paradigm.gif
-brand_assets/pyramid-nobg.png
-brand_assets/pyramid.png
-brand_assets/Paul Alex Headshot (1).png
+
+# Original PNGs — replaced by WebP versions
+brand_assets/*.png
+brand_assets/optimized/pyramid-nobg-600.png
+# Keep favicon PNG
+!brand_assets/optimized/paradigm a .png
