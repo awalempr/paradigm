@@ -7360,19 +7360,19 @@ f<!DOCTYPE html>
 <div class="video-overlay" id="videoOverlay">
   <div class="video-overlay-inner">
     <button class="video-overlay-close" id="videoOverlayClose">&#x2715;</button>
-    <iframe id="videoIframe" src="" width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+    <iframe id="videoIframe" src="" width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="Paradigm Website Video"></iframe>
   </div>
 </div>
 
 <!-- VIDEO PIP -->
 <div class="video-pip" id="videoPip">
-  <iframe id="pipIframe" src="" width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+  <iframe id="pipIframe" src="" width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen title="Paradigm Website Video"></iframe>
   <button class="video-pip-close" id="videoPipClose">&#x2715;</button>
 </div>
 
 <script>
 (function() {
-  const VIMEO_URL = 'https://player.vimeo.com/video/1168618889';
+  const VIMEO_URL = 'https://player.vimeo.com/video/1168618889?badge=0&autopause=0&player_id=0&app_id=58479';
   const thumb = document.getElementById('videoThumb');
   const overlay = document.getElementById('videoOverlay');
   const overlayClose = document.getElementById('videoOverlayClose');
