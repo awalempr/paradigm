@@ -7683,6 +7683,14 @@
   const progressFill = document.getElementById('dxProgressFill');
   const interstitial = document.getElementById('dxInterstitial');
 
+  // Capture UTM parameters from URL on page load
+  const urlParams = new URLSearchParams(window.location.search);
+  const UTM = {
+    source: urlParams.get('utm_source') || '',
+    medium: urlParams.get('utm_medium') || '',
+    campaign: urlParams.get('utm_campaign') || ''
+  };
+
   // State
   let S = {};
   function resetState() {
@@ -8035,12 +8043,12 @@
   }
 
   // Fire GHL webhook
-  function fireWebhook() {
+  async function fireWebhook() {
     const payload = {
       first_name: document.getElementById('dxFirst').value.trim(),
       last_name: document.getElementById('dxLast').value.trim(),
       email: document.getElementById('dxEmail').value.trim(),
-      phone: document.getElementById('dxPhone').value.trim(),
+      phone: document.getElementById('dxPhone').value.trim() || "",
       company_name: document.getElementById('dxCompany').value.trim(),
       paradigm_score: S.score,
       assigned_tier: String(S.assignedTier),
@@ -8050,13 +8058,20 @@
       hard_tier3: S.hardTier3,
       business_stage: S.stage,
       subscriptions: S.subscriptions,
-      source: "Website Diagnostic"
+      source: "Website Diagnostic",
+      utm_source: UTM.source,
+      utm_medium: UTM.medium,
+      utm_campaign: UTM.campaign
     };
-    fetch('https://services.leadconnectorhq.com/hooks/toKhUkB5BEHB9Jn52ktG/webhook-trigger/937f2651-108d-4723-901b-c1c9dec36c3f', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    }).catch(() => {});
+    try {
+      await fetch('https://services.leadconnectorhq.com/hooks/toKhUkB5BEHB9Jn52ktG/webhook-trigger/937f2651-108d-4723-901b-c1c9dec36c3f', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+    } catch (error) {
+      console.error('GHL webhook failed:', error);
+    }
   }
 
   // Reset UI for fresh open
@@ -8171,23 +8186,12 @@
 
   document.getElementById('dxContactSubmit').addEventListener('click', function() {
     assignTier();
+    // Fire webhook async — don't block thank you page
     fireWebhook();
     goForward('dxThankYou');
-    // Load video
-    document.getElementById('dxThankYouVideo').src = 'https://player.vimeo.com/video/1168618889';
+    document.getElementById('dxThankYouVideo').src = 'https://player.vimeo.com/video/1168618889?autoplay=1&badge=0&autopause=0&player_id=0&app_id=58479';
   });
 
-  // Watch Now button scrolls to embedded video
-  document.getElementById('dxWatchNow').addEventListener('click', function(e) {
-    e.preventDefault();
-    const embed = document.getElementById('dxVideoEmbed');
-    embed.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    // Ensure video is loaded
-    const iframe = document.getElementById('dxThankYouVideo');
-    if (!iframe.src || iframe.src === '') {
-      iframe.src = 'https://player.vimeo.com/video/1168618889?autoplay=1';
-    }
-  });
 
   // Init static cards
   initCards();
