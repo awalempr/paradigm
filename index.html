@@ -8037,19 +8037,20 @@
   // Fire GHL webhook
   function fireWebhook() {
     const payload = {
-      firstName: document.getElementById('dxFirst').value.trim(),
-      lastName: document.getElementById('dxLast').value.trim(),
+      first_name: document.getElementById('dxFirst').value.trim(),
+      last_name: document.getElementById('dxLast').value.trim(),
       email: document.getElementById('dxEmail').value.trim(),
       phone: document.getElementById('dxPhone').value.trim(),
-      company: document.getElementById('dxCompany').value.trim(),
-      website: document.getElementById('dxWebsite').value.trim(),
-      assignedTier: S.assignedTier,
-      primaryPillar: S.primaryPillar,
-      complianceRisk: S.complianceRisk,
-      marketingRisk: S.marketingRisk,
-      stage: S.stage,
+      company_name: document.getElementById('dxCompany').value.trim(),
+      paradigm_score: S.score,
+      assigned_tier: String(S.assignedTier),
+      primary_pillar: String(S.primaryPillar),
+      compliance_risk: S.complianceRisk,
+      marketing_risk: S.marketingRisk,
+      hard_tier3: S.hardTier3,
+      business_stage: S.stage,
       subscriptions: S.subscriptions,
-      score: S.score
+      source: "Website Diagnostic"
     };
     fetch('https://services.leadconnectorhq.com/hooks/toKhUkB5BEHB9Jn52ktG/webhook-trigger/937f2651-108d-4723-901b-c1c9dec36c3f', {
       method: 'POST',
