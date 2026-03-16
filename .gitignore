@@ -1,0 +1,14 @@
+node_modules/
+temporary screenshots/
+.claude/
+.DS_Store
+
+# Raw source/reference assets (large files, not needed for production)
+website_reference/truth card images/*.png
+website_reference/*.mov
+website_reference/*.png
+brand_assets/Paradigm GIF.gif
+brand_assets/paradigm.gif
+brand_assets/pyramid-nobg.png
+brand_assets/pyramid.png
+brand_assets/Paul Alex Headshot (1).png

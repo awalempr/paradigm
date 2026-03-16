@@ -1,0 +1,8 @@
+# robots.txt for Paradigm Consulting
+User-agent: *
+Allow: /
+Disallow: /node_modules/
+Disallow: /temporary screenshots/
+
+# Sitemap
+Sitemap: https://www.paradigmconsulting.io/sitemap.xml
