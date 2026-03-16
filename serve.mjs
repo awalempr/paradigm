@@ -33,13 +33,35 @@ const server = http.createServer((req, res) => {
   const ext = path.extname(filePath);
   const contentType = MIME[ext] || 'application/octet-stream';
 
-  fs.readFile(filePath, (err, data) => {
+  fs.stat(filePath, (err, stat) => {
     if (err) {
       res.writeHead(404, { 'Content-Type': 'text/plain' });
       res.end('Not found: ' + urlPath);
+      return;
+    }
+
+    // Handle Range requests (required for video in browsers)
+    const range = req.headers.range;
+    if (range) {
+      const parts = range.replace(/bytes=/, '').split('-');
+      const start = parseInt(parts[0], 10);
+      const end = parts[1] ? parseInt(parts[1], 10) : stat.size - 1;
+      const chunkSize = end - start + 1;
+
+      res.writeHead(206, {
+        'Content-Range': `bytes ${start}-${end}/${stat.size}`,
+        'Accept-Ranges': 'bytes',
+        'Content-Length': chunkSize,
+        'Content-Type': contentType,
+      });
+      fs.createReadStream(filePath, { start, end }).pipe(res);
     } else {
-      res.writeHead(200, { 'Content-Type': contentType });
-      res.end(data);
+      res.writeHead(200, {
+        'Content-Length': stat.size,
+        'Content-Type': contentType,
+        'Accept-Ranges': 'bytes',
+      });
+      fs.createReadStream(filePath).pipe(res);
     }
   });
 });
