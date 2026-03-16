@@ -745,7 +745,7 @@
       line-height: 0.92;
       color: #fff;
       display: block;
-      font-size: clamp(38px, 5.2vw, 76px);
+      font-size: clamp(44px, 5.2vw, 76px);
     }
     .hero-line-that { }
     .hero-line-scales { }
@@ -858,6 +858,24 @@
       content: ''; display: block; flex-shrink: 0;
       width: 5px; height: 5px; border-radius: 50%;
       background: var(--red); margin-top: 5px; opacity: 0.8;
+    }
+
+    .hero-diag-warning {
+      margin: 14px 0 0;
+      padding: 14px 16px;
+      font-family: 'Figtree', sans-serif;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #e8654a;
+      font-weight: 500;
+      background: rgba(180, 40, 30, 0.15);
+      border-left: 3px solid var(--red);
+      border-radius: 6px;
+    }
+    .hero-diag-warning em {
+      font-style: normal;
+      font-weight: 700;
+      color: #fff;
     }
 
     /* Framework strip */
@@ -4208,6 +4226,7 @@
     .hero-line-that       { animation-delay: 0.04s; }
     .hero-line-structure  { animation-delay: 0.11s; }
     .hero-line-scales     { animation-delay: 0.18s; }
+    .hero-line-five       { animation-delay: 0.25s; }
     .hero-bottom          { animation: fadeUp 0.85s cubic-bezier(0.16,1,0.3,1) 0.28s both; }
 
     /* Scroll animations */
@@ -4526,10 +4545,12 @@
     /* ── MOBILE: 480px ── */
     @media (max-width: 480px) {
       /* Hero adjustments */
-      #hero { padding-top: 64px; min-height: auto; }
+      #hero { padding-top: 100px; min-height: auto; }
       .hero-content { padding: 0 20px 32px; }
-      .hero-headline { margin-bottom: 24px; }
-      .hero-eyebrow { margin-bottom: 16px; }
+      .hero-headline { margin-bottom: 0; margin-top: -12px; }
+      .hero-eyebrow { margin-bottom: 0; margin-top: -24px; width: 100%; justify-content: space-between; padding-left: 4px; }
+      .hero-eyebrow-line { display: none; }
+      .hero-eyebrow-text { font-size: 9px; width: 100%; letter-spacing: 0.12em; white-space: nowrap; }
       .hero-pillars { transform: perspective(900px) rotateY(-3deg) rotateX(1deg); padding-bottom: 20px; }
       .hero-pillar { width: 88px; height: 210px; margin-left: -12px; }
       .hero-pillar-letter { font-size: 40px; }
@@ -4539,13 +4560,31 @@
       .hero-video-pill-thumb { width: 90px; height: 52px; }
       .hero-video-pill-text { font-size: 12px; }
       .hero-video-pill-sub { font-size: 10px; }
-      .hero-diag-list li { font-size: 13px; padding: 7px 0; }
-      .hero-card { padding: 22px 20px; border-radius: 16px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
-      .hero-diag-sub { font-size: 14px; }
+      .hero-diagnostic { width: 100%; }
+      .hero-diag-list li { font-size: 12px; padding: 6px 0; }
+      .hero-card { padding: 18px 18px; border-radius: 14px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+      .hero-diag-sub { font-size: 13px; }
+      .hero-diag-header { margin-bottom: 6px; }
+      .hero-diag-title { font-size: 12px; }
+      .hero-diag-icon { width: 20px; height: 20px; }
+      .hero-diag-icon svg { width: 9px; height: 9px; }
+
+      /* Hero buttons full width */
+      .hero-left-col > div[style*="flex"] {
+        width: 100%;
+        flex-wrap: nowrap !important;
+        gap: 8px !important;
+      }
+      .hero-left-col > div[style*="flex"] .btn-primary,
+      .hero-left-col > div[style*="flex"] .btn-outline {
+        flex: 1;
+        justify-content: center;
+      }
 
       /* Touch-friendly targets */
-      .btn-primary { height: 52px; padding: 4px 56px 4px 24px; font-size: 13px; }
-      .btn-outline { padding: 14px 20px; font-size: 12px; min-height: 48px; }
+      .btn-primary { height: 42px; padding: 4px 42px 4px 12px; font-size: 9px; letter-spacing: 0.03em; }
+      .btn-primary .arrow { width: 32px; height: 32px; }
+      .btn-outline { padding: 10px 12px; font-size: 8px; min-height: 42px; gap: 4px; white-space: nowrap !important; letter-spacing: 0.03em; }
       .nav-cta { height: 40px; padding: 4px 40px 4px 16px; font-size: 10px; }
       .nav-cta .arrow { width: 32px; height: 32px; }
       .nav-cta .btn-label { font-size: 10px; }
@@ -4667,17 +4706,23 @@
       .nav-mobile-toggle { display: flex; }
       .nav-cta { display: none; }
       .nav-tube { display: none; }
-      /* Hero — stack to single column */
+      /* Hero — stack to single column, clean above-the-fold */
       .hero-cols {
-        grid-template-columns: 1fr;
-        gap: 40px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
         min-height: auto;
       }
-      .hero-pillar { width: 110px; height: 260px; margin-left: -16px; }
-      .hero-pillar-letter { font-size: 52px; }
-      .hero-pillar-label { font-size: 8px; letter-spacing: 0.1em; }
-      .hero-pillars { justify-content: center; }
-      .hero-video-pill-wrap { justify-content: center; }
+      .hero-left-col,
+      .hero-right-col {
+        display: contents;
+      }
+      .hero-eyebrow { order: 1; }
+      .hero-headline { order: 2; }
+      .hero-pillars { display: none; }
+      .hero-diagnostic { order: 3; }
+      .hero-left-col > div[style*="flex"] { order: 4; }
+      .hero-video-pill-wrap { order: 5; justify-content: center; }
       .hero-diag-list { grid-template-columns: 1fr; }
     }
 
@@ -5386,7 +5431,8 @@
         </div>
         <h1 class="hero-headline">
           <span class="hero-line hero-line-that">One Bad Year</span>
-          <span class="hero-line hero-line-scales">Can Wipe Out Five Good Ones</span>
+          <span class="hero-line hero-line-scales">Can Wipe Out</span>
+          <span class="hero-line hero-line-five">Five Good Ones</span>
           <span class="sr-only">Paradigm Consulting — Compliance, Culture & Technology Systems for Scaling Companies. ROSCA compliance frameworks, AI-powered agentic workflow builds, and leadership culture systems.</span>
         </h1>
         <div class="hero-diagnostic hero-card">
@@ -5398,11 +5444,11 @@
           </div>
           <div class="hero-diag-sub">If two of these are true, your company has <strong>structural risk</strong></div>
           <ul class="hero-diag-list">
-            <li>The business slows when you step away</li>
-            <li>Leadership decisions still depend on you</li>
-            <li>Systems don't talk to each other</li>
-            <li>Compliance hasn't been reviewed in 12 months</li>
+            <li>The business slows or stops, the moment you step away</li>
+            <li>Your competitors are using AI to move faster, cut costs, and outprice you. You're still doing it manually.</li>
+            <li>Your marketing has no compliance oversight. Your brand is writing cheques your legal team can't cash.</li>
           </ul>
+          <p class="hero-diag-warning">Most operators who find this, score 2 or higher. By the time it's obvious, it's expensive. <em>Usually seven figures expensive.</em></p>
         </div>
         <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
           <a href="#contact" class="btn-primary">
