@@ -79,10 +79,13 @@ f<!DOCTYPE html>
     .cs-card,
     .cred-card,
     .process-card,
-    .modal-overlay,
     .video-overlay {
       transform: translateZ(0);
       contain: layout style paint;
+    }
+    /* Modal gets its own layer but no containment (it's a full-viewport overlay) */
+    .modal-overlay {
+      transform: translateZ(0);
     }
 
     /* Content-visibility for off-screen sections — skip rendering until scrolled near */
@@ -4672,33 +4675,26 @@ f<!DOCTYPE html>
       -webkit-backdrop-filter: blur(6px);
       z-index: 9999;
       display: flex; align-items: center; justify-content: center;
-      visibility: hidden;
       opacity: 0; pointer-events: none;
-      transition: opacity 0.18s ease, visibility 0s linear 0.18s;
+      transition: opacity 0.3s cubic-bezier(0.16,1,0.3,1);
       will-change: opacity;
     }
     .modal-overlay.modal-open {
-      visibility: visible;
       opacity: 1; pointer-events: auto;
-      transition: opacity 0.18s ease, visibility 0s linear 0s;
     }
     .modal-container {
       position: relative;
       width: 92vw; max-width: 620px;
-      /* Liquid glass: translucent white with blur */
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: rgba(255,255,255,0.96);
       border: 1px solid rgba(255,255,255,0.55);
       border-radius: 24px;
       padding: 0;
-      transform: translateY(10px) scale(0.98);
+      transform: translateY(16px) scale(0.97);
       opacity: 0;
-      transition: transform 0.2s cubic-bezier(0.16,1,0.3,1), opacity 0.15s ease;
+      transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), opacity 0.25s ease;
       max-height: 92vh;
       overflow-y: auto;
       will-change: transform, opacity;
-      contain: layout style;
       box-shadow:
         0 1px 0 rgba(255,255,255,0.6) inset,
         0 8px 32px rgba(0,0,0,0.18),
@@ -4750,10 +4746,17 @@ f<!DOCTYPE html>
     }
 
     /* Steps */
-    .dx-step { display: none; }
-    .dx-step.active { display: block; animation: dxFadeIn 0.15s ease; }
+    .dx-step {
+      display: none;
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    .dx-step.active {
+      display: block;
+      animation: dxFadeIn 0.3s cubic-bezier(0.16,1,0.3,1) forwards;
+    }
     @keyframes dxFadeIn {
-      from { opacity: 0; transform: translateY(4px); }
+      from { opacity: 0; transform: translateY(6px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
@@ -7728,10 +7731,13 @@ f<!DOCTYPE html>
   function showStep(id) {
     if (currentStep && stepEls[currentStep]) stepEls[currentStep].classList.remove('active');
     interstitial.style.display = 'none';
-    stepEls[id].classList.add('active');
-    currentStep = id;
-    setProgress(id);
-    modalContainer.scrollTop = 0;
+    // Small delay to let the outgoing step clear before animating in
+    requestAnimationFrame(function() {
+      stepEls[id].classList.add('active');
+      currentStep = id;
+      setProgress(id);
+      modalContainer.scrollTo({ top: 0, behavior: 'instant' });
+    });
   }
 
   function goForward(toStep) {
