@@ -4318,21 +4318,41 @@
       background: rgba(0,0,0,0.04);
     }
     .nav-mobile-cta {
-      display: block;
-      margin: 12px clamp(24px, 4vw, 64px) 16px;
-      padding: 14px 24px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin: 16px clamp(24px, 4vw, 64px) 16px;
+      padding: 4px 56px 4px 24px;
+      height: 48px;
       font-family: 'Figtree', sans-serif;
       font-size: 13px;
       font-weight: 600;
       letter-spacing: 0.05em;
       text-transform: uppercase;
-      text-align: center;
       color: #fff;
       background: #0d0d0d;
       border-radius: 100px;
       text-decoration: none;
+      overflow: hidden;
       -webkit-tap-highlight-color: transparent;
     }
+    .nav-mobile-cta .btn-label {
+      position: relative;
+      z-index: 1;
+      white-space: nowrap;
+      flex: 1;
+      text-align: center;
+    }
+    .nav-mobile-cta .arrow {
+      position: absolute;
+      right: 4px;
+      width: 40px; height: 40px;
+      background: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav-mobile-cta .arrow svg { width: 14px; height: 14px; }
+    .nav-mobile-cta .arrow svg path { stroke: #0d0d0d; }
 
     /* ── TABLET: 768px ── */
     @media (max-width: 768px) {
@@ -5344,7 +5364,10 @@
     <a href="#proof" class="nav-mobile-link" data-section="proof">Case Studies</a>
     <a href="#origins" class="nav-mobile-link" data-section="origins">About</a>
     <a href="events.html" class="nav-mobile-link">Events</a>
-    <a href="#contact" class="nav-mobile-cta">Find My Friction Point</a>
+    <a href="#contact" class="nav-mobile-cta">
+      <span class="btn-label">Find My Friction Point</span>
+      <span class="arrow"><svg viewBox="0 0 10 10" fill="none"><path d="M2 8L8 2M8 2H3M8 2V7" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </a>
   </div>
 </nav>
 
