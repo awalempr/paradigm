@@ -83,10 +83,7 @@
       transform: translateZ(0);
       contain: layout style paint;
     }
-    /* Modal gets its own layer but no containment (it's a full-viewport overlay) */
-    .modal-overlay {
-      transform: translateZ(0);
-    }
+
 
     /* Content-visibility for off-screen sections — skip rendering until scrolled near */
     section {
@@ -4671,17 +4668,14 @@
     }
 
     /* ── CONTACT MODAL ── */
-    /* ── DIAGNOSTIC MODAL — LIQUID GLASS LIGHT THEME ── */
+    /* ── DIAGNOSTIC MODAL ── */
     .modal-overlay {
       position: fixed; inset: 0;
-      background: rgba(0,0,0,0.55);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      background: rgba(0,0,0,0.5);
       z-index: 9999;
       display: flex; align-items: center; justify-content: center;
       opacity: 0; pointer-events: none;
-      transition: opacity 0.3s cubic-bezier(0.16,1,0.3,1);
-      will-change: opacity;
+      transition: opacity 0.25s ease-out;
     }
     .modal-overlay.modal-open {
       opacity: 1; pointer-events: auto;
@@ -4689,24 +4683,21 @@
     .modal-container {
       position: relative;
       width: 92vw; max-width: 620px;
-      background: rgba(255,255,255,0.96);
-      border: 1px solid rgba(255,255,255,0.55);
-      border-radius: 24px;
+      background: #fff;
+      border-radius: 20px;
       padding: 0;
-      transform: translateY(16px) scale(0.97);
+      transform: scale(0.96) translateY(8px);
       opacity: 0;
-      transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), opacity 0.25s ease;
+      /* Apple-style spring: fast overshoot then settle */
+      transition: transform 0.4s cubic-bezier(0.32,0.72,0,1), opacity 0.2s ease-out;
       max-height: 92vh;
       overflow-y: auto;
-      will-change: transform, opacity;
       box-shadow:
-        0 1px 0 rgba(255,255,255,0.6) inset,
-        0 8px 32px rgba(0,0,0,0.18),
-        0 2px 8px rgba(0,0,0,0.08),
-        0 0 0 0.5px rgba(255,255,255,0.3);
+        0 24px 80px rgba(0,0,0,0.25),
+        0 4px 12px rgba(0,0,0,0.08);
     }
     .modal-open .modal-container {
-      transform: translateY(0) scale(1);
+      transform: scale(1) translateY(0);
       opacity: 1;
     }
     .modal-container::-webkit-scrollbar { width: 5px; }
@@ -4732,9 +4723,7 @@
     .dx-progress-wrap {
       position: sticky; top: 0; z-index: 5;
       padding: 0;
-      background: rgba(255,255,255,0.6);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      background: #fff;
     }
     .dx-progress-track {
       width: 100%; height: 3px;
@@ -4757,10 +4746,10 @@
     }
     .dx-step.active {
       display: block;
-      animation: dxFadeIn 0.3s cubic-bezier(0.16,1,0.3,1) forwards;
+      animation: dxFadeIn 0.2s ease-out forwards;
     }
     @keyframes dxFadeIn {
-      from { opacity: 0; transform: translateY(6px); }
+      from { opacity: 0; transform: translateY(4px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
@@ -7735,13 +7724,10 @@
   function showStep(id) {
     if (currentStep && stepEls[currentStep]) stepEls[currentStep].classList.remove('active');
     interstitial.style.display = 'none';
-    // Small delay to let the outgoing step clear before animating in
-    requestAnimationFrame(function() {
-      stepEls[id].classList.add('active');
-      currentStep = id;
-      setProgress(id);
-      modalContainer.scrollTo({ top: 0, behavior: 'instant' });
-    });
+    stepEls[id].classList.add('active');
+    currentStep = id;
+    setProgress(id);
+    modalContainer.scrollTop = 0;
   }
 
   function goForward(toStep) {
