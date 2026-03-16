@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<w!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -700,7 +700,11 @@
       width: 6px; height: 6px;
       border-radius: 50%;
       background: var(--red);
-      animation: pulse 2s ease infinite;
+      animation: dotPulse 2s ease infinite;
+    }
+    @keyframes dotPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(0.8); }
     }
     /* ── Diagnostic card glassmorphism ── */
     .hero-card {
@@ -4545,7 +4549,7 @@
     /* ── MOBILE: 480px ── */
     @media (max-width: 480px) {
       /* Hero adjustments */
-      #hero { padding-top: 100px; min-height: auto; }
+      #hero { padding-top: 120px; min-height: auto; }
       .hero-content { padding: 0 20px 32px; }
       .hero-headline { margin-bottom: 0; margin-top: -12px; }
       .hero-eyebrow { margin-bottom: 0; margin-top: -24px; width: 100%; justify-content: space-between; padding-left: 4px; }
@@ -4555,13 +4559,16 @@
       .hero-pillar { width: 88px; height: 210px; margin-left: -12px; }
       .hero-pillar-letter { font-size: 40px; }
       .hero-pillar-label { display: none; }
-      .hero-video-pill-wrap { transform: none; }
-      .hero-video-pill { padding-right: 16px; gap: 12px; }
-      .hero-video-pill-thumb { width: 90px; height: 52px; }
-      .hero-video-pill-text { font-size: 12px; }
-      .hero-video-pill-sub { font-size: 10px; }
+      .hero-video-pill-wrap { transform: none; width: 100%; }
+      .hero-video-pill { padding-right: 12px; gap: 10px; width: 100%; }
+      .hero-video-pill-thumb { width: 110px; height: 64px; }
+      .hero-video-pill-title { font-size: 14px; white-space: nowrap; }
+      .hero-video-pill-play-circle { width: 22px; height: 22px; }
+      .hero-video-pill-play-circle svg { width: 8px; height: 8px; }
+      .hero-video-pill-sub { font-size: 12px; }
       .hero-diagnostic { width: 100%; }
       .hero-diag-list li { font-size: 12px; padding: 6px 0; }
+      .hero-diag-warning { font-size: 12px; }
       .hero-card { padding: 18px 18px; border-radius: 14px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
       .hero-diag-sub { font-size: 13px; }
       .hero-diag-header { margin-bottom: 6px; }
