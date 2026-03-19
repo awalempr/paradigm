@@ -3,6 +3,8 @@ temporary screenshots/
 .claude/
 .git/
 .netlify/
+.env
+.env.*
 screenshot.mjs
 serve.mjs
 claude.md
@@ -10,3 +12,14 @@ package.json
 package-lock.json
 CLAUDE.md
 *.mjs
+website_reference/
+FEI-GHL-Build-Instructions.md
+FEI-GHL-Build-Instructions.pdf
+brand_assets/pyramid.png
+brand_assets/pyramid-nobg.png
+brand_assets/Paul Alex Headshot (1).png
+brand_assets/Paradigm GIF.gif
+brand_assets/paradigm.gif
+brand_assets/Nano Banana 2 Pro Quality (1).png
+brand_assets/Screenshot 2026-03-09 at 2.49.41 PM.png
+brand_assets/Screenshot 2026-03-12 at 12.34.36 AM.png

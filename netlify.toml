@@ -1,5 +1,48 @@
 [build]
   publish = "."
+  functions = "netlify/functions"
+
+# Pretty URL: strip .html extension
+[[redirects]]
+  from = "/founder-exposure-index"
+  to = "/founder-exposure-index.html"
+  status = 200
+
+[[redirects]]
+  from = "/founder-exposure-index.html"
+  to = "/founder-exposure-index"
+  status = 301
+  force = true
+
+# Pretty URL: strip .html extension for FBE
+[[redirects]]
+  from = "/founder-bottleneck-eliminator"
+  to = "/founder-bottleneck-eliminator.html"
+  status = 200
+
+[[redirects]]
+  from = "/founder-bottleneck-eliminator.html"
+  to = "/founder-bottleneck-eliminator"
+  status = 301
+  force = true
+
+# Pretty URL: strip .html extension for CMA
+[[redirects]]
+  from = "/culture-maturity-audit"
+  to = "/culture-maturity-audit.html"
+  status = 200
+
+[[redirects]]
+  from = "/culture-maturity-audit.html"
+  to = "/culture-maturity-audit"
+  status = 301
+  force = true
+
+# Serverless webhook proxy
+[[redirects]]
+  from = "/api/webhook"
+  to = "/.netlify/functions/webhook"
+  status = 200
 
 [[headers]]
   for = "/*"

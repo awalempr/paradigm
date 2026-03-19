@@ -1,0 +1,2706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0d0d0d">
+  <title>The Founder Bottleneck Eliminator | Paradigm Consulting</title>
+  <meta name="description" content="20 decision scenarios that reveal which calls are reaching you that shouldn't be. Find out where you're the bottleneck — in 4 minutes.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Are You the Bottleneck in Your Own Business?">
+  <meta property="og:description" content="20 decision scenarios that reveal where your authority structure is broken — and what it's costing you. Free. 4 minutes. Immediate results.">
+  <meta property="og:image" content="https://paradigmconsulting.io/brand_assets/og-founder-bottleneck-eliminator.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://paradigmconsulting.io/founder-bottleneck-eliminator">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Paradigm Consulting">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Are You the Bottleneck in Your Own Business?">
+  <meta name="twitter:description" content="20 decision scenarios that reveal where your authority structure is broken — and what it's costing you. Free. 4 minutes.">
+  <meta name="twitter:image" content="https://paradigmconsulting.io/brand_assets/og-founder-bottleneck-eliminator.png">
+
+  <link rel="icon" type="image/x-icon" href="brand_assets/favicon.ico">
+  <link rel="apple-touch-icon" href="brand_assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Figtree:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/ranade" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --surface: #ffffff;
+      --surface-2: #f7f7f7;
+      --surface-3: #efefef;
+      --fg: #111111;
+      --fg-muted: #444444;
+      --muted: #6b6b6b;
+      --muted-light: #999999;
+      --border: #e2e2e2;
+      --border-light: #ebebeb;
+      --accent: #0c8ce9;
+      --accent-hover: #0a7ad4;
+      --accent-dim: rgba(12,140,233,0.08);
+      --accent-border: rgba(12,140,233,0.2);
+      --dark: #0d0d0d;
+      --red: #d32f2f;
+      --amber: #b87600;
+      --green: #34a853;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      background: var(--bg);
+      color: var(--fg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: 'Figtree', sans-serif;
+      background: var(--bg);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ─── TOP BAR ─── */
+    .top-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--dark);
+    }
+    .top-bar::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0.5;
+    }
+    .top-bar img { height: 20px; }
+
+    /* ─── PROGRESS BAR (fixed under top bar) ─── */
+    .progress-bar-fixed {
+      position: fixed;
+      top: 56px; left: 0; right: 0;
+      z-index: 99;
+      height: 3px;
+      background: var(--border);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .progress-bar-fixed.visible { opacity: 1; }
+    .progress-bar-fixed .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      transition: width 0.5s cubic-bezier(0.16,1,0.3,1);
+      box-shadow: 0 0 6px rgba(12,140,233,0.45);
+    }
+
+    /* ─── SCREENS ─── */
+    .screen {
+      display: none;
+      min-height: 100vh;
+      padding-top: 56px;
+    }
+    .screen.active {
+      display: block;
+      animation: screenFadeIn 0.35s ease both;
+    }
+    @keyframes screenFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .screen-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px clamp(20px, 5vw, 48px) 64px;
+      background: var(--surface);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      margin-top: clamp(24px, 3vw, 40px);
+      margin-bottom: 40px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.03);
+    }
+
+    /* ─── TITLE BLOCK ─── */
+    .title-block {
+      margin-bottom: 48px;
+      text-align: center;
+    }
+    .title-block-main {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      line-height: 0.95;
+      font-size: clamp(20px, 3.5vw, 34px);
+      color: var(--fg);
+    }
+    .title-block-sub {
+      font-family: 'Figtree', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    /* ═════════════════════════════════
+       SCREEN 1, INTRO
+    ═════════════════════════════════ */
+    .intro-page {
+      min-height: calc(100vh - 56px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 0 48px;
+    }
+    .intro-card-wrap {
+      width: 100%;
+      max-width: 960px;
+      padding: clamp(24px, 3vw, 40px) clamp(16px, 4vw, 32px) 0;
+    }
+    .intro-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: clamp(28px, 4vw, 48px) clamp(24px, 5vw, 60px);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 4px 24px rgba(0,0,0,0.07);
+      position: relative;
+      overflow: hidden;
+      animation: screenFadeIn 0.5s ease both;
+    }
+    .intro-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), rgba(12,140,233,0.25));
+    }
+
+    .intro-card h1 {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      font-size: clamp(24px, 4vw, 36px);
+      line-height: 1.18;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+      margin-top: 20px;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+    .intro-card .description {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 640px;
+      margin: 0 auto 28px;
+      text-align: center;
+    }
+
+    /* ─── EYEBROW / FRAMEWORK TAG ─── */
+    .eyebrow-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Figtree', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      background: rgba(12,140,233,0.06);
+      border: 1px solid rgba(12,140,233,0.15);
+      border-radius: 100px;
+      padding: 6px 16px;
+    }
+    .eyebrow-pill .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+    .framework-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--muted-light);
+    }
+    .framework-tag .tag-sep {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+
+    /* ─── TABS ─── */
+    .tabs {
+      display: flex;
+      background: var(--surface-2);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 4px;
+      margin-bottom: 24px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tab-btn {
+      flex: 1;
+      font-family: 'Figtree', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      background: transparent;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: color 0.2s, background 0.2s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--fg); }
+    .tab-btn.active { color: var(--fg); font-weight: 700; background: var(--surface); box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+    .tab-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .tab-panel .lead {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--muted);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .tab-panel .lead strong { color: var(--fg); font-weight: 600; }
+
+    /* ─── CHECK LIST ─── */
+    .check-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+      margin-bottom: 20px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .check-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--fg);
+    }
+    .check-icon { flex-shrink: 0; width: 22px; height: 22px; margin-top: 2px; }
+
+    /* ─── DISCLAIMER ─── */
+    .disclaimer {
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--muted-light);
+      margin-top: 28px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-light);
+      text-align: center;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Trust bar */
+    .trust-bar {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      padding: 16px 0;
+      margin-top: 20px;
+      border-top: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-light);
+    }
+    .trust-item {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      text-align: center;
+      padding: 0 12px;
+    }
+    .trust-item:not(:last-child) {
+      border-right: 1px solid var(--border-light);
+    }
+    .trust-item svg {
+      flex-shrink: 0;
+      width: 15px;
+      height: 15px;
+      color: var(--accent);
+    }
+
+    /* Proof / stat bar */
+    .proof-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin-top: 28px;
+      background: var(--surface-2);
+      border-radius: 12px;
+      border: 1px solid var(--border-light);
+      overflow: hidden;
+    }
+    .proof-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      text-align: center;
+    }
+    .proof-item:not(:last-child) {
+      border-right: 1px solid var(--border-light);
+    }
+    .proof-number {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .proof-label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .proof-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .proof-logo img {
+      height: 22px;
+      opacity: 0.9;
+    }
+
+    /* Form area */
+    .intro-cta-area { text-align: center; padding-top: 24px; }
+    .intro-form {
+      display: flex;
+      gap: 10px;
+      max-width: 480px;
+      margin: 0 auto 12px;
+      flex-wrap: wrap;
+    }
+    .intro-form .form-input { flex: 1; min-width: 160px; }
+    .form-input {
+      font-family: 'Figtree', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      height: 50px;
+      padding: 0 18px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--fg);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      width: 100%;
+    }
+    .form-input::placeholder { color: var(--muted-light); }
+    .form-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-dim);
+    }
+    .form-error {
+      font-size: 12px;
+      color: var(--red);
+      text-align: center;
+      display: none;
+      margin-bottom: 8px;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: 'Figtree', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      background: var(--dark);
+      height: 52px;
+      padding: 0 32px;
+      border-radius: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+      overflow: hidden;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+      width: 100%;
+    }
+    .btn-primary:hover { background: #222; }
+    .btn-primary:active { transform: scale(0.98); }
+    .btn-primary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .btn-accent {
+      background: var(--accent);
+      box-shadow: 0 2px 8px rgba(12,140,233,0.3);
+    }
+    .btn-accent:hover {
+      background: var(--accent-hover);
+      box-shadow: 0 4px 16px rgba(12,140,233,0.4);
+      transform: translateY(-1px);
+    }
+
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Figtree', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+      background: transparent;
+      border: 1px solid var(--border);
+      height: 52px;
+      padding: 0 28px;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-back:hover { border-color: #999; color: var(--fg); }
+    .btn-back:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .intro-note {
+      font-size: 12px;
+      color: var(--muted-light);
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    /* ═════════════════════════════════
+       SCREEN 2, ASSESSMENT
+    ═════════════════════════════════ */
+    .section-panel { display: none; }
+    .section-panel.active {
+      display: block;
+      animation: sectionFadeIn 0.3s ease both;
+    }
+    @keyframes sectionFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .section-header {
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-label {
+      font-family: 'Figtree', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      font-size: clamp(22px, 4vw, 30px);
+      line-height: 1.05;
+      margin-bottom: 12px;
+      color: var(--fg);
+    }
+    .section-subtext {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.65;
+      font-style: italic;
+      margin-bottom: 16px;
+    }
+
+    /* Tier guide box */
+    .tier-guide {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+      padding: 14px 16px;
+      background: var(--surface-2);
+      border-radius: 10px;
+      border: 1px solid var(--border-light);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px 24px;
+    }
+    .tier-guide-item {
+      display: flex;
+      gap: 8px;
+      align-items: baseline;
+    }
+    .tier-guide-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      flex-shrink: 0;
+    }
+
+    /* Question blocks */
+    .question-block {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .question-block:last-of-type { border-bottom: none; }
+    .question-number {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      margin-bottom: 10px;
+      letter-spacing: 0.05em;
+    }
+    .question-text {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--fg);
+      margin-bottom: 20px;
+    }
+    .question-prompt {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* Tier buttons */
+    .tier-buttons-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .tier-btn {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      padding: 13px 18px;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: 'Figtree', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--fg);
+      text-align: left;
+      transition: border-color 0.15s, background 0.15s, color 0.15s, transform 0.1s, box-shadow 0.15s;
+    }
+    .tier-btn:hover {
+      border-color: var(--accent);
+      background: var(--accent-dim);
+    }
+    .tier-btn:active { transform: scale(0.99); }
+    .tier-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .tier-btn.selected {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      box-shadow: 0 2px 10px rgba(12,140,233,0.28);
+    }
+    .tier-btn-chip {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      width: 28px;
+      height: 22px;
+      border-radius: 5px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--muted);
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+    .tier-btn.selected .tier-btn-chip {
+      background: rgba(255,255,255,0.2);
+      border-color: rgba(255,255,255,0.35);
+      color: #fff;
+    }
+    .tier-btn-text { line-height: 1.3; }
+    .tier-btn-text strong {
+      display: block;
+      font-weight: 600;
+      font-size: 13px;
+    }
+    .tier-btn-text span {
+      font-size: 12px;
+      opacity: 0.75;
+    }
+
+    /* Nav buttons */
+    .nav-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+    .btn-next { flex: 1; }
+    .btn-next:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+    .validation-msg {
+      font-size: 12px;
+      color: var(--red);
+      margin-top: 10px;
+      display: none;
+      text-align: center;
+    }
+
+    /* ═════════════════════════════════
+       SCREEN 3, RESULTS
+    ═════════════════════════════════ */
+    .results-score-wrap {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .results-score-number {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      font-size: clamp(72px, 14vw, 120px);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: var(--accent);
+      display: block;
+    }
+    .results-score-denom {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 300;
+      font-size: clamp(24px, 5vw, 36px);
+      color: var(--muted-light);
+      letter-spacing: -0.02em;
+    }
+    .results-allocations {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--muted);
+      margin-top: 12px;
+    }
+    .results-allocations strong {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .tier-name {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      font-size: clamp(22px, 4vw, 32px);
+      line-height: 1.1;
+      margin-bottom: 20px;
+      color: var(--accent);
+      text-align: center;
+    }
+    .tier-description {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--muted);
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    .tier-financial {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--muted);
+      padding: 16px 20px;
+      background: var(--surface-2);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
+    .tier-financial strong {
+      color: var(--fg);
+      font-weight: 600;
+    }
+
+    /* Section score bars (slim editorial style from CMA) */
+    .section-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+    .section-bar-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .section-bar-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--fg);
+      min-width: 170px;
+      flex-shrink: 0;
+    }
+    .section-bar-track {
+      flex: 1;
+      height: 6px;
+      background: var(--surface-3);
+      border-radius: 100px;
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+    }
+    .section-bar-fill {
+      height: 100%;
+      border-radius: 100px;
+      width: 0%;
+      background: var(--accent);
+      transition: width 1.2s cubic-bezier(0.16,1,0.3,1);
+    }
+    .section-bar-score {
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      color: var(--muted);
+      min-width: 44px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    /* Misallocation callout */
+    .misallocation-callout {
+      padding: 18px 22px;
+      background: rgba(211,47,47,0.04);
+      border: 1px solid rgba(211,47,47,0.2);
+      border-radius: 14px;
+      margin-bottom: 40px;
+    }
+    .misallocation-callout-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--red);
+      margin-bottom: 6px;
+    }
+    .misallocation-callout-value {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--fg);
+    }
+
+    /* Misallocation reveal */
+    .reveal-section-group {
+      margin-bottom: 32px;
+    }
+    .reveal-section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 0;
+    }
+    .reveal-section-head-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+    .reveal-section-head-score {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .reveal-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .reveal-row:last-child { border-bottom: none; }
+    .reveal-row-left { flex: 1; min-width: 0; }
+    .reveal-scenario-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--fg);
+      margin-bottom: 5px;
+    }
+    .reveal-tiers {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .reveal-you, .reveal-should {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .reveal-arrow {
+      font-size: 12px;
+      color: var(--border);
+    }
+    .reveal-row-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+    .reveal-badge {
+      font-family: 'Figtree', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      padding: 4px 10px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+    .reveal-badge-correct {
+      background: rgba(12,140,233,0.1);
+      color: var(--accent);
+      border: 1px solid rgba(12,140,233,0.25);
+    }
+    .reveal-badge-medium {
+      background: rgba(184,118,0,0.1);
+      color: var(--amber);
+      border: 1px solid rgba(184,118,0,0.25);
+    }
+    .reveal-badge-high {
+      background: rgba(211,47,47,0.08);
+      color: var(--red);
+      border: 1px solid rgba(211,47,47,0.22);
+    }
+    .reveal-pts {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--muted-light);
+    }
+
+    .results-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 40px 0;
+    }
+    .results-transition {
+      text-align: center;
+    }
+    .results-transition p {
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    /* ═════════════════════════════════
+       SCREEN 4, GAMEPLAN
+    ═════════════════════════════════ */
+    .gameplan-intro {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--muted);
+      margin-bottom: 40px;
+      text-align: center;
+    }
+    .gameplan-intro strong { color: var(--fg); font-weight: 600; }
+
+    /* Score overview grid */
+    .gp-score-overview {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    .gp-score-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border-light);
+      border-radius: 14px;
+      padding: 18px;
+      text-align: center;
+    }
+    .gp-score-card-label {
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 8px;
+      font-family: 'Figtree', sans-serif;
+    }
+    .gp-score-card-value {
+      font-family: 'Space Mono', monospace;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--fg);
+    }
+
+    /* Timeline nav */
+    .gp-timeline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 40px;
+    }
+    .gp-timeline-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      padding: 8px 0;
+      flex: 0 0 auto;
+    }
+    .gp-timeline-dot {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--surface-2);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      transition: background 0.3s, border-color 0.3s, color 0.3s, transform 0.3s;
+    }
+    .gp-timeline-step.active .gp-timeline-dot {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      transform: scale(1.1);
+    }
+    .gp-timeline-step.completed .gp-timeline-dot {
+      background: rgba(12,140,233,0.1);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .gp-timeline-text {
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted-light);
+      transition: color 0.3s;
+      white-space: nowrap;
+    }
+    .gp-timeline-step.active .gp-timeline-text { color: var(--accent); font-weight: 600; }
+    .gp-timeline-line { width: 60px; height: 2px; background: var(--border); flex-shrink: 0; }
+    .gp-timeline-line.filled { background: var(--accent); }
+
+    /* Month cards */
+    .gp-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: clamp(28px, 5vw, 40px);
+      margin-bottom: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.02);
+      display: none;
+    }
+    .gp-card.active { display: block; animation: screenFadeIn 0.35s ease both; }
+    .gp-timeframe {
+      display: inline-block;
+      font-family: 'Figtree', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(12,140,233,0.06);
+      border: 1px solid rgba(12,140,233,0.18);
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+    .gp-headline {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      font-size: clamp(20px, 3.5vw, 26px);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      margin-bottom: 16px;
+      color: var(--fg);
+    }
+    .gp-body {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .gp-why {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--muted);
+      padding: 16px 20px;
+      background: var(--surface-2);
+      border-left: 2px solid var(--accent);
+      border-radius: 0 10px 10px 0;
+      margin-bottom: 24px;
+    }
+    .gp-why strong { color: var(--fg); font-weight: 600; }
+
+    /* Action table */
+    .gp-table-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 10px;
+      font-family: 'Figtree', sans-serif;
+    }
+    .gp-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-bottom: 24px;
+      font-size: 14px;
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .gp-table thead th {
+      font-family: 'Figtree', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      background: var(--surface-2);
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .gp-table thead th:last-child { text-align: center; }
+    .gp-table tbody td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-light);
+      vertical-align: top;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+    .gp-table tbody tr:last-child td { border-bottom: none; }
+    .gp-table .td-action { font-weight: 500; color: var(--fg); min-width: 160px; }
+    .gp-table .td-priority { text-align: center; white-space: nowrap; }
+    .gp-priority {
+      display: inline-block;
+      font-family: 'Figtree', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 4px 10px;
+      border-radius: 100px;
+    }
+    .gp-priority-critical { background: rgba(211,47,47,0.08); color: #d32f2f; border: 1px solid rgba(211,47,47,0.2); }
+    .gp-priority-high { background: rgba(184,118,0,0.08); color: var(--amber); border: 1px solid rgba(184,118,0,0.2); }
+    .gp-priority-medium { background: rgba(12,140,233,0.06); color: var(--accent); border: 1px solid rgba(12,140,233,0.18); }
+
+    /* Card nav */
+    .gp-card-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border-light);
+    }
+    .gp-card-nav button {
+      font-family: 'Figtree', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, transform 0.15s;
+    }
+    .gp-card-nav button:active { transform: scale(0.97); }
+    .gp-nav-prev { background: var(--surface-2); border: 1px solid var(--border); color: var(--muted); }
+    .gp-nav-prev:hover { background: var(--border-light); color: var(--fg); }
+    .gp-nav-next { background: var(--accent); border: 1px solid var(--accent); color: #fff; }
+    .gp-nav-next:hover { background: var(--accent-hover); }
+
+    .gp-tier-callout {
+      padding: 16px 20px;
+      background: rgba(12,140,233,0.03);
+      border: 1px solid rgba(12,140,233,0.1);
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+    .gp-tier-callout em { font-style: normal; color: var(--accent); font-weight: 500; }
+
+    /* CTA block */
+    .cta-block {
+      text-align: center;
+      padding: 48px 0 32px;
+      border-top: 1px solid var(--border);
+      margin-top: 8px;
+    }
+    .cta-block h2 {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      font-size: clamp(22px, 4vw, 32px);
+      line-height: 1.1;
+      margin-bottom: 16px;
+      color: var(--fg);
+    }
+    .cta-block p {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto 32px;
+    }
+    .cta-block .btn-primary {
+      max-width: 360px;
+      margin: 0 auto 16px;
+    }
+    .cta-secondary-link {
+      display: inline-block;
+      font-family: 'Figtree', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+      transition: color 0.2s;
+      background: none;
+      border: none;
+    }
+    .cta-secondary-link:hover { color: var(--fg); }
+    .cta-small-text {
+      font-size: 12px;
+      color: var(--muted-light);
+      margin-top: 10px;
+    }
+
+    /* ═════════════════════════════════
+       SCREEN 5, THANK YOU
+    ═════════════════════════════════ */
+    .thankyou-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 56px);
+      text-align: center;
+      padding: 48px clamp(20px, 5vw, 48px);
+    }
+    .thankyou-wrap h1 {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      font-size: clamp(28px, 5vw, 42px);
+      line-height: 1.05;
+      margin-bottom: 16px;
+      color: var(--fg);
+    }
+    .thankyou-wrap p {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--muted);
+      margin-bottom: 32px;
+      max-width: 480px;
+    }
+    .thankyou-wrap img { height: 24px; opacity: 0.5; }
+    .thankyou-next {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 480px;
+      width: 100%;
+      text-align: left;
+      margin-bottom: 8px;
+    }
+    .thankyou-next-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 16px 20px;
+    }
+    .thankyou-next-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Figtree', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+    .thankyou-next-item strong {
+      display: block;
+      font-family: 'Figtree', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--fg);
+      margin-bottom: 4px;
+    }
+    .thankyou-next-item span {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 640px) {
+      /* Layout */
+      .screen-inner { padding: 24px 16px 48px; margin-top: 16px; }
+      .intro-card { padding: 20px 16px 24px; }
+      .intro-card-wrap { padding: 16px 12px 0; }
+
+      /* Intro — hide verbose description, tabs cover the content */
+      .intro-card .description { display: none; }
+      .intro-card h1 { font-size: clamp(22px, 6.5vw, 32px); margin-bottom: 6px; }
+      .disclaimer { font-size: 11px; margin-top: 12px; }
+      .eyebrow-pill { font-size: 10px; padding: 5px 12px; }
+      .framework-tag { font-size: 9px; }
+
+      /* Tabs: horizontal scroll row */
+      .tabs { flex-direction: row; overflow-x: auto; gap: 4px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+      .tabs::-webkit-scrollbar { display: none; }
+      .tab-btn { flex-shrink: 0; text-align: center; padding: 9px 14px; min-height: 40px; font-size: 13px; white-space: nowrap; }
+      .tab-panel .lead { font-size: 12px; margin-bottom: 14px; }
+      .check-list li { font-size: 14px; }
+
+      /* Compact trust bar — pill row */
+      .trust-bar { flex-direction: row; flex-wrap: nowrap; gap: 6px; justify-content: center; }
+      .trust-item { justify-content: center; padding: 6px 10px; font-size: 11px; border-right: none !important; border-bottom: none !important; background: var(--surface-2); border-radius: 8px; flex: 1 1 0; white-space: nowrap; min-width: 0; }
+
+      /* Compact proof bar */
+      .proof-bar { margin-top: 16px; }
+      .proof-item { padding: 10px 12px; }
+      .proof-item:not(:last-child) { border-right: 1px solid var(--border-light); border-bottom: none; }
+      .proof-number { font-size: 16px; }
+      .proof-label { font-size: 9px; }
+      .proof-logo { font-size: 11px; }
+      .proof-logo img { height: 16px !important; }
+
+      /* Larger touch-friendly inputs and CTA */
+      .intro-form { flex-direction: column; gap: 10px; }
+      .form-input { height: 80px; font-size: 18px; padding: 0 24px; border-radius: 16px; }
+      .btn-primary { height: 80px; font-size: 18px; border-radius: 16px; }
+      .intro-cta-area { padding-top: 20px; }
+
+      /* Assessment */
+      .title-block-main { font-size: clamp(18px, 5vw, 28px); }
+      .section-title { font-size: clamp(20px, 6vw, 26px); }
+      .tier-guide { grid-template-columns: 1fr; gap: 6px; }
+      .question-text { font-size: 14px; }
+      .tier-btn { padding: 11px 14px; font-size: 13px; gap: 10px; }
+      .nav-buttons { flex-direction: column-reverse; gap: 10px; }
+      .nav-buttons .btn-primary,
+      .nav-buttons .btn-back { width: 100%; }
+
+      /* Results */
+      .results-score-number { font-size: clamp(60px, 16vw, 80px); }
+      .section-bar-item { flex-wrap: wrap; gap: 8px; }
+      .section-bar-label { min-width: 100%; font-size: 12px; }
+      .section-bar-score { min-width: auto; text-align: right; }
+      .reveal-row { flex-direction: column; gap: 10px; }
+      .reveal-row-right { flex-direction: row; align-items: center; gap: 10px; }
+
+      /* Gameplan */
+      .gp-score-overview { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .gp-score-card { padding: 12px; }
+      .gp-score-card-label { font-size: 10px; }
+      .gp-score-card-value { font-size: 18px; }
+      .gp-timeline-line { width: 24px; }
+      .gp-timeline-text { font-size: 10px; }
+      .gp-timeline-dot { width: 32px; height: 32px; font-size: 12px; }
+      .gp-card { padding: 20px 16px; }
+      .gp-headline { font-size: clamp(17px, 5vw, 22px); }
+      .gp-body { font-size: 14px; }
+      .gp-why { font-size: 13px; padding: 14px 16px; }
+
+      /* Tables → stacked cards on mobile */
+      .gp-table { border: none; }
+      .gp-table thead { display: none; }
+      .gp-table tbody tr {
+        display: flex;
+        flex-direction: column;
+        background: var(--surface);
+        border: 1px solid var(--border-light);
+        border-radius: 12px;
+        padding: 14px 16px;
+        margin-bottom: 10px;
+        gap: 8px;
+      }
+      .gp-table tbody tr:last-child { margin-bottom: 0; }
+      .gp-table tbody td {
+        display: block;
+        padding: 0;
+        border-bottom: none;
+      }
+      .gp-table .td-action { min-width: unset; font-size: 14px; font-weight: 600; }
+      .gp-table .td-detail { font-size: 13px; line-height: 1.6; }
+      .gp-table .td-priority { text-align: left; padding-top: 4px; }
+
+      /* Card nav + CTA */
+      .gp-card-nav { flex-direction: column; gap: 10px; align-items: stretch; }
+      .gp-card-nav button { width: 100%; text-align: center; font-size: 13px; padding: 12px 18px; min-height: 44px; }
+      .cta-block h2 { font-size: clamp(18px, 5vw, 24px); }
+      .cta-block p { font-size: 14px; }
+      .apply-form-wrap { max-width: 100%; }
+    }
+
+    @media (max-width: 480px) {
+      /* Score overview → single column on very small screens */
+      .gp-score-overview { grid-template-columns: 1fr; gap: 8px; }
+      .gp-score-card-value { font-size: 20px; }
+      .gp-timeline-line { width: 16px; }
+      .intro-card { padding: 20px 14px; }
+      .results-score-number { font-size: clamp(52px, 14vw, 72px); }
+    }
+
+    @media print {
+      .top-bar, .progress-bar-fixed, .btn-primary, .btn-back, .btn-accent, .cta-block, .nav-buttons, .gp-card-nav { display: none !important; }
+      .screen { display: none !important; }
+      .screen.active { display: block !important; min-height: auto !important; padding: 0 !important; }
+      .screen-inner { padding: 20px !important; box-shadow: none !important; background: #fff !important; color: #111 !important; }
+      body, body::before, body::after { background: #fff !important; }
+    }
+  /* Apply form inline */
+    .apply-form-wrap {
+      max-width: 420px;
+      margin: 0 auto;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.5s cubic-bezier(0.16,1,0.3,1), opacity 0.4s ease, margin 0.4s ease;
+    }
+    .apply-form-wrap.open {
+      max-height: 300px;
+      opacity: 1;
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+    .apply-form-wrap .form-input {
+      margin-bottom: 12px;
+    }
+    .apply-form-wrap .form-error {
+      font-size: 13px;
+      color: #d32f2f;
+      margin-bottom: 10px;
+      display: none;
+    }
+    .apply-form-wrap .form-error.visible {
+      display: block;
+    }
+    .apply-btn-hide {
+      display: none !important;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" integrity="sha384-HAH79XdRvHr6axVGh4xQWVCp14kcd32bNk4Xu0sHDHtFQ42n6BAM8ykvB47dGz6D" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- ─── TOP BAR ─── -->
+  <header class="top-bar">
+    <img src="brand_assets/Paradigm Logo White.svg" alt="Paradigm Consulting">
+  </header>
+
+  <!-- ─── FIXED PROGRESS BAR ─── -->
+  <div class="progress-bar-fixed" id="progress-bar-fixed">
+    <div class="progress-fill" id="progress-fill"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SCREEN 1, INTRO / GATE
+  ═══════════════════════════════════════ -->
+  <div id="screen-1" class="screen active">
+    <div class="intro-page">
+      <div class="intro-card-wrap">
+        <div class="intro-card">
+
+          <div style="text-align:center; display:flex; flex-direction:column; align-items:center; gap:10px;">
+            <span class="eyebrow-pill">
+              <span class="pill-dot"></span>
+              Founder Bottleneck Eliminator
+            </span>
+            <span class="framework-tag">
+              3X3OS
+              <span class="tag-sep"></span>
+              Compliance
+            </span>
+          </div>
+
+          <h1>Most Decisions That Reach You Shouldn't. Find Out Which Ones.</h1>
+          <p class="description">A 20-scenario diagnostic that reveals where decisions are actually landing in your business versus where they belong. You sort each decision into a tier. We show you how many you got right, and what the misallocations are costing you.</p>
+
+          <!-- Tabs -->
+          <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab(0, this)" type="button">Who It's For</button>
+            <button class="tab-btn" onclick="switchTab(1, this)" type="button">What It Tests</button>
+            <button class="tab-btn" onclick="switchTab(2, this)" type="button">What You'll Discover</button>
+          </div>
+
+          <!-- Tab 1: Who It's For -->
+          <div class="tab-panel active" id="fbe-tab0">
+            <p class="lead">This assessment is built for <strong>founders and operators</strong> who:</p>
+            <ul class="check-list">
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(12,140,233,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#0c8ce9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Running a business between $100K and $10M with a team in place
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(12,140,233,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#0c8ce9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Feel like every major decision flows through them personally
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(12,140,233,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#0c8ce9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Want to scale but suspect their team can't operate without constant input
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(12,140,233,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#0c8ce9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Have a team but still feel like the bottleneck in their own business
+              </li>
+            </ul>
+          </div>
+
+          <!-- Tab 2: What It Tests -->
+          <div class="tab-panel" id="fbe-tab1">
+            <p class="lead">This diagnostic evaluates four decision authority areas:</p>
+            <ul class="check-list">
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(12,140,233,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#0c8ce9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Operational Decisions — day-to-day execution and task routing
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(12,140,233,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#0c8ce9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Management Decisions — team, process, and resource calls
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(12,140,233,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#0c8ce9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Executive Decisions — direction, structure, and cross-functional judgment
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(12,140,233,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#0c8ce9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Strategic Decisions — vision, risk, and high-stakes ownership calls
+              </li>
+            </ul>
+          </div>
+
+          <!-- Tab 3: What You'll Discover -->
+          <div class="tab-panel" id="fbe-tab2">
+            <ul class="check-list">
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(12,140,233,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#0c8ce9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Which decisions you're carrying that should have been delegated months ago
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(12,140,233,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#0c8ce9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Where your team is under-delegated and where they're over-escalating
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(12,140,233,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#0c8ce9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                The decision tiers that are costing you hours every week
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(12,140,233,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#0c8ce9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                A prioritized 90-day gameplan to remove yourself as the bottleneck
+              </li>
+            </ul>
+          </div>
+
+          <p class="disclaimer">*If you are not the primary decision-maker in your business, this assessment may not reflect your actual authority structure.</p>
+
+          <div class="trust-bar">
+            <div class="trust-item">
+              <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1"/><path d="M8 4.5v4l2.5 1.5" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              4 Minutes
+            </div>
+            <div class="trust-item">
+              <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1"/><path d="M6 8h4M8 6v4" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>
+              20 Scenarios
+            </div>
+            <div class="trust-item">
+              <svg viewBox="0 0 16 16" fill="none"><path d="M3.5 9l3 3L12.5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Immediate Results
+            </div>
+          </div>
+
+          <div class="intro-cta-area">
+            <div id="form-error" class="form-error">Please enter your first name and a valid email address.</div>
+            <div class="intro-form">
+              <input type="text" id="first-name" class="form-input" placeholder="First name" autocomplete="given-name" maxlength="100">
+              <input type="email" id="email" class="form-input" placeholder="Email address" autocomplete="email" maxlength="254">
+            </div>
+            <button class="btn-primary btn-accent" style="max-width:480px; margin:0 auto;" onclick="handleIntroSubmit()">
+              Reveal My Bottlenecks
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </button>
+            <p class="intro-note">Results delivered instantly. No spam.</p>
+          </div>
+
+          <!-- Proof / Stat Bar -->
+          <div class="proof-bar">
+            <div class="proof-item">
+              <div class="proof-number">20</div>
+              <div class="proof-label">Decision Scenarios</div>
+            </div>
+            <div class="proof-item">
+              <div class="proof-number">4</div>
+              <div class="proof-label">Authority Tiers</div>
+            </div>
+            <div class="proof-item">
+              <div class="proof-logo">
+                Developed by
+                <img src="brand_assets/Paradigm Logo Black.svg" alt="Paradigm Consulting">
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SCREEN 2, ASSESSMENT
+  ═══════════════════════════════════════ -->
+  <div id="screen-2" class="screen">
+    <div class="screen-inner">
+
+      <!-- SECTION A, Operational Decisions -->
+      <div id="section-a" class="section-panel active">
+        <div class="section-header">
+          <div class="section-label">Section A of 4 — 5 Decisions</div>
+          <div class="section-title">Operational Decisions</div>
+          <div class="section-subtext">These decisions belong at the team level. They require no senior judgment. If they are reaching anyone above Tier 1, that is a structural gap.</div>
+          <div class="tier-guide">
+            <div class="tier-guide-item"><span class="tier-guide-label">T1</span><span>Team — daily ops, no approval needed</span></div>
+            <div class="tier-guide-item"><span class="tier-guide-label">T2</span><span>Manager — needs judgment, not yours</span></div>
+            <div class="tier-guide-item"><span class="tier-guide-label">T3</span><span>Executive — senior leadership, not necessarily founder</span></div>
+            <div class="tier-guide-item"><span class="tier-guide-label">T4</span><span>Founder / Board — genuinely requires you</span></div>
+          </div>
+        </div>
+
+        <div class="question-block" data-section="a" data-key="a1">
+          <div class="question-number">01 — 20</div>
+          <p class="question-text">Your social media manager wants to schedule three posts for next week using content that is already approved. They need to decide on posting times and captions. Where does this decision currently land?</p>
+          <div class="tier-buttons-wrap">
+            <button class="tier-btn" data-tier="1" onclick="selectTier('a1',1,this)"><span class="tier-btn-chip">T1</span><span class="tier-btn-text"><strong>Tier 1 — Team Level</strong><span>Daily operational decisions. No approval needed.</span></span></button>
+            <button class="tier-btn" data-tier="2" onclick="selectTier('a1',2,this)"><span class="tier-btn-chip">T2</span><span class="tier-btn-text"><strong>Tier 2 — Manager Level</strong><span>Requires judgment but not yours specifically.</span></span></button>
+            <button class="tier-btn" data-tier="3" onclick="selectTier('a1',3,this)"><span class="tier-btn-chip">T3</span><span class="tier-btn-text"><strong>Tier 3 — Executive Level</strong><span>Senior leadership decision. Not necessarily the founder.</span></span></button>
+            <button class="tier-btn" data-tier="4" onclick="selectTier('a1',4,this)"><span class="tier-btn-chip">T4</span><span class="tier-btn-text"><strong>Tier 4 — Founder / Board</strong><span>Genuinely requires the founder or board.</span></span></button>
+          </div>
+        </div>
+
+        <div class="question-block" data-section="a" data-key="a2">
+          <div class="question-number">02 — 20</div>
+          <p class="question-text">A client emails asking for an update on a project that is on track and on schedule. Someone needs to respond with a status update. Where does this decision currently land?</p>
+          <div class="tier-buttons-wrap">
+            <button class="tier-btn" data-tier="1" onclick="selectTier('a2',1,this)"><span class="tier-btn-chip">T1</span><span class="tier-btn-text"><strong>Tier 1 — Team Level</strong><span>Daily operational decisions. No approval needed.</span></span></button>
+            <button class="tier-btn" data-tier="2" onclick="selectTier('a2',2,this)"><span class="tier-btn-chip">T2</span><span class="tier-btn-text"><strong>Tier 2 — Manager Level</strong><span>Requires judgment but not yours specifically.</span></span></button>
+            <button class="tier-btn" data-tier="3" onclick="selectTier('a2',3,this)"><span class="tier-btn-chip">T3</span><span class="tier-btn-text"><strong>Tier 3 — Executive Level</strong><span>Senior leadership decision. Not necessarily the founder.</span></span></button>
+            <button class="tier-btn" data-tier="4" onclick="selectTier('a2',4,this)"><span class="tier-btn-chip">T4</span><span class="tier-btn-text"><strong>Tier 4 — Founder / Board</strong><span>Genuinely requires the founder or board.</span></span></button>
+          </div>
+        </div>
+
+        <div class="question-block" data-section="a" data-key="a3">
+          <div class="question-number">03 — 20</div>
+          <p class="question-text">Your team needs to order $150 in office supplies. There is a standard supplier and a defined monthly budget for this. Where does this decision currently land?</p>
+          <div class="tier-buttons-wrap">
+            <button class="tier-btn" data-tier="1" onclick="selectTier('a3',1,this)"><span class="tier-btn-chip">T1</span><span class="tier-btn-text"><strong>Tier 1 — Team Level</strong><span>Daily operational decisions. No approval needed.</span></span></button>
+            <button class="tier-btn" data-tier="2" onclick="selectTier('a3',2,this)"><span class="tier-btn-chip">T2</span><span class="tier-btn-text"><strong>Tier 2 — Manager Level</strong><span>Requires judgment but not yours specifically.</span></span></button>
+            <button class="tier-btn" data-tier="3" onclick="selectTier('a3',3,this)"><span class="tier-btn-chip">T3</span><span class="tier-btn-text"><strong>Tier 3 — Executive Level</strong><span>Senior leadership decision. Not necessarily the founder.</span></span></button>
+            <button class="tier-btn" data-tier="4" onclick="selectTier('a3',4,this)"><span class="tier-btn-chip">T4</span><span class="tier-btn-text"><strong>Tier 4 — Founder / Board</strong><span>Genuinely requires the founder or board.</span></span></button>
+          </div>
+        </div>
+
+        <div class="question-block" data-section="a" data-key="a4">
+          <div class="question-number">04 — 20</div>
+          <p class="question-text">Two team members have a scheduling conflict for a Tuesday morning standup. Someone needs to pick a new time that works for both. Where does this decision currently land?</p>
+          <div class="tier-buttons-wrap">
+            <button class="tier-btn" data-tier="1" onclick="selectTier('a4',1,this)"><span class="tier-btn-chip">T1</span><span class="tier-btn-text"><strong>Tier 1 — Team Level</strong><span>Daily operational decisions. No approval needed.</span></span></button>
+            <button class="tier-btn" data-tier="2" onclick="selectTier('a4',2,this)"><span class="tier-btn-chip">T2</span><span class="tier-btn-text"><strong>Tier 2 — Manager Level</strong><span>Requires judgment but not yours specifically.</span></span></button>
+            <button class="tier-btn" data-tier="3" onclick="selectTier('a4',3,this)"><span class="tier-btn-chip">T3</span><span class="tier-btn-text"><strong>Tier 3 — Executive Level</strong><span>Senior leadership decision. Not necessarily the founder.</span></span></button>
+            <button class="tier-btn" data-tier="4" onclick="selectTier('a4',4,this)"><span class="tier-btn-chip">T4</span><span class="tier-btn-text"><strong>Tier 4 — Founder / Board</strong><span>Genuinely requires the founder or board.</span></span></button>
+          </div>
+        </div>
+
+        <div class="question-block" data-section="a" data-key="a5">
+          <div class="question-number">05 — 20</div>
+          <p class="question-text">Your operations team wants to update the steps in an internal SOP for how they handle client onboarding documents. The change does not affect the client experience or the deliverable. Where does this decision currently land?</p>
+          <div class="tier-buttons-wrap">
+            <button class="tier-btn" data-tier="1" onclick="selectTier('a5',1,this)"><span class="tier-btn-chip">T1</span><span class="tier-btn-text"><strong>Tier 1 — Team Level</strong><span>Daily operational decisions. No approval needed.</span></span></button>
+            <button class="tier-btn" data-tier="2" onclick="selectTier('a5',2,this)"><span class="tier-btn-chip">T2</span><span class="tier-btn-text"><strong>Tier 2 — Manager Level</strong><span>Requires judgment but not yours specifically.</span></span></button>
+            <button class="tier-btn" data-tier="3" onclick="selectTier('a5',3,this)"><span class="tier-btn-chip">T3</span><span class="tier-btn-text"><strong>Tier 3 — Executive Level</strong><span>Senior leadership decision. Not necessarily the founder.</span></span></button>
+            <button class="tier-btn" data-tier="4" onclick="selectTier('a5',4,this)"><span class="tier-btn-chip">T4</span><span class="tier-btn-text"><strong>Tier 4 — Founder / Board</strong><span>Genuinely requires the founder or board.</span></span></button>
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="btn-back" onclick="goBackFromSection('a')">← Back</button>
+          <button id="btn-next-a" class="btn-primary btn-accent btn-next" disabled onclick="nextSection('a','b',50)">Next Section →</button>
+        </div>
+        <div id="val-a" class="validation-msg">Please select a tier for every decision before continuing.</div>
+      </div>
+
+      <!-- SECTION B, Management Decisions -->
+      <div id="section-b" class="section-panel">
+        <div class="section-header">
+          <div class="section-label">Section B of 4 — 5 Decisions</div>
+          <div class="section-title">Management Decisions</div>
+          <div class="section-subtext">These decisions require judgment, but not yours. They belong to your managers. If they are landing on you, you do not have managers. You have approvers waiting for a founder.</div>
+          <div class="tier-guide">
+            <div class="tier-guide-item"><span class="tier-guide-label">T1</span><span>Team — daily ops, no approval needed</span></div>
+            <div class="tier-guide-item"><span class="tier-guide-label">T2</span><span>Manager — needs judgment, not yours</span></div>
+            <div class="tier-guide-item"><span class="tier-guide-label">T3</span><span>Executive — senior leadership, not necessarily founder</span></div>
+            <div class="tier-guide-item"><span class="tier-guide-label">T4</span><span>Founder / Board — genuinely requires you</span></div>
+          </div>
+        </div>
+
+        <div class="question-block" data-section="b" data-key="b1">
+          <div class="question-number">06 — 20</div>
+          <p class="question-text">A project needs a freelance graphic designer for a two-week engagement. The budget is within the approved contractor spend limit for the quarter. Someone needs to find, vet, and hire that person. Where does this decision currently land?</p>
+          <div class="tier-buttons-wrap">
+            <button class="tier-btn" data-tier="1" onclick="selectTier('b1',1,this)"><span class="tier-btn-chip">T1</span><span class="tier-btn-text"><strong>Tier 1 — Team Level</strong><span>Daily operational decisions. No approval needed.</span></span></button>
+            <button class="tier-btn" data-tier="2" onclick="selectTier('b1',2,this)"><span class="tier-btn-chip">T2</span><span class="tier-btn-text"><strong>Tier 2 — Manager Level</strong><span>Requires judgment but not yours specifically.</span></span></button>
+            <button class="tier-btn" data-tier="3" onclick="selectTier('b1',3,this)"><span class="tier-btn-chip">T3</span><span class="tier-btn-text"><strong>Tier 3 — Executive Level</strong><span>Senior leadership decision. Not necessarily the founder.</span></span></button>
+            <button class="tier-btn" data-tier="4" onclick="selectTier('b1',4,this)"><span class="tier-btn-chip">T4</span><span class="tier-btn-text"><strong>Tier 4 — Founder / Board</strong><span>Genuinely requires the founder or board.</span></span></button>
+          </div>
+        </div>
+
+        <div class="question-block" data-section="b" data-key="b2">
+          <div class="question-number">07 — 20</div>
+          <p class="question-text">The marketing department wants to reallocate 8% of their monthly budget from paid ads to content production. The total spend stays the same. Someone needs to approve or redirect this. Where does this decision currently land?</p>
+          <div class="tier-buttons-wrap">
+            <button class="tier-btn" data-tier="1" onclick="selectTier('b2',1,this)"><span class="tier-btn-chip">T1</span><span class="tier-btn-text"><strong>Tier 1 — Team Level</strong><span>Daily operational decisions. No approval needed.</span></span></button>
+            <button class="tier-btn" data-tier="2" onclick="selectTier('b2',2,this)"><span class="tier-btn-chip">T2</span><span class="tier-btn-text"><strong>Tier 2 — Manager Level</strong><span>Requires judgment but not yours specifically.</span></span></button>
+            <button class="tier-btn" data-tier="3" onclick="selectTier('b2',3,this)"><span class="tier-btn-chip">T3</span><span class="tier-btn-text"><strong>Tier 3 — Executive Level</strong><span>Senior leadership decision. Not necessarily the founder.</span></span></button>
+            <button class="tier-btn" data-tier="4" onclick="selectTier('b2',4,this)"><span class="tier-btn-chip">T4</span><span class="tier-btn-text"><strong>Tier 4 — Founder / Board</strong><span>Genuinely requires the founder or board.</span></span></button>
+          </div>
+        </div>
+
+        <div class="question-block" data-section="b" data-key="b3">
+          <div class="question-number">08 — 20</div>
+          <p class="question-text">A team member has missed two deadlines in the past three weeks. A performance conversation needs to happen. Where does this decision currently land?</p>
+          <div class="tier-buttons-wrap">
+            <button class="tier-btn" data-tier="1" onclick="selectTier('b3',1,this)"><span class="tier-btn-chip">T1</span><span class="tier-btn-text"><strong>Tier 1 — Team Level</strong><span>Daily operational decisions. No approval needed.</span></span></button>
+            <button class="tier-btn" data-tier="2" onclick="selectTier('b3',2,this)"><span class="tier-btn-chip">T2</span><span class="tier-btn-text"><strong>Tier 2 — Manager Level</strong><span>Requires judgment but not yours specifically.</span></span></button>
+            <button class="tier-btn" data-tier="3" onclick="selectTier('b3',3,this)"><span class="tier-btn-chip">T3</span><span class="tier-btn-text"><strong>Tier 3 — Executive Level</strong><span>Senior leadership decision. Not necessarily the founder.</span></span></button>
+            <button class="tier-btn" data-tier="4" onclick="selectTier('b3',4,this)"><span class="tier-btn-chip">T4</span><span class="tier-btn-text"><strong>Tier 4 — Founder / Board</strong><span>Genuinely requires the founder or board.</span></span></button>
+          </div>
+        </div>
+
+        <div class="question-block" data-section="b" data-key="b4">
+          <div class="question-number">09 — 20</div>
+          <p class="question-text">Your customer success team wants to change the order in which they send onboarding emails. It only affects their department's workflow. Someone needs to approve and implement the change. Where does this decision currently land?</p>
+          <div class="tier-buttons-wrap">
+            <button class="tier-btn" data-tier="1" onclick="selectTier('b4',1,this)"><span class="tier-btn-chip">T1</span><span class="tier-btn-text"><strong>Tier 1 — Team Level</strong><span>Daily operational decisions. No approval needed.</span></span></button>
+            <button class="tier-btn" data-tier="2" onclick="selectTier('b4',2,this)"><span class="tier-btn-chip">T2</span><span class="tier-btn-text"><strong>Tier 2 — Manager Level</strong><span>Requires judgment but not yours specifically.</span></span></button>
+            <button class="tier-btn" data-tier="3" onclick="selectTier('b4',3,this)"><span class="tier-btn-chip">T3</span><span class="tier-btn-text"><strong>Tier 3 — Executive Level</strong><span>Senior leadership decision. Not necessarily the founder.</span></span></button>
+            <button class="tier-btn" data-tier="4" onclick="selectTier('b4',4,this)"><span class="tier-btn-chip">T4</span><span class="tier-btn-text"><strong>Tier 4 — Founder / Board</strong><span>Genuinely requires the founder or board.</span></span></button>
+          </div>
+        </div>
+
+        <div class="question-block" data-section="b" data-key="b5">
+          <div class="question-number">10 — 20</div>
+          <p class="question-text">Your existing software vendor is up for annual renewal at the same rate and terms as last year. Someone needs to approve continuing the subscription. Where does this decision currently land?</p>
+          <div class="tier-buttons-wrap">
+            <button class="tier-btn" data-tier="1" onclick="selectTier('b5',1,this)"><span class="tier-btn-chip">T1</span><span class="tier-btn-text"><strong>Tier 1 — Team Level</strong><span>Daily operational decisions. No approval needed.</span></span></button>
+            <button class="tier-btn" data-tier="2" onclick="selectTier('b5',2,this)"><span class="tier-btn-chip">T2</span><span class="tier-btn-text"><strong>Tier 2 — Manager Level</strong><span>Requires judgment but not yours specifically.</span></span></button>
+            <button class="tier-btn" data-tier="3" onclick="selectTier('b5',3,this)"><span class="tier-btn-chip">T3</span><span class="tier-btn-text"><strong>Tier 3 — Executive Level</strong><span>Senior leadership decision. Not necessarily the founder.</span></span></button>
+            <button class="tier-btn" data-tier="4" onclick="selectTier('b5',4,this)"><span class="tier-btn-chip">T4</span><span class="tier-btn-text"><strong>Tier 4 — Founder / Board</strong><span>Genuinely requires the founder or board.</span></span></button>
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="btn-back" onclick="goBackSection('b','a',25)">← Back</button>
+          <button id="btn-next-b" class="btn-primary btn-accent btn-next" disabled onclick="nextSection('b','c',75)">Next Section →</button>
+        </div>
+        <div id="val-b" class="validation-msg">Please select a tier for every decision before continuing.</div>
+      </div>
+
+      <!-- SECTION C, Executive Decisions -->
+      <div id="section-c" class="section-panel">
+        <div class="section-header">
+          <div class="section-label">Section C of 4 — 5 Decisions</div>
+          <div class="section-title">Executive Decisions</div>
+          <div class="section-subtext">These decisions require senior judgment and strategic context. They belong to your executive or leadership layer, not to you specifically. If your business has no one who can make these calls, that is the gap.</div>
+          <div class="tier-guide">
+            <div class="tier-guide-item"><span class="tier-guide-label">T1</span><span>Team — daily ops, no approval needed</span></div>
+            <div class="tier-guide-item"><span class="tier-guide-label">T2</span><span>Manager — needs judgment, not yours</span></div>
+            <div class="tier-guide-item"><span class="tier-guide-label">T3</span><span>Executive — senior leadership, not necessarily founder</span></div>
+            <div class="tier-guide-item"><span class="tier-guide-label">T4</span><span>Founder / Board — genuinely requires you</span></div>
+          </div>
+        </div>
+
+        <div class="question-block" data-section="c" data-key="c1">
+          <div class="question-number">11 — 20</div>
+          <p class="question-text">You need to hire a Head of Sales. The role has a defined compensation range, a clear job description, and an established hiring process. Someone needs to run the search, conduct final interviews, and make the offer. Where does this decision currently land?</p>
+          <div class="tier-buttons-wrap">
+            <button class="tier-btn" data-tier="1" onclick="selectTier('c1',1,this)"><span class="tier-btn-chip">T1</span><span class="tier-btn-text"><strong>Tier 1 — Team Level</strong><span>Daily operational decisions. No approval needed.</span></span></button>
+            <button class="tier-btn" data-tier="2" onclick="selectTier('c1',2,this)"><span class="tier-btn-chip">T2</span><span class="tier-btn-text"><strong>Tier 2 — Manager Level</strong><span>Requires judgment but not yours specifically.</span></span></button>
+            <button class="tier-btn" data-tier="3" onclick="selectTier('c1',3,this)"><span class="tier-btn-chip">T3</span><span class="tier-btn-text"><strong>Tier 3 — Executive Level</strong><span>Senior leadership decision. Not necessarily the founder.</span></span></button>
+            <button class="tier-btn" data-tier="4" onclick="selectTier('c1',4,this)"><span class="tier-btn-chip">T4</span><span class="tier-btn-text"><strong>Tier 4 — Founder / Board</strong><span>Genuinely requires the founder or board.</span></span></button>
+          </div>
+        </div>
+
+        <div class="question-block" data-section="c" data-key="c2">
+          <div class="question-number">12 — 20</div>
+          <p class="question-text">The team wants to test a 15% price increase on one of your mid-tier offers for the next 60 days. The financial modeling has been done. Someone needs to approve the test. Where does this decision currently land?</p>
+          <div class="tier-buttons-wrap">
+            <button class="tier-btn" data-tier="1" onclick="selectTier('c2',1,this)"><span class="tier-btn-chip">T1</span><span class="tier-btn-text"><strong>Tier 1 — Team Level</strong><span>Daily operational decisions. No approval needed.</span></span></button>
+            <button class="tier-btn" data-tier="2" onclick="selectTier('c2',2,this)"><span class="tier-btn-chip">T2</span><span class="tier-btn-text"><strong>Tier 2 — Manager Level</strong><span>Requires judgment but not yours specifically.</span></span></button>
+            <button class="tier-btn" data-tier="3" onclick="selectTier('c2',3,this)"><span class="tier-btn-chip">T3</span><span class="tier-btn-text"><strong>Tier 3 — Executive Level</strong><span>Senior leadership decision. Not necessarily the founder.</span></span></button>
+            <button class="tier-btn" data-tier="4" onclick="selectTier('c2',4,this)"><span class="tier-btn-chip">T4</span><span class="tier-btn-text"><strong>Tier 4 — Founder / Board</strong><span>Genuinely requires the founder or board.</span></span></button>
+          </div>
+        </div>
+
+        <div class="question-block" data-section="c" data-key="c3">
+          <div class="question-number">13 — 20</div>
+          <p class="question-text">A new software platform could replace two existing tools and reduce monthly costs by $2,000. The evaluation has been completed and a recommendation has been made. Someone needs to approve the switch. Where does this decision currently land?</p>
+          <div class="tier-buttons-wrap">
+            <button class="tier-btn" data-tier="1" onclick="selectTier('c3',1,this)"><span class="tier-btn-chip">T1</span><span class="tier-btn-text"><strong>Tier 1 — Team Level</strong><span>Daily operational decisions. No approval needed.</span></span></button>
+            <button class="tier-btn" data-tier="2" onclick="selectTier('c3',2,this)"><span class="tier-btn-chip">T2</span><span class="tier-btn-text"><strong>Tier 2 — Manager Level</strong><span>Requires judgment but not yours specifically.</span></span></button>
+            <button class="tier-btn" data-tier="3" onclick="selectTier('c3',3,this)"><span class="tier-btn-chip">T3</span><span class="tier-btn-text"><strong>Tier 3 — Executive Level</strong><span>Senior leadership decision. Not necessarily the founder.</span></span></button>
+            <button class="tier-btn" data-tier="4" onclick="selectTier('c3',4,this)"><span class="tier-btn-chip">T4</span><span class="tier-btn-text"><strong>Tier 4 — Founder / Board</strong><span>Genuinely requires the founder or board.</span></span></button>
+          </div>
+        </div>
+
+        <div class="question-block" data-section="c" data-key="c4">
+          <div class="question-number">14 — 20</div>
+          <p class="question-text">It is Q4 planning. Each department needs to set their goals and key results for the upcoming quarter. Someone needs to facilitate the planning process and align department goals with company direction. Where does this decision currently land?</p>
+          <div class="tier-buttons-wrap">
+            <button class="tier-btn" data-tier="1" onclick="selectTier('c4',1,this)"><span class="tier-btn-chip">T1</span><span class="tier-btn-text"><strong>Tier 1 — Team Level</strong><span>Daily operational decisions. No approval needed.</span></span></button>
+            <button class="tier-btn" data-tier="2" onclick="selectTier('c4',2,this)"><span class="tier-btn-chip">T2</span><span class="tier-btn-text"><strong>Tier 2 — Manager Level</strong><span>Requires judgment but not yours specifically.</span></span></button>
+            <button class="tier-btn" data-tier="3" onclick="selectTier('c4',3,this)"><span class="tier-btn-chip">T3</span><span class="tier-btn-text"><strong>Tier 3 — Executive Level</strong><span>Senior leadership decision. Not necessarily the founder.</span></span></button>
+            <button class="tier-btn" data-tier="4" onclick="selectTier('c4',4,this)"><span class="tier-btn-chip">T4</span><span class="tier-btn-text"><strong>Tier 4 — Founder / Board</strong><span>Genuinely requires the founder or board.</span></span></button>
+          </div>
+        </div>
+
+        <div class="question-block" data-section="c" data-key="c5">
+          <div class="question-number">15 — 20</div>
+          <p class="question-text">Two department heads have a conflict over resource allocation for a shared project. Both have made their case. Someone needs to make the final call. Where does this decision currently land?</p>
+          <div class="tier-buttons-wrap">
+            <button class="tier-btn" data-tier="1" onclick="selectTier('c5',1,this)"><span class="tier-btn-chip">T1</span><span class="tier-btn-text"><strong>Tier 1 — Team Level</strong><span>Daily operational decisions. No approval needed.</span></span></button>
+            <button class="tier-btn" data-tier="2" onclick="selectTier('c5',2,this)"><span class="tier-btn-chip">T2</span><span class="tier-btn-text"><strong>Tier 2 — Manager Level</strong><span>Requires judgment but not yours specifically.</span></span></button>
+            <button class="tier-btn" data-tier="3" onclick="selectTier('c5',3,this)"><span class="tier-btn-chip">T3</span><span class="tier-btn-text"><strong>Tier 3 — Executive Level</strong><span>Senior leadership decision. Not necessarily the founder.</span></span></button>
+            <button class="tier-btn" data-tier="4" onclick="selectTier('c5',4,this)"><span class="tier-btn-chip">T4</span><span class="tier-btn-text"><strong>Tier 4 — Founder / Board</strong><span>Genuinely requires the founder or board.</span></span></button>
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="btn-back" onclick="goBackSection('c','b',50)">← Back</button>
+          <button id="btn-next-c" class="btn-primary btn-accent btn-next" disabled onclick="nextSection('c','d',100)">Next Section →</button>
+        </div>
+        <div id="val-c" class="validation-msg">Please select a tier for every decision before continuing.</div>
+      </div>
+
+      <!-- SECTION D, Strategic Decisions -->
+      <div id="section-d" class="section-panel">
+        <div class="section-header">
+          <div class="section-label">Section D of 4 — 5 Decisions</div>
+          <div class="section-title">Strategic Decisions</div>
+          <div class="section-subtext">These decisions belong to you, but only when you have the right infrastructure around them. The problem is not that you make these calls. It is when you make them alone, unprepared, or without the right counsel.</div>
+          <div class="tier-guide">
+            <div class="tier-guide-item"><span class="tier-guide-label">T1</span><span>Team — daily ops, no approval needed</span></div>
+            <div class="tier-guide-item"><span class="tier-guide-label">T2</span><span>Manager — needs judgment, not yours</span></div>
+            <div class="tier-guide-item"><span class="tier-guide-label">T3</span><span>Executive — senior leadership, not necessarily founder</span></div>
+            <div class="tier-guide-item"><span class="tier-guide-label">T4</span><span>Founder / Board — genuinely requires you</span></div>
+          </div>
+        </div>
+
+        <div class="question-block" data-section="d" data-key="d1">
+          <div class="question-number">16 — 20</div>
+          <p class="question-text">A long-term team member is being offered equity as part of a compensation restructure. The cap table needs to be updated and legal documents need to be drafted. Someone needs to authorize the equity grant. Where does this decision currently land?</p>
+          <div class="tier-buttons-wrap">
+            <button class="tier-btn" data-tier="1" onclick="selectTier('d1',1,this)"><span class="tier-btn-chip">T1</span><span class="tier-btn-text"><strong>Tier 1 — Team Level</strong><span>Daily operational decisions. No approval needed.</span></span></button>
+            <button class="tier-btn" data-tier="2" onclick="selectTier('d1',2,this)"><span class="tier-btn-chip">T2</span><span class="tier-btn-text"><strong>Tier 2 — Manager Level</strong><span>Requires judgment but not yours specifically.</span></span></button>
+            <button class="tier-btn" data-tier="3" onclick="selectTier('d1',3,this)"><span class="tier-btn-chip">T3</span><span class="tier-btn-text"><strong>Tier 3 — Executive Level</strong><span>Senior leadership decision. Not necessarily the founder.</span></span></button>
+            <button class="tier-btn" data-tier="4" onclick="selectTier('d1',4,this)"><span class="tier-btn-chip">T4</span><span class="tier-btn-text"><strong>Tier 4 — Founder / Board</strong><span>Genuinely requires the founder or board.</span></span></button>
+          </div>
+        </div>
+
+        <div class="question-block" data-section="d" data-key="d2">
+          <div class="question-number">17 — 20</div>
+          <p class="question-text">A private investor has approached you about a $500,000 investment in exchange for a minority stake. Someone needs to decide whether to pursue this, at what valuation, and on what terms. Where does this decision currently land?</p>
+          <div class="tier-buttons-wrap">
+            <button class="tier-btn" data-tier="1" onclick="selectTier('d2',1,this)"><span class="tier-btn-chip">T1</span><span class="tier-btn-text"><strong>Tier 1 — Team Level</strong><span>Daily operational decisions. No approval needed.</span></span></button>
+            <button class="tier-btn" data-tier="2" onclick="selectTier('d2',2,this)"><span class="tier-btn-chip">T2</span><span class="tier-btn-text"><strong>Tier 2 — Manager Level</strong><span>Requires judgment but not yours specifically.</span></span></button>
+            <button class="tier-btn" data-tier="3" onclick="selectTier('d2',3,this)"><span class="tier-btn-chip">T3</span><span class="tier-btn-text"><strong>Tier 3 — Executive Level</strong><span>Senior leadership decision. Not necessarily the founder.</span></span></button>
+            <button class="tier-btn" data-tier="4" onclick="selectTier('d2',4,this)"><span class="tier-btn-chip">T4</span><span class="tier-btn-text"><strong>Tier 4 — Founder / Board</strong><span>Genuinely requires the founder or board.</span></span></button>
+          </div>
+        </div>
+
+        <div class="question-block" data-section="d" data-key="d3">
+          <div class="question-number">18 — 20</div>
+          <p class="question-text">A competitor has approached you about a potential acquisition. It is early stage and informal but requires a decision about whether to engage further and on what basis. Where does this decision currently land?</p>
+          <div class="tier-buttons-wrap">
+            <button class="tier-btn" data-tier="1" onclick="selectTier('d3',1,this)"><span class="tier-btn-chip">T1</span><span class="tier-btn-text"><strong>Tier 1 — Team Level</strong><span>Daily operational decisions. No approval needed.</span></span></button>
+            <button class="tier-btn" data-tier="2" onclick="selectTier('d3',2,this)"><span class="tier-btn-chip">T2</span><span class="tier-btn-text"><strong>Tier 2 — Manager Level</strong><span>Requires judgment but not yours specifically.</span></span></button>
+            <button class="tier-btn" data-tier="3" onclick="selectTier('d3',3,this)"><span class="tier-btn-chip">T3</span><span class="tier-btn-text"><strong>Tier 3 — Executive Level</strong><span>Senior leadership decision. Not necessarily the founder.</span></span></button>
+            <button class="tier-btn" data-tier="4" onclick="selectTier('d3',4,this)"><span class="tier-btn-chip">T4</span><span class="tier-btn-text"><strong>Tier 4 — Founder / Board</strong><span>Genuinely requires the founder or board.</span></span></button>
+          </div>
+        </div>
+
+        <div class="question-block" data-section="d" data-key="d4">
+          <div class="question-number">19 — 20</div>
+          <p class="question-text">Your business has been operating under one brand positioning for three years. The market has shifted and there is a strong case for repositioning the brand and messaging to a different audience segment. Someone needs to make the call to pursue this or not. Where does this decision currently land?</p>
+          <div class="tier-buttons-wrap">
+            <button class="tier-btn" data-tier="1" onclick="selectTier('d4',1,this)"><span class="tier-btn-chip">T1</span><span class="tier-btn-text"><strong>Tier 1 — Team Level</strong><span>Daily operational decisions. No approval needed.</span></span></button>
+            <button class="tier-btn" data-tier="2" onclick="selectTier('d4',2,this)"><span class="tier-btn-chip">T2</span><span class="tier-btn-text"><strong>Tier 2 — Manager Level</strong><span>Requires judgment but not yours specifically.</span></span></button>
+            <button class="tier-btn" data-tier="3" onclick="selectTier('d4',3,this)"><span class="tier-btn-chip">T3</span><span class="tier-btn-text"><strong>Tier 3 — Executive Level</strong><span>Senior leadership decision. Not necessarily the founder.</span></span></button>
+            <button class="tier-btn" data-tier="4" onclick="selectTier('d4',4,this)"><span class="tier-btn-chip">T4</span><span class="tier-btn-text"><strong>Tier 4 — Founder / Board</strong><span>Genuinely requires the founder or board.</span></span></button>
+          </div>
+        </div>
+
+        <div class="question-block" data-section="d" data-key="d5">
+          <div class="question-number">20 — 20</div>
+          <p class="question-text">A former client has filed a complaint with a regulatory body about a marketing claim made 18 months ago. Legal counsel needs to be engaged and a response strategy needs to be determined. Someone needs to own this decision. Where does this decision currently land?</p>
+          <div class="tier-buttons-wrap">
+            <button class="tier-btn" data-tier="1" onclick="selectTier('d5',1,this)"><span class="tier-btn-chip">T1</span><span class="tier-btn-text"><strong>Tier 1 — Team Level</strong><span>Daily operational decisions. No approval needed.</span></span></button>
+            <button class="tier-btn" data-tier="2" onclick="selectTier('d5',2,this)"><span class="tier-btn-chip">T2</span><span class="tier-btn-text"><strong>Tier 2 — Manager Level</strong><span>Requires judgment but not yours specifically.</span></span></button>
+            <button class="tier-btn" data-tier="3" onclick="selectTier('d5',3,this)"><span class="tier-btn-chip">T3</span><span class="tier-btn-text"><strong>Tier 3 — Executive Level</strong><span>Senior leadership decision. Not necessarily the founder.</span></span></button>
+            <button class="tier-btn" data-tier="4" onclick="selectTier('d5',4,this)"><span class="tier-btn-chip">T4</span><span class="tier-btn-text"><strong>Tier 4 — Founder / Board</strong><span>Genuinely requires the founder or board.</span></span></button>
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="btn-back" onclick="goBackSection('d','c',75)">← Back</button>
+          <button id="btn-next-d" class="btn-primary btn-accent btn-next" disabled onclick="calculateAndShowResults()">Calculate My Score →</button>
+        </div>
+        <div id="val-d" class="validation-msg">Please select a tier for every decision before continuing.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SCREEN 3, RESULTS
+  ═══════════════════════════════════════ -->
+  <div id="screen-3" class="screen">
+    <div class="screen-inner">
+
+      <div class="title-block">
+        <div class="title-block-main">The Founder Bottleneck Eliminator</div>
+        <div class="title-block-sub">Your Decision Authority Results</div>
+      </div>
+
+      <!-- Score display -->
+      <div class="results-score-wrap">
+        <div>
+          <span id="score-counter" class="results-score-number">0</span><span class="results-score-denom"> / 100</span>
+        </div>
+        <div class="results-allocations" id="allocations-line"></div>
+      </div>
+
+      <!-- Tier name -->
+      <div id="tier-name" class="tier-name"></div>
+      <div id="tier-description" class="tier-description"></div>
+      <div id="tier-financial" class="tier-financial"></div>
+
+      <!-- Section score bars -->
+      <div class="section-bars" id="section-bars"></div>
+
+      <!-- Most misallocated section callout -->
+      <div class="misallocation-callout" id="misallocation-callout">
+        <div class="misallocation-callout-label">Your Biggest Bottleneck</div>
+        <div class="misallocation-callout-value" id="misallocation-callout-value"></div>
+      </div>
+
+      <!-- Misallocation reveal -->
+      <div id="misallocation-reveal"></div>
+
+      <div class="results-divider"></div>
+      <div class="results-transition">
+        <p>You can see exactly where decisions are misallocated. Here is how to fix the architecture.</p>
+        <button class="btn-primary btn-accent" style="max-width:360px;margin:0 auto;" onclick="showScreen('screen-4')">See Your Delegation Plan →</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SCREEN 4, GAMEPLAN
+  ═══════════════════════════════════════ -->
+  <div id="screen-4" class="screen">
+    <div class="screen-inner">
+
+      <div class="title-block">
+        <div class="title-block-main">The Founder Bottleneck Eliminator</div>
+        <div class="title-block-sub">Your 90-Day Decision Architecture Plan</div>
+      </div>
+
+      <p class="gameplan-intro" id="gameplan-intro"></p>
+
+      <!-- Score overview -->
+      <div class="gp-score-overview" id="gp-score-overview"></div>
+
+      <!-- Timeline nav -->
+      <div class="gp-timeline">
+        <div class="gp-timeline-step active" id="gpStep1" onclick="switchGpMonth(1)">
+          <div class="gp-timeline-dot">1</div>
+          <div class="gp-timeline-text">30 Days</div>
+        </div>
+        <div class="gp-timeline-line" id="gpLine1"></div>
+        <div class="gp-timeline-step" id="gpStep2" onclick="switchGpMonth(2)">
+          <div class="gp-timeline-dot">2</div>
+          <div class="gp-timeline-text">60 Days</div>
+        </div>
+        <div class="gp-timeline-line" id="gpLine2"></div>
+        <div class="gp-timeline-step" id="gpStep3" onclick="switchGpMonth(3)">
+          <div class="gp-timeline-dot">3</div>
+          <div class="gp-timeline-text">90 Days</div>
+        </div>
+      </div>
+
+      <!-- ── MONTH 1 ── -->
+      <div class="gp-card active" id="gpMonth1">
+        <div class="gp-timeframe">Month One — 30 Days</div>
+        <h3 class="gp-headline">Draw the Line Between Your Decisions and Everyone Else's</h3>
+        <p class="gp-body">The reason decisions keep landing on you is not because your team is incapable. It is because no one has ever drawn the line clearly enough for them to act without checking. When decision authority is undefined, everything migrates to the person with the most accountability, which is always the founder. This phase draws the line and puts it in writing.</p>
+        <div class="gp-why"><strong>Why this matters:</strong> Every decision that reaches you unnecessarily carries three costs, the time you spent on it, the time your team spent waiting for you, and the precedent it sets that the next decision like it also comes to you. The first 30 days are about reversing that precedent.</div>
+
+        <div class="gp-table-label">30-Day Actions</div>
+        <table class="gp-table">
+          <thead><tr><th>Action</th><th>What to do</th><th>Priority</th></tr></thead>
+          <tbody>
+            <tr><td class="td-action">Write a decision authority document</td><td>Map every recurring decision type to a tier in writing. Tier 1 = team acts alone. Tier 2 = manager judgment. Tier 3 = exec sign-off. Tier 4 = founder only. Publish it to the whole team.</td><td class="td-priority"><span class="gp-priority gp-priority-critical">critical</span></td></tr>
+            <tr><td class="td-action">Identify your top 3 over-escalated decisions</td><td>From your misallocation reveal, find the Tier 1 and Tier 2 decisions you are still personally handling. Name the correct owner for each. Set a handoff date, not a gradual transition, a clean cutover.</td><td class="td-priority"><span class="gp-priority gp-priority-critical">critical</span></td></tr>
+            <tr><td class="td-action">Define spending authority by tier</td><td>Write a dollar threshold for each tier. Tier 1 acts below that amount without asking. The absence of defined spending authority is the single most common reason operational decisions escalate unnecessarily.</td><td class="td-priority"><span class="gp-priority gp-priority-high">high</span></td></tr>
+            <tr><td class="td-action">Implement a decision bounce-back rule</td><td>When a Tier 1 or Tier 2 decision reaches you, do not answer it. Route it back to the correct tier with a note identifying where it belongs. This is uncomfortable for two weeks. Then the routing changes.</td><td class="td-priority"><span class="gp-priority gp-priority-high">high</span></td></tr>
+            <tr><td class="td-action">Distribute the authority document</td><td>Send it in writing, not a meeting. A meeting creates awareness. A document creates a reference. When a team member is uncertain, the answer should come from reading something, not from asking you.</td><td class="td-priority"><span class="gp-priority gp-priority-medium">medium</span></td></tr>
+          </tbody>
+        </table>
+
+        <div class="gp-table-label">Cost of Not Doing This</div>
+        <table class="gp-table">
+          <thead><tr><th>Misallocation Pattern</th><th>Weekly Cost to You</th><th>Annual Revenue Impact</th></tr></thead>
+          <tbody>
+            <tr><td class="td-action">Handling Tier 1 decisions personally</td><td style="color:#d32f2f;">4–8 hrs/week</td><td style="color:#d32f2f;">$40K–$120K in founder time at opportunity cost</td></tr>
+            <tr><td class="td-action">Undefined spending authority</td><td style="color:var(--amber);">2–4 hrs/week in micro-approvals</td><td style="color:var(--amber);">Team velocity slows by 20–35% waiting on founder</td></tr>
+            <tr><td class="td-action">No written authority document</td><td style="color:#d32f2f;">Every hire resets the pattern</td><td style="color:#d32f2f;">Bottleneck scales with the team, gets worse, not better</td></tr>
+            <tr><td class="td-action">Answering instead of redirecting</td><td style="color:var(--amber);">Reinforces the escalation habit</td><td style="color:var(--amber);">Team learns to stop deciding. Pattern becomes permanent.</td></tr>
+          </tbody>
+        </table>
+
+        <div class="gp-tier-callout"><em>At your tier:</em> <span id="gp-callout-1-text"></span></div>
+        <div class="gp-card-nav"><div></div><button class="gp-nav-next" onclick="switchGpMonth(2)">Month Two &rarr;</button></div>
+      </div>
+
+      <!-- ── MONTH 2 ── -->
+      <div class="gp-card" id="gpMonth2">
+        <div class="gp-timeframe">Month Two — 60 Days</div>
+        <h3 class="gp-headline">Give Your Team What They Need to Decide Without You</h3>
+        <p class="gp-body">Authority without context does not produce confident decisions. It produces paralysis followed by escalation. For your team to act at the right tier consistently, they need the information, the criteria, and the confidence that comes from knowing what a good decision looks like in your business. This phase builds those three things into the operating structure.</p>
+        <div class="gp-why"><strong>Why this matters:</strong> The bottleneck is almost never a capability problem. Your team is more capable than your current structure is allowing them to demonstrate. Without documented criteria and accessible context, the path of least resistance is always to escalate to the founder. This phase removes that path by making it easier to decide correctly than to ask.</div>
+
+        <div class="gp-table-label">60-Day Actions</div>
+        <table class="gp-table">
+          <thead><tr><th>Action</th><th>What to do</th><th>Priority</th></tr></thead>
+          <tbody>
+            <tr><td class="td-action">Build decision criteria docs for each Tier 2 role</td><td>For every Tier 2 decision your managers own, answer: what information is needed, what does a good outcome look like, and when does it escalate. Managers with this stop asking for your judgment and start exercising their own.</td><td class="td-priority"><span class="gp-priority gp-priority-critical">critical</span></td></tr>
+            <tr><td class="td-action">Create a business context library</td><td>Company priorities, active constraints, key client relationships, financial guardrails, and strategic direction, documented and accessible to your team without booking a meeting. When they have context on demand, they make aligned decisions.</td><td class="td-priority"><span class="gp-priority gp-priority-high">high</span></td></tr>
+            <tr><td class="td-action">Implement a weekly decision log</td><td>Every significant Tier 2 and Tier 3 decision gets logged: who made it, what information they used, what was decided, and the early outcome. This gives you visibility without involvement and builds institutional memory.</td><td class="td-priority"><span class="gp-priority gp-priority-high">high</span></td></tr>
+            <tr><td class="td-action">Define escalation criteria in writing</td><td>Not everything uncertain should escalate. Define the specific conditions under which a Tier 2 decision moves to Tier 3, and when a Tier 3 comes to you. Vague criteria means everything uncertain escalates. Specific criteria fixes most of it at the right tier.</td><td class="td-priority"><span class="gp-priority gp-priority-high">high</span></td></tr>
+            <tr><td class="td-action">Run a monthly decision audit</td><td>Review which decisions escalated last month. Identify which should not have. Adjust tier definitions based on what you learn. The architecture improves every review cycle.</td><td class="td-priority"><span class="gp-priority gp-priority-medium">medium</span></td></tr>
+          </tbody>
+        </table>
+
+        <div class="gp-table-label">Decision Architecture: Without vs. With Structure</div>
+        <table class="gp-table">
+          <thead><tr><th>Area</th><th>Without Structure</th><th>With Structure</th></tr></thead>
+          <tbody>
+            <tr><td class="td-action">Tier 2 decisions</td><td style="color:#d32f2f;">Manager asks founder. Founder answers. Pattern locks in.</td><td style="color:var(--green);">Manager uses criteria doc. Decides. Logs it. No escalation.</td></tr>
+            <tr><td class="td-action">Context access</td><td style="color:#d32f2f;">Team books meetings to ask founder what the priorities are.</td><td style="color:var(--green);">Team reads the context library. Priorities are always current.</td></tr>
+            <tr><td class="td-action">Escalation clarity</td><td style="color:#d32f2f;">Anything uncertain escalates. Founder becomes the escalation default.</td><td style="color:var(--green);">Only defined triggers escalate. Most uncertainty resolves at tier.</td></tr>
+            <tr><td class="td-action">Decision quality over time</td><td style="color:#d32f2f;">Stays dependent on founder availability. Quality varies.</td><td style="color:var(--green);">Improves with each decision log cycle. Gets better without founder.</td></tr>
+          </tbody>
+        </table>
+
+        <div class="gp-tier-callout"><em>At your tier:</em> <span id="gp-callout-2-text"></span></div>
+        <div class="gp-card-nav"><button class="gp-nav-prev" onclick="switchGpMonth(1)">&larr; Month One</button><button class="gp-nav-next" onclick="switchGpMonth(3)">Month Three &rarr;</button></div>
+      </div>
+
+      <!-- ── MONTH 3 ── -->
+      <div class="gp-card" id="gpMonth3">
+        <div class="gp-timeframe">Month Three — 90 Days</div>
+        <h3 class="gp-headline">Protect the Decisions That Need You, and Remove Yourself From Everything Else Permanently</h3>
+        <p class="gp-body">There are decisions that genuinely require the founder, equity, capital, brand repositioning, crisis response. These are not bottlenecks, they are appropriate. The problem is when Tier 4 decisions are surrounded by Tier 1 and Tier 2 noise, creating a business where everything feels like it needs the founder because some things legitimately do. This phase separates the two permanently.</p>
+        <div class="gp-why"><strong>Why this matters:</strong> The goal is not to remove the founder from the business. It is to remove the founder from the wrong decisions so they are fully available for the right ones. If you are spending time on Tier 1 and Tier 2 decisions, you are not unavailable, you are misallocated. Your highest-leverage work is getting less than it deserves because your calendar is full of decisions that never needed you.</div>
+
+        <div class="gp-table-label">90-Day Actions</div>
+        <table class="gp-table">
+          <thead><tr><th>Action</th><th>What to do</th><th>Priority</th></tr></thead>
+          <tbody>
+            <tr><td class="td-action">Write your formal Tier 4 decision list</td><td>Every decision that genuinely requires you as the founder, written down. Be ruthlessly honest. If something is on the list because of habit or comfort rather than genuine necessity, remove it. The goal is a Tier 4 list short enough to protect and accurate enough to trust.</td><td class="td-priority"><span class="gp-priority gp-priority-critical">critical</span></td></tr>
+            <tr><td class="td-action">Create handoff documents for each misallocated decision you still carry</td><td>For each item your misallocation reveal flagged, document the context, criteria, correct owner, and transition date. A written handoff transfer is what makes delegation real, not a meeting, a document the new owner can reference without you.</td><td class="td-priority"><span class="gp-priority gp-priority-critical">critical</span></td></tr>
+            <tr><td class="td-action">Build an advisory structure for Tier 4 decisions</td><td>The founder should not enter equity changes, capital raises, or brand pivots alone. A quarterly advisory meeting with two or three experienced operators creates the support infrastructure that makes Tier 4 decisions better, faster, and less isolating.</td><td class="td-priority"><span class="gp-priority gp-priority-high">high</span></td></tr>
+            <tr><td class="td-action">Block and protect your Tier 4 time</td><td>Once Tier 1 and Tier 2 are at the right level, the freed time belongs to your highest-leverage work. Block it explicitly. If it is not protected, it will be consumed by what used to fill it.</td><td class="td-priority"><span class="gp-priority gp-priority-high">high</span></td></tr>
+            <tr><td class="td-action">Schedule quarterly reassessment</td><td>Retake this assessment every 90 days. Track how your correct allocation count changes. A decision architecture that is not measured drifts backward. Founders who measure improve. Founders who do not find the bottleneck quietly returns as the team grows.</td><td class="td-priority"><span class="gp-priority gp-priority-medium">medium</span></td></tr>
+          </tbody>
+        </table>
+
+        <div class="gp-table-label">Valuation Impact: Founder-Dependent vs. System-Dependent Business</div>
+        <table class="gp-table">
+          <thead><tr><th>Business Type</th><th>Typical Revenue Multiple</th><th>What Drives It</th></tr></thead>
+          <tbody>
+            <tr><td class="td-action">Founder-dependent</td><td style="color:#d32f2f;font-weight:600;">1–2× revenue</td><td>Revenue depends on founder presence. Cannot run, sell, or scale without them.</td></tr>
+            <tr><td class="td-action">Structured delegation</td><td style="color:var(--amber);font-weight:600;">2–4× revenue</td><td>Documented processes, some delegation, but gaps remain. Founder still required for key decisions.</td></tr>
+            <tr><td class="td-action">Decision architecture installed</td><td style="color:var(--green);font-weight:600;">4–7× revenue</td><td>Transferable authority structure, team decides without founder for most categories. Founder is optional for day-to-day.</td></tr>
+          </tbody>
+        </table>
+
+        <div class="gp-tier-callout"><em>At your tier:</em> <span id="gp-callout-3-text"></span></div>
+        <div class="gp-card-nav"><button class="gp-nav-prev" onclick="switchGpMonth(2)">&larr; Month Two</button><div></div></div>
+      </div>
+
+      <!-- CTA Block -->
+      <div class="cta-block">
+        <h2>Get Your Decision Architecture Built and Installed in 90 Days.</h2>
+        <p>The 3x3OS engagement installs what this assessment revealed, a complete decision authority framework, delegation infrastructure, and 90-day correction plan built around your exact misallocation map. It is application-only.</p>
+        <button class="btn-primary btn-accent" id="applyToggleBtn" style="max-width:360px;margin:0 auto 16px;" onclick="openApplyForm()">Apply for 3x3OS &rarr;</button>
+        <div class="apply-form-wrap" id="applyFormWrap">
+          <div class="form-error" id="applyFormError">Please enter your phone number and business name.</div>
+          <input type="tel" class="form-input" id="applyPhone" placeholder="Phone number" autocomplete="tel" maxlength="20">
+          <input type="text" class="form-input" id="applyBusiness" placeholder="Business name" autocomplete="organization" maxlength="150">
+          <button class="btn-primary btn-accent" onclick="submitApply()" style="max-width:360px;margin:0 auto 16px;width:100%;">Submit Application</button>
+        </div>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+          <button class="cta-secondary-link" onclick="window.print()">Download your full results</button>
+          <button class="cta-secondary-link" onclick="location.reload()">Retake assessment</button>
+        </div>
+        <div class="cta-small-text" id="cta-email-line"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SCREEN 5, THANK YOU
+  ═══════════════════════════════════════ -->
+  <div id="screen-5" class="screen">
+    <div class="thankyou-wrap">
+      <h1>Application Received.</h1>
+      <p>We review every application personally and only accept founders we can genuinely move the needle for. Expect a response within 48 hours.</p>
+      <div class="thankyou-next">
+        <div class="thankyou-next-item">
+          <div class="thankyou-next-num">1</div>
+          <div>
+            <strong>Check your inbox</strong>
+            <span>Your full diagnostic results have been sent to your email.</span>
+          </div>
+        </div>
+        <div class="thankyou-next-item">
+          <div class="thankyou-next-num">2</div>
+          <div>
+            <strong>Review your misallocation map</strong>
+            <span>Note which decisions you've been carrying that belong at another tier. Those are your first 30-day targets.</span>
+          </div>
+        </div>
+        <div class="thankyou-next-item">
+          <div class="thankyou-next-num">3</div>
+          <div>
+            <strong>Expect our call</strong>
+            <span>If your profile is a fit, someone from the Paradigm team will reach out to discuss your results and what the 3x3OS engagement looks like for your business specifically.</span>
+          </div>
+        </div>
+      </div>
+      <img src="brand_assets/paradigm-white.png" alt="Paradigm Consulting" style="max-width:160px;opacity:0.75;margin-top:32px;">
+    </div>
+  </div>
+
+  <script>
+    /* ═══════════════════════════════════════
+       STATE & DATA
+    ═══════════════════════════════════════ */
+    const state = { firstName: '', email: '' };
+    const userAnswers = {};
+
+    const correctTiers = {
+      a1: 1, a2: 1, a3: 1, a4: 1, a5: 1,
+      b1: 2, b2: 2, b3: 2, b4: 2, b5: 2,
+      c1: 3, c2: 3, c3: 3, c4: 3, c5: 3,
+      d1: 4, d2: 4, d3: 4, d4: 4, d5: 4
+    };
+
+    const tierLabels = {
+      1: 'Team Level',
+      2: 'Manager Level',
+      3: 'Executive Level',
+      4: 'Founder / Board'
+    };
+
+    const scenarioTitles = {
+      a1: 'Social media posting schedule',
+      a2: 'Client status update email',
+      a3: 'Office supplies order',
+      a4: 'Standup scheduling conflict',
+      a5: 'Internal SOP update',
+      b1: 'Hiring a freelance designer',
+      b2: 'Budget reallocation request',
+      b3: 'Team performance conversation',
+      b4: 'Onboarding email order change',
+      b5: 'Software subscription renewal',
+      c1: 'Head of Sales hire',
+      c2: 'Price increase test approval',
+      c3: 'Tool consolidation approval',
+      c4: 'Q4 department planning',
+      c5: 'Resource conflict final call',
+      d1: 'Equity grant authorization',
+      d2: '$500K investor decision',
+      d3: 'Acquisition engagement decision',
+      d4: 'Brand repositioning call',
+      d5: 'Regulatory complaint response'
+    };
+
+    const sectionNames = {
+      a: 'Operational Decisions',
+      b: 'Management Decisions',
+      c: 'Executive Decisions',
+      d: 'Strategic Decisions'
+    };
+
+
+
+    /* ═══════════════════════════════════════
+       SCORING
+    ═══════════════════════════════════════ */
+    function getPoints(userTier, correctTier) {
+      const diff = Math.abs(userTier - correctTier);
+      if (diff === 0) return 5;
+      if (diff === 1) return 3;
+      if (diff === 2) return 1;
+      return 0;
+    }
+
+    function getStatus(userTier, correctTier) {
+      const diff = userTier - correctTier;
+      if (diff === 0) return { label: 'Correctly Allocated', severity: 'correct' };
+      if (diff > 0) return { label: 'Over-Escalated by ' + diff, severity: diff >= 2 ? 'high' : 'medium' };
+      return { label: 'Under-Delegated by ' + Math.abs(diff), severity: Math.abs(diff) >= 2 ? 'high' : 'medium' };
+    }
+
+    function calculateResults() {
+      const sectionKeys = {
+        a: ['a1','a2','a3','a4','a5'],
+        b: ['b1','b2','b3','b4','b5'],
+        c: ['c1','c2','c3','c4','c5'],
+        d: ['d1','d2','d3','d4','d5']
+      };
+      const scores = {};
+      let totalScore = 0;
+      let correctAllocations = 0;
+      let lowestSection = 'a';
+      let lowestScore = Infinity;
+
+      for (const [section, keys] of Object.entries(sectionKeys)) {
+        const score = keys.reduce((sum, k) => sum + getPoints(userAnswers[k] || 1, correctTiers[k]), 0);
+        scores[section] = score;
+        totalScore += score;
+        if (score < lowestScore) { lowestScore = score; lowestSection = section; }
+        correctAllocations += keys.filter(k => userAnswers[k] === correctTiers[k]).length;
+      }
+
+      return { scores, totalScore, correctAllocations, lowestSection };
+    }
+
+    function getTierData(score) {
+      if (score <= 40) return {
+        name: 'CRITICAL BOTTLENECK',
+        description: 'The majority of decisions in your business are landing at the wrong level. You are personally carrying decisions that belong to three other tiers of your organization. Every hour you spend on these is an hour your business cannot scale.',
+        financial: '<strong>Financial impact:</strong> Founders operating as the single decision authority cap their revenue at what they can personally manage, typically $500K to $2M. Businesses that install a functioning decision architecture grow 2.3x faster in the following 24 months.',
+        callouts: {
+          1: 'Your misallocation reveal shows decisions at every tier routing to you. This 30-day sprint is the highest-leverage work in your business right now. The goal is not perfection, it is getting your top misallocated decisions to the right tier before month two.',
+          2: 'Your team cannot make decisions without you right now because they do not have what they need to act confidently. This phase gives them the criteria, the context, and the permission structure to decide correctly without checking.',
+          3: 'Right now your Tier 4 decisions are buried under operational noise. You cannot give them the attention they deserve because everything else is also on your desk. This phase clears the runway so you can operate at the level your business actually needs from you.'
+        }
+      };
+      if (score <= 65) return {
+        name: 'MODERATE BOTTLENECK',
+        description: 'Some decisions are reaching the right level. But your biggest sections are still routing too high. The misallocations above are not random, they reveal a specific structural gap in your decision authority framework.',
+        financial: '<strong>Financial impact:</strong> An 8 to 12% close rate drag occurs for every 48-hour decision delay caused by founder dependency. At $1M in revenue that drag costs $80,000 to $120,000 in annual pipeline loss before accounting for the opportunity cost of your own time.',
+        callouts: {
+          1: 'Your biggest misallocations are in specific sections. Focus the 30-day sprint on those sections only. Do not try to restructure everything at once. One tier corrected completely is worth more than four tiers partially corrected.',
+          2: 'You have some delegation working. The gap is consistency. This phase standardizes the criteria so outcomes are not personality-dependent or situation-dependent.',
+          3: 'You are close to a functioning decision architecture. The remaining work is formalizing the handoffs and protecting your Tier 4 time from being reclaimed by lower-tier decisions that feel important in the moment.'
+        }
+      };
+      if (score <= 85) return {
+        name: 'STRUCTURED DELEGATOR',
+        description: 'Your decision architecture is working in most areas. The misallocations that remain are specific and fixable. You are close to a business that runs without you in the operational and management layers, the strategic layer is where you still need infrastructure.',
+        financial: '<strong>Financial impact:</strong> At your delegation level the recoverable capacity is estimated at 15 to 25% of your current revenue ceiling. Closing the remaining tier gaps unlocks that capacity without adding headcount.',
+        callouts: {
+          1: 'Your tier structure is relatively strong. Use this sprint to formalize what is already working informally. The decisions still reaching you unnecessarily are costing you more than you realize, even at your score level.',
+          2: 'Your delegation is functioning. This phase is about efficiency and quality, reducing the decision lag at every tier and improving the calibration of decisions made without you.',
+          3: 'Your allocation is strong. This phase is about protection and optimization, ensuring the architecture you have built does not degrade as the business grows and new decision types emerge that have not been tiered yet.'
+        }
+      };
+      return {
+        name: 'DECISION-READY BUSINESS',
+        description: 'Your business has a functioning decision architecture. Decisions are reaching the right level. Your team has the authority and clarity to act without routing everything to you. This is the structural foundation that scalable businesses are built on.',
+        financial: '<strong>Financial impact:</strong> Businesses with decision-ready architecture scale 2 to 3x faster than founder-dependent competitors and command a 1.5 to 2.5x valuation premium at exit due to reduced key-person dependency risk.',
+        callouts: {
+          1: 'Your tier structure is relatively strong. Use this sprint to formalize what is already working informally. The decisions still reaching you unnecessarily are costing you more than you realize, even at your score level.',
+          2: 'Your delegation is functioning. This phase is about efficiency and quality, reducing the decision lag at every tier and improving the calibration of decisions made without you.',
+          3: 'Your allocation is strong. This phase is about protection and optimization, ensuring the architecture you have built does not degrade as the business grows and new decision types emerge that have not been tiered yet.'
+        }
+      };
+    }
+
+    /* ═══════════════════════════════════════
+       WEBHOOK
+    ═══════════════════════════════════════ */
+    function fireWebhook(results) {
+      try {
+        const tierData = getTierData(results.totalScore);
+        const payload = {
+          first_name: state.firstName,
+          email: state.email,
+          total_score: results.totalScore,
+          correct_allocations: results.correctAllocations,
+          tier: tierData.name,
+          section_a_operational: results.scores.a,
+          section_b_management: results.scores.b,
+          section_c_executive: results.scores.c,
+          section_d_strategic: results.scores.d,
+          most_misallocated_section: sectionNames[results.lowestSection],
+          source: 'founder-bottleneck-eliminator',
+          timestamp: new Date().toISOString()
+        };
+        fetch('/api/webhook', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }).catch(function(){});
+      } catch(e) {}
+    }
+
+    /* ═══════════════════════════════════════
+       TIER BUTTON INTERACTION
+    ═══════════════════════════════════════ */
+    function selectTier(questionKey, tier, clickedBtn) {
+      userAnswers[questionKey] = tier;
+
+      // Update button states in this question block
+      const block = clickedBtn.closest('.question-block');
+      block.querySelectorAll('.tier-btn').forEach(function(btn) {
+        btn.classList.toggle('selected', parseInt(btn.dataset.tier) === tier);
+      });
+
+      // Check section completion
+      const section = questionKey[0];
+      checkSectionComplete(section);
+    }
+
+    function checkSectionComplete(section) {
+      const keys = [section+'1', section+'2', section+'3', section+'4', section+'5'];
+      const allAnswered = keys.every(function(k) { return userAnswers[k] !== undefined; });
+      const btn = document.getElementById('btn-next-' + section);
+      if (btn) btn.disabled = !allAnswered;
+    }
+
+    /* ═══════════════════════════════════════
+       NAVIGATION
+    ═══════════════════════════════════════ */
+    function showScreen(id) {
+      document.querySelectorAll('.screen').forEach(function(s) {
+        s.classList.remove('active');
+      });
+      const target = document.getElementById(id);
+      target.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showSectionPanel(id) {
+      document.querySelectorAll('.section-panel').forEach(function(p) {
+        p.classList.remove('active');
+      });
+      document.getElementById(id).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    var gpActiveMonth = 1;
+
+    function switchGpMonth(n) {
+      gpActiveMonth = n;
+      [1,2,3].forEach(function(i) {
+        var step = document.getElementById('gpStep' + i);
+        var card = document.getElementById('gpMonth' + i);
+        step.classList.remove('active','completed');
+        card.classList.remove('active');
+        if (i < n) step.classList.add('completed');
+        if (i === n) { step.classList.add('active'); card.classList.add('active'); }
+      });
+      [1,2].forEach(function(i) {
+        var line = document.getElementById('gpLine' + i);
+        if (line) line.classList.toggle('filled', i < n);
+      });
+      document.getElementById('screen-4').scrollTo ? document.getElementById('screen-4').scrollTo(0,0) : window.scrollTo(0,0);
+    }
+
+    function switchTab(index, btn) {
+      document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+      document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById('fbe-tab' + index).classList.add('active');
+    }
+
+    function handleIntroSubmit() {
+      const firstName = document.getElementById('first-name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const errorEl = document.getElementById('form-error');
+
+      if (!firstName || !email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        errorEl.style.display = 'block';
+        return;
+      }
+      errorEl.style.display = 'none';
+      state.firstName = firstName;
+      state.email = email;
+
+      // Show assessment screen, progress bar
+      showScreen('screen-2');
+      const pb = document.getElementById('progress-bar-fixed');
+      pb.classList.add('visible');
+      document.getElementById('progress-fill').style.width = '25%';
+      showSectionPanel('section-a');
+    }
+
+    function goBackFromSection(section) {
+      if (section === 'a') {
+        showScreen('screen-1');
+        document.getElementById('progress-bar-fixed').classList.remove('visible');
+      }
+    }
+
+    function goBackSection(currentSection, targetSection, progressPct) {
+      document.getElementById('progress-fill').style.width = progressPct + '%';
+      showSectionPanel('section-' + targetSection);
+    }
+
+    function nextSection(currentSection, targetSection, progressPct) {
+      const keys = [currentSection+'1', currentSection+'2', currentSection+'3', currentSection+'4', currentSection+'5'];
+      const allAnswered = keys.every(function(k) { return userAnswers[k] !== undefined; });
+      if (!allAnswered) {
+        document.getElementById('val-' + currentSection).style.display = 'block';
+        return;
+      }
+      document.getElementById('val-' + currentSection).style.display = 'none';
+      document.getElementById('progress-fill').style.width = progressPct + '%';
+      showSectionPanel('section-' + targetSection);
+    }
+
+    /* ═══════════════════════════════════════
+       RESULTS RENDERING
+    ═══════════════════════════════════════ */
+    function calculateAndShowResults() {
+      const keys = ['d1','d2','d3','d4','d5'];
+      const allAnswered = keys.every(function(k) { return userAnswers[k] !== undefined; });
+      if (!allAnswered) {
+        document.getElementById('val-d').style.display = 'block';
+        return;
+      }
+      document.getElementById('val-d').style.display = 'none';
+
+      const results = calculateResults();
+      renderResults(results);
+      showScreen('screen-3');
+      document.getElementById('progress-bar-fixed').classList.remove('visible');
+
+      // Fire webhook silently
+      fireWebhook(results);
+    }
+
+    function animateCounter(el, target, duration) {
+      const start = performance.now();
+      function update(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(eased * target);
+        if (progress < 1) requestAnimationFrame(update);
+        else el.textContent = target;
+      }
+      requestAnimationFrame(update);
+    }
+
+    function renderResults(results) {
+      const tierData = getTierData(results.totalScore);
+
+      // Animate score counter
+      setTimeout(function() {
+        animateCounter(document.getElementById('score-counter'), results.totalScore, 1500);
+      }, 300);
+
+      // Allocations line
+      document.getElementById('allocations-line').innerHTML =
+        '<strong>' + results.correctAllocations + '</strong> of 20 decisions correctly allocated';
+
+      // Tier
+      document.getElementById('tier-name').textContent = tierData.name;
+      document.getElementById('tier-description').textContent = tierData.description;
+      document.getElementById('tier-financial').innerHTML = tierData.financial;
+
+      // Section bars
+      const barData = [
+        { label: 'Operational Decisions', key: 'a' },
+        { label: 'Management Decisions', key: 'b' },
+        { label: 'Executive Decisions', key: 'c' },
+        { label: 'Strategic Decisions', key: 'd' }
+      ];
+      const barsContainer = document.getElementById('section-bars');
+      barsContainer.innerHTML = barData.map(function(b) {
+        const score = results.scores[b.key];
+        const pct = (score / 25) * 100;
+        return '<div class="section-bar-item">' +
+          '<span class="section-bar-label">' + b.label + '</span>' +
+          '<div class="section-bar-track"><div class="section-bar-fill" data-pct="' + pct + '" style="width:0%"></div></div>' +
+          '<span class="section-bar-score">' + score + '/25</span>' +
+          '</div>';
+      }).join('');
+
+      // Animate bars after brief delay
+      setTimeout(function() {
+        document.querySelectorAll('.section-bar-fill').forEach(function(el) {
+          el.style.width = el.dataset.pct + '%';
+        });
+      }, 500);
+
+      // Most misallocated callout
+      document.getElementById('misallocation-callout-value').textContent =
+        sectionNames[results.lowestSection] + ', ' + results.scores[results.lowestSection] + '/25';
+
+      // Build misallocation reveal
+      document.getElementById('misallocation-reveal').innerHTML = buildReveal(results);
+
+      // Gameplan intro and callouts (populated now, available when screen 4 shows)
+      document.getElementById('gameplan-intro').innerHTML =
+        'Based on your score of <strong>' + results.totalScore + '/100</strong>, <strong>' + results.correctAllocations + ' of 20 decisions correctly allocated</strong>, <strong>' + tierData.name + '</strong>, here are the three moves that install a decision architecture and remove you as the bottleneck to your own growth.';
+
+      document.getElementById('gp-callout-1-text').textContent = tierData.callouts[1];
+      document.getElementById('gp-callout-2-text').textContent = tierData.callouts[2];
+      document.getElementById('gp-callout-3-text').textContent = tierData.callouts[3];
+
+      // Score overview cards
+      const sectionCardLabels = { a: 'Operational', b: 'Management', c: 'Executive', d: 'Strategic' };
+      document.getElementById('gp-score-overview').innerHTML =
+        Object.keys(sectionCardLabels).map(function(k) {
+          return '<div class="gp-score-card">' +
+            '<div class="gp-score-card-label">' + sectionCardLabels[k] + ' Decisions</div>' +
+            '<div class="gp-score-card-value">' + results.scores[k] +
+            '<span style="font-size:13px;color:var(--muted-light);font-weight:400">/25</span></div>' +
+            '</div>';
+        }).join('');
+
+      // Reset timeline to month 1
+      switchGpMonth(1);
+
+      // Persist results on state for apply webhook
+      state.total = results.totalScore;
+      state.tier = tierData.name;
+      state.sectionScores = results.scores;
+
+      // CTA email line
+      document.getElementById('cta-email-line').textContent = 'Results also sent to ' + state.email;
+    }
+
+    function buildReveal(results) {
+      var sections = [
+        { key: 'a', label: 'Section A, Operational Decisions', keys: ['a1','a2','a3','a4','a5'] },
+        { key: 'b', label: 'Section B, Management Decisions', keys: ['b1','b2','b3','b4','b5'] },
+        { key: 'c', label: 'Section C, Executive Decisions', keys: ['c1','c2','c3','c4','c5'] },
+        { key: 'd', label: 'Section D, Strategic Decisions', keys: ['d1','d2','d3','d4','d5'] }
+      ];
+
+      var html = '';
+      sections.forEach(function(section) {
+        var sectionScore = results.scores[section.key];
+        html += '<div class="reveal-section-group">';
+        html += '<div class="reveal-section-head">';
+        html += '<span class="reveal-section-head-label">' + section.label + '</span>';
+        html += '<span class="reveal-section-head-score">' + sectionScore + '/25</span>';
+        html += '</div>';
+
+        section.keys.forEach(function(key) {
+          var userTier = userAnswers[key] || 1;
+          var correctTier = correctTiers[key];
+          var points = getPoints(userTier, correctTier);
+          var status = getStatus(userTier, correctTier);
+          var title = scenarioTitles[key];
+
+          html += '<div class="reveal-row">';
+          html += '<div class="reveal-row-left">';
+          html += '<div class="reveal-scenario-title">' + title + '</div>';
+          html += '<div class="reveal-tiers">';
+          html += '<span class="reveal-you">You said: Tier ' + userTier + ', ' + tierLabels[userTier] + '</span>';
+          html += '<span class="reveal-arrow"> → </span>';
+          html += '<span class="reveal-should">Should be: Tier ' + correctTier + ', ' + tierLabels[correctTier] + '</span>';
+          html += '</div></div>';
+          html += '<div class="reveal-row-right">';
+          html += '<span class="reveal-badge reveal-badge-' + status.severity + '">' + status.label + '</span>';
+          html += '<span class="reveal-pts">' + points + ' pts</span>';
+          html += '</div></div>';
+        });
+
+        html += '</div>';
+      });
+
+      return html;
+    }
+
+    /* ═══════════════════════════════════════
+       APPLY FORM + CONFETTI
+    ═══════════════════════════════════════ */
+    function openApplyForm() {
+      var btn = document.getElementById('applyToggleBtn');
+      var wrap = document.getElementById('applyFormWrap');
+      btn.classList.add('apply-btn-hide');
+      wrap.classList.add('open');
+      setTimeout(function() {
+        document.getElementById('applyPhone').focus();
+      }, 300);
+    }
+
+    function submitApply() {
+      var phone = document.getElementById('applyPhone').value.trim();
+      var business = document.getElementById('applyBusiness').value.trim();
+      var errEl = document.getElementById('applyFormError');
+
+      if (!phone || !business) {
+        errEl.classList.add('visible');
+        return;
+      }
+      errEl.classList.remove('visible');
+
+      // Prevent double-submit
+      var submitBtn = document.querySelector('#applyFormWrap .btn-primary');
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submitting…'; }
+
+      // Fire webhook with application data
+      try {
+        var payload = {
+          first_name: state.firstName.slice(0, 100),
+          email: state.email.slice(0, 254),
+          phone: phone.slice(0, 20),
+          business_name: business.slice(0, 150),
+          total_score: state.total,
+          tier: state.tier,
+          section_a_operational: state.sectionScores.a,
+          section_b_management: state.sectionScores.b,
+          section_c_executive: state.sectionScores.c,
+          section_d_strategic: state.sectionScores.d,
+          source: 'founder-bottleneck-eliminator-apply',
+          lead_source: 'founder-bottleneck-eliminator',
+          timestamp: new Date().toISOString()
+        };
+        fetch('/api/webhook', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }).catch(function() {});
+      } catch(e) {}
+
+      fireConfetti();
+
+      setTimeout(function() {
+        showScreen('screen-5');
+      }, 2200);
+    }
+
+    function fireConfetti() {
+      var duration = 2000;
+      var animationEnd = Date.now() + duration;
+      var defaults = {
+        startVelocity: 30,
+        spread: 360,
+        ticks: 60,
+        zIndex: 9999,
+        colors: ['#0c8ce9', '#c89200', '#34a853', '#ffffff']
+      };
+      function randomInRange(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+      var interval = setInterval(function() {
+        var timeLeft = animationEnd - Date.now();
+        if (timeLeft <= 0) { clearInterval(interval); return; }
+        confetti({
+          particleCount: 50,
+          origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+          startVelocity: defaults.startVelocity,
+          spread: defaults.spread,
+          ticks: defaults.ticks,
+          zIndex: defaults.zIndex,
+          colors: defaults.colors
+        });
+        confetti({
+          particleCount: 50,
+          origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+          startVelocity: defaults.startVelocity,
+          spread: defaults.spread,
+          ticks: defaults.ticks,
+          zIndex: defaults.zIndex,
+          colors: defaults.colors
+        });
+      }, 250);
+    }
+  </script>
+</body>
+</html>

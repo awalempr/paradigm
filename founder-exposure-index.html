@@ -1,0 +1,2408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0d0d0d">
+  <title>The Founder Exposure Index | Paradigm Consulting</title>
+  <meta name="description" content="24 diagnostic questions across legal structure, financial controls, data security, and operational governance. Find out where your business is exposed — in 4 minutes.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="How Exposed Is Your Business?">
+  <meta property="og:description" content="24 diagnostic questions that reveal structural gaps in your legal, financial, data, and governance infrastructure. Free. 4 minutes. Immediate results.">
+  <meta property="og:image" content="https://paradigmconsulting.io/brand_assets/og-founder-exposure-index.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://paradigmconsulting.io/founder-exposure-index">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Paradigm Consulting">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How Exposed Is Your Business?">
+  <meta name="twitter:description" content="24 diagnostic questions that reveal structural gaps in your legal, financial, data, and governance infrastructure. Free. 4 minutes. Immediate results.">
+  <meta name="twitter:image" content="https://paradigmconsulting.io/brand_assets/og-founder-exposure-index.png">
+
+  <link rel="icon" type="image/x-icon" href="brand_assets/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Figtree:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/ranade" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --fg: #111111;
+      --muted: #6b6b6b;
+      --muted-light: #999999;
+      --border: #e2e2e2;
+      --border-light: #ebebeb;
+      --surface: #ffffff;
+      --surface-2: #f7f7f7;
+      --accent: #0c8ce9;
+      --accent-hover: #0a7ad4;
+      --amber: #c89200;
+      --dark: #0d0d0d;
+      --green: #34a853;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      background: #0d0d0d;
+      color: var(--fg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: 'Figtree', sans-serif;
+      background: #0d0d0d;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ─── TOP BAR (dark) ─── */
+    .top-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--dark);
+    }
+    .top-bar img { height: 20px; }
+
+    /* ─── PROGRESS BAR ─── */
+    .progress-bar {
+      height: 4px;
+      background: var(--border-light);
+      border-radius: 100px;
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      border-radius: 100px;
+      transition: width 0.5s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    /* ─── SCREENS ─── */
+    .screen {
+      display: none;
+      min-height: 100vh;
+      padding: 56px 0 0;
+    }
+    .screen.active { display: block; }
+
+    .screen-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px clamp(20px, 5vw, 48px) 64px;
+      background: var(--surface);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      margin-top: clamp(24px, 3vw, 40px);
+      margin-bottom: 40px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.03);
+    }
+
+    /* ─── TITLE BLOCK ─── */
+    .title-block {
+      margin-bottom: 48px;
+      text-align: center;
+    }
+    .title-block-main {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      line-height: 0.92;
+      font-size: clamp(28px, 5vw, 42px);
+      color: var(--fg);
+      white-space: nowrap;
+    }
+    .title-block-sub {
+      font-family: 'Figtree', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    /* ═══════════════════════════════════════════
+       SCREEN 1 — INTRO CARD (wireframe layout)
+       ═══════════════════════════════════════════ */
+    .intro-page {
+      min-height: calc(100vh - 56px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 56px 0 0;
+    }
+    .intro-card-wrap {
+      width: 100%;
+      max-width: 960px;
+      padding: clamp(24px, 3vw, 40px) clamp(16px, 4vw, 32px) 32px;
+    }
+    .intro-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: clamp(28px, 4vw, 44px) clamp(24px, 5vw, 56px);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.03);
+      position: relative;
+      overflow: hidden;
+      animation: cardFadeIn 0.6s ease both;
+    }
+    /* Accent top line */
+    .intro-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), rgba(12,140,233,0.3));
+    }
+    @keyframes cardFadeIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Heading area */
+    .intro-card h1 {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      font-size: clamp(28px, 5vw, 40px);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .intro-card .subtitle {
+      font-size: clamp(16px, 2.5vw, 20px);
+      line-height: 1.4;
+      color: var(--amber);
+      font-weight: 500;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+    .intro-card .description {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--muted);
+      max-width: 660px;
+      margin-bottom: 28px;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ─── TABS ─── */
+    .tabs {
+      display: flex;
+      background: var(--surface-2);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 4px;
+      margin-bottom: 24px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tab-btn {
+      flex: 1;
+      font-family: 'Figtree', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      background: transparent;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: color 0.2s, background 0.2s, font-weight 0.2s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--fg); }
+    .tab-btn.active {
+      color: var(--fg);
+      font-weight: 700;
+      background: var(--surface);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .tab-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .tab-panel .lead {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--muted);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .tab-panel .lead strong {
+      color: var(--fg);
+      font-weight: 600;
+    }
+
+    /* ─── CHECK LIST ─── */
+    .check-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .check-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--fg);
+    }
+    .check-icon {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      margin-top: 2px;
+    }
+
+    /* Disclaimer */
+    .disclaimer {
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--muted-light);
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-light);
+      text-align: center;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ─── TRUST BAR ─── */
+    .trust-bar {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      padding: 16px 0;
+      margin-top: 24px;
+      border-top: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-light);
+    }
+    .trust-item {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      text-align: center;
+    }
+    .trust-item:not(:last-child) {
+      border-right: 1px solid var(--border-light);
+    }
+    .trust-item svg {
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+      opacity: 0.7;
+      color: var(--accent);
+    }
+
+    /* ─── CTA + FORM ─── */
+    .intro-cta-area {
+      text-align: center;
+      padding-top: 24px;
+    }
+    .intro-form {
+      display: flex;
+      gap: 10px;
+      max-width: 480px;
+      margin: 0 auto 12px;
+      flex-wrap: wrap;
+    }
+    .intro-form .form-input {
+      flex: 1;
+      min-width: 160px;
+    }
+    .form-input {
+      font-family: 'Figtree', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      height: 50px;
+      padding: 0 18px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--fg);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-input::placeholder { color: var(--muted-light); }
+    .form-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(12,140,233,0.1); }
+
+    .btn-primary {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: 'Figtree', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      background: var(--dark);
+      height: 52px;
+      padding: 0 32px;
+      border-radius: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+      overflow: hidden;
+      transition: background 0.2s, transform 0.1s;
+      width: 100%;
+    }
+    .btn-primary:hover { background: #222; }
+    .btn-primary:active { transform: scale(0.98); }
+    .btn-primary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .btn-primary svg { flex-shrink: 0; }
+
+    .btn-accent {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(12,140,233,0.25);
+    }
+    .btn-accent:hover {
+      background: var(--accent-hover);
+      box-shadow: 0 4px 16px rgba(12,140,233,0.35);
+      transform: translateY(-1px);
+    }
+
+    .form-error {
+      font-size: 12px;
+      color: #d32f2f;
+      text-align: center;
+      display: none;
+      margin-bottom: 8px;
+    }
+
+    .intro-note {
+      font-size: 12px;
+      color: var(--muted-light);
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    /* ─── SOCIAL PROOF BAR ─── */
+    .proof-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin-top: 24px;
+      padding: 0;
+      background: var(--surface-2);
+      border-radius: 12px;
+      border: 1px solid var(--border-light);
+      overflow: hidden;
+    }
+    .proof-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 16px;
+      text-align: center;
+    }
+    .proof-item:not(:last-child) {
+      border-right: 1px solid var(--border-light);
+    }
+    .proof-number {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .proof-label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .proof-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .proof-logo img {
+      height: 22px;
+      opacity: 0.7;
+    }
+
+    /* ═══════════════════════════════════════════
+       SCREEN 2 — ASSESSMENT
+       ═══════════════════════════════════════════ */
+    .section-header {
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-label {
+      font-family: 'Figtree', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      font-size: clamp(22px, 4vw, 32px);
+      line-height: 1.05;
+      margin-bottom: 12px;
+      color: var(--fg);
+    }
+    .section-subtext {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.65;
+      font-style: italic;
+    }
+    .scoring-guide {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+      line-height: 1.6;
+      margin-top: 16px;
+      padding: 12px 16px;
+      background: var(--surface-2);
+      border-radius: 8px;
+      border: 1px solid var(--border-light);
+    }
+
+    .question-block {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .question-block:last-of-type { border-bottom: none; }
+
+    .question-number {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      margin-bottom: 10px;
+      letter-spacing: 0.05em;
+    }
+    .question-text {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--fg);
+      margin-bottom: 20px;
+    }
+
+    .score-row-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .score-row {
+      display: flex;
+      gap: 6px;
+    }
+    .score-labels {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'Figtree', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--muted-light);
+      letter-spacing: 0.02em;
+    }
+    .score-btn {
+      flex: 1;
+      min-width: 0;
+      height: 42px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.15s, background 0.15s, color 0.15s, transform 0.1s;
+    }
+    .score-btn:hover {
+      border-color: var(--accent);
+      color: var(--fg);
+      background: rgba(12,140,233,0.04);
+    }
+    .score-btn:active { transform: scale(0.95); }
+    .score-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .score-btn.selected {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Figtree', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+      background: transparent;
+      border: 1px solid var(--border);
+      height: 52px;
+      padding: 0 28px;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-back:hover { border-color: #999; color: var(--fg); }
+    .btn-back:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .btn-next { flex: 1; }
+
+    .validation-msg {
+      font-size: 12px;
+      color: #d32f2f;
+      margin-top: 12px;
+      display: none;
+      text-align: center;
+    }
+
+    /* ═══════════════════════════════════════════
+       SCREEN 3 — RESULTS
+       ═══════════════════════════════════════════ */
+    .results-score-wrap {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .results-score-number {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      font-size: clamp(72px, 14vw, 120px);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: var(--fg);
+    }
+    .results-score-total {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      font-size: clamp(28px, 5vw, 42px);
+      color: var(--muted-light);
+      letter-spacing: -0.02em;
+    }
+
+    .tier-badge {
+      display: inline-block;
+      font-family: 'Figtree', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 16px;
+    }
+    .tier-name {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      font-size: clamp(22px, 4vw, 32px);
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .tier-description {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .tier-financial {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--muted);
+      padding: 16px 20px;
+      background: var(--surface-2);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
+    .tier-financial strong {
+      color: var(--fg);
+      font-weight: 600;
+    }
+
+    .section-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .section-bar-item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .section-bar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .section-bar-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--fg);
+    }
+    .section-bar-score {
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .section-bar-track {
+      height: 8px;
+      background: var(--surface-2);
+      border-radius: 100px;
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+    }
+    .section-bar-fill {
+      height: 100%;
+      border-radius: 100px;
+      width: 0%;
+      transition: width 1.2s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .weakest-callout {
+      padding: 20px 24px;
+      background: rgba(211, 47, 47, 0.04);
+      border: 1px solid rgba(211, 47, 47, 0.2);
+      border-radius: 14px;
+      margin-bottom: 48px;
+    }
+    .weakest-callout-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #d32f2f;
+      margin-bottom: 6px;
+    }
+    .weakest-callout-value {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--fg);
+    }
+
+    .results-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 40px 0;
+    }
+
+    .results-transition {
+      text-align: center;
+    }
+    .results-transition p {
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    /* ═══════════════════════════════════════════
+       SCREEN 4 — GAMEPLAN
+       ═══════════════════════════════════════════ */
+    .gameplan-intro {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--muted);
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    /* Gameplan score overview */
+    .gp-score-overview {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .gp-score-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border-light);
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+    }
+    .gp-score-card-label {
+      font-family: 'Figtree', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .gp-score-card-value {
+      font-family: 'Space Mono', monospace;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--fg);
+    }
+    .gp-score-card-sub {
+      font-size: 12px;
+      color: var(--muted-light);
+      margin-top: 4px;
+    }
+
+    /* Donut chart */
+    .gp-chart-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 32px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    .gp-donut {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      flex-shrink: 0;
+    }
+    .gp-donut svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+    .gp-donut-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+    .gp-donut-score {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      font-size: 32px;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+      line-height: 1;
+    }
+    .gp-donut-label {
+      font-size: 11px;
+      color: var(--muted-light);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 2px;
+    }
+    .gp-chart-legend {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .gp-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--fg);
+    }
+    .gp-legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    .gp-legend-score {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      color: var(--muted);
+      margin-left: auto;
+      padding-left: 12px;
+    }
+
+    /* Timeline */
+    .gp-timeline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 40px;
+      position: relative;
+    }
+    .gp-timeline-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      z-index: 1;
+      cursor: pointer;
+      padding: 8px 0;
+      flex: 0 0 auto;
+    }
+    .gp-timeline-dot {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--surface-2);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      transition: background 0.3s, border-color 0.3s, color 0.3s, transform 0.3s;
+    }
+    .gp-timeline-step.active .gp-timeline-dot {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      transform: scale(1.1);
+    }
+    .gp-timeline-step.completed .gp-timeline-dot {
+      background: rgba(12,140,233,0.1);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .gp-timeline-text {
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted-light);
+      transition: color 0.3s;
+      white-space: nowrap;
+    }
+    .gp-timeline-step.active .gp-timeline-text {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .gp-timeline-line {
+      width: 60px;
+      height: 2px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+    .gp-timeline-line.filled {
+      background: var(--accent);
+    }
+
+    /* Month cards */
+    .gp-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: clamp(28px, 5vw, 40px);
+      margin-bottom: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.02);
+      display: none;
+    }
+    .gp-card.active {
+      display: block;
+      animation: cardFadeIn 0.4s ease both;
+    }
+    .gp-timeframe {
+      display: inline-block;
+      font-family: 'Figtree', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(12,140,233,0.06);
+      border: 1px solid rgba(12,140,233,0.18);
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+    .gp-headline {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      font-size: clamp(20px, 3.5vw, 26px);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      margin-bottom: 16px;
+      color: var(--fg);
+    }
+    .gp-body {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .gp-why {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--muted);
+      padding: 16px 20px;
+      background: var(--surface-2);
+      border-left: 2px solid var(--accent);
+      border-radius: 0 10px 10px 0;
+      margin-bottom: 24px;
+    }
+    .gp-why strong { color: var(--fg); font-weight: 600; }
+
+    /* Action table */
+    .gp-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-bottom: 24px;
+      font-size: 14px;
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .gp-table thead th {
+      font-family: 'Figtree', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      background: var(--surface-2);
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .gp-table thead th:last-child { text-align: center; }
+    .gp-table tbody td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-light);
+      vertical-align: top;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+    .gp-table tbody tr:last-child td { border-bottom: none; }
+    .gp-table .td-action { font-weight: 500; color: var(--fg); min-width: 180px; }
+    .gp-table .td-detail { color: var(--muted); }
+    .gp-table .td-priority {
+      text-align: center;
+      white-space: nowrap;
+    }
+    .gp-priority {
+      display: inline-block;
+      font-family: 'Figtree', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 4px 10px;
+      border-radius: 100px;
+    }
+    .gp-priority-critical {
+      background: rgba(211,47,47,0.08);
+      color: #d32f2f;
+      border: 1px solid rgba(211,47,47,0.2);
+    }
+    .gp-priority-high {
+      background: rgba(200,146,0,0.08);
+      color: var(--amber);
+      border: 1px solid rgba(200,146,0,0.2);
+    }
+    .gp-priority-medium {
+      background: rgba(12,140,233,0.06);
+      color: var(--accent);
+      border: 1px solid rgba(12,140,233,0.18);
+    }
+
+    /* Card nav buttons */
+    .gp-card-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border-light);
+    }
+    .gp-card-nav button {
+      font-family: 'Figtree', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, transform 0.15s;
+    }
+    .gp-card-nav button:active { transform: scale(0.97); }
+    .gp-nav-prev {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .gp-nav-prev:hover { background: var(--border-light); color: var(--fg); }
+    .gp-nav-next {
+      background: var(--accent);
+      border: 1px solid var(--accent);
+      color: #fff;
+    }
+    .gp-nav-next:hover { background: var(--accent-hover); }
+
+    .gp-tier-callout {
+      padding: 16px 20px;
+      background: rgba(12,140,233,0.03);
+      border: 1px solid rgba(12,140,233,0.1);
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+    .gp-tier-callout em {
+      font-style: normal;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .cta-block {
+      text-align: center;
+      padding: 48px 0 32px;
+      border-top: 1px solid var(--border);
+      margin-top: 24px;
+    }
+    .cta-block h2 {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      font-size: clamp(22px, 4vw, 32px);
+      line-height: 1.1;
+      margin-bottom: 16px;
+      color: var(--fg);
+    }
+    .cta-block p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 540px;
+      margin: 0 auto 32px;
+    }
+    .cta-block .btn-primary {
+      max-width: 360px;
+      margin: 0 auto 16px;
+    }
+    .cta-secondary-link {
+      display: inline-block;
+      font-family: 'Figtree', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+      transition: color 0.2s;
+      background: none;
+      border: none;
+    }
+    .cta-secondary-link:hover { color: var(--fg); }
+    .cta-small-text {
+      font-size: 12px;
+      color: var(--muted-light);
+      margin-top: 12px;
+    }
+
+    /* ═══════════════════════════════════════════
+       SCREEN 5 — THANK YOU
+       ═══════════════════════════════════════════ */
+    .thankyou-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 56px);
+      text-align: center;
+      padding: 48px clamp(20px, 5vw, 48px);
+    }
+    .thankyou-wrap h1 {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      font-size: clamp(28px, 5vw, 42px);
+      line-height: 1.05;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+    .thankyou-wrap p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #a3a3a3;
+      margin-bottom: 32px;
+    }
+    .thankyou-wrap img { height: 24px; opacity: 0.5; }
+    .thankyou-next {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 480px;
+      width: 100%;
+      text-align: left;
+      margin-bottom: 8px;
+    }
+    .thankyou-next-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 16px 20px;
+    }
+    .thankyou-next-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Figtree', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+    .thankyou-next-item strong {
+      display: block;
+      font-family: 'Figtree', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .thankyou-next-item span {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #a3a3a3;
+    }
+
+    /* ─── TIER COLORS ─── */
+    .tier-high { color: #d32f2f; }
+    .tier-high-bg { background: rgba(211,47,47,0.06); border: 1px solid rgba(211,47,47,0.2); color: #d32f2f; }
+    .tier-structured { color: #bf8600; }
+    .tier-structured-bg { background: rgba(191,134,0,0.06); border: 1px solid rgba(191,134,0,0.2); color: #bf8600; }
+    .tier-scalable { color: var(--accent); }
+    .tier-scalable-bg { background: rgba(12,140,233,0.06); border: 1px solid rgba(12,140,233,0.2); color: var(--accent); }
+    .tier-institution { color: #1b8a4a; }
+    .tier-institution-bg { background: rgba(27,138,74,0.06); border: 1px solid rgba(27,138,74,0.2); color: #1b8a4a; }
+
+    .bar-high { background: #d32f2f; }
+    .bar-structured { background: var(--amber); }
+    .bar-scalable { background: var(--accent); }
+    .bar-institution { background: #1b8a4a; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 640px) {
+      /* Layout */
+      .screen-inner { padding: 24px 16px 40px; }
+      .intro-card { padding: 20px 14px 24px; }
+      .intro-page { padding: 12px 8px 40px; }
+
+      /* Intro — hide verbose description, tabs cover the content */
+      .intro-card .description { display: none; }
+      .intro-card h1 { margin-bottom: 6px; font-size: clamp(22px, 6.5vw, 32px); }
+      .intro-card .subtitle { font-size: 14px; margin-bottom: 16px; }
+      .disclaimer { font-size: 11px; margin-top: 12px; }
+      .eyebrow-pill { font-size: 10px; padding: 5px 12px; }
+      .framework-tag { font-size: 9px; }
+
+      /* Tabs: horizontal scroll row */
+      .tabs { flex-direction: row; overflow-x: auto; gap: 4px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+      .tabs::-webkit-scrollbar { display: none; }
+      .tab-btn { flex-shrink: 0; text-align: center; padding: 9px 14px; min-height: 40px; font-size: 13px; white-space: nowrap; }
+
+      .tab-panel .lead { font-size: 12px; margin-bottom: 14px; }
+      /* Larger touch-friendly inputs */
+      .intro-form { flex-direction: column; gap: 10px; }
+      .form-input { height: 80px; font-size: 18px; padding: 0 24px; border-radius: 16px; }
+      .btn-primary { height: 80px; font-size: 18px; border-radius: 16px; }
+      .intro-cta-area { padding-top: 20px; }
+
+      /* Compact trust bar — single row */
+      .trust-bar { flex-direction: row; flex-wrap: nowrap; gap: 6px; justify-content: center; }
+      .trust-item { justify-content: center; padding: 6px 10px; font-size: 11px; border-right: none !important; border-bottom: none !important; background: var(--surface-2); border-radius: 8px; flex: 1 1 0; white-space: nowrap; min-width: 0; }
+
+      /* Proof bar */
+      .proof-bar { flex-direction: row; margin-top: 16px; }
+      .proof-item { padding: 10px 12px; }
+      .proof-item:not(:last-child) { border-right: 1px solid var(--border-light); border-bottom: none; }
+      .proof-number { font-size: 16px; }
+      .proof-label { font-size: 9px; }
+      .proof-bar img { height: 16px !important; }
+
+      /* Assessment */
+      .title-block-main { font-size: clamp(16px, 5.2vw, 28px); }
+      .section-title { font-size: clamp(22px, 6vw, 28px); }
+      .question-text { font-size: 14px; }
+      .scoring-guide { font-size: 11px; padding: 10px 12px; }
+      .score-row { gap: 3px; }
+      .score-btn { height: 38px; font-size: 12px; border-radius: 8px; }
+      .score-labels { font-size: 10px; }
+      .nav-buttons { flex-direction: column-reverse; gap: 10px; }
+      .nav-buttons .btn-primary,
+      .nav-buttons .btn-back { width: 100%; }
+
+      /* Results */
+      .results-score-number { font-size: clamp(56px, 14vw, 80px); }
+      .tier-name { font-size: clamp(18px, 5vw, 24px); }
+
+      /* Gameplan */
+      .gp-card { padding: 20px 16px; }
+      .gp-headline { font-size: clamp(18px, 5vw, 22px); }
+      .gp-body { font-size: 14px; }
+      .gp-why { font-size: 13px; padding: 14px 16px; }
+
+      /* Score overview — 2 column grid on mobile */
+      .gp-score-overview { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .gp-score-card { padding: 14px 10px; }
+      .gp-score-card-label { font-size: 10px; }
+      .gp-score-card-value { font-size: 20px; }
+
+      /* Timeline */
+      .gp-timeline-line { width: 24px; }
+      .gp-timeline-text { font-size: 10px; }
+      .gp-timeline-dot { width: 32px; height: 32px; font-size: 12px; }
+
+      /* Tables → stacked cards on mobile */
+      .gp-table { border: none; }
+      .gp-table thead { display: none; }
+      .gp-table tbody tr {
+        display: flex;
+        flex-direction: column;
+        background: var(--surface);
+        border: 1px solid var(--border-light);
+        border-radius: 12px;
+        padding: 14px 16px;
+        margin-bottom: 10px;
+        gap: 8px;
+      }
+      .gp-table tbody tr:last-child { margin-bottom: 0; }
+      .gp-table tbody td {
+        display: block;
+        padding: 0;
+        border-bottom: none;
+      }
+      .gp-table .td-action {
+        min-width: unset;
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .gp-table .td-detail {
+        font-size: 13px;
+        line-height: 1.6;
+      }
+      .gp-table .td-priority {
+        text-align: left;
+        padding-top: 4px;
+      }
+
+      /* Card nav */
+      .gp-card-nav { gap: 10px; }
+      .gp-card-nav button { font-size: 12px; padding: 10px 16px; }
+
+      /* CTA */
+      .cta-block h2 { font-size: clamp(18px, 5vw, 24px); }
+      .cta-block p { font-size: 14px; }
+      .apply-form-wrap { max-width: 100%; }
+    }
+
+    /* Eyebrow pill */
+    .eyebrow-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Figtree', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      background: rgba(12,140,233,0.06);
+      border: 1px solid rgba(12,140,233,0.15);
+      border-radius: 100px;
+      padding: 6px 16px;
+      margin-bottom: 16px;
+    }
+    .eyebrow-pill .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+    .framework-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--muted-light);
+      margin-top: 2px;
+    }
+    .framework-tag .tag-sep {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+
+    /* Print styles */
+    @media print {
+      .top-bar, .progress-bar, .btn-primary, .btn-back, .btn-accent, .cta-block, .nav-buttons { display: none !important; }
+      .screen { display: none !important; }
+      .screen.active { display: block !important; min-height: auto !important; padding: 0 !important; }
+      .screen-inner { padding: 20px !important; }
+      body, body::before, body::after { background: #fff !important; }
+    }
+    /* Apply form inline */
+    .apply-form-wrap {
+      max-width: 420px;
+      margin: 0 auto;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.5s cubic-bezier(0.16,1,0.3,1), opacity 0.4s ease, margin 0.4s ease;
+    }
+    .apply-form-wrap.open {
+      max-height: 300px;
+      opacity: 1;
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+    .apply-form-wrap .form-input {
+      margin-bottom: 12px;
+    }
+    .apply-form-wrap .form-error {
+      font-size: 13px;
+      color: #d32f2f;
+      margin-bottom: 10px;
+      display: none;
+    }
+    .apply-form-wrap .form-error.visible {
+      display: block;
+    }
+    .apply-btn-hide {
+      display: none !important;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" integrity="sha384-HAH79XdRvHr6axVGh4xQWVCp14kcd32bNk4Xu0sHDHtFQ42n6BAM8ykvB47dGz6D" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <header class="top-bar">
+    <img src="brand_assets/Paradigm Logo White.svg" alt="Paradigm Consulting">
+  </header>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SCREEN 1 — INTRO (card + tabs wireframe) -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="screen active" id="screen1">
+    <div class="intro-page">
+      <div class="intro-card-wrap">
+        <div class="intro-card">
+
+          <div style="text-align:center;">
+            <span class="eyebrow-pill">
+              <span class="pill-dot"></span>
+              Founder Exposure Index
+            </span>
+            <br>
+            <span class="framework-tag" style="margin-top:8px; display:inline-flex;">
+              3X3OS
+              <span class="tag-sep"></span>
+              Compliance
+            </span>
+          </div>
+          <h1>How Exposed Is Your Business?</h1>
+          <p class="subtitle">Discover if your business structure is ready for what comes next.</p>
+          <p class="description">This assessment by Paradigm Consulting has been carefully curated to ask specific questions as it pertains to your business structure, compliance posture, and operational exposure. It will reveal areas of strength and gaps that, if left unresolved, can directly impact your revenue, valuation, and personal liability.</p>
+
+          <!-- Tabs -->
+          <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab(0, this)" type="button">Who It's For</button>
+            <button class="tab-btn" onclick="switchTab(1, this)" type="button">What It Measures</button>
+            <button class="tab-btn" onclick="switchTab(2, this)" type="button">What You'll Discover</button>
+          </div>
+
+          <!-- Tab 1: Who It's For -->
+          <div class="tab-panel active" id="tab0">
+            <p class="lead">This assessment is ideal for <strong>founders and operators</strong> who:</p>
+            <ul class="check-list">
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(12,140,233,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#0c8ce9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Run businesses generating $100K to $10M annually
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(12,140,233,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#0c8ce9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Control or oversee business operations and financial infrastructure
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(12,140,233,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#0c8ce9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Are personally liable or exposed through their business structure
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(12,140,233,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#0c8ce9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Want to scale but are not sure if their foundation can hold it
+              </li>
+            </ul>
+          </div>
+
+          <!-- Tab 2: What It Measures -->
+          <div class="tab-panel" id="tab1">
+            <p class="lead">This diagnostic evaluates four structural areas of business exposure:</p>
+            <ul class="check-list">
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(12,140,233,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#0c8ce9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Legal Structure
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(12,140,233,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#0c8ce9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Financial Controls
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(12,140,233,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#0c8ce9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Data and Security
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(12,140,233,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#0c8ce9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Operational Governance
+              </li>
+            </ul>
+          </div>
+
+          <!-- Tab 3: What You'll Discover -->
+          <div class="tab-panel" id="tab2">
+            <ul class="check-list">
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(12,140,233,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#0c8ce9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Where your business structure creates personal liability instead of protection
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(12,140,233,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#0c8ce9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                The hidden financial leaks that compound as you scale
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(12,140,233,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#0c8ce9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Where a single breach or dispute could shut down operations
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(12,140,233,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#0c8ce9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Which part of your business cannot function without you
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(12,140,233,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#0c8ce9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                What is costing you valuation, margin, or both
+              </li>
+            </ul>
+          </div>
+
+          <p class="disclaimer">*If you do not control business operations or manage business infrastructure, this assessment may not be relevant to your role.</p>
+
+          <!-- Trust Bar -->
+          <div class="trust-bar">
+            <div class="trust-item">
+              <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1"/><path d="M8 4.5v4l2.5 1.5" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              4 Minutes
+            </div>
+            <div class="trust-item">
+              <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1"/><path d="M6 8h4M8 6v4" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>
+              24 Questions
+            </div>
+            <div class="trust-item">
+              <svg viewBox="0 0 16 16" fill="none"><path d="M3.5 9l3 3L12.5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Immediate results
+            </div>
+          </div>
+
+          <!-- CTA / Form -->
+          <div class="intro-cta-area">
+            <div class="form-error" id="formError">Please enter your name and a valid email address.</div>
+            <form class="intro-form" id="introForm" onsubmit="return false;">
+              <input type="text" class="form-input" id="firstName" placeholder="First name" autocomplete="given-name" maxlength="100" required>
+              <input type="email" class="form-input" id="email" placeholder="Email address" autocomplete="email" maxlength="254" required>
+              <input type="text" name="website" id="honeyField" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;pointer-events:none;" tabindex="-1" autocomplete="off">
+            </form>
+            <button type="button" class="btn-primary btn-accent" style="max-width:480px; margin:0 auto;" onclick="submitIntro()">
+              Run the Founder Exposure Index
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <p class="intro-note">No spam. Your results are delivered immediately after completion.</p>
+          </div>
+
+          <!-- Proof Bar -->
+          <div class="proof-bar">
+            <div class="proof-item">
+              <div class="proof-number">240</div>
+              <div class="proof-label">Points Possible</div>
+            </div>
+            <div class="proof-item">
+              <div class="proof-logo">
+                Developed by
+                <img src="brand_assets/Paradigm Logo Black.svg" alt="Paradigm Consulting">
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 2 — ASSESSMENT -->
+  <div class="screen" id="screen2">
+    <div class="screen-inner">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div id="assessmentContainer"></div>
+    </div>
+  </div>
+
+  <!-- SCREEN 3 — RESULTS -->
+  <div class="screen" id="screen3">
+    <div class="screen-inner" id="resultsContainer"></div>
+  </div>
+
+  <!-- SCREEN 4 — GAMEPLAN -->
+  <div class="screen" id="screen4">
+    <div class="screen-inner" id="gameplanContainer"></div>
+  </div>
+
+  <!-- SCREEN 5 — THANK YOU -->
+  <div class="screen" id="screen5">
+    <div class="thankyou-wrap">
+      <h1>Application Received.</h1>
+      <p>We review every application personally and only accept founders we can genuinely move the needle for. Expect a response within 48 hours.</p>
+      <div class="thankyou-next">
+        <div class="thankyou-next-item">
+          <div class="thankyou-next-num">1</div>
+          <div>
+            <strong>Check your inbox</strong>
+            <span>Your full exposure diagnostic has been sent to your email.</span>
+          </div>
+        </div>
+        <div class="thankyou-next-item">
+          <div class="thankyou-next-num">2</div>
+          <div>
+            <strong>Review your exposure map</strong>
+            <span>Note which areas scored highest risk. Those are the gaps most likely to create a material event in your business before you fix them.</span>
+          </div>
+        </div>
+        <div class="thankyou-next-item">
+          <div class="thankyou-next-num">3</div>
+          <div>
+            <strong>Expect our call</strong>
+            <span>If your profile is a fit, someone from the Paradigm team will reach out to discuss your results and what closing your exposure gaps looks like for your business specifically.</span>
+          </div>
+        </div>
+      </div>
+      <img src="brand_assets/Paradigm Logo White.svg" alt="Paradigm Consulting" style="max-width:160px;opacity:0.75;margin-top:32px;">
+    </div>
+  </div>
+
+
+<script>
+// ═══════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════
+var state = {
+  firstName: '',
+  email: '',
+  currentSection: 0,
+  answers: {}
+};
+
+
+// HTML-encode to prevent XSS when inserting user input into innerHTML
+function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+// ═══════════════════════════════════════════
+// TABS
+// ═══════════════════════════════════════════
+function switchTab(idx, btn) {
+  var panels = document.querySelectorAll('.tab-panel');
+  var btns = document.querySelectorAll('.tab-btn');
+  for (var i = 0; i < panels.length; i++) { panels[i].classList.remove('active'); }
+  for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); }
+  document.getElementById('tab' + idx).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ═══════════════════════════════════════════
+// QUESTIONS DATA
+// ═══════════════════════════════════════════
+var sections = [
+  {
+    key: 'a',
+    label: 'Section A',
+    title: 'Legal Structure',
+    subtext: 'Founders build entire businesses on legal structures they set up once and never looked at again.',
+    questions: [
+      'You started your LLC or corp to be official, not necessarily to be protected. If someone came after your business tomorrow, how confident are you that your personal assets are fully shielded from business liability?',
+      "Partnerships feel solid until they don't. When the relationship breaks down, all that matters is what was signed. How protected are you by written, current partnership or operating agreements?",
+      'Your brand, your content, your systems — the things that make your business worth something. How fully are they legally owned by the company rather than sitting under your personal name?',
+      'That contractor you have been working with for two years, the one who works set hours and follows your process. The IRS has a definition for that, and it is not contractor. How confident are you that every person in your business is correctly classified?',
+      'The vendor relationship running on a good vibe and a text thread is fine until the invoice is disputed or someone walks. How thoroughly are your vendor and partner agreements documented in writing?',
+      'A legal review feels unnecessary when nothing is wrong. That is exactly when problems are forming. How recently has a qualified attorney reviewed your business structure and agreements?'
+    ]
+  },
+  {
+    key: 'b',
+    label: 'Section B',
+    title: 'Financial Controls',
+    subtext: 'Growing businesses leak money in ways that never show up on a report until it is too late.',
+    questions: [
+      'One person approves it, pays it, and reconciles it. That is not a team, that is an open door. How well do you have separation of duties in place for financial transactions?',
+      'Expenses get approved based on who is asking and how urgent they say it is. That is not a policy, that is a pattern. How formalized is your written expense and spending approval policy?',
+      'Checking the numbers when something feels off means the problem has been running for months. How consistently do you review your P&L and financial statements on a monthly basis?',
+      'Founders find out they are in a cash crisis the month it becomes one. Runway is not something to calculate in an emergency. How clearly do you know your current cash position and runway right now?',
+      'Tax planning done in April is just tax reporting. Every decision that could have saved money was already made. How proactively are you managing your tax position throughout the year?',
+      'Without a written expense policy, your team is spending based on what they think you would be okay with. That gap is where money disappears. How documented and enforced is your expense policy?'
+    ]
+  },
+  {
+    key: 'c',
+    label: 'Section C',
+    title: 'Data and Security',
+    subtext: 'A breach does not announce itself. It just happens, and then you find out what you did not have in place.',
+    questions: [
+      'That privacy policy on your website — when did you last read it? If a client asked today how their data is stored and protected, how confidently could you walk them through your actual data handling practices?',
+      'Reasonable precautions are not something you prove after the fact. You prove them with documentation that existed before anything went wrong. How thoroughly is your data protection documented and enforceable?',
+      'Teams grow. Roles change. People leave. And their login credentials quietly stay active. How well do you track and control who currently has access to your systems and data?',
+      'Passwords shared over Slack, stored in notes apps, texted between teammates. One compromised device and the chain reaction starts. How secure and centralized is your team\'s credential management?',
+      'Backups feel like insurance — you set them up and assume they work. The founders who find out they do not are the ones who needed them. How recently have you verified your backups actually work?',
+      'At $500K in revenue you have real exposure. A ransomware attack, a data lawsuit, a breach response. How adequately are you covered by cyber insurance for a data or security incident?'
+    ]
+  },
+  {
+    key: 'd',
+    label: 'Section D',
+    title: 'Operational Governance',
+    subtext: 'There is a version of your business that runs without you. Most founders just have not built it yet.',
+    questions: [
+      'Two weeks away from the business — not vacation mode, actually away. How confident are you that your team would know what to own, what to decide, and what to escalate without you?',
+      'When everything requires your input, your team is not running the business. They are waiting for you. How clearly is decision-making authority documented and delegated across your team?',
+      'Self-evaluation has a ceiling. You cannot see your own blind spots. How consistently do you have outside advisors or a board reviewing your numbers, decisions, and direction?',
+      'Critical contracts, signed agreements, legal records — they tend to live wherever they landed when created. How organized and accessible are your most important business documents right now?',
+      'Filing dates, renewals, compliance requirements — deadlines have a way of arriving before anyone remembers. How reliable is your system for tracking and catching critical business deadlines?',
+      'Personal guarantees, personal liability, personal exposure — the things founders sign and then forget about. How clearly do you understand what you are personally on the hook for if something goes wrong?'
+    ]
+  }
+];
+
+// ═══════════════════════════════════════════
+// PROGRESS BAR
+// ═══════════════════════════════════════════
+function updateProgress(pct) {
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+// ═══════════════════════════════════════════
+// SCREEN NAVIGATION
+// ═══════════════════════════════════════════
+function showScreen(id) {
+  var screens = document.querySelectorAll('.screen');
+  for (var i = 0; i < screens.length; i++) { screens[i].classList.remove('active'); }
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ═══════════════════════════════════════════
+// SCREEN 1: INTRO SUBMIT
+// ═══════════════════════════════════════════
+function submitIntro() {
+  // Honeypot check — bots fill hidden fields
+  if (document.getElementById('honeyField').value) return;
+
+  var name = document.getElementById('firstName').value.trim();
+  var email = document.getElementById('email').value.trim();
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!name || !emailRegex.test(email)) {
+    document.getElementById('formError').style.display = 'block';
+    return;
+  }
+
+  document.getElementById('formError').style.display = 'none';
+  state.firstName = name;
+  state.email = email;
+
+  // Fire webhook immediately to capture lead
+  try {
+    fetch('/api/webhook', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        first_name: name,
+        email: email,
+        source: 'founder-exposure-index',
+        lead_source: 'founder-exposure-index',
+        event: 'started',
+        timestamp: new Date().toISOString()
+      })
+    }).catch(function() {});
+  } catch(e) {}
+
+  renderSection(0);
+  showScreen('screen2');
+  updateProgress(0);
+}
+
+// ═══════════════════════════════════════════
+// SCREEN 2: RENDER SECTION
+// ═══════════════════════════════════════════
+function renderSection(idx) {
+  state.currentSection = idx;
+  var section = sections[idx];
+  var container = document.getElementById('assessmentContainer');
+  var qOffset = idx * 6;
+
+  var html = '<div class="title-block">' +
+    '<div class="title-block-main">The Founder Exposure Index</div>' +
+    '<div class="title-block-sub">Assessment</div>' +
+    '</div>' +
+    '<div class="section-header">' +
+    '<div class="section-label">' + section.label + ' &mdash; ' + section.title + '</div>' +
+    '<h2 class="section-title">' + section.title + '</h2>' +
+    '<p class="section-subtext">&ldquo;' + section.subtext + '&rdquo;</p>' +
+    '<div class="scoring-guide">1 to 3 = This is not in place &middot; 4 to 6 = Sort of, but not documented &middot; 7 to 8 = Yes, written and in place &middot; 9 to 10 = Documented, enforced, and reviewed</div>' +
+    '</div>';
+
+  for (var i = 0; i < section.questions.length; i++) {
+    var qNum = qOffset + i + 1;
+    var selectedVal = state.answers[qNum] || 0;
+    html += '<div class="question-block">' +
+      '<div class="question-number">Q' + String(qNum).padStart(2, '0') + '</div>' +
+      '<div class="question-text">' + section.questions[i] + '</div>' +
+      '<div class="score-row-wrap"><div class="score-row">';
+    for (var v = 1; v <= 10; v++) {
+      html += '<button class="score-btn' + (selectedVal === v ? ' selected' : '') + '" onclick="selectScore(' + qNum + ', ' + v + ', this)" aria-label="Score ' + v + '">' + v + '</button>';
+    }
+    html += '</div><div class="score-labels"><span>Not in place</span><span>Fully enforced</span></div></div></div>';
+  }
+
+  var isFirst = idx === 0;
+  var isLast = idx === sections.length - 1;
+
+  html += '<div class="validation-msg" id="sectionValidation">Please answer all questions before continuing.</div>' +
+    '<div class="nav-buttons">';
+  if (!isFirst) {
+    html += '<button class="btn-back" onclick="prevSection()">Back</button>';
+  }
+  html += '<button class="btn-primary btn-accent btn-next" onclick="nextSection()">' + (isLast ? 'Calculate My Score' : 'Next Section') + '</button>' +
+    '</div>';
+
+  container.innerHTML = html;
+  updateProgress(idx * 25);
+}
+
+function selectScore(qNum, value, el) {
+  state.answers[qNum] = value;
+  var row = el.parentNode;
+  var btns = row.querySelectorAll('.score-btn');
+  for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('selected'); }
+  el.classList.add('selected');
+}
+
+function prevSection() {
+  if (state.currentSection > 0) {
+    renderSection(state.currentSection - 1);
+    window.scrollTo(0, 0);
+  }
+}
+
+function nextSection() {
+  var idx = state.currentSection;
+  var qOffset = idx * 6;
+  var allAnswered = true;
+  for (var i = 1; i <= 6; i++) {
+    if (!state.answers[qOffset + i]) { allAnswered = false; break; }
+  }
+
+  if (!allAnswered) {
+    document.getElementById('sectionValidation').style.display = 'block';
+    return;
+  }
+  document.getElementById('sectionValidation').style.display = 'none';
+
+  // Fire partial progress webhook after each section
+  var sectionKeys = ['a', 'b', 'c', 'd'];
+  var sectionLabels = ['legal', 'financial', 'data_security', 'governance'];
+  var partialScores = {};
+  var partialTotal = 0;
+  for (var s = 0; s <= idx; s++) {
+    var secScore = 0;
+    for (var q = 1; q <= 6; q++) { secScore += (state.answers[s * 6 + q] || 0); }
+    partialScores['section_' + sectionKeys[s] + '_' + sectionLabels[s]] = secScore;
+    partialTotal += secScore;
+  }
+  try {
+    fetch('/api/webhook', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(Object.assign({
+        first_name: state.firstName,
+        email: state.email,
+        source: 'founder-exposure-index',
+        lead_source: 'founder-exposure-index',
+        event: 'section_' + (idx + 1) + '_complete',
+        sections_completed: idx + 1,
+        partial_score: partialTotal,
+        timestamp: new Date().toISOString()
+      }, partialScores))
+    }).catch(function() {});
+  } catch(e) {}
+
+  if (idx < sections.length - 1) {
+    renderSection(idx + 1);
+    window.scrollTo(0, 0);
+  } else {
+    updateProgress(100);
+    calculateResults();
+  }
+}
+
+// ═══════════════════════════════════════════
+// SCREEN 3: RESULTS
+// ═══════════════════════════════════════════
+function calculateResults() {
+  var sectionScores = { a: 0, b: 0, c: 0, d: 0 };
+  var sectionNames = {
+    a: 'Legal Structure',
+    b: 'Financial Controls',
+    c: 'Data and Security',
+    d: 'Operational Governance'
+  };
+  var sectionKeys = ['a', 'b', 'c', 'd'];
+
+  sectionKeys.forEach(function(key, si) {
+    for (var i = 1; i <= 6; i++) {
+      sectionScores[key] += (state.answers[si * 6 + i] || 0);
+    }
+  });
+
+  var total = sectionScores.a + sectionScores.b + sectionScores.c + sectionScores.d;
+
+  var tier, tierClass, tierBgClass, tierDesc, tierFinancial;
+  if (total <= 120) {
+    tier = 'HIGH FOUNDER EXPOSURE';
+    tierClass = 'tier-high'; tierBgClass = 'tier-high-bg';
+    tierDesc = 'Your business is structurally fragile. One audit, one lawsuit, one key person departure and everything you have built is at risk. The gaps are not coming. They are already here.';
+    tierFinancial = 'Founders at this exposure level face <strong>$18K to $75K per year</strong> in preventable legal costs and risk losing <strong>40 to 60% of enterprise value</strong> at acquisition.';
+  } else if (total <= 180) {
+    tier = 'STRUCTURED BUT VULNERABLE';
+    tierClass = 'tier-structured'; tierBgClass = 'tier-structured-bg';
+    tierDesc = 'You have a foundation but it has cracks. You are growing on a structure that was not designed to hold what you are building. The gaps feel manageable until they are not.';
+    tierFinancial = 'Unresolved structural gaps at this stage cost an estimated <strong>$50K to $150K annually</strong> in rework, risk, and missed enterprise value.';
+  } else if (total <= 210) {
+    tier = 'SCALABLE FOUNDATION';
+    tierClass = 'tier-scalable'; tierBgClass = 'tier-scalable-bg';
+    tierDesc = 'Strong base. The gaps that remain are costing you in valuation, efficiency, and investor readiness. Not in survival, but in ceiling.';
+    tierFinancial = 'Your structure is positioned to command a <strong>2 to 4x EBITDA premium</strong> at exit vs unstructured competitors.';
+  } else {
+    tier = 'INSTITUTION-LEVEL GOVERNANCE';
+    tierClass = 'tier-institution'; tierBgClass = 'tier-institution-bg';
+    tierDesc = 'You operate at institutional standards. The focus now is optimization and protection of the enterprise value you have already built.';
+    tierFinancial = 'Businesses at this level command <strong>3 to 5x EBITDA multiples</strong> vs 1 to 2x for founder-dependent competitors.';
+  }
+
+  var weakestKey = 'a';
+  var weakestScore = sectionScores.a;
+  sectionKeys.forEach(function(k) {
+    if (sectionScores[k] < weakestScore) {
+      weakestScore = sectionScores[k];
+      weakestKey = k;
+    }
+  });
+
+  // Fire webhook silently
+  try {
+    var payload = {
+      first_name: state.firstName,
+      email: state.email,
+      total_score: total,
+      tier: tier,
+      section_a_legal: sectionScores.a,
+      section_b_financial: sectionScores.b,
+      section_c_data_security: sectionScores.c,
+      section_d_governance: sectionScores.d,
+      weakest_section: sectionNames[weakestKey],
+      source: 'founder-exposure-index',
+      lead_source: 'founder-exposure-index',
+      timestamp: new Date().toISOString()
+    };
+    fetch('/api/webhook', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(function() {});
+  } catch(e) {}
+
+  state.total = total;
+  state.tier = tier;
+  state.tierClass = tierClass;
+  state.tierBgClass = tierBgClass;
+  state.sectionScores = sectionScores;
+  state.weakestKey = weakestKey;
+
+  function getBarClass(score) {
+    if (score <= 30) return 'bar-high';
+    if (score <= 45) return 'bar-structured';
+    if (score <= 52) return 'bar-scalable';
+    return 'bar-institution';
+  }
+
+  var container = document.getElementById('resultsContainer');
+  container.innerHTML =
+    '<div class="title-block">' +
+    '<div class="title-block-main">The Founder Exposure Index</div>' +
+    '<div class="title-block-sub">Your Results</div>' +
+    '</div>' +
+    '<div class="results-score-wrap">' +
+    '<div><span class="results-score-number" id="scoreCounter">0</span><span class="results-score-total"> / 240</span></div>' +
+    '</div>' +
+    '<div style="text-align:center; margin-bottom: 40px;">' +
+    '<span class="tier-badge ' + tierBgClass + '">' + tier + '</span>' +
+    '<h2 class="tier-name ' + tierClass + '">' + tier + '</h2>' +
+    '<p class="tier-description">' + tierDesc + '</p>' +
+    '<div class="tier-financial">' + tierFinancial + '</div>' +
+    '</div>' +
+    '<div class="section-bars">' +
+    '<div class="section-bar-item"><div class="section-bar-header"><span class="section-bar-label">Legal Structure</span><span class="section-bar-score">' + sectionScores.a + '/60</span></div><div class="section-bar-track"><div class="section-bar-fill ' + getBarClass(sectionScores.a) + '" data-width="' + (sectionScores.a / 60 * 100).toFixed(1) + '"></div></div></div>' +
+    '<div class="section-bar-item"><div class="section-bar-header"><span class="section-bar-label">Financial Controls</span><span class="section-bar-score">' + sectionScores.b + '/60</span></div><div class="section-bar-track"><div class="section-bar-fill ' + getBarClass(sectionScores.b) + '" data-width="' + (sectionScores.b / 60 * 100).toFixed(1) + '"></div></div></div>' +
+    '<div class="section-bar-item"><div class="section-bar-header"><span class="section-bar-label">Data and Security</span><span class="section-bar-score">' + sectionScores.c + '/60</span></div><div class="section-bar-track"><div class="section-bar-fill ' + getBarClass(sectionScores.c) + '" data-width="' + (sectionScores.c / 60 * 100).toFixed(1) + '"></div></div></div>' +
+    '<div class="section-bar-item"><div class="section-bar-header"><span class="section-bar-label">Operational Governance</span><span class="section-bar-score">' + sectionScores.d + '/60</span></div><div class="section-bar-track"><div class="section-bar-fill ' + getBarClass(sectionScores.d) + '" data-width="' + (sectionScores.d / 60 * 100).toFixed(1) + '"></div></div></div>' +
+    '</div>' +
+    '<div class="weakest-callout">' +
+    '<div class="weakest-callout-label">Your Weakest Area</div>' +
+    '<div class="weakest-callout-value">' + sectionNames[weakestKey] + ' &mdash; ' + weakestScore + '/60</div>' +
+    '</div>' +
+    '<div class="results-divider"></div>' +
+    '<div class="results-transition">' +
+    '<p>Now that you know where you stand, here is exactly how to fix it.</p>' +
+    '<button class="btn-primary btn-accent" style="max-width:360px; margin:0 auto;" onclick="showGameplan()">See Your Gameplan</button>' +
+    '</div>';
+
+  showScreen('screen3');
+
+  setTimeout(function() {
+    var counter = document.getElementById('scoreCounter');
+    var duration = 1500;
+    var start = performance.now();
+    function tick(now) {
+      var elapsed = now - start;
+      var progress = Math.min(elapsed / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      counter.textContent = Math.round(eased * total);
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    var bars = document.querySelectorAll('.section-bar-fill');
+    for (var i = 0; i < bars.length; i++) {
+      (function(bar) {
+        setTimeout(function() { bar.style.width = bar.dataset.width + '%'; }, 200);
+      })(bars[i]);
+    }
+  }, 100);
+}
+
+// ═══════════════════════════════════════════
+// SCREEN 4: GAMEPLAN
+// ═══════════════════════════════════════════
+var gpActiveMonth = 1;
+
+function switchGpMonth(month) {
+  gpActiveMonth = month;
+  for (var i = 1; i <= 3; i++) {
+    var card = document.getElementById('gpMonth' + i);
+    var step = document.getElementById('gpStep' + i);
+    if (card) card.classList.toggle('active', i === month);
+    if (step) {
+      step.classList.toggle('active', i === month);
+      step.classList.toggle('completed', i < month);
+    }
+  }
+  var lines = document.querySelectorAll('.gp-timeline-line');
+  for (var j = 0; j < lines.length; j++) {
+    lines[j].classList.toggle('filled', j < month - 1);
+  }
+}
+
+function showGameplan() {
+  var total = state.total;
+  var tier = state.tier;
+  var ss = state.sectionScores;
+
+  function tierCallout(card) {
+    var callouts = {
+      1: {
+        low: 'At your current score, this is the most urgent 30 days of work in your business. Not the most exciting. The most important. One of these gaps is likely already a liability.',
+        mid: 'You have some of this done. Go line by line and verify. Do not assume. The gap you skip is usually the one that surfaces first.',
+        high: 'You are in good shape here. Use this sprint to audit for currency. Agreements signed two years ago may not reflect the business you are running today.'
+      },
+      2: {
+        low: 'These gaps do not slow your revenue today. They end businesses quietly, through a processor shutdown, a data breach, or a financial dispute you had no visibility to prevent.',
+        mid: 'You have pieces of this. The goal is to formalize what is informal. A control that only works when you remember to enforce it is not a control.',
+        high: 'Audit for consistency. Strong controls decay without regular review. Schedule quarterly verification now.'
+      },
+      3: {
+        low: 'This is your 90-day destination, not your starting point. Close the 30 and 60-day gaps first. Governance on a broken foundation does not hold.',
+        mid: 'You are closer than you think. What is missing at your stage is usually documentation and cadence, not capability. You know how to do this. Make it official.',
+        high: 'Your goal here is investor-readiness. Everything you have built should be documentable, transferable, and auditable by someone who has never met you. That is what commands a premium valuation.'
+      }
+    };
+    var c = callouts[card];
+    if (total <= 120) return c.low;
+    if (total <= 180) return c.mid;
+    return c.high;
+  }
+
+  function priorityBadge(level) {
+    return '<span class="gp-priority gp-priority-' + level + '">' + level + '</span>';
+  }
+
+  var container = document.getElementById('gameplanContainer');
+  container.innerHTML =
+    '<div class="title-block">' +
+    '<div class="title-block-main">The Founder Exposure Index</div>' +
+    '<div class="title-block-sub">Your 90-Day Structural Correction Plan</div>' +
+    '</div>' +
+    '<p class="gameplan-intro">Based on your score of <strong>' + total + '/240</strong> (' + tier + '), here is your prioritized correction plan across three phases.</p>' +
+
+    /* Score overview cards */
+    '<div class="gp-score-overview">' +
+    '<div class="gp-score-card"><div class="gp-score-card-label">Legal Structure</div><div class="gp-score-card-value">' + ss.a + '<span style="font-size:14px;color:var(--muted-light);font-weight:400">/60</span></div></div>' +
+    '<div class="gp-score-card"><div class="gp-score-card-label">Financial Controls</div><div class="gp-score-card-value">' + ss.b + '<span style="font-size:14px;color:var(--muted-light);font-weight:400">/60</span></div></div>' +
+    '<div class="gp-score-card"><div class="gp-score-card-label">Data &amp; Security</div><div class="gp-score-card-value">' + ss.c + '<span style="font-size:14px;color:var(--muted-light);font-weight:400">/60</span></div></div>' +
+    '<div class="gp-score-card"><div class="gp-score-card-label">Operational Governance</div><div class="gp-score-card-value">' + ss.d + '<span style="font-size:14px;color:var(--muted-light);font-weight:400">/60</span></div></div>' +
+    '</div>' +
+
+    /* Timeline nav */
+    '<div class="gp-timeline">' +
+    '<div class="gp-timeline-step active" id="gpStep1" onclick="switchGpMonth(1)">' +
+    '<div class="gp-timeline-dot">1</div>' +
+    '<div class="gp-timeline-text">30 Days</div>' +
+    '</div>' +
+    '<div class="gp-timeline-line"></div>' +
+    '<div class="gp-timeline-step" id="gpStep2" onclick="switchGpMonth(2)">' +
+    '<div class="gp-timeline-dot">2</div>' +
+    '<div class="gp-timeline-text">60 Days</div>' +
+    '</div>' +
+    '<div class="gp-timeline-line"></div>' +
+    '<div class="gp-timeline-step" id="gpStep3" onclick="switchGpMonth(3)">' +
+    '<div class="gp-timeline-dot">3</div>' +
+    '<div class="gp-timeline-text">90 Days</div>' +
+    '</div>' +
+    '</div>' +
+
+    /* ── MONTH 1 ── */
+    '<div class="gp-card active" id="gpMonth1">' +
+    '<div class="gp-timeframe">Month One &mdash; 30 Days</div>' +
+    '<h3 class="gp-headline">Protect What You Have Already Built</h3>' +
+    '<p class="gp-body">Before you scale, make sure what you have already built cannot be taken from you. These moves put a wall between you and everything that could collapse what you are growing.</p>' +
+    '<div class="gp-why"><strong>Why this matters:</strong> Every dollar of revenue sits on top of your legal structure. If that structure is weak, you are scaling on a cracked foundation. Investors and acquirers look here first — if it is broken, they walk.</div>' +
+
+    '<table class="gp-table">' +
+    '<thead><tr><th>Action</th><th>What to do</th><th>Priority</th></tr></thead>' +
+    '<tbody>' +
+    '<tr><td class="td-action">Lock entity structure</td><td class="td-detail">If you are personally liable for business debts or lawsuits, you are the business, not the owner. Fix this to separate personal wealth from business risk.</td><td class="td-priority">' + priorityBadge('critical') + '</td></tr>' +
+    '<tr><td class="td-action">Classify workers correctly</td><td class="td-detail">Misclassifying a contractor as an employee triggers IRS back-tax liability of $5K–$50K per person. You may already owe money you do not know about.</td><td class="td-priority">' + priorityBadge('critical') + '</td></tr>' +
+    '<tr><td class="td-action">Audit all income claims</td><td class="td-detail">Any marketing referencing income results, testimonials, or before-and-after outcomes is subject to FTC consumer protection law. Non-compliant claims can trigger injunctions, forced refunds, and civil penalties into the tens of millions.</td><td class="td-priority">' + priorityBadge('critical') + '</td></tr>' +
+    '<tr><td class="td-action">Update income disclosures</td><td class="td-detail">Income disclosure statements must be visible at point of sale and reflect actual typical customer outcomes. If you lack that data, collect it before making any income claims.</td><td class="td-priority">' + priorityBadge('high') + '</td></tr>' +
+    '<tr><td class="td-action">Transfer IP to company</td><td class="td-detail">Brand, content, and systems under your personal name are exposed. IP owned by the company transfers at acquisition.</td><td class="td-priority">' + priorityBadge('high') + '</td></tr>' +
+    '<tr><td class="td-action">Contract all vendors</td><td class="td-detail">One undocumented partnership dispute can freeze operations and cost five figures in legal fees to resolve.</td><td class="td-priority">' + priorityBadge('medium') + '</td></tr>' +
+    '<tr><td class="td-action">Review agreements</td><td class="td-detail">If your business has changed since signing — new partners, revenue streams, or structure — your agreements do not protect the business you actually have.</td><td class="td-priority">' + priorityBadge('medium') + '</td></tr>' +
+    '<tr><td class="td-action">Schedule legal review</td><td class="td-detail">One hour with a business attorney annually catches problems when they are cheap to fix.</td><td class="td-priority">' + priorityBadge('medium') + '</td></tr>' +
+    '</tbody></table>' +
+
+    /* FTC enforcement table */
+    '<div style="margin-bottom:24px;">' +
+    '<div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:10px;font-family:Figtree,sans-serif;">FTC Enforcement: What Non-Compliant Marketing Actually Costs</div>' +
+    '<table class="gp-table">' +
+    '<thead><tr><th>Violation Type</th><th>Consequence</th></tr></thead>' +
+    '<tbody>' +
+    '<tr><td class="td-action">Unsubstantiated income claim</td><td class="td-detail">Federal investigation, injunctions, forced refunds to every customer who purchased based on the claim</td></tr>' +
+    '<tr><td class="td-action">Missing income disclosure</td><td class="td-detail">Disgorgement of profits, civil penalties up to $50,120 per violation (2024 adjustment)</td></tr>' +
+    '<tr><td class="td-action">Deceptive testimonials</td><td class="td-detail">Required to prove results are typical, not exceptional. No safe harbor since 2021 FTC policy update</td></tr>' +
+    '<tr><td class="td-action">No small business exemption</td><td class="td-detail">Applies at every revenue level. Enforcement actions have reached tens of millions for digital businesses</td></tr>' +
+    '</tbody></table>' +
+    '</div>' +
+
+    '<div class="gp-tier-callout"><em>At your tier:</em> ' + tierCallout(1) + '</div>' +
+    '<div class="gp-card-nav"><div></div><button class="gp-nav-next" onclick="switchGpMonth(2)">Month Two &rarr;</button></div>' +
+    '</div>' +
+
+    /* ── MONTH 2 ── */
+    '<div class="gp-card" id="gpMonth2">' +
+    '<div class="gp-timeframe">Month Two &mdash; 60 Days</div>' +
+    '<h3 class="gp-headline">Stop the Invisible Leaks Draining Your Business</h3>' +
+    '<p class="gp-body">Very few founders know where revenue is actually going, who has access to it, or what happens if a client\'s data is breached tomorrow. This phase installs the controls that give you real visibility.</p>' +
+    '<div class="gp-why"><strong>Why this matters:</strong> You cannot scale what you cannot see. The bigger your revenue gets, the more expensive an undetected financial leak, a payment dispute, or a data breach becomes.</div>' +
+
+    '<table class="gp-table">' +
+    '<thead><tr><th>Action</th><th>What to do</th><th>Priority</th></tr></thead>' +
+    '<tbody>' +
+    '<tr><td class="td-action">Audit payment processing</td><td class="td-detail">Selling under the wrong merchant category code can result in account termination and frozen funds with no warning. Know what category your business is processed under.</td><td class="td-priority">' + priorityBadge('critical') + '</td></tr>' +
+    '<tr><td class="td-action">Manage chargeback exposure</td><td class="td-detail">A chargeback rate above 1% triggers processor review or MATCH list placement, preventing new merchant accounts.</td><td class="td-priority">' + priorityBadge('critical') + '</td></tr>' +
+    '<tr><td class="td-action">Display refund policy at sale</td><td class="td-detail">Clear, visible refund terms reduce chargebacks. Your policy must be displayed before payment is collected, not after.</td><td class="td-priority">' + priorityBadge('high') + '</td></tr>' +
+    '<tr><td class="td-action">Separate approval &amp; payment</td><td class="td-detail">When one person controls both approvals and execution of payments, fraud and errors go undetected.</td><td class="td-priority">' + priorityBadge('high') + '</td></tr>' +
+    '<tr><td class="td-action">Set dual-approval threshold</td><td class="td-detail">Require two sign-offs above $500–$1,000. Eliminates a category of financial risk that compounds as your team grows.</td><td class="td-priority">' + priorityBadge('high') + '</td></tr>' +
+    '<tr><td class="td-action">Document expense policy</td><td class="td-detail">A verbal policy is the same as no policy in a legal dispute or audit. If it is not documented, it is not enforceable.</td><td class="td-priority">' + priorityBadge('medium') + '</td></tr>' +
+    '<tr><td class="td-action">Enforce data privacy policy</td><td class="td-detail">If a client\'s data is compromised and you cannot show active enforcement, you are liable.</td><td class="td-priority">' + priorityBadge('high') + '</td></tr>' +
+    '<tr><td class="td-action">Audit system access</td><td class="td-detail">An ex-contractor with active login credentials is a breach waiting to happen. Define access levels and review quarterly.</td><td class="td-priority">' + priorityBadge('medium') + '</td></tr>' +
+    '<tr><td class="td-action">Verify cyber insurance</td><td class="td-detail">At $500K+ revenue, a breach or ransomware attack can be company-threatening. Cyber insurance is not expensive. Recovering without it is.</td><td class="td-priority">' + priorityBadge('medium') + '</td></tr>' +
+    '</tbody></table>' +
+
+    /* Chargeback risk table */
+    '<div style="margin-bottom:24px;">' +
+    '<div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:10px;font-family:Figtree,sans-serif;">Chargeback Rate Thresholds &amp; Consequences</div>' +
+    '<table class="gp-table">' +
+    '<thead><tr><th>Rate</th><th>Status</th><th>What Happens</th></tr></thead>' +
+    '<tbody>' +
+    '<tr><td class="td-action" style="white-space:nowrap;">&lt; 0.65%</td><td class="td-detail" style="color:var(--green);font-weight:500;">Safe</td><td class="td-detail">Normal processing, no flags</td></tr>' +
+    '<tr><td class="td-action" style="white-space:nowrap;">0.65% – 0.99%</td><td class="td-detail" style="color:var(--amber);font-weight:500;">Warning</td><td class="td-detail">Processor monitoring begins, potential reserve requirements</td></tr>' +
+    '<tr><td class="td-action" style="white-space:nowrap;">1.0% – 1.49%</td><td class="td-detail" style="color:#d32f2f;font-weight:500;">High Risk</td><td class="td-detail">Account review, fines up to $10K/month, chargeback management program required</td></tr>' +
+    '<tr><td class="td-action" style="white-space:nowrap;">&gt; 1.5%</td><td class="td-detail" style="color:#d32f2f;font-weight:500;">Critical</td><td class="td-detail">Account termination, MATCH list placement (blocks new merchant accounts for 5 years)</td></tr>' +
+    '</tbody></table>' +
+    '</div>' +
+
+    /* Financial controls visual */
+    '<div style="margin-bottom:24px;">' +
+    '<div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:10px;font-family:Figtree,sans-serif;">Financial Control Framework</div>' +
+    '<table class="gp-table">' +
+    '<thead><tr><th>Control</th><th>Without It</th><th>With It</th></tr></thead>' +
+    '<tbody>' +
+    '<tr><td class="td-action">Dual approval</td><td class="td-detail" style="color:#d32f2f;">Fraud and errors go undetected, single point of failure</td><td class="td-detail" style="color:var(--green);">Every transaction above threshold is verified by two people</td></tr>' +
+    '<tr><td class="td-action">Written expense policy</td><td class="td-detail" style="color:#d32f2f;">Unenforceable in disputes or audits</td><td class="td-detail" style="color:var(--green);">Clear standard, legally defensible, team-wide alignment</td></tr>' +
+    '<tr><td class="td-action">Access control reviews</td><td class="td-detail" style="color:#d32f2f;">Ex-contractors retain access, breach risk compounds</td><td class="td-detail" style="color:var(--green);">Quarterly review ensures only current team has access</td></tr>' +
+    '<tr><td class="td-action">Cyber insurance</td><td class="td-detail" style="color:#d32f2f;">A single breach can be a company-ending event</td><td class="td-detail" style="color:var(--green);">Covered for breach response, legal fees, and business interruption</td></tr>' +
+    '</tbody></table>' +
+    '</div>' +
+
+    '<div class="gp-tier-callout"><em>At your tier:</em> ' + tierCallout(2) + '</div>' +
+    '<div class="gp-card-nav"><button class="gp-nav-prev" onclick="switchGpMonth(1)">&larr; Month One</button><button class="gp-nav-next" onclick="switchGpMonth(3)">Month Three &rarr;</button></div>' +
+    '</div>' +
+
+    /* ── MONTH 3 ── */
+    '<div class="gp-card" id="gpMonth3">' +
+    '<div class="gp-timeframe">Month Three &mdash; 90 Days</div>' +
+    '<h3 class="gp-headline">Build a Business That Runs Without You</h3>' +
+    '<p class="gp-body">A business that runs on your presence is worth a fraction of a business that runs on its systems. This phase makes you optional — and that is the most valuable thing you can build.</p>' +
+    '<div class="gp-why"><strong>Why this matters:</strong> Every investor, acquirer, and partner evaluates one thing above all: does this business run without the founder? If no, your valuation is capped and your exit will reflect it.</div>' +
+
+    '<table class="gp-table">' +
+    '<thead><tr><th>Action</th><th>What to do</th><th>Priority</th></tr></thead>' +
+    '<tbody>' +
+    '<tr><td class="td-action">Map decision authority</td><td class="td-detail">Document who owns what decisions — not job titles, actual decision power. When your team knows what they can decide without you, they move faster.</td><td class="td-priority">' + priorityBadge('critical') + '</td></tr>' +
+    '<tr><td class="td-action">Create advisory structure</td><td class="td-detail">Even a quarterly advisory meeting with 2–3 experienced people creates accountability and signals institutional maturity to evaluators.</td><td class="td-priority">' + priorityBadge('high') + '</td></tr>' +
+    '<tr><td class="td-action">Build compliance calendar</td><td class="td-detail">Filing deadlines, contract renewals, insurance reviews, legal check-ins. Predictable events that become expensive surprises without a system.</td><td class="td-priority">' + priorityBadge('critical') + '</td></tr>' +
+    '<tr><td class="td-action">Recurring marketing review</td><td class="td-detail">Income claims and advertising assets must be reviewed on a set cadence. FTC guidelines evolve — what was compliant 18 months ago may not be today.</td><td class="td-priority">' + priorityBadge('high') + '</td></tr>' +
+    '<tr><td class="td-action">Centralize compliance records</td><td class="td-detail">Contracts, IP filings, insurance, compliance logs — all in one place, access-controlled. When asked for documentation, your answer should be a link, not a search.</td><td class="td-priority">' + priorityBadge('high') + '</td></tr>' +
+    '<tr><td class="td-action">Annual liability review</td><td class="td-detail">What do you personally guarantee? Map personal risk to the business and identify what can transfer to the company over time.</td><td class="td-priority">' + priorityBadge('medium') + '</td></tr>' +
+    '</tbody></table>' +
+
+    /* Valuation impact table */
+    '<div style="margin-bottom:24px;">' +
+    '<div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:10px;font-family:Figtree,sans-serif;">Governance Impact on Enterprise Valuation</div>' +
+    '<table class="gp-table">' +
+    '<thead><tr><th>Business Type</th><th>Typical EBITDA Multiple</th><th>Key Factor</th></tr></thead>' +
+    '<tbody>' +
+    '<tr><td class="td-action">Founder-dependent</td><td class="td-detail" style="color:#d32f2f;font-weight:600;">1–2x EBITDA</td><td class="td-detail">Revenue depends on founder presence, no transferable systems</td></tr>' +
+    '<tr><td class="td-action">Structured operations</td><td class="td-detail" style="color:var(--amber);font-weight:600;">2–4x EBITDA</td><td class="td-detail">Documented processes, some delegation, but gaps remain</td></tr>' +
+    '<tr><td class="td-action">Institution-level governance</td><td class="td-detail" style="color:var(--green);font-weight:600;">3–5x EBITDA</td><td class="td-detail">Transferable, auditable, can operate without founder</td></tr>' +
+    '</tbody></table>' +
+    '</div>' +
+
+    /* Compliance calendar preview */
+    '<div style="margin-bottom:24px;">' +
+    '<div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:10px;font-family:Figtree,sans-serif;">Sample Compliance Calendar Items</div>' +
+    '<table class="gp-table">' +
+    '<thead><tr><th>Frequency</th><th>Item</th><th>Owner</th></tr></thead>' +
+    '<tbody>' +
+    '<tr><td class="td-action">Monthly</td><td class="td-detail">Financial reconciliation, access log review</td><td class="td-detail" style="color:var(--muted-light);">CFO / Controller</td></tr>' +
+    '<tr><td class="td-action">Quarterly</td><td class="td-detail">Marketing compliance audit, insurance review, board/advisory meeting</td><td class="td-detail" style="color:var(--muted-light);">COO / Compliance</td></tr>' +
+    '<tr><td class="td-action">Annually</td><td class="td-detail">Entity renewal, agreement review, founder liability audit, legal risk review</td><td class="td-detail" style="color:var(--muted-light);">CEO / Legal</td></tr>' +
+    '<tr><td class="td-action">As needed</td><td class="td-detail">Contract renewals, vendor onboarding, incident response</td><td class="td-detail" style="color:var(--muted-light);">Assigned per event</td></tr>' +
+    '</tbody></table>' +
+    '</div>' +
+
+    '<div class="gp-tier-callout"><em>At your tier:</em> ' + tierCallout(3) + '</div>' +
+    '<div class="gp-card-nav"><button class="gp-nav-prev" onclick="switchGpMonth(2)">&larr; Month Two</button><div></div></div>' +
+    '</div>' +
+
+    '<div class="cta-block">' +
+    '<h2>Get All of This Installed Inside Your Business in 90 Days.</h2>' +
+    '<p>3x3OS is the program that builds what this assessment revealed, with implementation support, structural maps, and a 90-day correction plan built around your exact score. It is application-only.</p>' +
+    '<button class="btn-primary btn-accent" id="applyToggleBtn" onclick="openApplyForm()" style="max-width:360px; margin:0 auto 16px;">Apply for 3x3OS</button>' +
+    '<div class="apply-form-wrap" id="applyFormWrap">' +
+    '<div class="form-error" id="applyFormError">Please enter your phone number and business name.</div>' +
+    '<input type="tel" class="form-input" id="applyPhone" placeholder="Phone number" autocomplete="tel" maxlength="20">' +
+    '<input type="text" class="form-input" id="applyBusiness" placeholder="Business name" autocomplete="organization" maxlength="150">' +
+    '<button class="btn-primary btn-accent" onclick="submitApply()" style="max-width:360px; margin:0 auto 16px; width:100%;">Submit Application</button>' +
+    '</div>' +
+    '<div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">' +
+    '<button class="cta-secondary-link" onclick="window.print()">Download your full results</button>' +
+    '<button class="cta-secondary-link" onclick="location.reload()">Retake assessment</button>' +
+    '</div>' +
+    '<div class="cta-small-text">Results also sent to ' + esc(state.email) + '</div>' +
+    '</div>';
+
+  gpActiveMonth = 1;
+  showScreen('screen4');
+}
+
+// ═══════════════════════════════════════════
+// APPLY FORM + CONFETTI
+// ═══════════════════════════════════════════
+function openApplyForm() {
+  var btn = document.getElementById('applyToggleBtn');
+  var wrap = document.getElementById('applyFormWrap');
+  btn.classList.add('apply-btn-hide');
+  wrap.classList.add('open');
+  setTimeout(function() {
+    document.getElementById('applyPhone').focus();
+  }, 300);
+}
+
+function submitApply() {
+  var phone = document.getElementById('applyPhone').value.trim();
+  var business = document.getElementById('applyBusiness').value.trim();
+  var errEl = document.getElementById('applyFormError');
+
+  if (!phone || !business) {
+    errEl.classList.add('visible');
+    return;
+  }
+  errEl.classList.remove('visible');
+
+  // Prevent double-submit
+  var submitBtn = document.querySelector('#applyFormWrap .btn-primary');
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submitting…'; }
+
+  // Fire webhook with application data
+  try {
+    var payload = {
+      first_name: state.firstName,
+      email: state.email,
+      phone: phone,
+      business_name: business,
+      total_score: state.total,
+      tier: state.tier,
+      section_a_legal: state.sectionScores.a,
+      section_b_financial: state.sectionScores.b,
+      section_c_data_security: state.sectionScores.c,
+      section_d_governance: state.sectionScores.d,
+      source: 'founder-exposure-index-apply',
+      lead_source: 'founder-exposure-index',
+      timestamp: new Date().toISOString()
+    };
+    fetch('/api/webhook', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(function() {});
+  } catch(e) {}
+
+  // Fire confetti
+  fireConfetti();
+
+  // Transition to thank you after confetti
+  setTimeout(function() {
+    showScreen('screen5');
+  }, 2200);
+}
+
+function fireConfetti() {
+  var duration = 2000;
+  var animationEnd = Date.now() + duration;
+  var defaults = {
+    startVelocity: 30,
+    spread: 360,
+    ticks: 60,
+    zIndex: 9999,
+    colors: ['#0c8ce9', '#c89200', '#34a853', '#ffffff']
+  };
+  function randomInRange(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+  var interval = setInterval(function() {
+    var timeLeft = animationEnd - Date.now();
+    if (timeLeft <= 0) { clearInterval(interval); return; }
+    confetti({
+      particleCount: 50,
+      origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+      startVelocity: defaults.startVelocity,
+      spread: defaults.spread,
+      ticks: defaults.ticks,
+      zIndex: defaults.zIndex,
+      colors: defaults.colors
+    });
+    confetti({
+      particleCount: 50,
+      origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+      startVelocity: defaults.startVelocity,
+      spread: defaults.spread,
+      ticks: defaults.ticks,
+      zIndex: defaults.zIndex,
+      colors: defaults.colors
+    });
+  }, 250);
+}
+</script>
+
+</body>
+</html>

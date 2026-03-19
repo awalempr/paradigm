@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0d0d0d">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Paradigm Consulting | Compliance, Culture & Technology Systems for Scaling Companies</title>
   <meta name="description" content="One bad year can wipe out five good ones. Paradigm Consulting builds the compliance, culture, and technology infrastructure operators need before the pressure arrives. Free diagnostic →">
   <meta name="keywords" content="compliance consulting, ROSCA compliance, regulatory compliance framework, leadership culture systems, technology systems consulting, AI consulting for business, agentic workflow builds, operational infrastructure, scaling companies, founder consulting, culture operating system, compliance architecture, systems architecture, business compliance audit, institutional transformation">
@@ -151,12 +153,20 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
-      padding: 16px clamp(24px, 4vw, 64px);
+      padding: calc(16px + env(safe-area-inset-top)) clamp(24px, 4vw, 64px) 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       background: transparent;
       transition: background 0.3s ease;
+    }
+    nav::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: env(safe-area-inset-top);
+      background: #0d0d0d;
+      z-index: 1;
     }
     nav.nav-scrolled {
       background: rgba(13,13,13,0.85);
@@ -682,6 +692,7 @@
     }
     .hero-video-pill-info {
       display: flex; flex-direction: column; gap: 2px;
+      min-width: 0;
     }
     .hero-video-pill-title {
       font-family: 'Figtree', sans-serif;
@@ -749,7 +760,7 @@
       line-height: 0.92;
       color: #fff;
       display: block;
-      font-size: clamp(44px, 5.2vw, 76px);
+      font-size: clamp(32px, 8vw, 76px);
     }
     .hero-line-that { }
     .hero-line-scales { }
@@ -1263,7 +1274,7 @@
     .sp-headline {
       font-family: 'Ranade', sans-serif;
       font-weight: 500;
-      font-size: clamp(42px, 5.2vw, 76px);
+      font-size: clamp(32px, 8vw, 76px);
       text-transform: uppercase;
       letter-spacing: -0.03em;
       line-height: 0.9;
@@ -1462,10 +1473,10 @@
     .fw-main-headline {
       font-family: 'Ranade', sans-serif;
       font-weight: 500;
-      font-size: clamp(30px, 3.4vw, 52px);
+      font-size: clamp(32px, 8vw, 76px);
       text-transform: uppercase;
       letter-spacing: -0.03em;
-      line-height: 0.95;
+      line-height: 0.92;
       color: #fff;
     }
     .fw-headline-num {
@@ -1619,8 +1630,8 @@
     .tc-pill-wrap { text-align: center; margin-bottom: 24px; }
     .tc-headline {
       font-family: 'Ranade', sans-serif; font-weight: 500;
-      font-size: clamp(36px, 4.8vw, 72px);
-      text-transform: uppercase; letter-spacing: -0.03em; line-height: 1;
+      font-size: clamp(32px, 8vw, 76px);
+      text-transform: uppercase; letter-spacing: -0.03em; line-height: 0.92;
       color: #0d0d0d; text-align: center;
       margin-bottom: 48px;
     }
@@ -1829,6 +1840,12 @@
       line-height: 0.92;
       color: #0d0d0d;
       max-width: 1100px;
+    }
+    .mobile-br { display: none; }
+    .desktop-br { display: inline; }
+    @media (max-width: 768px) {
+      .mobile-br { display: inline; }
+      .desktop-br { display: none; }
     }
     /* Bento grid */
     .sym-bento {
@@ -2372,8 +2389,8 @@
     .exp-label-wrap { text-align: center; margin-bottom: 20px; }
     .exp-headline {
       font-family: 'Ranade', sans-serif; font-weight: 500;
-      font-size: clamp(36px, 5.5vw, 72px);
-      text-transform: uppercase; letter-spacing: -0.03em; line-height: 1;
+      font-size: clamp(32px, 8vw, 76px);
+      text-transform: uppercase; letter-spacing: -0.03em; line-height: 0.92;
       margin-bottom: 64px; text-align: center; color: #0d0d0d;
     }
 
@@ -2616,10 +2633,10 @@
     .phil-headline {
       font-family: 'Ranade', sans-serif;
       font-weight: 500;
-      font-size: clamp(36px, 5vw, 64px);
+      font-size: clamp(32px, 8vw, 76px);
       text-transform: uppercase;
       letter-spacing: -0.03em;
-      line-height: 0.94;
+      line-height: 0.92;
       color: #0d0d0d;
       margin-bottom: 56px;
     }
@@ -2900,8 +2917,8 @@
     .eng-header .section-pill { display: inline-flex; margin-bottom: 24px; }
     .eng-headline {
       font-family: 'Ranade', sans-serif; font-weight: 500;
-      font-size: clamp(42px, 6vw, 88px);
-      text-transform: uppercase; letter-spacing: -0.03em; line-height: 0.94;
+      font-size: clamp(32px, 8vw, 76px);
+      text-transform: uppercase; letter-spacing: -0.03em; line-height: 0.92;
       color: #fff; margin-bottom: 40px;
     }
     .eng-subcopy {
@@ -3755,12 +3772,14 @@
     @media (max-width: 768px) {
       #proof { padding: 80px 0; }
       .cs-card { grid-template-columns: 1fr; }
-      .cs-media { min-height: 200px; }
+      .cs-media { min-height: 0; height: 180px; }
       .cs-media::after {
         background: linear-gradient(180deg, transparent 40%, rgba(9,14,20,0.9) 100%);
       }
-      .cs-content { padding: 28px 24px; }
-      .cs-hero-stat { font-size: 36px; }
+      .cs-content { padding: 24px 20px; }
+      .cs-hero-stat { font-size: 28px; }
+      .cs-hero-stat-label { font-size: 13px; }
+      .cs-quote { font-size: 14px; }
       .cs-stack-area { padding: 0 24px; }
     }
     .bento {
@@ -3854,10 +3873,10 @@
       display: flex; flex-direction: column; justify-content: space-between;
     }
     .origins-left h2 {
-      font-size: clamp(32px, 4vw, 56px);
+      font-size: clamp(32px, 8vw, 76px);
       font-family: 'Ranade', sans-serif; font-weight: 500;
       text-transform: uppercase; letter-spacing: -0.03em;
-      line-height: 1; margin-bottom: 18px;
+      line-height: 0.92; margin-bottom: 18px;
     }
     .origins-left p { font-size: 14px; color: rgba(255,255,255,0.58); line-height: 1.7; margin-bottom: 12px; }
     .credential-cards {
@@ -4250,6 +4269,7 @@
       .pyramid-wrapper { display: none; }
       .exp-panel { grid-template-columns: 1fr; border-radius: 14px; }
       .exp-panel-divider { width: 100%; height: 56px; background: linear-gradient(to right, transparent, rgba(12,140,233,0.55), transparent); box-shadow: none; flex-direction: row; }
+      .exp-divider-node svg { transform: rotate(90deg); }
       .exp-panel-before, .exp-panel-after { padding: 36px 28px 40px; }
       .exp-stats { flex-direction: column; align-items: center; gap: 40px; }
       .exp-stat-sep { width: 60px; height: 1px; align-self: auto; margin: 0; min-height: auto; }
@@ -4259,7 +4279,6 @@
       .bento { grid-template-columns: 1fr; }
       .bento-card.span-col-2 { grid-column: span 1; }
       #origins { grid-template-columns: 1fr; }
-      .origins-right { min-height: 500px; }
       .impact-layout { grid-template-columns: 1fr; }
       .stats-bar { grid-template-columns: 1fr; }
       .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
@@ -4388,7 +4407,7 @@
       #expertise { padding: 80px 0 100px; }
       #structure-problem { padding: 64px 0 0; }
       #framework { padding: 64px 0; }
-      #philosophy { padding: 0; }
+      #philosophy { padding: 80px 0 0; }
       .tc-wrapper { padding: 0 28px; }
       .eng-wrapper { padding: 0 28px; }
       .sym-bento { padding: 0 28px; }
@@ -4494,12 +4513,16 @@
       .meth-feature-steps {
         padding: 40px 0;
         border-right: none;
-        border-bottom: 1px solid var(--border);
+        border-bottom: none;
         gap: 28px;
+        order: 2;
       }
       .meth-feature-visual {
         padding: 0;
-        min-height: 300px;
+        min-height: 280px;
+        order: 1;
+        border-bottom: 1px solid var(--border);
+        aspect-ratio: 1 / 1;
       }
       .meth-feature-slide {
         inset: 0;
@@ -4526,16 +4549,26 @@
       }
       .eng-card:hover { transform: none; }
 
-      /* Origins — padding reduction */
+      /* Origins — mobile: header → photos → cards */
+      #origins {
+        display: flex;
+        flex-direction: column;
+      }
       .origins-left {
-        padding: 48px 28px;
+        padding: 0;
         border-right: none;
+        display: contents;
       }
+      .origins-header { order: 1; padding: 48px 28px 16px; }
+      .origins-right { order: 2; min-height: 380px; }
+      .founder-card-photo { min-height: 320px; }
+      .origins-body { order: 3; padding: 16px 28px 24px; }
+      .origins-left > div:last-child { order: 4; padding: 0 28px 48px; }
       .credential-cards {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
       }
-      .cred-card:first-child { border-radius: 14px 14px 0 0; border-right: 1px solid rgba(12,140,233,0.18); }
-      .cred-card:last-child { border-radius: 0 0 14px 14px; }
+      .cred-card:first-child { border-radius: 14px 0 0 14px; }
+      .cred-card:last-child { border-radius: 0 14px 14px 0; }
 
       /* Final CTA */
       .final-cta-inner { padding: 96px 28px 80px; }
@@ -4550,9 +4583,9 @@
     /* ── MOBILE: 480px ── */
     @media (max-width: 480px) {
       /* Hero adjustments */
-      #hero { padding-top: 140px; min-height: auto; }
+      #hero { padding-top: 170px; min-height: auto; }
       .hero-content { padding: 0 20px 32px; }
-      .hero-headline { margin-bottom: 0; margin-top: -12px; }
+      .hero-headline { margin-bottom: 0; margin-top: 0; }
       .hero-eyebrow { margin-bottom: 0; margin-top: -64px; width: 100%; justify-content: space-between; padding-left: 4px; }
       .hero-eyebrow-line { display: none; }
       .hero-eyebrow-text { font-size: 10px; width: 100%; letter-spacing: 0.1em; white-space: nowrap; }
@@ -4634,9 +4667,16 @@
       .tc-expanded { padding: 20px 20px 24px; }
 
       /* Symptoms */
-      .sym-card { min-height: 180px; }
-      .sym-card:nth-child(2) { min-height: 260px; }
+      .sym-card { min-height: 240px; }
+      .sym-card:nth-child(2) { min-height: 320px; }
+      .sym-card-inner { padding: 18px 20px 20px; }
+      .sym-card-diagram { padding: 8px 0; }
+      .sym-card-diagram svg { width: 100%; height: 100%; }
+      .sym-card-text { font-size: 16px; }
+      .sym-card:nth-child(2) .sym-card-text { font-size: 22px; }
+      .sym-card-num { font-size: 11px; }
       .sym-header { margin-bottom: 40px; }
+      .sym-headline { font-size: 32px; }
       .sym-closing { padding: 28px 0 36px; }
       .sym-closing-lead { font-size: 16px; }
 
@@ -4645,7 +4685,7 @@
       .meth-feature-steps { padding: 28px 0; gap: 20px; }
       .meth-feature-item { gap: 14px; }
       .meth-feature-indicator { width: 32px; height: 32px; font-size: 13px; }
-      .meth-feature-visual { min-height: 240px; }
+      .meth-feature-visual { min-height: 320px; }
       .meth-headline { padding: 0 20px; margin-bottom: 48px; }
       .meth-closing {
         flex-direction: column;
@@ -4668,11 +4708,51 @@
         padding: 28px 20px;
         gap: 16px;
       }
+      .phil-header { margin-bottom: 12px; }
+      .phil-headline { margin-bottom: 16px; }
+      .phil-opening { font-size: 13px; line-height: 1.6; }
+      .phil-opening .phil-belief { margin-bottom: 10px; font-size: 12px; }
+      .phil-opening .phil-belief::after { margin: 10px auto 0; }
+      .phil-scroll-sticky {
+        justify-content: flex-start;
+        padding: 0 0 20px;
+      }
+      .phil-principle {
+        padding: 24px 18px;
+        gap: 12px;
+      }
+      .phil-principle-title { font-size: 18px; }
+      .phil-principle-body { font-size: 14px; line-height: 1.65; }
+      .phil-principle-body p { margin-bottom: 8px; }
+      .phil-principle-watermark { font-size: 72px; }
+      .phil-principle-num { font-size: 10px; }
+      .phil-card-stack { min-height: 380px; }
+      .phil-card-stack::before,
+      .phil-card-stack::after { display: none; }
+      .phil-dots { margin-top: 24px; position: relative; z-index: 10; }
+      .phil-closing {
+        padding: 20px 0 0;
+      }
+      .phil-closing p {
+        font-size: 16px;
+        line-height: 1.55;
+      }
+
+      .hide-mobile { display: none; }
 
       /* Origins */
-      .origins-left { padding: 36px 20px; }
-      .origins-right { min-height: 400px; }
-      .founder-card { padding: 28px 20px; }
+      .origins-header { padding: 36px 20px 12px; }
+      .origins-body { padding: 12px 20px 20px; }
+      .origins-left > div:last-child { padding: 0 20px 36px; }
+
+      /* Founder carousel — same as desktop, auto-sized for mobile */
+      .origins-right { min-height: auto; aspect-ratio: 4 / 5; }
+      .founder-card-photo { min-height: 0; flex: 1; }
+      .founder-card { padding: 0; }
+      .founder-card-skills { padding: 12px 16px 16px; }
+      .founder-skill { margin-bottom: 8px; }
+      .founder-card-header { padding: 12px 16px 10px; }
+      .founder-card-header h4 { font-size: 20px; }
 
       /* Expertise panel */
       .exp-panel-before, .exp-panel-after { padding: 28px 20px 32px; }
@@ -5696,7 +5776,7 @@
     <div class="tc-pill-wrap">
       <span class="section-pill">The Cost Of Chaos</span>
     </div>
-    <h2 class="tc-headline">Hard Truths About<br><span class="hl-red">Scaling</span> Companies</h2>
+    <h2 class="tc-headline">Hard Truths<br>About <span class="hl-red">Scaling</span><br>Companies</h2>
 
     <div class="tc-intro">
       <p>What worked when the organization was smaller often begins to fail as complexity increases. Over time, we've seen the same patterns appear inside scaling companies again and again. These are the structural realities most founders eventually face.</p>
@@ -5829,7 +5909,7 @@
   <div class="section-inner">
     <div class="sym-header">
       <span class="section-pill">Founder Symptoms</span>
-      <h2 class="sym-headline">The Moment You Realize<br>Something <span style="color:var(--red);">Has to Change</span></h2>
+      <h2 class="sym-headline">The Moment You <br class="desktop-br">Realize Something <br class="mobile-br"><span style="color:var(--red);">Has to Change</span></h2>
     </div>
   </div>
 
@@ -6096,7 +6176,7 @@
       <div class="meth-feature-visual">
         <!-- Slide 0: Structural Audit — diagnostic scan -->
         <div class="meth-feature-slide active" data-meth-slide="0">
-          <svg viewBox="100 60 600 360" xmlns="http://www.w3.org/2000/svg" style="background:#ffffff;">
+          <svg viewBox="150 60 500 360" xmlns="http://www.w3.org/2000/svg" style="background:#ffffff;" preserveAspectRatio="xMidYMid meet">
             <defs>
               <pattern id="auditGrid" width="40" height="40" patternUnits="userSpaceOnUse">
                 <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0,0,0,0.04)" stroke-width="1"/>
@@ -6169,7 +6249,7 @@
 
         <!-- Slide 1: System Architecture — blueprint layers -->
         <div class="meth-feature-slide" data-meth-slide="1">
-          <svg viewBox="110 20 580 440" xmlns="http://www.w3.org/2000/svg" style="background:#ffffff;">
+          <svg viewBox="140 20 520 440" xmlns="http://www.w3.org/2000/svg" style="background:#ffffff;" preserveAspectRatio="xMidYMid meet">
             <defs>
               <pattern id="archGrid" width="40" height="40" patternUnits="userSpaceOnUse">
                 <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0,0,0,0.04)" stroke-width="1"/>
@@ -6229,7 +6309,7 @@
 
         <!-- Slide 2: Installation — 3x3 OS embedding -->
         <div class="meth-feature-slide" data-meth-slide="2">
-          <svg viewBox="80 10 640 490" xmlns="http://www.w3.org/2000/svg" style="background:#ffffff;">
+          <svg viewBox="120 10 560 490" xmlns="http://www.w3.org/2000/svg" style="background:#ffffff;" preserveAspectRatio="xMidYMid meet">
             <defs>
               <pattern id="installGrid" width="40" height="40" patternUnits="userSpaceOnUse">
                 <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0,0,0,0.04)" stroke-width="1"/>
@@ -6435,7 +6515,7 @@
 
     <div class="eng-header">
       <span class="section-pill">Engagements</span>
-      <h2 class="eng-headline">Start where you are.<br><span class="hl-red">Build from there.</span></h2>
+      <h2 class="eng-headline">Start where you are. <span class="hl-red">Build from there.</span></h2>
       <div class="eng-subcopy">
         <p>Not every organization is in the same place. Some need to understand what's structurally at risk. Some need those systems designed. Some need them built.</p>
         <p>Every tier stands on its own. Each one sets the foundation for what comes next.</p>
@@ -6552,7 +6632,7 @@
 <section id="expertise">
   <div class="exp-wrapper">
     <div class="exp-label-wrap"><span class="exp-label">The Transformation</span></div>
-    <h2 class="exp-headline">What changes when<br><span class="hl-red">structure</span> is installed</h2>
+    <h2 class="exp-headline">What changes<br>when <span class="hl-red">structure</span><br>is installed</h2>
 
     <!-- Split comparison panel -->
     <div class="exp-panel">
@@ -6716,8 +6796,8 @@
               </button>
             </div>
             <div class="cs-content">
-              <div class="cs-hero-stat">25 hrs/week</div>
-              <div class="cs-hero-stat-label">Reclaimed from founder dependency in 90 days</div>
+              <div class="cs-hero-stat">20+ hrs/week saved</div>
+              <div class="cs-hero-stat-label">from founder dependency in 90 days</div>
               <blockquote class="cs-quote">
                 "As owners we were at maximum capacity. Paradigm built the systems so the business runs operations without me on top of every task. We saved 25 hours a week and we were able to focus on scale."
               </blockquote>
@@ -6730,7 +6810,7 @@
                 <span class="cs-industry-tag">Healthcare</span>
               </div>
               <div class="cs-chips">
-                <span class="cs-chip">25 hrs/week reclaimed</span>
+                <span class="cs-chip">20+ hrs/week saved</span>
                 <span class="cs-chip">Ops run without founder</span>
                 <span class="cs-chip">90-day turnaround</span>
               </div>
@@ -6762,9 +6842,11 @@
 <!-- BUILT IN THE FIRE -->
 <section id="origins">
   <div class="origins-left">
-    <div>
+    <div class="origins-header">
       <span class="section-pill" style="margin-bottom:22px;">Our Origin</span>
       <h2>Built in the Fire.<br><span style="color:var(--red);">Proven at Scale.</span></h2>
+    </div>
+    <div class="origins-body">
       <p>Over the past decade we've helped build companies across multiple industries.</p>
       <p>And we kept seeing the same pattern.</p>
       <p>Revenue would grow.</p>
@@ -7133,6 +7215,9 @@
       stack.classList.remove('cs-last-card', 'cs-penultimate');
       if (idx === count - 1) stack.classList.add('cs-last-card');
       else if (idx === count - 2) stack.classList.add('cs-penultimate');
+      // Fit stack height to active card
+      var activeCard = cards[idx];
+      if (activeCard) stack.style.minHeight = activeCard.scrollHeight + 'px';
     }
 
     function onScroll() {
@@ -7469,6 +7554,24 @@
 
 <script>
 (function() {
+  // Shrink video pill title to fit on one line
+  (function fitPillTitle() {
+    const el = document.querySelector('.hero-video-pill-title');
+    if (!el) return;
+    const parent = el.closest('.hero-video-pill-info');
+    if (!parent) return;
+    function fit() {
+      el.style.fontSize = '';
+      let size = parseFloat(getComputedStyle(el).fontSize);
+      while (el.scrollWidth > parent.clientWidth && size > 8) {
+        size -= 0.5;
+        el.style.fontSize = size + 'px';
+      }
+    }
+    fit();
+    window.addEventListener('resize', fit);
+  })();
+
   const VIMEO_URL = 'https://player.vimeo.com/video/1168618889?autoplay=1&badge=0&autopause=0&player_id=0&app_id=58479';
   const thumb = document.getElementById('videoThumb');
   const overlay = document.getElementById('videoOverlay');
@@ -8163,19 +8266,20 @@
       hard_tier3: S.hardTier3,
       business_stage: S.stage,
       subscriptions: S.subscriptions,
-      source: "Website Diagnostic",
+      source: "homepage-contact",
+      lead_source: "friction-point-quiz",
       utm_source: UTM.source,
       utm_medium: UTM.medium,
       utm_campaign: UTM.campaign
     };
     try {
-      await fetch('https://services.leadconnectorhq.com/hooks/toKhUkB5BEHB9Jn52ktG/webhook-trigger/937f2651-108d-4723-901b-c1c9dec36c3f', {
+      await fetch('/api/webhook', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
     } catch (error) {
-      console.error('GHL webhook failed:', error);
+      console.error('Webhook proxy failed:', error);
     }
   }
 

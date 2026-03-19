@@ -46,6 +46,12 @@
 - **Spacing:** Use intentional, consistent spacing tokens — not random Tailwind steps.
 - **Depth:** Surfaces should have a layering system (base → elevated → floating), not all sit at the same z-plane.
 
+## GoHighLevel (GHL) API
+- All GHL credentials are stored in `.env` (never commit to git)
+- Webhook calls go through the Netlify serverless proxy at `/api/webhook`
+- The proxy function lives at `netlify/functions/webhook.js`
+- See `.env.example` for the required environment variables
+
 ## Hard Rules
 - Do not add sections, features, or content not in the reference
 - Do not "improve" a reference design — match it

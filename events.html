@@ -1377,13 +1377,15 @@
       event_date: document.getElementById('spkDate').value,
       audience_size: document.getElementById('spkAudience').value.trim() || "",
       additional_details: document.getElementById('spkDetails').value.trim() || "",
-      source: "Events Speaker Form"
+      source: "events-speaker-request",
+      lead_source: "speaker-request",
+      timestamp: new Date().toISOString()
     };
-    fetch('https://services.leadconnectorhq.com/hooks/toKhUkB5BEHB9Jn52ktG/webhook-trigger/1282d99b-cfe6-4bf3-996a-0f57a6e1d73f', {
+    fetch('/api/webhook', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
-    }).catch(function(err) { console.error('Speaker webhook failed:', err); });
+    }).catch(function(err) { console.error('Webhook proxy failed:', err); });
 
     // Hide form, show thank you
     document.getElementById('speakerForm').style.display = 'none';

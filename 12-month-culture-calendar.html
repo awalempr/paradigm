@@ -1,0 +1,2943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0d0d0d">
+  <title>The 12 Month Culture Calendar | Paradigm Consulting</title>
+
+  <link rel="icon" type="image/x-icon" href="brand_assets/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Figtree:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/ranade" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #09090b;
+      --surface: #18181b;
+      --surface-2: #27272a;
+      --surface-3: #3f3f46;
+      --fg: #fafafa;
+      --fg-muted: #d4d4d8;
+      --muted: #a1a1aa;
+      --border: #3f3f46;
+      --border-light: #52525b;
+      --accent: #C4603A;
+      --accent-hover: #d4714b;
+      --accent-dim: rgba(196,96,58,0.14);
+      --accent-border: rgba(196,96,58,0.30);
+      --red: #d32f2f;
+    }
+
+    /* ─── RESET ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      background: var(--bg);
+      color: var(--fg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: 'Figtree', sans-serif;
+      background: var(--bg);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ─── TOP BAR ─── */
+    .top-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .top-bar::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0.4;
+    }
+    .top-bar img { height: 20px; }
+
+    /* ─── PROGRESS BAR ─── */
+    .progress-bar-fixed {
+      position: fixed;
+      top: 56px; left: 0; right: 0;
+      z-index: 99;
+      height: 3px;
+      background: var(--border);
+      overflow: hidden;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .progress-bar-fixed.visible { opacity: 1; }
+    .progress-bar-fixed .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+      transition: width 0.5s cubic-bezier(0.16,1,0.3,1);
+      box-shadow: 0 0 8px rgba(196,96,58,0.5);
+    }
+    /* Legacy progress bar inside screen */
+    .progress-bar {
+      height: 0;
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      transition: width 0.5s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    /* ─── SCREENS ─── */
+    .screen {
+      display: none;
+      min-height: 100vh;
+      padding: 56px 0 0;
+    }
+    .screen.active { display: block; animation: screenFadeIn 0.35s ease both; }
+    @keyframes screenFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .screen-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px clamp(20px, 5vw, 48px) 64px;
+      background: var(--surface);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      margin-top: clamp(24px, 3vw, 40px);
+      margin-bottom: 40px;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.4), 0 1px 0 rgba(255,255,255,0.03) inset;
+    }
+
+    /* ─── TITLE BLOCK ─── */
+    .title-block {
+      margin-bottom: 48px;
+      text-align: center;
+    }
+    .title-block-main {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      line-height: 0.92;
+      font-size: clamp(28px, 5vw, 42px);
+      color: var(--fg);
+      white-space: nowrap;
+    }
+    .title-block-sub {
+      font-family: 'Figtree', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    /* ═══════════════════════════════════════════
+       SCREEN 1 — INTRO
+       ═══════════════════════════════════════════ */
+    .intro-page {
+      min-height: calc(100vh - 56px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 56px 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Animated gradient mesh background — terracotta tinted */
+    .intro-page::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background:
+        radial-gradient(ellipse 600px 400px at 20% 30%, rgba(196,96,58,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 500px 500px at 80% 60%, rgba(196,96,58,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 400px 300px at 50% 80%, rgba(212,113,75,0.06) 0%, transparent 70%);
+      animation: meshDrift 20s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes meshDrift {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      33% { transform: translate(2%, -1%) rotate(0.5deg); }
+      66% { transform: translate(-1%, 2%) rotate(-0.3deg); }
+      100% { transform: translate(1%, -2%) rotate(0.2deg); }
+    }
+    .intro-card-wrap {
+      width: 100%;
+      max-width: 960px;
+      padding: clamp(24px, 3vw, 40px) clamp(16px, 4vw, 32px) 32px;
+      position: relative;
+      z-index: 1;
+    }
+    /* Glassmorphism intro card */
+    .intro-card {
+      background: rgba(24,24,27,0.82);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(196,96,58,0.18);
+      border-radius: 20px;
+      padding: clamp(28px, 4vw, 44px) clamp(24px, 5vw, 56px);
+      box-shadow: 0 4px 32px rgba(0,0,0,0.4), 0 0 80px rgba(196,96,58,0.05);
+      position: relative;
+      overflow: hidden;
+      animation: cardSlideIn 0.6s ease both;
+    }
+    .intro-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), rgba(196,96,58,0.2));
+    }
+    @keyframes cardSlideIn {
+      from { opacity: 0; transform: translateX(40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .intro-card h1 {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      font-size: clamp(28px, 5vw, 40px);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--fg);
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .intro-card .subtitle {
+      font-size: clamp(16px, 2.5vw, 20px);
+      line-height: 1.4;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+    .intro-card .description {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--fg-muted);
+      max-width: 660px;
+      margin-bottom: 28px;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Eyebrow pill */
+    .eyebrow-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Figtree', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
+      border-radius: 100px;
+      padding: 6px 16px;
+      margin-bottom: 16px;
+    }
+    .eyebrow-pill .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+    .framework-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .framework-tag .tag-sep {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--muted);
+      flex-shrink: 0;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 4px;
+      margin-bottom: 24px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tab-btn {
+      flex: 1;
+      font-family: 'Figtree', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      background: transparent;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: color 0.2s, background 0.2s, font-weight 0.2s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--fg); }
+    .tab-btn.active {
+      color: var(--fg);
+      font-weight: 700;
+      background: var(--surface-3);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    .tab-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .tab-panel .lead {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--fg-muted);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .tab-panel .lead strong {
+      color: var(--fg);
+      font-weight: 600;
+    }
+
+    /* Check list */
+    .check-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .check-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--fg);
+    }
+    .check-icon {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      margin-top: 2px;
+    }
+
+    /* Disclaimer */
+    .disclaimer {
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--muted);
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Trust bar */
+    .trust-bar {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      padding: 16px 0;
+      margin-top: 24px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .trust-item {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--fg-muted);
+      text-align: center;
+    }
+    .trust-item:not(:last-child) {
+      border-right: 1px solid var(--border);
+    }
+    .trust-item svg {
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+      opacity: 0.7;
+      color: var(--accent);
+    }
+
+    /* Form */
+    .intro-cta-area {
+      text-align: center;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .intro-form {
+      display: flex;
+      gap: 10px;
+      max-width: 480px;
+      margin: 0 auto 12px;
+      flex-wrap: wrap;
+    }
+    .intro-form .form-input { flex: 1; min-width: 160px; }
+    .form-input {
+      font-family: 'Figtree', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      height: 50px;
+      padding: 0 18px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--fg);
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .form-input::placeholder { color: var(--muted); }
+    .form-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); }
+
+    .form-error {
+      font-size: 12px;
+      color: var(--red);
+      text-align: center;
+      display: none;
+      margin-bottom: 8px;
+    }
+
+    .intro-note {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    /* Proof bar */
+    .proof-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin-top: 24px;
+      padding: 0;
+      background: var(--surface-2);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .proof-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      text-align: center;
+    }
+    .proof-item:not(:last-child) {
+      border-right: 1px solid var(--border);
+    }
+    .proof-number {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .proof-label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .proof-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .proof-logo img {
+      height: 22px;
+      opacity: 0.7;
+    }
+
+    /* ─── BUTTONS ─── */
+    .btn-primary, .btn-accent {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: 'Figtree', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      background: var(--accent);
+      height: 52px;
+      padding: 0 32px;
+      border-radius: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+      overflow: hidden;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+      width: 100%;
+      box-shadow: 0 2px 12px rgba(196,96,58,0.25);
+    }
+    .btn-primary:hover, .btn-accent:hover {
+      background: var(--accent-hover);
+      box-shadow: 0 4px 20px rgba(196,96,58,0.35);
+      transform: translateY(-1px);
+    }
+    .btn-primary:active, .btn-accent:active { transform: scale(0.98); }
+    .btn-primary:focus-visible, .btn-accent:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .btn-primary svg, .btn-accent svg { flex-shrink: 0; }
+
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Figtree', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--fg-muted);
+      background: transparent;
+      border: 1px solid var(--border);
+      height: 52px;
+      padding: 0 28px;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-back:hover { border-color: var(--fg-muted); color: var(--fg); }
+    .btn-back:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .btn-next { flex: 1; }
+
+    /* ═══════════════════════════════════════════
+       SCREEN 2 — ASSESSMENT
+       ═══════════════════════════════════════════ */
+    .section-header {
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-label {
+      font-family: 'Figtree', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      font-size: clamp(22px, 4vw, 32px);
+      line-height: 1.05;
+      margin-bottom: 12px;
+      color: var(--fg);
+    }
+    .section-subtext {
+      font-size: 15px;
+      color: var(--fg-muted);
+      line-height: 1.75;
+      font-style: italic;
+    }
+    .scoring-guide {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+      line-height: 1.6;
+      margin-top: 16px;
+      padding: 12px 16px;
+      background: var(--surface-2);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .question-block {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .question-block:last-of-type { border-bottom: none; }
+
+    .question-number {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      margin-bottom: 10px;
+      letter-spacing: 0.05em;
+    }
+    .question-text {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--fg);
+      margin-bottom: 20px;
+    }
+
+    /* ─── FREQUENCY SELECTOR BUTTONS ─── */
+    .freq-row { display: flex; gap: 6px; }
+    .freq-btn {
+      flex: 1; min-width: 0; height: 42px; border-radius: 10px;
+      border: 1px solid var(--border); background: var(--surface-2);
+      color: var(--muted); font-family: 'Figtree', sans-serif;
+      font-size: 13px; font-weight: 600; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color 0.15s, background 0.15s, color 0.15s, transform 0.1s;
+    }
+    .freq-btn:hover { border-color: var(--accent); color: var(--fg); background: var(--accent-dim); }
+    .freq-btn:active { transform: scale(0.95); }
+    .freq-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .freq-btn.selected { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+    /* ─── SCENARIO CARD BUTTONS ─── */
+    .scenario-buttons { display: flex; flex-direction: column; gap: 8px; }
+    .scenario-btn {
+      display: flex; align-items: flex-start; gap: 14px; width: 100%;
+      padding: 14px 18px; background: var(--surface-2);
+      border: 1.5px solid var(--border); border-radius: 10px;
+      cursor: pointer; font-family: 'Figtree', sans-serif;
+      font-size: 14px; font-weight: 400; color: var(--fg-muted);
+      text-align: left; line-height: 1.55;
+      transition: border-color 0.15s, background 0.15s, transform 0.1s, box-shadow 0.15s;
+    }
+    .scenario-btn:hover { border-color: var(--accent); background: var(--accent-dim); }
+    .scenario-btn:active { transform: scale(0.99); }
+    .scenario-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .scenario-btn.selected {
+      background: var(--accent-dim); border-color: var(--accent);
+      border-left: 4px solid var(--accent); color: var(--fg);
+      box-shadow: 0 2px 10px rgba(196,96,58,0.2);
+    }
+    .scenario-btn-chip {
+      font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700;
+      letter-spacing: 0.05em; width: 24px; height: 22px; border-radius: 5px;
+      background: var(--surface-3); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; color: var(--muted); margin-top: 2px;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+    .scenario-btn.selected .scenario-btn-chip {
+      background: var(--accent); border-color: var(--accent); color: #fff;
+    }
+
+    /* ─── NAV BUTTONS ─── */
+    .nav-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    .validation-msg {
+      font-size: 12px;
+      color: var(--red);
+      margin-top: 12px;
+      display: none;
+      text-align: center;
+    }
+
+    /* ═══════════════════════════════════════════
+       PHASE TRANSITION SCREEN
+       ═══════════════════════════════════════════ */
+    .phase-transition {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      min-height: calc(100vh - 56px); text-align: center;
+      padding: 48px clamp(20px, 5vw, 48px);
+    }
+    .phase-transition h2 {
+      font-family: 'Ranade', sans-serif; font-weight: 500;
+      font-size: clamp(24px, 4vw, 36px); line-height: 1.2;
+      color: var(--accent); margin-bottom: 20px;
+    }
+    .phase-transition p {
+      font-size: 16px; line-height: 1.7; color: var(--fg-muted);
+      max-width: 480px; margin-bottom: 32px;
+    }
+
+    /* ═══════════════════════════════════════════
+       SCREEN 3 — RESULTS
+       ═══════════════════════════════════════════ */
+    /* Score ring */
+    .results-score-wrap {
+      text-align: center;
+      margin-bottom: 56px;
+      display: flex;
+      justify-content: center;
+    }
+    .score-ring-container {
+      position: relative;
+      width: 240px;
+      height: 240px;
+    }
+    .score-ring-svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+    .score-ring-bg {
+      fill: none;
+      stroke: var(--surface-3);
+      stroke-width: 8;
+    }
+    .score-ring-fill {
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 8;
+      stroke-linecap: round;
+      stroke-dasharray: 628.32;
+      stroke-dashoffset: 628.32;
+      transition: stroke-dashoffset 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+      filter: drop-shadow(0 0 8px rgba(196,96,58,0.4));
+    }
+    .score-ring-glow {
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 12;
+      stroke-linecap: round;
+      stroke-dasharray: 628.32;
+      stroke-dashoffset: 628.32;
+      transition: stroke-dashoffset 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0.15;
+      filter: blur(4px);
+    }
+    .score-ring-inner {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+    .results-score-number {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 300;
+      font-size: clamp(52px, 10vw, 72px);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: var(--accent);
+      display: block;
+    }
+    .results-score-total {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 300;
+      font-size: 18px;
+      color: var(--muted);
+      letter-spacing: -0.02em;
+    }
+
+    .tier-badge {
+      display: inline-block;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 12px;
+    }
+    .tier-name {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      font-size: clamp(22px, 4vw, 32px);
+      line-height: 1.1;
+      margin-bottom: 20px;
+      color: var(--accent);
+    }
+    .tier-description {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--fg-muted);
+      margin-bottom: 16px;
+    }
+    .tier-financial {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--fg-muted);
+      padding: 16px 20px;
+      background: var(--surface-2);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      margin-bottom: 48px;
+    }
+    .tier-financial strong {
+      color: var(--fg);
+      font-weight: 600;
+    }
+
+    /* Section bars — slim editorial */
+    .section-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+    .section-bar-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .section-bar-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--fg);
+      min-width: 160px;
+      flex-shrink: 0;
+    }
+    .section-bar-track {
+      flex: 1;
+      height: 6px;
+      background: var(--surface-3);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+    .section-bar-fill {
+      height: 100%;
+      border-radius: 100px;
+      width: 0%;
+      background: var(--accent);
+      transition: width 1.2s cubic-bezier(0.16,1,0.3,1);
+    }
+    .section-bar-score {
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      color: var(--fg-muted);
+      min-width: 44px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .weakest-callout {
+      padding: 20px 24px;
+      background: rgba(211,47,47,0.06);
+      border: 1px solid rgba(211,47,47,0.2);
+      border-radius: 14px;
+      margin-bottom: 48px;
+    }
+    .weakest-callout-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--red);
+      margin-bottom: 6px;
+    }
+    .weakest-callout-value {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--fg);
+    }
+
+    .results-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 40px 0;
+    }
+    .results-transition {
+      text-align: center;
+    }
+    .results-transition p {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--fg-muted);
+      margin-bottom: 28px;
+    }
+    .results-transition-block {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    /* ═══════════════════════════════════════════
+       CALENDAR GRID
+       ═══════════════════════════════════════════ */
+    .calendar-grid {
+      display: grid; grid-template-columns: 48px repeat(3, 1fr);
+      gap: 2px; margin-bottom: 40px; border-radius: 12px; overflow: hidden;
+    }
+    .quarter-strip {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 16px 4px; writing-mode: vertical-rl; text-orientation: mixed;
+      transform: rotate(180deg); gap: 8px;
+    }
+    .quarter-strip-num {
+      font-family: 'Ranade', sans-serif; font-weight: 700;
+      font-size: 18px; color: var(--fg-muted); letter-spacing: -0.02em;
+    }
+    .quarter-strip-theme {
+      font-family: 'Figtree', sans-serif; font-size: 10px; font-weight: 600;
+      color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+    .month-cell {
+      background: var(--surface-2); padding: 16px 12px;
+      display: flex; flex-direction: column; gap: 8px; min-height: 120px;
+    }
+    .month-cell-name {
+      font-family: 'Figtree', sans-serif; font-size: 11px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted);
+    }
+    .month-cell-theme {
+      font-size: 11px; color: var(--accent); font-weight: 500;
+    }
+    .month-badges { display: flex; flex-wrap: wrap; gap: 4px; margin-top: auto; }
+    .badge {
+      font-family: 'Figtree', sans-serif; font-size: 10px; font-weight: 600;
+      padding: 3px 8px; border-radius: 6px; white-space: nowrap;
+      overflow: hidden; text-overflow: ellipsis; max-width: 100%;
+    }
+    .badge-primary { background: var(--accent); color: #fff; }
+    .badge-secondary { background: transparent; border: 1px solid var(--accent); color: var(--accent); }
+    .badge-accent { background: rgba(196,96,58,0.7); color: #fff; }
+    .badge-celebration { background: var(--accent); color: #fff; }
+    .badge-celebration::before { content: '\2605 '; }
+
+    /* Quarter tonal banding — cells */
+    .q1-tint { background: rgba(196,96,58,0.10); }
+    .q2-tint { background: rgba(196,96,58,0.07); }
+    .q3-tint { background: rgba(196,96,58,0.05); }
+    .q4-tint { background: rgba(196,96,58,0.03); }
+    /* Quarter tonal banding — strips */
+    .q1-strip { background: rgba(196,96,58,0.20); }
+    .q2-strip { background: rgba(196,96,58,0.15); }
+    .q3-strip { background: rgba(196,96,58,0.10); }
+    .q4-strip { background: rgba(196,96,58,0.06); }
+
+    /* ═══════════════════════════════════════════
+       ACCORDION
+       ═══════════════════════════════════════════ */
+    .accordion-item {
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-left: 5px solid var(--accent); border-radius: 4px 14px 14px 4px;
+      margin-bottom: 12px; overflow: hidden;
+    }
+    .accordion-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 20px; cursor: pointer; font-family: 'Ranade', sans-serif;
+      font-weight: 500; font-size: 16px; color: var(--fg);
+      transition: background 0.2s;
+    }
+    .accordion-header:hover { background: var(--surface-3); }
+    .accordion-chevron {
+      width: 20px; height: 20px; color: var(--muted);
+      transition: transform 0.3s ease;
+    }
+    .accordion-item.open .accordion-chevron { transform: rotate(180deg); }
+    .accordion-body {
+      max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.16,1,0.3,1);
+    }
+    .accordion-item.open .accordion-body { max-height: 800px; }
+    .accordion-content {
+      padding: 0 20px 24px; display: flex; flex-direction: column; gap: 20px;
+    }
+    .accordion-label {
+      font-family: 'Figtree', sans-serif; font-size: 10px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted);
+    }
+    .accordion-text {
+      font-size: 14px; line-height: 1.75; color: var(--fg-muted);
+    }
+
+    /* ═══════════════════════════════════════════
+       GAMEPLAN CARDS
+       ═══════════════════════════════════════════ */
+    .gameplan-intro {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--fg-muted);
+      margin-bottom: 40px;
+      text-align: center;
+    }
+    .gameplan-intro strong { color: var(--fg); font-weight: 600; }
+
+    .gp-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-left: 5px solid var(--accent);
+      border-radius: 4px 16px 16px 4px;
+      padding: clamp(28px, 5vw, 40px);
+      margin-bottom: 24px;
+      display: none;
+    }
+    .gp-card.active {
+      display: block;
+      animation: gpCardSlide 0.4s ease both;
+    }
+
+    /* Timeline */
+    .gp-timeline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 40px;
+    }
+    .gp-timeline-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      padding: 8px 0;
+      flex: 0 0 auto;
+      z-index: 1;
+    }
+    .gp-timeline-dot {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--surface-2);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      transition: background 0.3s, border-color 0.3s, color 0.3s, transform 0.3s;
+    }
+    .gp-timeline-step.active .gp-timeline-dot {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      transform: scale(1.1);
+    }
+    .gp-timeline-step.completed .gp-timeline-dot {
+      background: var(--accent-dim);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .gp-timeline-text {
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      transition: color 0.3s;
+      white-space: nowrap;
+    }
+    .gp-timeline-step.active .gp-timeline-text {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .gp-timeline-line {
+      width: 60px;
+      height: 2px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+    .gp-timeline-line.filled {
+      background: var(--accent);
+    }
+
+    /* Card nav */
+    .gp-card-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .gp-card-nav button {
+      font-family: 'Figtree', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, transform 0.15s;
+    }
+    .gp-card-nav button:active { transform: scale(0.97); }
+    .gp-nav-prev {
+      background: var(--surface-3);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .gp-nav-prev:hover { background: var(--border-light); color: var(--fg); }
+    .gp-nav-next {
+      background: var(--accent);
+      border: 1px solid var(--accent);
+      color: #fff;
+    }
+    .gp-nav-next:hover { background: var(--accent-hover); }
+    @keyframes gpCardSlide {
+      from { opacity: 0; transform: translateX(30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .gp-timeframe {
+      display: inline-block;
+      font-family: 'Figtree', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+    .gp-headline {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      font-size: clamp(20px, 3.5vw, 26px);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      color: var(--fg);
+    }
+    .gp-body {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--fg-muted);
+      margin-bottom: 20px;
+    }
+    .gp-why {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--fg-muted);
+      padding: 16px 20px;
+      background: var(--surface-3);
+      border-left: 2px solid var(--accent);
+      border-radius: 0 10px 10px 0;
+      margin-bottom: 24px;
+    }
+    .gp-why strong { color: var(--fg); font-weight: 600; }
+
+    .gp-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+    .gp-action-item {
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--fg-muted);
+      padding-left: 16px;
+      border-left: 2px solid var(--border);
+    }
+    .gp-action-item strong {
+      color: var(--fg);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .gp-tier-callout {
+      padding: 16px 20px;
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--fg-muted);
+    }
+    .gp-tier-callout em {
+      font-style: normal;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* ─── CTA BLOCK ─── */
+    .cta-block {
+      text-align: center;
+      padding: 48px 0 32px;
+      border-top: 1px solid var(--border);
+      margin-top: 24px;
+    }
+    .cta-block h2 {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      font-size: clamp(22px, 4vw, 32px);
+      line-height: 1.1;
+      margin-bottom: 16px;
+      color: var(--fg);
+    }
+    .cta-block p {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--fg-muted);
+      max-width: 540px;
+      margin: 0 auto 32px;
+    }
+    .cta-block .btn-primary {
+      max-width: 360px;
+      margin: 0 auto 16px;
+    }
+    .cta-secondary-link {
+      display: inline-block;
+      font-family: 'Figtree', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+      transition: color 0.2s;
+      background: none;
+      border: none;
+    }
+    .cta-secondary-link:hover { color: var(--fg); }
+    .cta-small-text {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 12px;
+    }
+
+    /* ─── APPLY FORM ─── */
+    .apply-form-wrap {
+      max-width: 420px;
+      margin: 0 auto;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.5s cubic-bezier(0.16,1,0.3,1), opacity 0.4s ease, margin 0.4s ease;
+    }
+    .apply-form-wrap.open {
+      max-height: 300px;
+      opacity: 1;
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+    .apply-form-wrap .form-input { margin-bottom: 12px; }
+    .apply-form-wrap .form-error { font-size: 13px; color: var(--red); margin-bottom: 10px; display: none; }
+    .apply-form-wrap .form-error.visible { display: block; }
+    .apply-btn-hide { display: none !important; }
+    .urgency-line {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+      margin-bottom: 24px;
+      letter-spacing: 0.01em;
+    }
+    @keyframes applyPulse {
+      0%, 100% { box-shadow: 0 2px 12px rgba(196,96,58,0.25); }
+      50% { box-shadow: 0 2px 12px rgba(196,96,58,0.25), 0 0 24px rgba(196,96,58,0.3); }
+    }
+    .btn-apply-pulse {
+      animation: applyPulse 2.5s ease-in-out infinite;
+      animation-delay: 3s;
+    }
+
+    /* ═══════════════════════════════════════════
+       THANK YOU SCREEN
+       ═══════════════════════════════════════════ */
+    .thankyou-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 56px);
+      text-align: center;
+      padding: 48px clamp(20px, 5vw, 48px);
+    }
+    .thankyou-wrap h1 {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      font-size: clamp(28px, 5vw, 42px);
+      line-height: 1.05;
+      margin-bottom: 16px;
+      color: var(--fg);
+    }
+    .thankyou-wrap p {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--fg-muted);
+      margin-bottom: 32px;
+    }
+    .thankyou-wrap img { height: 24px; opacity: 0.5; }
+    .thankyou-next {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 480px;
+      width: 100%;
+      text-align: left;
+      margin-bottom: 8px;
+    }
+    .thankyou-next-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 16px 20px;
+    }
+    .thankyou-next-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Figtree', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+    .thankyou-next-item strong {
+      display: block;
+      font-family: 'Figtree', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--fg);
+      margin-bottom: 4px;
+    }
+    .thankyou-next-item span {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--fg-muted);
+    }
+
+    /* ─── PRINT FOOTER (hidden by default) ─── */
+    .print-footer { display: none; }
+
+    /* ═══════════════════════════════════════════
+       RESPONSIVE — 640px
+       ═══════════════════════════════════════════ */
+    @media (max-width: 640px) {
+      .screen-inner { padding: 24px 16px 40px; }
+      .intro-card { padding: 20px 14px 24px; }
+      .intro-page { padding: 12px 8px 40px; }
+      .intro-card .description { display: none; }
+      .intro-card h1 { margin-bottom: 6px; font-size: clamp(22px, 6.5vw, 32px); }
+      .intro-card .subtitle { font-size: 14px; margin-bottom: 16px; }
+      .disclaimer { font-size: 11px; margin-top: 12px; }
+      .title-block-main { white-space: normal; }
+      .tab-btn { white-space: normal; }
+      .intro-form { flex-direction: column; gap: 10px; }
+      /* Tabs: horizontal scroll on mobile */
+      .tabs { flex-direction: row; overflow-x: auto; gap: 4px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+      .tabs::-webkit-scrollbar { display: none; }
+      .tab-btn { flex-shrink: 0; text-align: center; padding: 9px 14px; min-height: 40px; font-size: 13px; white-space: nowrap; }
+      .tab-panel .lead { font-size: 12px; margin-bottom: 14px; }
+      /* Larger touch-friendly inputs */
+      .form-input { height: 80px; font-size: 18px; padding: 0 24px; border-radius: 16px; }
+      .btn-primary, .btn-accent { height: 80px; font-size: 18px; border-radius: 16px; }
+      .intro-cta-area { padding-top: 20px; }
+      /* Trust bar column stack */
+      .trust-bar { flex-direction: column; gap: 12px; }
+      .trust-item { justify-content: flex-start; padding: 0 4px; font-size: 12px; }
+      .trust-item:not(:last-child) { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+      .proof-bar { flex-direction: column; }
+      .proof-item:not(:last-child) { border-right: none; border-bottom: 1px solid var(--border); }
+      .proof-number { font-size: 20px; }
+      .proof-label { font-size: 10px; }
+      .proof-logo img { height: 16px !important; }
+      /* Assessment */
+      .eyebrow-pill { font-size: 10px; padding: 5px 12px; }
+      .framework-tag { font-size: 9px; }
+      .title-block-main { font-size: clamp(16px, 5.2vw, 28px); }
+      .section-title { font-size: clamp(22px, 6vw, 28px); }
+      .question-text { font-size: 14px; }
+      .scoring-guide { font-size: 11px; padding: 10px 12px; }
+      .nav-buttons { flex-direction: column-reverse; gap: 10px; }
+      .nav-buttons .btn-primary,
+      .nav-buttons .btn-back { width: 100%; min-height: 48px; }
+      /* Results */
+      .results-score-number { font-size: 48px; }
+      .score-ring-container { width: 180px; height: 180px; }
+      .tier-name { font-size: clamp(18px, 5vw, 24px); }
+      /* Calendar grid — single column */
+      .calendar-grid { grid-template-columns: 1fr; }
+      .quarter-strip { writing-mode: horizontal-tb; transform: none; flex-direction: row; padding: 12px 16px; }
+      .month-cell { min-height: auto; }
+      /* Gameplan */
+      .gp-card { padding: 20px 16px; }
+      .gp-headline { font-size: clamp(18px, 5vw, 22px); }
+      .gp-body { font-size: 14px; }
+      .gp-why { font-size: 13px; padding: 14px 16px; }
+      .gp-timeline-line { width: 24px; }
+      .gp-timeline-text { font-size: 10px; }
+      .gp-timeline-dot { width: 32px; height: 32px; font-size: 12px; }
+      .gp-card-nav { flex-direction: column; gap: 10px; align-items: stretch; }
+      .gp-card-nav button { width: 100%; text-align: center; font-size: 13px; padding: 12px 18px; min-height: 44px; }
+      /* Freq + scenario buttons */
+      .freq-btn { font-size: 12px; }
+      .scenario-btn { font-size: 13px; }
+      /* CTA */
+      .cta-block h2 { font-size: clamp(18px, 5vw, 24px); }
+      .cta-block p { font-size: 14px; }
+      /* Section bars */
+      .section-bar-item { flex-wrap: wrap; gap: 8px; }
+      .section-bar-label { min-width: 100%; font-size: 12px; }
+      .section-bar-score { min-width: auto; text-align: right; }
+      .apply-form-wrap { max-width: 100%; }
+    }
+
+    /* ═══════════════════════════════════════════
+       RESPONSIVE — 480px
+       ═══════════════════════════════════════════ */
+    @media (max-width: 480px) {
+      .score-ring-container { width: 160px; height: 160px; }
+      .results-score-number { font-size: 42px; }
+      .results-score-total { font-size: 15px; }
+      .intro-card { padding: 20px 14px; }
+      .trust-item { font-size: 12px; }
+      .freq-btn { font-size: 11px; height: 38px; }
+      .scenario-btn { font-size: 12px; padding: 12px 14px; }
+      .scenario-btn-chip { width: 20px; height: 20px; font-size: 9px; }
+    }
+
+    /* ═══════════════════════════════════════════
+       PRINT — LANDSCAPE CALENDAR
+       ═══════════════════════════════════════════ */
+    @media print {
+      @page { size: landscape; margin: 1cm; }
+      body, html { background: #fff !important; color: #111 !important; }
+      .top-bar, .progress-bar-fixed, .btn-primary, .btn-back, .nav-buttons,
+      .phase-transition, .cta-block, .gp-card, #screen-1, #screen-2, #screen-3,
+      #screen-5, #screen-6, .results-score-wrap, .tier-badge, .tier-description,
+      .tier-financial, .weakest-callout, .results-transition-block,
+      .apply-form-wrap { display: none !important; }
+      #screen-4 { display: block !important; min-height: auto !important; padding: 0 !important; }
+      .screen-inner { background: #fff !important; border: none !important; box-shadow: none !important; color: #111 !important; padding: 20px !important; }
+      .calendar-grid { gap: 1px; }
+      .month-cell { background: #f8f8f8 !important; border: 1px solid #ddd; }
+      .quarter-strip { background: rgba(196,96,58,0.1) !important; }
+      .badge-primary, .badge-accent, .badge-celebration { background: #C4603A !important; color: #fff !important; }
+      .badge-secondary { border-color: #C4603A !important; color: #C4603A !important; }
+      .accordion-item { break-inside: avoid; }
+      .accordion-item .accordion-body { max-height: none !important; }
+      .accordion-item .accordion-chevron { display: none; }
+      .month-cell-name, .accordion-label { color: #666 !important; }
+      .month-cell-theme, .quarter-strip-theme, .accordion-header { color: #C4603A !important; }
+      .accordion-text, .accordion-content { color: #333 !important; }
+      .print-footer { display: block !important; text-align: center; font-size: 11px; color: #999; padding-top: 20px; border-top: 1px solid #ddd; margin-top: 20px; }
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" integrity="sha384-HAH79XdRvHr6axVGh4xQWVCp14kcd32bNk4Xu0sHDHtFQ42n6BAM8ykvB47dGz6D" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <header class="top-bar">
+    <img src="brand_assets/Paradigm Logo White.svg" alt="Paradigm Consulting">
+  </header>
+
+  <!-- PROGRESS BAR -->
+  <div class="progress-bar-fixed" id="progress-bar-fixed">
+    <div class="progress-fill" id="progress-fill"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SCREEN 1 — INTRO / GATE
+  ═══════════════════════════════════════ -->
+  <div id="screen-1" class="screen active">
+    <div class="intro-page">
+      <div class="intro-card-wrap">
+        <div class="intro-card">
+
+          <div style="text-align:center; display:flex; flex-direction:column; align-items:center; gap:10px;">
+            <span class="eyebrow-pill">
+              <span class="pill-dot"></span>
+              12 Month Culture Calendar
+            </span>
+            <span class="framework-tag">
+              3X3OS
+              <span class="tag-sep"></span>
+              Culture
+            </span>
+          </div>
+
+          <h1>Your Team Will Go Where You Send Them. Do You Know Where That Is?</h1>
+          <p class="subtitle">A two-phase diagnostic that builds a personalized 12-month culture calendar for your team.</p>
+          <p class="description">Phase 1 reveals where your culture rhythm stands today across four critical areas. Phase 2 generates a personalized 12-month calendar with quarterly sprints, challenges, recognition events, and meeting upgrades your team can run toward — starting this quarter.</p>
+
+          <!-- Tabs -->
+          <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab(0, this)" type="button">Who It's For</button>
+            <button class="tab-btn" onclick="switchTab(1, this)" type="button">What It Tests</button>
+            <button class="tab-btn" onclick="switchTab(2, this)" type="button">What You Get</button>
+          </div>
+
+          <!-- Tab 0 -->
+          <div class="tab-panel active" id="tab0">
+            <p class="lead">This tool is built for <strong>founders and operators</strong> who:</p>
+            <ul class="check-list">
+              <li><svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(196,96,58,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#C4603A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Run businesses generating $100K to $10M with a team in place</li>
+              <li><svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(196,96,58,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#C4603A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Know their culture needs structure but have no annual plan for building it</li>
+              <li><svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(196,96,58,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#C4603A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Want a team that runs toward something, not just shows up</li>
+              <li><svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(196,96,58,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#C4603A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Are ready to install a culture rhythm that lasts 12 months</li>
+            </ul>
+          </div>
+
+          <!-- Tab 1 -->
+          <div class="tab-panel" id="tab1">
+            <p class="lead">This diagnostic evaluates four culture rhythm areas:</p>
+            <ul class="check-list">
+              <li><svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(196,96,58,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#C4603A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Meeting and Rhythm Health — how your team gathers and decides</li>
+              <li><svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(196,96,58,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#C4603A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>What Drives Your Team — incentives, recognition, and alignment</li>
+              <li><svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(196,96,58,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#C4603A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Sprint and Goal Architecture — how you plan and track progress</li>
+              <li><svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(196,96,58,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#C4603A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Culture Challenges and Energy — the intangibles that make or break a team</li>
+            </ul>
+          </div>
+
+          <!-- Tab 2 -->
+          <div class="tab-panel" id="tab2">
+            <ul class="check-list">
+              <li><svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(196,96,58,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#C4603A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>A diagnostic score revealing your culture rhythm maturity across four sections</li>
+              <li><svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(196,96,58,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#C4603A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>A personalized 12-month culture calendar with four 90-day sprints</li>
+              <li><svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(196,96,58,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#C4603A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Sprint challenges, recognition events, and meeting upgrades built from your answers</li>
+              <li><svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(196,96,58,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#C4603A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>A printable calendar you can pin on a wall and hand to your team</li>
+            </ul>
+          </div>
+
+          <p class="disclaimer">*If you are not the primary decision-maker in your business, this assessment may not reflect your actual authority structure.</p>
+
+          <div class="trust-bar">
+            <div class="trust-item">
+              <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1"/><path d="M8 4.5v4l2.5 1.5" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Takes 6 minutes
+            </div>
+            <div class="trust-item">
+              <svg viewBox="0 0 16 16" fill="none"><path d="M8 1.5l1.85 3.75L14 5.92l-3 2.93.71 4.15L8 11.08 4.29 13l.71-4.15-3-2.93 4.15-.67z" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/></svg>
+              Used by founders doing $100K–$10M
+            </div>
+            <div class="trust-item">
+              <svg viewBox="0 0 16 16" fill="none"><rect x="2" y="6" width="12" height="8" rx="1.5" stroke="currentColor" stroke-width="1"/><path d="M5 6V4.5a3 3 0 0 1 6 0V6" stroke="currentColor" stroke-width="1"/></svg>
+              No generic templates
+            </div>
+          </div>
+
+          <div class="intro-cta-area">
+            <div class="form-error" id="form-error">Please enter your name and a valid email address.</div>
+            <div class="intro-form">
+              <input type="text" class="form-input" id="input-name" placeholder="First name" autocomplete="given-name" maxlength="100">
+              <input type="email" class="form-input" id="input-email" placeholder="Email address" autocomplete="email" maxlength="254">
+              <input type="text" name="website" id="honeyField" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;pointer-events:none;" tabindex="-1" autocomplete="off">
+            </div>
+            <button class="btn-primary" onclick="submitIntro()">Begin Assessment →</button>
+            <p class="intro-note">No spam. Your calendar is emailed immediately after completion.</p>
+          </div>
+
+          <!-- Proof Bar -->
+          <div class="proof-bar">
+            <div class="proof-item">
+              <div class="proof-number">100</div>
+              <div class="proof-label">Points Possible</div>
+            </div>
+            <div class="proof-item">
+              <div class="proof-logo">
+                Developed by
+                <img src="brand_assets/Paradigm Logo White.svg" alt="Paradigm Consulting">
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SCREEN 2 — PHASE 1 DIAGNOSTIC (20 Qs)
+  ═══════════════════════════════════════ -->
+  <div id="screen-2" class="screen">
+    <div class="screen-inner">
+
+      <div class="title-block">
+        <div class="title-block-main">The 12 Month Culture Calendar</div>
+        <div class="title-block-sub">Phase 1 — Culture Rhythm Diagnostic</div>
+      </div>
+
+      <!-- SECTION A -->
+      <div id="section-a" class="section-panel active">
+        <div class="section-header">
+          <div class="section-label">Section A of 4 — 5 Questions</div>
+          <div class="section-title">Meeting and Rhythm Health</div>
+          <div class="section-subtext">The way your team gathers tells you everything about how your culture actually functions.</div>
+          <div class="scoring-guide">Never = not in place · Rarely = occasional · Sometimes = inconsistent · Always = active and consistent</div>
+        </div>
+
+        <!-- A1 freq -->
+        <div class="question-block">
+          <div class="question-number">01 — 20</div>
+          <p class="question-text">When your team finishes a meeting, how often does everyone leave knowing exactly what was decided and who owns what next?</p>
+          <div class="freq-row">
+            <button class="freq-btn" onclick="selectFreq('a1',0,this)">Never</button>
+            <button class="freq-btn" onclick="selectFreq('a1',1,this)">Rarely</button>
+            <button class="freq-btn" onclick="selectFreq('a1',3,this)">Sometimes</button>
+            <button class="freq-btn" onclick="selectFreq('a1',5,this)">Always</button>
+          </div>
+        </div>
+
+        <!-- A2 scenario -->
+        <div class="question-block">
+          <div class="question-number">02 — 20</div>
+          <p class="question-text">Think about your last all-hands or team meeting. Which of these sounds most like what actually happened?</p>
+          <div class="scenario-buttons">
+            <button class="scenario-btn" onclick="selectScenario('a2',0,this)"><span class="scenario-btn-chip">A</span>There was no set agenda. It mostly became a roundtable of updates and I answered questions until we ran out of time.</button>
+            <button class="scenario-btn" onclick="selectScenario('a2',2,this)"><span class="scenario-btn-chip">B</span>We had topics prepared but got pulled into side conversations. Some things got decided, others got tabled and never came back.</button>
+            <button class="scenario-btn" onclick="selectScenario('a2',4,this)"><span class="scenario-btn-chip">C</span>We covered most of what we planned. A few things got action items but follow-through was inconsistent afterward.</button>
+            <button class="scenario-btn" onclick="selectScenario('a2',5,this)"><span class="scenario-btn-chip">D</span>We had a clear agenda, made decisions with owners and deadlines, and started the next one by reviewing what happened on the last.</button>
+          </div>
+        </div>
+
+        <!-- A3 freq -->
+        <div class="question-block">
+          <div class="question-number">03 — 20</div>
+          <p class="question-text">How often does your team have a structured weekly review where each person reports on their progress and commits to the next week's priorities?</p>
+          <div class="freq-row">
+            <button class="freq-btn" onclick="selectFreq('a3',0,this)">Never</button>
+            <button class="freq-btn" onclick="selectFreq('a3',1,this)">Rarely</button>
+            <button class="freq-btn" onclick="selectFreq('a3',3,this)">Sometimes</button>
+            <button class="freq-btn" onclick="selectFreq('a3',5,this)">Always</button>
+          </div>
+        </div>
+
+        <!-- A4 scenario -->
+        <div class="question-block">
+          <div class="question-number">04 — 20</div>
+          <p class="question-text">When a new quarter begins in your business, which of these most accurately describes what happens?</p>
+          <div class="scenario-buttons">
+            <button class="scenario-btn" onclick="selectScenario('a4',0,this)"><span class="scenario-btn-chip">A</span>Nothing formal changes. We continue working on what we were working on and figure out the new priorities as they come up.</button>
+            <button class="scenario-btn" onclick="selectScenario('a4',2,this)"><span class="scenario-btn-chip">B</span>I share some goals informally, usually in a message or a brief conversation, but there is no structured kickoff.</button>
+            <button class="scenario-btn" onclick="selectScenario('a4',4,this)"><span class="scenario-btn-chip">C</span>We have a meeting to talk through the goals but it is more of an overview than a planning session. Accountability for those goals is inconsistent.</button>
+            <button class="scenario-btn" onclick="selectScenario('a4',5,this)"><span class="scenario-btn-chip">D</span>We run a formal quarterly kickoff where the team aligns on the theme, the shared goal, and each person's individual contribution to it.</button>
+          </div>
+        </div>
+
+        <!-- A5 freq -->
+        <div class="question-block">
+          <div class="question-number">05 — 20</div>
+          <p class="question-text">How often does your team have a clear shared goal for the current 90-day period that every person can name without looking anything up?</p>
+          <div class="freq-row">
+            <button class="freq-btn" onclick="selectFreq('a5',0,this)">Never</button>
+            <button class="freq-btn" onclick="selectFreq('a5',1,this)">Rarely</button>
+            <button class="freq-btn" onclick="selectFreq('a5',3,this)">Sometimes</button>
+            <button class="freq-btn" onclick="selectFreq('a5',5,this)">Always</button>
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <button id="btn-next-a" class="btn-primary btn-next" onclick="nextSection('a','b',25)">Next Section →</button>
+        </div>
+        <div id="val-a" class="validation-msg">Please answer every question before continuing.</div>
+      </div>
+
+      <!-- SECTION B -->
+      <div id="section-b" class="section-panel">
+        <div class="section-header">
+          <div class="section-label">Section B of 4 — 5 Questions</div>
+          <div class="section-title">What Drives Your Team</div>
+          <div class="section-subtext">Incentives shape behavior faster than speeches. What your team chases tells you what your culture actually values.</div>
+          <div class="scoring-guide">Never = not in place · Rarely = occasional · Sometimes = inconsistent · Always = active and consistent</div>
+        </div>
+
+        <!-- B1 scenario -->
+        <div class="question-block">
+          <div class="question-number">06 — 20</div>
+          <p class="question-text">When a team member does exceptional work, what typically happens in your organization?</p>
+          <div class="scenario-buttons">
+            <button class="scenario-btn" onclick="selectScenario('b1',0,this)"><span class="scenario-btn-chip">A</span>It gets noticed by the people who work directly with them but nothing formal happens. Good work is expected.</button>
+            <button class="scenario-btn" onclick="selectScenario('b1',2,this)"><span class="scenario-btn-chip">B</span>I acknowledge it privately, usually in a one-on-one or a direct message. Public recognition does not happen consistently.</button>
+            <button class="scenario-btn" onclick="selectScenario('b1',4,this)"><span class="scenario-btn-chip">C</span>We mention wins in team meetings but there is no structured system for it. It happens when someone remembers.</button>
+            <button class="scenario-btn" onclick="selectScenario('b1',5,this)"><span class="scenario-btn-chip">D</span>We have a consistent, structured recognition format that happens at a set cadence and the team knows to expect it.</button>
+          </div>
+        </div>
+
+        <!-- B2 freq -->
+        <div class="question-block">
+          <div class="question-number">07 — 20</div>
+          <p class="question-text">How often does your team's compensation structure reward the outcomes you actually need rather than just effort and tenure?</p>
+          <div class="freq-row">
+            <button class="freq-btn" onclick="selectFreq('b2',0,this)">Never</button>
+            <button class="freq-btn" onclick="selectFreq('b2',1,this)">Rarely</button>
+            <button class="freq-btn" onclick="selectFreq('b2',3,this)">Sometimes</button>
+            <button class="freq-btn" onclick="selectFreq('b2',5,this)">Always</button>
+          </div>
+        </div>
+
+        <!-- B3 scenario -->
+        <div class="question-block">
+          <div class="question-number">08 — 20</div>
+          <p class="question-text">If you asked your team today what they are personally working toward in this business, which answer would you most likely get?</p>
+          <div class="scenario-buttons">
+            <button class="scenario-btn" onclick="selectScenario('b3',0,this)"><span class="scenario-btn-chip">A</span>Most people would say they are just doing their job. There is no defined path for growth or advancement.</button>
+            <button class="scenario-btn" onclick="selectScenario('b3',2,this)"><span class="scenario-btn-chip">B</span>Some people have goals they care about but they are personal goals, not connected to a shared organizational direction.</button>
+            <button class="scenario-btn" onclick="selectScenario('b3',4,this)"><span class="scenario-btn-chip">C</span>People know the company goals but most could not articulate how their own work connects to them specifically.</button>
+            <button class="scenario-btn" onclick="selectScenario('b3',5,this)"><span class="scenario-btn-chip">D</span>Most people could tell you the shared goal for the quarter, their role in it, and what success looks like for them personally.</button>
+          </div>
+        </div>
+
+        <!-- B4 freq -->
+        <div class="question-block">
+          <div class="question-number">09 — 20</div>
+          <p class="question-text">How often does your team have something specific to work toward beyond their daily responsibilities — a challenge, a milestone, or a sprint goal with a defined end date?</p>
+          <div class="freq-row">
+            <button class="freq-btn" onclick="selectFreq('b4',0,this)">Never</button>
+            <button class="freq-btn" onclick="selectFreq('b4',1,this)">Rarely</button>
+            <button class="freq-btn" onclick="selectFreq('b4',3,this)">Sometimes</button>
+            <button class="freq-btn" onclick="selectFreq('b4',5,this)">Always</button>
+          </div>
+        </div>
+
+        <!-- B5 scenario -->
+        <div class="question-block">
+          <div class="question-number">10 — 20</div>
+          <p class="question-text">Which of these most accurately describes how your organization celebrates the end of a successful quarter or a major milestone?</p>
+          <div class="scenario-buttons">
+            <button class="scenario-btn" onclick="selectScenario('b5',0,this)"><span class="scenario-btn-chip">A</span>We do not formally celebrate. Things move on to the next challenge without acknowledgment.</button>
+            <button class="scenario-btn" onclick="selectScenario('b5',2,this)"><span class="scenario-btn-chip">B</span>I say something to the team to acknowledge it but there is no consistent ritual around it.</button>
+            <button class="scenario-btn" onclick="selectScenario('b5',4,this)"><span class="scenario-btn-chip">C</span>We have some kind of celebration but it varies a lot depending on the milestone and who thinks to plan it.</button>
+            <button class="scenario-btn" onclick="selectScenario('b5',5,this)"><span class="scenario-btn-chip">D</span>We have a repeatable celebration format that the team expects and looks forward to. It marks the end of a sprint as significant.</button>
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="btn-back" onclick="goBackSection('b','a',0)">← Back</button>
+          <button id="btn-next-b" class="btn-primary btn-next" onclick="nextSection('b','c',50)">Next Section →</button>
+        </div>
+        <div id="val-b" class="validation-msg">Please answer every question before continuing.</div>
+      </div>
+
+      <!-- SECTION C -->
+      <div id="section-c" class="section-panel">
+        <div class="section-header">
+          <div class="section-label">Section C of 4 — 5 Questions</div>
+          <div class="section-title">Sprint and Goal Architecture</div>
+          <div class="section-subtext">A team without a horizon to run toward is a team running on instinct. Instinct does not scale.</div>
+          <div class="scoring-guide">Never = not in place · Rarely = occasional · Sometimes = inconsistent · Always = active and consistent</div>
+        </div>
+
+        <!-- C1 freq -->
+        <div class="question-block">
+          <div class="question-number">11 — 20</div>
+          <p class="question-text">How often does your organization plan in 90-day increments with specific goals assigned to each sprint?</p>
+          <div class="freq-row">
+            <button class="freq-btn" onclick="selectFreq('c1',0,this)">Never</button>
+            <button class="freq-btn" onclick="selectFreq('c1',1,this)">Rarely</button>
+            <button class="freq-btn" onclick="selectFreq('c1',3,this)">Sometimes</button>
+            <button class="freq-btn" onclick="selectFreq('c1',5,this)">Always</button>
+          </div>
+        </div>
+
+        <!-- C2 scenario -->
+        <div class="question-block">
+          <div class="question-number">12 — 20</div>
+          <p class="question-text">When your organization sets annual goals, which of these most closely describes what happens to those goals over the course of the year?</p>
+          <div class="scenario-buttons">
+            <button class="scenario-btn" onclick="selectScenario('c2',0,this)"><span class="scenario-btn-chip">A</span>Annual goals get set and mostly forgotten within a few weeks. Day-to-day urgency takes over.</button>
+            <button class="scenario-btn" onclick="selectScenario('c2',2,this)"><span class="scenario-btn-chip">B</span>We revisit annual goals occasionally but they are not broken into smaller milestones that the team tracks actively.</button>
+            <button class="scenario-btn" onclick="selectScenario('c2',4,this)"><span class="scenario-btn-chip">C</span>We track annual goals at the leadership level but the broader team is not connected to them in a meaningful ongoing way.</button>
+            <button class="scenario-btn" onclick="selectScenario('c2',5,this)"><span class="scenario-btn-chip">D</span>Annual goals are broken into quarterly sprints with visible progress tracking. The whole team knows where we stand at any given time.</button>
+          </div>
+        </div>
+
+        <!-- C3 freq -->
+        <div class="question-block">
+          <div class="question-number">13 — 20</div>
+          <p class="question-text">How often does your team have a visible scoreboard or progress tracker that shows movement toward a shared goal in real time?</p>
+          <div class="freq-row">
+            <button class="freq-btn" onclick="selectFreq('c3',0,this)">Never</button>
+            <button class="freq-btn" onclick="selectFreq('c3',1,this)">Rarely</button>
+            <button class="freq-btn" onclick="selectFreq('c3',3,this)">Sometimes</button>
+            <button class="freq-btn" onclick="selectFreq('c3',5,this)">Always</button>
+          </div>
+        </div>
+
+        <!-- C4 scenario -->
+        <div class="question-block">
+          <div class="question-number">14 — 20</div>
+          <p class="question-text">Think about the last time your team missed a goal or fell short of a target. Which of these most accurately describes what happened next?</p>
+          <div class="scenario-buttons">
+            <button class="scenario-btn" onclick="selectScenario('c4',0,this)"><span class="scenario-btn-chip">A</span>It was not formally addressed. We moved on without a structured conversation about what happened or what to do differently.</button>
+            <button class="scenario-btn" onclick="selectScenario('c4',2,this)"><span class="scenario-btn-chip">B</span>I addressed it with the relevant people individually but there was no team-level debrief or adjustment.</button>
+            <button class="scenario-btn" onclick="selectScenario('c4',4,this)"><span class="scenario-btn-chip">C</span>We discussed it as a team but the conversation was more reactive than structured. Lessons were not formally documented.</button>
+            <button class="scenario-btn" onclick="selectScenario('c4',5,this)"><span class="scenario-btn-chip">D</span>We ran a structured retrospective that identified what caused the miss, what we learned, and what we are doing differently in the next sprint.</button>
+          </div>
+        </div>
+
+        <!-- C5 freq -->
+        <div class="question-block">
+          <div class="question-number">15 — 20</div>
+          <p class="question-text">How often does your team have a structured retrospective at the end of a project, sprint, or quarter to review what worked and what did not?</p>
+          <div class="freq-row">
+            <button class="freq-btn" onclick="selectFreq('c5',0,this)">Never</button>
+            <button class="freq-btn" onclick="selectFreq('c5',1,this)">Rarely</button>
+            <button class="freq-btn" onclick="selectFreq('c5',3,this)">Sometimes</button>
+            <button class="freq-btn" onclick="selectFreq('c5',5,this)">Always</button>
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="btn-back" onclick="goBackSection('c','b',25)">← Back</button>
+          <button id="btn-next-c" class="btn-primary btn-next" onclick="nextSection('c','d',75)">Next Section →</button>
+        </div>
+        <div id="val-c" class="validation-msg">Please answer every question before continuing.</div>
+      </div>
+
+      <!-- SECTION D -->
+      <div id="section-d" class="section-panel">
+        <div class="section-header">
+          <div class="section-label">Section D of 4 — 5 Questions</div>
+          <div class="section-title">Culture Challenges and Energy</div>
+          <div class="section-subtext">Culture is not what you post on a wall. It is what happens when no one is watching and when things get hard.</div>
+          <div class="scoring-guide">Never = not in place · Rarely = occasional · Sometimes = inconsistent · Always = active and consistent</div>
+        </div>
+
+        <!-- D1 scenario -->
+        <div class="question-block">
+          <div class="question-number">16 — 20</div>
+          <p class="question-text">Which of these most accurately describes the overall energy of your team right now?</p>
+          <div class="scenario-buttons">
+            <button class="scenario-btn" onclick="selectScenario('d1',0,this)"><span class="scenario-btn-chip">A</span>The team is operational but the energy feels flat. People show up and do their jobs but there is not much excitement or forward momentum.</button>
+            <button class="scenario-btn" onclick="selectScenario('d1',2,this)"><span class="scenario-btn-chip">B</span>The energy is inconsistent. Some people are highly engaged, others seem disconnected, and the gap between them affects the whole team.</button>
+            <button class="scenario-btn" onclick="selectScenario('d1',4,this)"><span class="scenario-btn-chip">C</span>The energy is generally positive but it spikes and dips based on external factors like a big launch or a difficult week. It is not self-sustaining.</button>
+            <button class="scenario-btn" onclick="selectScenario('d1',5,this)"><span class="scenario-btn-chip">D</span>The energy is consistent and self-generating. The team builds on each other and does not require the founder to maintain the culture's momentum.</button>
+          </div>
+        </div>
+
+        <!-- D2 freq -->
+        <div class="question-block">
+          <div class="question-number">17 — 20</div>
+          <p class="question-text">How often do team members hold each other accountable without the situation needing to escalate to leadership?</p>
+          <div class="freq-row">
+            <button class="freq-btn" onclick="selectFreq('d2',0,this)">Never</button>
+            <button class="freq-btn" onclick="selectFreq('d2',1,this)">Rarely</button>
+            <button class="freq-btn" onclick="selectFreq('d2',3,this)">Sometimes</button>
+            <button class="freq-btn" onclick="selectFreq('d2',5,this)">Always</button>
+          </div>
+        </div>
+
+        <!-- D3 scenario -->
+        <div class="question-block">
+          <div class="question-number">18 — 20</div>
+          <p class="question-text">When a new team member joins your organization, which of these most accurately describes their onboarding experience?</p>
+          <div class="scenario-buttons">
+            <button class="scenario-btn" onclick="selectScenario('d3',0,this)"><span class="scenario-btn-chip">A</span>There is no structured onboarding. New people figure out the culture by watching what happens around them.</button>
+            <button class="scenario-btn" onclick="selectScenario('d3',2,this)"><span class="scenario-btn-chip">B</span>There is basic operational onboarding but no intentional culture onboarding. The values and expectations are absorbed informally over time.</button>
+            <button class="scenario-btn" onclick="selectScenario('d3',4,this)"><span class="scenario-btn-chip">C</span>We share our values and standards with new team members but it is mostly in conversation form. It is not yet a documented, consistent experience.</button>
+            <button class="scenario-btn" onclick="selectScenario('d3',5,this)"><span class="scenario-btn-chip">D</span>New team members go through a structured culture onboarding that communicates expectations, standards, and what it looks like to succeed here before they start doing the job.</button>
+          </div>
+        </div>
+
+        <!-- D4 freq -->
+        <div class="question-block">
+          <div class="question-number">19 — 20</div>
+          <p class="question-text">How often does your culture feel the same whether you are in the room or not?</p>
+          <div class="freq-row">
+            <button class="freq-btn" onclick="selectFreq('d4',0,this)">Never</button>
+            <button class="freq-btn" onclick="selectFreq('d4',1,this)">Rarely</button>
+            <button class="freq-btn" onclick="selectFreq('d4',3,this)">Sometimes</button>
+            <button class="freq-btn" onclick="selectFreq('d4',5,this)">Always</button>
+          </div>
+        </div>
+
+        <!-- D5 scenario -->
+        <div class="question-block">
+          <div class="question-number">20 — 20</div>
+          <p class="question-text">Which of these most accurately describes the relationship between your team members right now?</p>
+          <div class="scenario-buttons">
+            <button class="scenario-btn" onclick="selectScenario('d5',0,this)"><span class="scenario-btn-chip">A</span>People work alongside each other but there is not much genuine connection. Relationships are mostly transactional.</button>
+            <button class="scenario-btn" onclick="selectScenario('d5',2,this)"><span class="scenario-btn-chip">B</span>There are some strong relationships but also silos. Collaboration happens within teams but not consistently across them.</button>
+            <button class="scenario-btn" onclick="selectScenario('d5',4,this)"><span class="scenario-btn-chip">C</span>The team has good relationships overall but trust is still tested when things get hard or when there is conflict that needs to be addressed directly.</button>
+            <button class="scenario-btn" onclick="selectScenario('d5',5,this)"><span class="scenario-btn-chip">D</span>The team has earned trust through demonstrated follow-through. Conflict gets addressed directly rather than avoided, and the relationships are stronger for it.</button>
+          </div>
+        </div>
+
+        <div class="nav-buttons">
+          <button class="btn-back" onclick="goBackSection('d','c',50)">← Back</button>
+          <button id="btn-next-d" class="btn-primary btn-next" onclick="finishPhase1()">Continue to Phase 2 →</button>
+        </div>
+        <div id="val-d" class="validation-msg">Please answer every question before continuing.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SCREEN 3 — PHASE TRANSITION + PHASE 2
+  ═══════════════════════════════════════ -->
+  <div id="screen-3" class="screen">
+
+    <!-- Phase transition card -->
+    <div class="phase-transition" id="phase-transition">
+      <h2>Your diagnostic is complete.</h2>
+      <p>Now answer 5 quick questions so we can build your personalized 12-month culture calendar. This takes 60 seconds.</p>
+      <button class="btn-primary" style="max-width:360px;" onclick="startPhase2()">Build My Calendar →</button>
+    </div>
+
+    <!-- Phase 2 questions (hidden until transition clicked) -->
+    <div id="phase2-questions" class="screen-inner" style="display:none;">
+
+      <div class="title-block">
+        <div class="title-block-main">The 12 Month Culture Calendar</div>
+        <div class="title-block-sub">Phase 2 — Calendar Builder</div>
+      </div>
+
+      <!-- P2 Q1 - Team Size -->
+      <div id="p2q1" class="p2-panel active">
+        <div class="section-header">
+          <div class="section-label">Question 1 of 5</div>
+          <div class="section-title">Team Size</div>
+        </div>
+        <div class="question-block" style="border-bottom:none;">
+          <p class="question-text">How many people are currently on your team including contractors and regular collaborators?</p>
+          <div class="scenario-buttons">
+            <button class="scenario-btn" onclick="selectP2('teamSize','solo',this)"><span class="scenario-btn-chip">A</span>It is mostly me, with a few contractors or part-time support. The culture is largely my personal energy right now.</button>
+            <button class="scenario-btn" onclick="selectP2('teamSize','small',this)"><span class="scenario-btn-chip">B</span>2 to 10 people. We function more like a crew than an organization. Everyone knows everyone.</button>
+            <button class="scenario-btn" onclick="selectP2('teamSize','medium',this)"><span class="scenario-btn-chip">C</span>11 to 40 people. We have some structure but not all departments are fully formed.</button>
+            <button class="scenario-btn" onclick="selectP2('teamSize','large',this)"><span class="scenario-btn-chip">D</span>40 or more people. We have departments, managers, and layers between me and daily operations.</button>
+          </div>
+        </div>
+        <div class="nav-buttons">
+          <button class="btn-primary btn-next" onclick="nextP2(1)">Next →</button>
+        </div>
+        <div id="val-p2q1" class="validation-msg">Please select an option before continuing.</div>
+      </div>
+
+      <!-- P2 Q2 - Primary Goal -->
+      <div id="p2q2" class="p2-panel">
+        <div class="section-header">
+          <div class="section-label">Question 2 of 5</div>
+          <div class="section-title">Primary Goal</div>
+        </div>
+        <div class="question-block" style="border-bottom:none;">
+          <p class="question-text">What is the primary outcome you are building your culture toward in the next 12 months?</p>
+          <div class="scenario-buttons">
+            <button class="scenario-btn" onclick="selectP2('primaryGoal','revenue',this)"><span class="scenario-btn-chip">A</span>Growing revenue and hitting a specific number that requires the whole team to perform at a higher level.</button>
+            <button class="scenario-btn" onclick="selectP2('primaryGoal','team',this)"><span class="scenario-btn-chip">B</span>Building a stronger team — better retention, better leadership depth, and a culture that does not depend on me to maintain it.</button>
+            <button class="scenario-btn" onclick="selectP2('primaryGoal','systems',this)"><span class="scenario-btn-chip">C</span>Systematizing the business — replacing manual processes and founder dependency with documented systems and infrastructure.</button>
+            <button class="scenario-btn" onclick="selectP2('primaryGoal','exit',this)"><span class="scenario-btn-chip">D</span>Preparing the business for an exit, a sale, or an investment event that requires the organization to operate independently of the founder.</button>
+            <button class="scenario-btn" onclick="selectP2('primaryGoal','launch',this)"><span class="scenario-btn-chip">E</span>Launching something new — a product, an offer, a market, or a brand extension that requires unified team execution.</button>
+          </div>
+        </div>
+        <div class="nav-buttons">
+          <button class="btn-primary btn-next" onclick="nextP2(2)">Next →</button>
+        </div>
+        <div id="val-p2q2" class="validation-msg">Please select an option before continuing.</div>
+      </div>
+
+      <!-- P2 Q3 - What Your Team Celebrates -->
+      <div id="p2q3" class="p2-panel">
+        <div class="section-header">
+          <div class="section-label">Question 3 of 5</div>
+          <div class="section-title">What Your Team Celebrates</div>
+        </div>
+        <div class="question-block" style="border-bottom:none;">
+          <p class="question-text">Right now, what does your team get the most energy and recognition from?</p>
+          <div class="scenario-buttons">
+            <button class="scenario-btn" onclick="selectP2('teamCelebrates','nothing',this)"><span class="scenario-btn-chip">A</span>Honestly, we do not celebrate much. Good work is expected and the team mostly moves on to the next thing.</button>
+            <button class="scenario-btn" onclick="selectP2('teamCelebrates','individual',this)"><span class="scenario-btn-chip">B</span>Individual wins — someone closes a deal, hits a personal target, or gets recognized externally.</button>
+            <button class="scenario-btn" onclick="selectP2('teamCelebrates','milestones',this)"><span class="scenario-btn-chip">C</span>Team milestones — when we collectively hit a number, finish a launch, or achieve something we have been building toward.</button>
+            <button class="scenario-btn" onclick="selectP2('teamCelebrates','clients',this)"><span class="scenario-btn-chip">D</span>Client outcomes — when a client gets a result or shares feedback that the work mattered.</button>
+            <button class="scenario-btn" onclick="selectP2('teamCelebrates','everything',this)"><span class="scenario-btn-chip">E</span>Everything — we celebrate individual wins, team milestones, client outcomes, and personal growth. Recognition is baked into the culture already.</button>
+          </div>
+        </div>
+        <div class="nav-buttons">
+          <button class="btn-primary btn-next" onclick="nextP2(3)">Next →</button>
+        </div>
+        <div id="val-p2q3" class="validation-msg">Please select an option before continuing.</div>
+      </div>
+
+      <!-- P2 Q4 - Starting Quarter -->
+      <div id="p2q4" class="p2-panel">
+        <div class="section-header">
+          <div class="section-label">Question 4 of 5</div>
+          <div class="section-title">Starting Quarter</div>
+        </div>
+        <div class="question-block" style="border-bottom:none;">
+          <p class="question-text">Which quarter do you want your 12-month culture calendar to begin?</p>
+          <div class="scenario-buttons">
+            <button class="scenario-btn" onclick="selectP2('startQuarter','q1',this)"><span class="scenario-btn-chip">A</span>January to March — I want to start with the calendar year.</button>
+            <button class="scenario-btn" onclick="selectP2('startQuarter','q2',this)"><span class="scenario-btn-chip">B</span>April to June — we are mid-year and ready to launch a new rhythm now.</button>
+            <button class="scenario-btn" onclick="selectP2('startQuarter','q3',this)"><span class="scenario-btn-chip">C</span>July to September — I want to start in the second half of the year.</button>
+            <button class="scenario-btn" onclick="selectP2('startQuarter','q4',this)"><span class="scenario-btn-chip">D</span>October to December — I want to close this year with momentum and carry it into the next.</button>
+          </div>
+        </div>
+        <div class="nav-buttons">
+          <button class="btn-primary btn-next" onclick="nextP2(4)">Next →</button>
+        </div>
+        <div id="val-p2q4" class="validation-msg">Please select an option before continuing.</div>
+      </div>
+
+      <!-- P2 Q5 - Culture Vision -->
+      <div id="p2q5" class="p2-panel">
+        <div class="section-header">
+          <div class="section-label">Question 5 of 5</div>
+          <div class="section-title">Culture Vision</div>
+        </div>
+        <div class="question-block" style="border-bottom:none;">
+          <p class="question-text">When your culture is operating at its absolute best, which of these most accurately describes what it feels like from the inside?</p>
+          <div class="scenario-buttons">
+            <button class="scenario-btn" onclick="selectP2('cultureVision','performance',this)"><span class="scenario-btn-chip">A</span>The team is competing with themselves. Everyone has a clear target and a personal standard they are chasing. Performance is the norm.</button>
+            <button class="scenario-btn" onclick="selectP2('cultureVision','ownership',this)"><span class="scenario-btn-chip">B</span>Everyone acts like they own a piece of the business. Decisions get made, problems get solved, and the founder is rarely needed for anything operational.</button>
+            <button class="scenario-btn" onclick="selectP2('cultureVision','energy',this)"><span class="scenario-btn-chip">C</span>The energy is contagious. People are excited to be here, they bring their best work consistently, and that energy attracts more people like them.</button>
+            <button class="scenario-btn" onclick="selectP2('cultureVision','legacy',this)"><span class="scenario-btn-chip">D</span>The team is building something they will be proud of long after they leave. The work matters. The culture outlasts the people in it.</button>
+          </div>
+        </div>
+        <div class="nav-buttons">
+          <button class="btn-primary btn-next" onclick="generateResults()">Generate My Calendar →</button>
+        </div>
+        <div id="val-p2q5" class="validation-msg">Please select an option before continuing.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SCREEN 4 — RESULTS + CALENDAR
+  ═══════════════════════════════════════ -->
+  <div id="screen-4" class="screen">
+    <div class="screen-inner">
+
+      <div class="title-block">
+        <div class="title-block-main">The 12 Month Culture Calendar</div>
+        <div class="title-block-sub">Your Results and Your Calendar</div>
+      </div>
+
+      <!-- Score display -->
+      <div class="results-score-wrap" style="text-align:center; margin-bottom:48px;">
+        <div>
+          <span id="score-counter" class="results-score-number" style="font-family:'Ranade',sans-serif; font-weight:300; font-size:clamp(60px,14vw,100px); line-height:1; letter-spacing:-0.04em; color:var(--accent);">0</span>
+          <span class="results-score-total" style="font-family:'Ranade',sans-serif; font-weight:300; font-size:clamp(20px,4vw,32px); color:var(--muted); letter-spacing:-0.02em;"> / 100</span>
+        </div>
+      </div>
+
+      <!-- Tier badge + name -->
+      <div style="text-align:center; margin-bottom:16px;">
+        <span id="tier-badge" class="tier-badge" style="background:var(--accent-dim); border:1px solid var(--accent-border); color:var(--accent);"></span>
+      </div>
+      <div id="tier-name" style="font-family:'Ranade',sans-serif; font-weight:500; text-transform:uppercase; letter-spacing:-0.02em; font-size:clamp(22px,4vw,32px); line-height:1.1; margin-bottom:20px; color:var(--accent); text-align:center;"></div>
+      <div id="tier-description" style="font-size:15px; line-height:1.75; color:var(--fg-muted); margin-bottom:16px;"></div>
+      <div id="tier-financial" style="font-size:14px; line-height:1.7; color:var(--fg-muted); padding:16px 20px; background:var(--surface-2); border-radius:12px; border:1px solid var(--border); margin-bottom:40px;"></div>
+
+      <!-- Section bars -->
+      <div class="section-bars" id="section-bars"></div>
+
+      <!-- Weakest callout -->
+      <div class="weakest-callout" id="weakest-callout">
+        <div class="weakest-callout-label">Your Biggest Culture Gap</div>
+        <div class="weakest-callout-value" id="weakest-callout-value"></div>
+      </div>
+
+      <!-- ═══ CALENDAR SECTION ═══ -->
+      <div class="results-divider"></div>
+
+      <div style="text-align:center; margin-bottom:32px;">
+        <h2 style="font-family:'Ranade',sans-serif; font-weight:500; text-transform:uppercase; letter-spacing:-0.02em; font-size:clamp(18px,3.5vw,26px); line-height:1.15; color:var(--fg); margin-bottom:12px;">Your 12-Month Culture Calendar</h2>
+        <p style="font-size:14px; line-height:1.7; color:var(--fg-muted);">Four 90-day sprints. One transformational year. Built from your answers.</p>
+      </div>
+
+      <!-- Calendar grid (populated by JS) -->
+      <div class="calendar-grid" id="calendar-grid"></div>
+
+      <!-- Accordion (populated by JS) -->
+      <div id="calendar-accordion"></div>
+
+      <!-- Print footer (hidden on screen) -->
+      <div class="print-footer">Generated by the 12 Month Culture Calendar — Paradigm Consulting — paradigmconsulting.co</div>
+
+      <!-- Transition to gameplan -->
+      <div class="results-divider" id="results-transition-block"></div>
+      <div style="text-align:center; padding-bottom:16px;" id="results-transition-text">
+        <p style="font-size:16px; line-height:1.7; color:var(--fg-muted); margin-bottom:28px;">Your calendar is ready. Here is how to make sure it actually gets implemented.</p>
+        <button class="btn-primary" style="max-width:360px; margin:0 auto;" onclick="showScreen('screen-5')">See Your Implementation Plan →</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SCREEN 5 — GAMEPLAN (3 CARDS)
+  ═══════════════════════════════════════ -->
+  <div id="screen-5" class="screen">
+    <div class="screen-inner">
+
+      <div class="title-block">
+        <div class="title-block-main">The 12 Month Culture Calendar</div>
+        <div class="title-block-sub">Your Implementation Plan</div>
+      </div>
+
+      <p class="gameplan-intro">A calendar without an installation plan is just a document. Here are the three moves that turn your 12-month calendar into a culture your team actually lives.</p>
+
+      <!-- Timeline nav -->
+      <div class="gp-timeline">
+        <div class="gp-timeline-step active" onclick="switchGpCard(1)">
+          <div class="gp-timeline-dot">1</div>
+          <div class="gp-timeline-text">Week 1</div>
+        </div>
+        <div class="gp-timeline-line"></div>
+        <div class="gp-timeline-step" onclick="switchGpCard(2)">
+          <div class="gp-timeline-dot">2</div>
+          <div class="gp-timeline-text">Weekly</div>
+        </div>
+        <div class="gp-timeline-line"></div>
+        <div class="gp-timeline-step" onclick="switchGpCard(3)">
+          <div class="gp-timeline-dot">3</div>
+          <div class="gp-timeline-text">End of Quarter</div>
+        </div>
+      </div>
+
+      <!-- CARD 1 -->
+      <div class="gp-card active" id="gpCard1">
+        <div class="gp-timeframe">Before You Launch — Week 1</div>
+        <h3 class="gp-headline">Introduce the Calendar to Your Team Before You Start Running It</h3>
+        <p class="gp-body">The most common reason culture calendars fail is not execution. It is adoption. When the founder builds a calendar alone and presents it as a directive, the team follows it obligatorily. When the founder presents the calendar as a shared operating system and invites the team into it, the team runs toward it.</p>
+        <div class="gp-why"><strong>Why this matters for scaling:</strong> A culture calendar only works if the team believes in the goal, understands their role in the sprint, and can see the recognition waiting at the end. Installing the calendar publicly — in a kickoff meeting, with a shared scoreboard, and with each person knowing what winning looks like for them — is the difference between a planning exercise and a culture movement.</div>
+
+        <div class="gp-actions">
+          <div class="gp-action-item"><strong>Run a quarterly kickoff meeting before the first sprint begins.</strong> Not an update meeting. A launch meeting. Walk the team through the theme, the shared goal, the sprint challenge, the recognition event waiting at the end, and what each department's contribution looks like. Keep it to 90 minutes. Make it feel like the beginning of something, not the announcement of an initiative.</div>
+          <div class="gp-action-item"><strong>Build a visible scoreboard before the sprint starts.</strong> The goal needs to be visible, tracked, and updated at a cadence the team can see. A number on a whiteboard, a shared dashboard, a weekly update in a team channel — the format does not matter. The visibility does.</div>
+          <div class="gp-action-item"><strong>Assign a sprint owner who is not the founder.</strong> The fastest way to turn a culture calendar into a founder dependency is to make the founder responsible for running the rhythm. Identify one person on your team whose role includes owning the cadence, the scoreboard updates, and the recognition event preparation.</div>
+          <div class="gp-action-item"><strong>Set the recognition event in stone before the sprint begins.</strong> If the recognition event is contingent on performance or budget, the team treats it as aspirational. If it is already scheduled, already communicated, and already planned, the team treats it as real. Book it before the first day of the sprint.</div>
+        </div>
+
+        <div class="gp-tier-callout"><em>At your tier:</em> <span id="gp-callout-1"></span></div>
+
+        <div class="gp-card-nav">
+          <span></span>
+          <button class="gp-nav-next" onclick="switchGpCard(2)">Next: Weekly Rhythm →</button>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="gp-card" id="gpCard2">
+        <div class="gp-timeframe">During the Sprint — Weekly</div>
+        <h3 class="gp-headline">Run the Rhythm That Makes the Calendar Real</h3>
+        <p class="gp-body">The calendar is the architecture. The weekly rhythm is what makes it live. Most culture initiatives fail not because the plan was wrong but because the week-to-week execution drifted. Meetings got skipped. Scoreboard updates got delayed. Recognition got deprioritized. And the team quietly stopped believing the sprint mattered.</p>
+        <div class="gp-why"><strong>Why this matters for scaling:</strong> The research on high-performing teams consistently shows that it is not the quality of the goal that drives performance. It is the consistency of the accountability cadence around it. A mediocre goal with a rigorous weekly rhythm outperforms a great goal with inconsistent follow-through.</div>
+
+        <div class="gp-actions">
+          <div class="gp-action-item"><strong>Run your weekly team meeting with a fixed agenda every single week.</strong> Not most weeks. Every week. The meeting should cover: scoreboard update against the sprint goal, one win from the previous week, one gap to address, and commitments for the coming week from each team lead. Keep it to 45 minutes. End on time.</div>
+          <div class="gp-action-item"><strong>Update the scoreboard every week without exception.</strong> If the scoreboard goes two weeks without an update, the team stops believing in it. Assign the update to your sprint owner and build it into their weekly non-negotiables.</div>
+          <div class="gp-action-item"><strong>Address gaps in the same week they are identified.</strong> The gap between when a problem is identified and when it is addressed is one of the most telling signals about a culture's health. A culture that addresses gaps within the same week they surface is a culture the team trusts.</div>
+          <div class="gp-action-item"><strong>Give the recognition moment its own protected time.</strong> Do not bury it at the end of a meeting as an afterthought. Make it a distinct, visible moment in your weekly rhythm. Even two minutes of structured public recognition done consistently outperforms an elaborate recognition event done once a quarter.</div>
+        </div>
+
+        <div class="gp-tier-callout"><em>At your tier:</em> <span id="gp-callout-2"></span></div>
+
+        <div class="gp-card-nav">
+          <button class="gp-nav-prev" onclick="switchGpCard(1)">← Back</button>
+          <button class="gp-nav-next" onclick="switchGpCard(3)">Next: Quarter Close →</button>
+        </div>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="gp-card" id="gpCard3">
+        <div class="gp-timeframe">End of Quarter — Review and Reset</div>
+        <h3 class="gp-headline">Close the Sprint and Launch the Next One Like It Matters</h3>
+        <p class="gp-body">The end of a sprint is not the end of the culture rhythm. It is the transition point that determines whether the next sprint has more momentum or less. Most organizations end quarters with a vague sense of what happened. High-performance cultures end quarters with a structured close that celebrates, evaluates, and immediately sets the next horizon.</p>
+        <div class="gp-why"><strong>Why this matters for scaling:</strong> The quarterly close is where your culture becomes self-sustaining. If the team experiences a structured sprint close with recognition, a retrospective, and an immediate kickoff for the next quarter, they learn that the rhythm is permanent. If the quarter ends ambiguously, the rhythm erodes and the next sprint starts from zero.</div>
+
+        <div class="gp-actions">
+          <div class="gp-action-item"><strong>Run the recognition event you committed to at the start of the sprint.</strong> This is the moment the team has been working toward. Execute it fully. Celebrate publicly. Make it specific to the sprint goal that was set, not generic praise. The team should leave knowing exactly what was achieved and who contributed to it.</div>
+          <div class="gp-action-item"><strong>Run a structured retrospective before the next sprint begins.</strong> What worked this quarter? What broke? What do we keep, what do we change? This is a 60-minute meeting with a fixed format. The output is three to five specific adjustments for the next sprint. Document them. Share them. Build them into the next kickoff.</div>
+          <div class="gp-action-item"><strong>Launch the next sprint within one week of closing the current one.</strong> The gap between sprints is where momentum dies. If the team goes two or three weeks without a defined goal and a new sprint structure, they revert to instinct. One week. That is your transition window.</div>
+          <div class="gp-action-item"><strong>Share the full-year progress at the mid-year and year-end marks.</strong> At the Q2 close and the Q4 close, zoom out. Show the team the full arc. Where they started. What changed. What held. What they built. This is the moment that turns a culture calendar into a culture identity.</div>
+        </div>
+
+        <div class="gp-tier-callout"><em>At your tier:</em> <span id="gp-callout-3"></span></div>
+
+        <div class="gp-card-nav">
+          <button class="gp-nav-prev" onclick="switchGpCard(2)">← Back</button>
+          <button class="gp-nav-next" onclick="document.getElementById('gpCtaBlock').scrollIntoView({behavior:'smooth',block:'start'})">See How to Get This Installed →</button>
+        </div>
+      </div>
+
+      <!-- CTA Block -->
+      <div class="cta-block" id="gpCtaBlock">
+        <h2>Get Your Culture Calendar Installed by the People Who Built It.</h2>
+        <p>The 3x3OS engagement installs what this assessment revealed — a complete culture operating system with sprint architecture, meeting cadence, recognition structure, and quarterly accountability built around your exact diagnostic results. It is application-only.</p>
+        <div class="urgency-line">Applications reviewed weekly. Limited spots per cohort.</div>
+        <button class="btn-primary btn-apply-pulse" id="applyToggleBtn" style="max-width:360px;margin:0 auto 16px;" onclick="openApplyForm()">Apply for 3x3OS</button>
+        <div class="apply-form-wrap" id="applyFormWrap">
+          <div class="form-error" id="applyFormError">Please enter your phone number and business name.</div>
+          <input type="tel" class="form-input" id="applyPhone" placeholder="Phone number" autocomplete="tel" maxlength="20">
+          <input type="text" class="form-input" id="applyBusiness" placeholder="Business name" autocomplete="organization" maxlength="150">
+          <button class="btn-primary" onclick="submitApply()" style="max-width:360px;margin:0 auto 16px;width:100%;">Submit Application</button>
+        </div>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+          <button class="cta-secondary-link" onclick="window.print()">Print your calendar</button>
+          <button class="cta-secondary-link" onclick="location.reload()">Retake assessment</button>
+        </div>
+        <div class="cta-small-text" id="cta-email-line"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SCREEN 6 — THANK YOU
+  ═══════════════════════════════════════ -->
+  <div id="screen-6" class="screen">
+    <div class="thankyou-wrap">
+      <h1>Application Received.</h1>
+      <p>We review every application personally and only accept founders we can genuinely move the needle for. Expect a response within 48 hours.</p>
+      <div class="thankyou-next">
+        <div class="thankyou-next-item">
+          <div class="thankyou-next-num">1</div>
+          <div><strong>Check your inbox</strong><span>Your full diagnostic results and 12-month calendar have been sent to your email.</span></div>
+        </div>
+        <div class="thankyou-next-item">
+          <div class="thankyou-next-num">2</div>
+          <div><strong>Print your calendar</strong><span>Use the print feature to create a poster-quality calendar you can pin on a wall and hand to your team.</span></div>
+        </div>
+        <div class="thankyou-next-item">
+          <div class="thankyou-next-num">3</div>
+          <div><strong>Expect our call</strong><span>If your profile is a fit, someone from the Paradigm team will reach out to discuss your results and what the 3x3OS engagement looks like for your business specifically.</span></div>
+        </div>
+      </div>
+      <img src="brand_assets/Paradigm Logo White.svg" alt="Paradigm Consulting" style="max-width:160px;opacity:0.5;margin-top:32px;">
+    </div>
+  </div>
+
+  <script>
+    /* ═══════════════════════════════════════
+       STATE
+    ═══════════════════════════════════════ */
+    const state = { firstName: '', email: '' };
+    const answers = {};
+    const calendarInputs = {
+      teamSize: '', primaryGoal: '', teamCelebrates: '',
+      startQuarter: '', cultureVision: ''
+    };
+
+    const sectionKeys = {
+      a: ['a1','a2','a3','a4','a5'],
+      b: ['b1','b2','b3','b4','b5'],
+      c: ['c1','c2','c3','c4','c5'],
+      d: ['d1','d2','d3','d4','d5']
+    };
+
+    const sectionNames = {
+      a: 'Meeting Rhythm',
+      b: 'Team Drivers',
+      c: 'Sprint Architecture',
+      d: 'Culture Energy'
+    };
+
+    /* ═══════════════════════════════════════
+       SECURITY UTILITIES
+    ═══════════════════════════════════════ */
+    // Strip control characters and enforce max length
+    function sanitize(s, maxLen) {
+      maxLen = maxLen || 200;
+      return String(s || '').replace(/[\x00-\x1f\x7f]/g, '').trim().substring(0, maxLen);
+    }
+
+    // HTML-encode to prevent XSS when inserting into innerHTML contexts
+    function esc(s) {
+      var d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    // Rate-limited webhook sender via server-side proxy (no keys in client)
+    var _lastWebhookTime = 0;
+    function sendWebhook(payload) {
+      var now = Date.now();
+      if (now - _lastWebhookTime < 2000) return;
+      _lastWebhookTime = now;
+      try {
+        fetch('/api/webhook', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }).catch(function() {});
+      } catch(e) {}
+    }
+
+    /* ═══════════════════════════════════════
+       THEME & CALENDAR DATA LIBRARIES
+    ═══════════════════════════════════════ */
+    const themeLibrary = {
+      revenue: {
+        q1: { name: 'Foundation Sprint', focus: 'Build the baseline your revenue growth requires' },
+        q2: { name: 'Revenue Race', focus: 'Activate the team around a shared number' },
+        q3: { name: 'Scale and Sustain', focus: 'Protect margin while growing volume' },
+        q4: { name: 'Year-End Ascent', focus: 'Close strong and set the next horizon' }
+      },
+      team: {
+        q1: { name: 'Culture Blueprint', focus: 'Document what the team is building toward' },
+        q2: { name: 'Team Forge', focus: 'Build trust through shared challenge' },
+        q3: { name: 'Leadership Rise', focus: 'Develop the next layer of ownership' },
+        q4: { name: 'Institutional Lock-In', focus: 'Make the culture self-sustaining' }
+      },
+      systems: {
+        q1: { name: 'Process Sprint', focus: 'Identify and eliminate the biggest operational gaps' },
+        q2: { name: 'Systems Build', focus: 'Install the infrastructure that replaces memory' },
+        q3: { name: 'Automation Push', focus: 'Remove manual work from every core process' },
+        q4: { name: 'Operational Excellence', focus: 'Run the business on systems not people' }
+      },
+      exit: {
+        q1: { name: 'Documentation Drive', focus: 'Create the paper trail that commands a premium' },
+        q2: { name: 'Governance Sprint', focus: 'Build the oversight structure buyers look for first' },
+        q3: { name: 'Value Build', focus: 'Close the gaps that suppress your multiple' },
+        q4: { name: 'Investor Ready', focus: 'Make the business presentable to anyone outside it' }
+      },
+      launch: {
+        q1: { name: 'Market Prep', focus: 'Align the team around the launch context and goal' },
+        q2: { name: 'Launch Sprint', focus: 'Execute as one unified organism' },
+        q3: { name: 'Optimize and Scale', focus: 'Refine what worked and eliminate what did not' },
+        q4: { name: 'Consolidate and Grow', focus: 'Build on the launch into a sustainable growth engine' }
+      }
+    };
+
+    const sprintChallenges = {
+      solo: {
+        low: '30-day personal operating rhythm installation — document every recurring decision and process you currently carry alone',
+        mid: '60-day delegation sprint — identify the top 10 decisions and tasks that should not require you and build a handoff plan for each',
+        high: '90-day leverage sprint — replace yourself in at least three operational functions with documented systems'
+      },
+      small: {
+        low: 'Team clarity sprint — every person on your team writes their own role definition and you audit the gaps together',
+        mid: 'Accountability rhythm sprint — install a weekly performance review that runs without you in 60 days',
+        high: '90-day championship challenge — one shared team goal with a weekly scoreboard everyone can see'
+      },
+      medium: {
+        low: 'Culture audit sprint — every department scores their own section of the Culture Maturity assessment and presents findings',
+        mid: 'Cross-department collaboration challenge — two departments that rarely work together co-own one shared goal for the quarter',
+        high: 'Leadership development sprint — every manager identifies one person they are developing and presents their progress at the end of the quarter'
+      },
+      large: {
+        low: 'Organizational alignment sprint — every team lead publishes a one-page plan for how their department contributes to the company goal this quarter',
+        mid: 'Performance culture activation — introduce a formal recognition system and measure engagement change at end of quarter',
+        high: 'Institutional culture sprint — document the culture standards well enough that a new hire can read them and know exactly what is expected without a single conversation with you'
+      }
+    };
+
+    const recognitionEvents = {
+      nothing: 'Introduce your first structured recognition moment — a brief weekly public spotlight on one team result. Keep it specific, keep it consistent, and do it even when the week was hard.',
+      individual: 'Upgrade individual recognition to include peer-nominated wins — have the team identify who made the biggest difference this quarter and celebrate it publicly at the end of the sprint.',
+      milestones: 'Add a quarterly milestone celebration event — a team gathering tied specifically to what was achieved in the 90-day sprint. Make it a ritual the team looks forward to, not a formality.',
+      clients: 'Create a client impact showcase — at the end of each quarter, share one client result story with the full team so they can see the downstream impact of their work. Tie recognition to outcomes, not just effort.',
+      everything: 'Elevate your recognition to a quarterly awards format — identify three to five categories that matter most to your culture and recognize a winner in each at the end of every sprint. Make it something the team campaigns for.'
+    };
+
+    const meetingUpgrades = {
+      low: 'Install one non-negotiable weekly team meeting with a fixed agenda — no updates, only decisions and commitments. Keep it to 45 minutes. Run it even when things are busy.',
+      mid: 'Add a quarterly kickoff meeting at the start of each sprint — 90 minutes where the team aligns on the theme, the goal, and their individual role in it. This is the meeting that makes the other meetings matter.',
+      high: 'Complete the full meeting architecture — daily standup (15 minutes), weekly team review (45 minutes), monthly leadership sync (90 minutes), and quarterly kickoff (half day). Each gathering has a different purpose. None of them should feel like the others.'
+    };
+
+    const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const startMonthIndex = { q1: 0, q2: 3, q3: 6, q4: 9 };
+
+    function getCalendarMonths(sq) {
+      const s = startMonthIndex[sq];
+      const m = [];
+      for (let i = 0; i < 12; i++) m.push(monthNames[(s + i) % 12]);
+      return m;
+    }
+
+    function buildQ4Sprint(inputs) {
+      const v = {
+        performance: 'Final quarter championship — the team sets their own individual performance target for Q4 and reports results publicly at year-end',
+        ownership: 'Ownership audit sprint — every team member documents one area of the business they have improved this year and one they will own in the next',
+        energy: 'Culture energy sprint — every department identifies one ritual that kept the culture alive this year and proposes one new one for next year',
+        legacy: 'Legacy sprint — every team member writes one paragraph on what they built this year that will still matter in five years. Shared at the year-end gathering.'
+      };
+      return v[inputs.cultureVision];
+    }
+
+    function buildYearEndCelebration(inputs) {
+      const s = {
+        solo: 'Personal year-end review — document your own wins, gaps, and commitments for the coming year. Share it with one person who will hold you accountable.',
+        small: 'Team year-end dinner or gathering — informal, off-site, focused on the journey not the metrics. One story per person about what they are most proud of.',
+        medium: 'Annual culture awards — formalized recognition across five categories voted on by the team. The team decides who wins, not the founder.',
+        large: 'Annual company summit — half-day event covering year-in-review, recognition ceremony, and a first look at the themes and goals for the year ahead.'
+      };
+      return s[inputs.teamSize];
+    }
+
+    function adaptSprintForQ2(b) { return b + ' This quarter the focus shifts from installation to consistency — the system now exists and the standard is enforcing it without exception.'; }
+    function adaptSprintForQ3(b) { return b + ' This quarter the focus shifts to measurement and optimization — audit what is running, identify what has drifted, and refine the system based on three months of real data.'; }
+
+    function generateCalendar(score, inputs) {
+      const tier = score <= 35 ? 'low' : score <= 75 ? 'mid' : 'high';
+      const themes = themeLibrary[inputs.primaryGoal];
+      const months = getCalendarMonths(inputs.startQuarter);
+      const baseSprint = sprintChallenges[inputs.teamSize][tier];
+      const recognition = recognitionEvents[inputs.teamCelebrates];
+      const meeting = meetingUpgrades[tier];
+
+      return [
+        {
+          quarterLabel: 'Q1', months: [months[0], months[1], months[2]],
+          theme: themes.q1.name, focus: themes.q1.focus,
+          sprintChallenge: baseSprint, recognitionEvent: recognition,
+          meetingUpgrade: meeting,
+          milestone: 'End of quarter: team presents results against the sprint goal in a structured 30-minute review'
+        },
+        {
+          quarterLabel: 'Q2', months: [months[3], months[4], months[5]],
+          theme: themes.q2.name, focus: themes.q2.focus,
+          sprintChallenge: adaptSprintForQ2(baseSprint), recognitionEvent: recognition,
+          meetingUpgrade: meeting,
+          milestone: 'Mid-year checkpoint: score the culture against where you started and share the delta with the team'
+        },
+        {
+          quarterLabel: 'Q3', months: [months[6], months[7], months[8]],
+          theme: themes.q3.name, focus: themes.q3.focus,
+          sprintChallenge: adaptSprintForQ3(baseSprint), recognitionEvent: recognition,
+          meetingUpgrade: meeting,
+          milestone: 'Q3 close: leadership team presents one thing they built this quarter that will outlast them'
+        },
+        {
+          quarterLabel: 'Q4', months: [months[9], months[10], months[11]],
+          theme: themes.q4.name, focus: themes.q4.focus,
+          sprintChallenge: buildQ4Sprint(inputs), recognitionEvent: buildYearEndCelebration(inputs),
+          meetingUpgrade: meeting,
+          milestone: 'Year-end close: full team review of the 12-month journey — what changed, what held, what gets carried into the next year'
+        }
+      ];
+    }
+
+    function getMonthBadges(monthIdx, qData, isQ4LastMonth) {
+      const badges = [];
+      if (monthIdx === 0) badges.push({ label: 'Sprint Kickoff', type: 'primary' });
+      if (monthIdx === 1) {
+        const short = qData.sprintChallenge.split(' ').slice(0, 4).join(' ') + '...';
+        badges.push({ label: short, type: 'secondary' });
+      }
+      if (monthIdx === 2) {
+        badges.push({ label: 'Sprint Close', type: 'primary' });
+        badges.push({ label: 'Recognition Event', type: 'accent' });
+      }
+      if (isQ4LastMonth) badges.push({ label: 'Year-End Celebration', type: 'celebration' });
+      return badges;
+    }
+
+    /* ═══════════════════════════════════════
+       UI FUNCTIONS
+    ═══════════════════════════════════════ */
+    function switchTab(idx, btn) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab' + idx).classList.add('active');
+    }
+
+    function submitIntro() {
+      // Honeypot check — bot trap field should be empty
+      var honeyField = document.getElementById('honeyField');
+      if (honeyField && honeyField.value) return;
+
+      var name = sanitize(document.getElementById('input-name').value, 100);
+      var email = sanitize(document.getElementById('input-email').value, 254);
+      var err = document.getElementById('form-error');
+      var emailRegex = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
+
+      if (!name || !emailRegex.test(email)) {
+        err.style.display = 'block';
+        return;
+      }
+      err.style.display = 'none';
+      state.firstName = name;
+      state.email = email;
+      showScreen('screen-2');
+      document.getElementById('progress-bar-fixed').classList.add('visible');
+      updateProgress(0);
+    }
+
+    function showScreen(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+
+    function updateProgress(pct) {
+      document.getElementById('progress-fill').style.width = pct + '%';
+    }
+
+    /* Frequency selector */
+    function selectFreq(key, val, btn) {
+      answers[key] = val;
+      btn.parentElement.querySelectorAll('.freq-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+    }
+
+    /* Scenario card selector */
+    function selectScenario(key, val, btn) {
+      answers[key] = val;
+      btn.parentElement.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+    }
+
+    /* Section navigation */
+    function sectionComplete(sec) {
+      return sectionKeys[sec].every(k => answers[k] !== undefined);
+    }
+
+    function nextSection(from, to, pct) {
+      if (!sectionComplete(from)) {
+        document.getElementById('val-' + from).style.display = 'block';
+        return;
+      }
+      document.getElementById('val-' + from).style.display = 'none';
+      document.getElementById('section-' + from).classList.remove('active');
+      document.getElementById('section-' + to).classList.add('active');
+      updateProgress(pct);
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+
+    function goBackSection(from, to, pct) {
+      document.getElementById('section-' + from).classList.remove('active');
+      document.getElementById('section-' + to).classList.add('active');
+      updateProgress(pct);
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+
+    function finishPhase1() {
+      if (!sectionComplete('d')) {
+        document.getElementById('val-d').style.display = 'block';
+        return;
+      }
+      document.getElementById('val-d').style.display = 'none';
+      updateProgress(100);
+      showScreen('screen-3');
+    }
+
+    /* Phase 2 */
+    function startPhase2() {
+      document.getElementById('phase-transition').style.display = 'none';
+      document.getElementById('phase2-questions').style.display = 'block';
+    }
+
+    function selectP2(key, val, btn) {
+      calendarInputs[key] = val;
+      btn.parentElement.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+    }
+
+    const p2Keys = ['teamSize', 'primaryGoal', 'teamCelebrates', 'startQuarter', 'cultureVision'];
+
+    function nextP2(current) {
+      const key = p2Keys[current - 1];
+      if (!calendarInputs[key]) {
+        document.getElementById('val-p2q' + current).style.display = 'block';
+        return;
+      }
+      document.getElementById('val-p2q' + current).style.display = 'none';
+      document.getElementById('p2q' + current).classList.remove('active');
+      document.getElementById('p2q' + (current + 1)).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+
+    /* ═══════════════════════════════════════
+       SCORING & RESULTS
+    ═══════════════════════════════════════ */
+    function calculateScore() {
+      const scores = {};
+      let total = 0;
+      let weakest = 'a', weakestScore = Infinity;
+      for (const [sec, keys] of Object.entries(sectionKeys)) {
+        const s = keys.reduce((sum, k) => sum + (answers[k] || 0), 0);
+        scores[sec] = s;
+        total += s;
+        if (s < weakestScore) { weakestScore = s; weakest = sec; }
+      }
+      return { scores, total, weakest };
+    }
+
+    function getTierInfo(score) {
+      if (score <= 35) return {
+        name: 'NO RHYTHM', tier: 'NO RHYTHM',
+        desc: 'Your culture is running on instinct and personal energy. There is no operating rhythm your team can count on, no sprint structure giving them a horizon to run toward, and no recognition system telling them what the organization values. Culture without rhythm is culture by accident.',
+        financial: '<strong>Financial impact:</strong> Organizations without a defined culture rhythm lose an estimated 20 to 34% of team productivity to ambiguity, misalignment, and disengagement. At $500K in revenue that is up to $170,000 in recoverable output — not from hiring more people, but from giving the ones you have something to run toward.',
+        callouts: [
+          'Your team has never experienced a structured sprint kickoff. The first one will feel different and possibly awkward. That is normal. Do it anyway. The second one will feel like culture.',
+          'Start with one non-negotiable. Pick the weekly team meeting. Run it every week for 90 days without skipping it regardless of how busy things are. That single habit will change how your team experiences time and accountability.',
+          'The end of the first sprint is the most important moment in your calendar. If you close it with recognition and a structured review, the team will believe the second sprint is real. If you skip the close, the calendar becomes a document.'
+        ]
+      };
+      if (score <= 55) return {
+        name: 'EARLY STAGE', tier: 'EARLY STAGE',
+        desc: 'The foundation is there but the rhythm is not consistent enough to produce predictable performance. Your culture works when things are going well. The test is whether it holds when things get hard — and right now the answer is probably not reliably.',
+        financial: '<strong>Financial impact:</strong> Early-stage culture organizations plateau at 50 to 65% of their team\'s actual output capacity. The gap is not capability. It is structure. Installing a 90-day sprint rhythm alone has been shown to increase team performance metrics by 20 to 30% within the first two quarters.',
+        callouts: [
+          'You have done some version of this before. The upgrade is the formality and the commitment. A kickoff that gets put on the calendar three weeks in advance and actually happens is worth ten times a kickoff that happens when you remember to schedule it.',
+          'You have a rhythm. The upgrade is the consistency. Pick the one meeting or the one ritual that slips most often and make it the thing you protect most fiercely this quarter.',
+          'The mid-year checkpoint is your most important moment. If you can show the team measurable progress from Q1 to Q2, the second half of the year will have more momentum than the first.'
+        ]
+      };
+      if (score <= 75) return {
+        name: 'DEVELOPING', tier: 'DEVELOPING',
+        desc: 'You have real rhythm in some areas and real gaps in others. The inconsistency is costing you in team trust, goal alignment, and performance predictability. You are close to a culture that runs itself — but close is not the same as there.',
+        financial: '<strong>Financial impact:</strong> Developing culture organizations leave 15 to 25% of team capacity unrealized. At your stage, closing the remaining gaps is worth more than adding headcount.',
+        callouts: [
+          'Your team is ready for this. The missing piece is probably the sprint owner role. Identify that person before the first quarter begins.',
+          'Your rhythm is largely intact. The upgrade is the sprint owner responsibility and the scoreboard discipline. Those two additions will change the team\'s relationship to the sprint from passive to active.',
+          'Your quarterly close should include a formal retrospective with documented outputs. You are past the point where informal reflection is enough. The structure of the review is what makes the next sprint better than the last.'
+        ]
+      };
+      return {
+        name: 'CALENDAR READY', tier: 'CALENDAR READY',
+        desc: 'Your culture has real rhythm. The diagnostic shows meeting structure, goal architecture, and team energy that most organizations never build. The 12-month calendar below is designed to take what you have and make it transformational.',
+        financial: '<strong>Financial impact:</strong> Organizations at your culture maturity level that install a structured 12-month sprint architecture see 2 to 3x improvement in goal attainment rates compared to organizations that operate without a defined annual rhythm.',
+        callouts: [
+          'Your team already has the muscle memory for structured sprints. The calendar adds the annual arc — the thing that turns quarterly execution into a 12-month transformation. Use the kickoff to frame the full year, not just the first quarter.',
+          'At your level, the weekly rhythm is not the challenge. The challenge is keeping it from becoming routine. Introduce one new element each quarter — a different recognition format, a guest speaker at the retrospective, a team-nominated sprint goal. Keep the structure and change the texture.',
+          'Your year-end close should be significant. Not a casual dinner. A formal event that matches the weight of what the team built over 12 months. This is the moment that locks the culture into institutional memory.'
+        ]
+      };
+    }
+
+    function generateResults() {
+      if (!calendarInputs.cultureVision) {
+        document.getElementById('val-p2q5').style.display = 'block';
+        return;
+      }
+      document.getElementById('val-p2q5').style.display = 'none';
+
+      const { scores, total, weakest } = calculateScore();
+      const tierInfo = getTierInfo(total);
+      const calendar = generateCalendar(total, calendarInputs);
+
+      showScreen('screen-4');
+
+      // Store scores for later use in apply webhook
+      state.total = total;
+      state.tier = tierInfo.tier;
+      state.sectionScores = scores;
+
+      // Fire webhook (rate-limited, sanitized)
+      sendWebhook({
+        first_name: sanitize(state.firstName, 100),
+        email: sanitize(state.email, 254),
+        diagnostic_score: total,
+        tier: tierInfo.tier,
+        section_a_meeting_rhythm: scores.a,
+        section_b_team_drivers: scores.b,
+        section_c_sprint_architecture: scores.c,
+        section_d_culture_energy: scores.d,
+        team_size: calendarInputs.teamSize,
+        primary_goal: calendarInputs.primaryGoal,
+        team_celebrates: calendarInputs.teamCelebrates,
+        start_quarter: calendarInputs.startQuarter,
+        culture_vision: calendarInputs.cultureVision,
+        source: '12-month-culture-calendar',
+        event: 'completed',
+        timestamp: new Date().toISOString()
+      });
+
+      // Animate score counter
+      const counter = document.getElementById('score-counter');
+      let current = 0;
+      const duration = 1500;
+      const start = performance.now();
+      function animateScore(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        current = Math.round(eased * total);
+        counter.textContent = current;
+        if (progress < 1) requestAnimationFrame(animateScore);
+      }
+      requestAnimationFrame(animateScore);
+
+      // Tier info
+      document.getElementById('tier-badge').textContent = tierInfo.name;
+      document.getElementById('tier-name').textContent = tierInfo.name;
+      document.getElementById('tier-description').textContent = tierInfo.desc;
+      document.getElementById('tier-financial').innerHTML = tierInfo.financial;
+
+      // Section bars
+      const barsEl = document.getElementById('section-bars');
+      barsEl.innerHTML = '';
+      const barData = [
+        { key: 'a', label: 'Meeting Rhythm' },
+        { key: 'b', label: 'Team Drivers' },
+        { key: 'c', label: 'Sprint Architecture' },
+        { key: 'd', label: 'Culture Energy' }
+      ];
+      barData.forEach(b => {
+        const pct = (scores[b.key] / 25) * 100;
+        const item = document.createElement('div');
+        item.className = 'section-bar-item';
+        item.innerHTML = `
+          <div class="section-bar-label">${b.label}</div>
+          <div class="section-bar-track"><div class="section-bar-fill" style="width:0%;background:var(--accent);"></div></div>
+          <div class="section-bar-score">${scores[b.key]}/25</div>
+        `;
+        barsEl.appendChild(item);
+        setTimeout(() => {
+          item.querySelector('.section-bar-fill').style.width = pct + '%';
+        }, 300);
+      });
+
+      // Weakest section
+      document.getElementById('weakest-callout-value').textContent =
+        sectionNames[weakest] + ' — ' + scores[weakest] + '/25';
+
+      // Gameplan callouts
+      document.getElementById('gp-callout-1').textContent = tierInfo.callouts[0];
+      document.getElementById('gp-callout-2').textContent = tierInfo.callouts[1];
+      document.getElementById('gp-callout-3').textContent = tierInfo.callouts[2];
+
+      // CTA email line
+      document.getElementById('cta-email-line').textContent =
+        'Results will be sent to ' + state.email;
+
+      // Build calendar grid
+      renderCalendarGrid(calendar);
+      renderAccordion(calendar);
+
+      // Confetti
+      if (typeof confetti === 'function') {
+        setTimeout(() => {
+          confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 }, colors: ['#C4603A', '#d4714b', '#e8956a', '#f2f2f7'] });
+        }, 800);
+      }
+    }
+
+    /* ═══════════════════════════════════════
+       CALENDAR GRID RENDER
+    ═══════════════════════════════════════ */
+    function renderCalendarGrid(cal) {
+      const grid = document.getElementById('calendar-grid');
+      grid.innerHTML = '';
+      const tints = ['q1-tint', 'q2-tint', 'q3-tint', 'q4-tint'];
+      const strips = ['q1-strip', 'q2-strip', 'q3-strip', 'q4-strip'];
+
+      cal.forEach((q, qi) => {
+        // Quarter strip
+        const strip = document.createElement('div');
+        strip.className = 'quarter-strip ' + strips[qi];
+        strip.innerHTML = `<span class="quarter-strip-num">${q.quarterLabel}</span><span class="quarter-strip-theme">${q.theme}</span>`;
+        grid.appendChild(strip);
+
+        // 3 month cells
+        q.months.forEach((monthName, mi) => {
+          const isQ4Last = (qi === 3 && mi === 2);
+          const badges = getMonthBadges(mi, q, isQ4Last);
+          const cell = document.createElement('div');
+          cell.className = 'month-cell ' + tints[qi];
+          let badgesHTML = badges.map(b => {
+            return `<span class="badge badge-${b.type}">${b.label}</span>`;
+          }).join('');
+          cell.innerHTML = `
+            <div class="month-cell-name">${monthName}</div>
+            <div class="month-cell-theme">${q.theme}</div>
+            <div class="month-badges">${badgesHTML}</div>
+          `;
+          grid.appendChild(cell);
+        });
+      });
+    }
+
+    /* ═══════════════════════════════════════
+       ACCORDION RENDER
+    ═══════════════════════════════════════ */
+    function renderAccordion(cal) {
+      const wrap = document.getElementById('calendar-accordion');
+      wrap.innerHTML = '';
+      cal.forEach((q, qi) => {
+        const item = document.createElement('div');
+        item.className = 'accordion-item' + (qi === 0 ? ' open' : '');
+        item.innerHTML = `
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>${q.quarterLabel} — ${q.theme}</span>
+            <svg class="accordion-chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="accordion-body">
+            <div class="accordion-content">
+              <div><div class="accordion-label">Theme</div><div class="accordion-text"><strong>${q.theme}</strong> — ${q.focus}</div></div>
+              <div><div class="accordion-label">Sprint Challenge</div><div class="accordion-text">${q.sprintChallenge}</div></div>
+              <div><div class="accordion-label">Recognition Event</div><div class="accordion-text">${q.recognitionEvent}</div></div>
+              <div><div class="accordion-label">Meeting Upgrade</div><div class="accordion-text">${q.meetingUpgrade}</div></div>
+              <div><div class="accordion-label">Quarter Milestone</div><div class="accordion-text">${q.milestone}</div></div>
+            </div>
+          </div>
+        `;
+        wrap.appendChild(item);
+      });
+    }
+
+    function toggleAccordion(header) {
+      header.parentElement.classList.toggle('open');
+    }
+
+    /* ═══════════════════════════════════════
+       GAMEPLAN CARD SWITCHING
+    ═══════════════════════════════════════ */
+    function switchGpCard(n) {
+      // Hide all cards
+      document.querySelectorAll('.gp-card').forEach(c => c.classList.remove('active'));
+      // Show target card
+      const target = document.getElementById('gpCard' + n);
+      if (target) target.classList.add('active');
+
+      // Update timeline steps
+      document.querySelectorAll('.gp-timeline-step').forEach((step, i) => {
+        step.classList.remove('active', 'completed');
+        if (i + 1 === n) step.classList.add('active');
+        else if (i + 1 < n) step.classList.add('completed');
+      });
+
+      // Update timeline lines
+      document.querySelectorAll('.gp-timeline-line').forEach((line, i) => {
+        line.classList.toggle('filled', i < n - 1);
+      });
+
+      // Scroll to top of gameplan
+      const gpSection = document.querySelector('.gp-timeline');
+      if (gpSection) gpSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    /* ═══════════════════════════════════════
+       APPLY FORM
+    ═══════════════════════════════════════ */
+    function openApplyForm() {
+      var btn = document.getElementById('applyToggleBtn');
+      var wrap = document.getElementById('applyFormWrap');
+      btn.classList.add('apply-btn-hide');
+      wrap.classList.add('open');
+      setTimeout(function() {
+        document.getElementById('applyPhone').focus();
+      }, 300);
+    }
+
+    function submitApply() {
+      var phone = sanitize(document.getElementById('applyPhone').value, 20).replace(/[^0-9+\-() ]/g, '');
+      var biz = sanitize(document.getElementById('applyBusiness').value, 150);
+      var errEl = document.getElementById('applyFormError');
+
+      if (!phone || !biz) {
+        errEl.classList.add('visible');
+        return;
+      }
+      errEl.classList.remove('visible');
+
+      // Prevent double-submit
+      var submitBtn = document.querySelector('#applyFormWrap .btn-primary');
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submitting\u2026'; }
+
+      sendWebhook({
+        first_name: sanitize(state.firstName, 100),
+        email: sanitize(state.email, 254),
+        phone: phone,
+        business_name: biz,
+        total_score: state.total || 0,
+        tier: state.tier || '',
+        section_a_meeting_rhythm: (state.sectionScores || {}).a || 0,
+        section_b_team_drivers: (state.sectionScores || {}).b || 0,
+        section_c_sprint_architecture: (state.sectionScores || {}).c || 0,
+        section_d_culture_energy: (state.sectionScores || {}).d || 0,
+        source: '12-month-culture-calendar-apply',
+        lead_source: '12-month-culture-calendar',
+        event: 'applied',
+        timestamp: new Date().toISOString()
+      });
+
+      fireConfetti();
+      setTimeout(function() {
+        showScreen('screen-6');
+        // Clear sensitive data from memory after final submission
+        state.firstName = '';
+        state.email = '';
+        state.total = 0;
+        state.tier = '';
+        state.sectionScores = {};
+      }, 2200);
+    }
+
+    function fireConfetti() {
+      if (typeof confetti !== 'function') return;
+      var duration = 2000;
+      var animationEnd = Date.now() + duration;
+      var defaults = {
+        startVelocity: 30,
+        spread: 360,
+        ticks: 60,
+        zIndex: 9999,
+        colors: ['#C4603A', '#d4714b', '#e8956a', '#ffffff']
+      };
+      function randomInRange(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+      var interval = setInterval(function() {
+        var timeLeft = animationEnd - Date.now();
+        if (timeLeft <= 0) { clearInterval(interval); return; }
+        confetti({
+          particleCount: 50,
+          origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+          startVelocity: defaults.startVelocity,
+          spread: defaults.spread,
+          ticks: defaults.ticks,
+          zIndex: defaults.zIndex,
+          colors: defaults.colors
+        });
+        confetti({
+          particleCount: 50,
+          origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+          startVelocity: defaults.startVelocity,
+          spread: defaults.spread,
+          ticks: defaults.ticks,
+          zIndex: defaults.zIndex,
+          colors: defaults.colors
+        });
+      }, 250);
+    }
+
+    /* P2 panel display */
+    const style = document.createElement('style');
+    style.textContent = '.p2-panel { display: none; } .p2-panel.active { display: block; animation: screenFadeIn 0.3s ease both; }';
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>

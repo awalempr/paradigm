@@ -1,0 +1,2824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0d0d0d">
+  <title>The Culture Maturity Audit | Paradigm Consulting</title>
+  <meta name="description" content="Find out in 3 minutes. 20 diagnostic questions reveal whether your culture operates as a system or depends entirely on you. Scored across Clarity, Accountability, Incentive Alignment, and Leadership Stability.">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Is Your Culture Built to Scale or Built Around You?">
+  <meta property="og:description" content="Most founders don't have a culture problem. They have a clarity problem. Take the 3-minute diagnostic and find out what's actually holding your team back.">
+  <meta property="og:image" content="https://paradigmconsulting.io/brand_assets/og-culture-maturity-audit.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://paradigmconsulting.io/culture-maturity-audit">
+  <meta property="og:site_name" content="Paradigm Consulting">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Is Your Culture Built to Scale or Built Around You?">
+  <meta name="twitter:description" content="Most founders don't have a culture problem. They have a clarity problem. 3-minute diagnostic. Immediate results.">
+  <meta name="twitter:image" content="https://paradigmconsulting.io/brand_assets/og-culture-maturity-audit.png">
+
+  <link rel="canonical" href="https://paradigmconsulting.io/culture-maturity-audit">
+  <link rel="icon" type="image/x-icon" href="brand_assets/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/ranade" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --surface: #1c1c1e;
+      --surface-2: #2c2c2e;
+      --surface-3: #3a3a3c;
+      --fg: #f2f2f7;
+      --fg-muted: #b8b8bf;
+      --muted: #8e8e93;
+      --border: #38383a;
+      --border-light: #48484a;
+      --accent: #5b8a9a;
+      --accent-hover: #6d9dae;
+      --accent-dim: rgba(91,138,154,0.12);
+      --accent-border: rgba(91,138,154,0.25);
+      --red: #d32f2f;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      background: var(--bg);
+      color: var(--fg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: 'Figtree', sans-serif;
+      background: var(--bg);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ─── TOP BAR ─── */
+    .top-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .top-bar::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0.4;
+    }
+    .top-bar img { height: 20px; }
+
+    /* #3 — Fixed progress bar under top bar */
+    .progress-bar-fixed {
+      position: fixed;
+      top: 56px; left: 0; right: 0;
+      z-index: 99;
+      height: 3px;
+      background: var(--border);
+      overflow: hidden;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .progress-bar-fixed.visible { opacity: 1; }
+    .progress-bar-fixed .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+      transition: width 0.5s cubic-bezier(0.16,1,0.3,1);
+      box-shadow: 0 0 8px rgba(91,138,154,0.5);
+    }
+    /* Legacy progress bar inside screen — keep for structure but hide */
+    .progress-bar {
+      height: 0;
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      transition: width 0.5s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    /* ─── SCREENS ─── */
+    .screen {
+      display: none;
+      min-height: 100vh;
+      padding: 56px 0 0;
+    }
+    .screen.active { display: block; }
+
+    .screen-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px clamp(20px, 5vw, 48px) 64px;
+      background: var(--surface);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      margin-top: clamp(24px, 3vw, 40px);
+      margin-bottom: 40px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+    }
+
+    /* ─── TITLE BLOCK ─── */
+    .title-block {
+      margin-bottom: 48px;
+      text-align: center;
+    }
+    .title-block-main {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      line-height: 0.92;
+      font-size: clamp(28px, 5vw, 42px);
+      color: var(--fg);
+      white-space: nowrap;
+    }
+    .title-block-sub {
+      font-family: 'Figtree', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    /* ═══════════════════════════════════════════
+       SCREEN 1 — INTRO
+       ═══════════════════════════════════════════ */
+    .intro-page {
+      min-height: calc(100vh - 56px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 56px 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+    /* #1 — Animated gradient mesh background */
+    .intro-page::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background:
+        radial-gradient(ellipse 600px 400px at 20% 30%, rgba(91,138,154,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 500px 500px at 80% 60%, rgba(91,138,154,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 400px 300px at 50% 80%, rgba(109,157,174,0.06) 0%, transparent 70%);
+      animation: meshDrift 20s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes meshDrift {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      33% { transform: translate(2%, -1%) rotate(0.5deg); }
+      66% { transform: translate(-1%, 2%) rotate(-0.3deg); }
+      100% { transform: translate(1%, -2%) rotate(0.2deg); }
+    }
+    .intro-card-wrap {
+      width: 100%;
+      max-width: 960px;
+      padding: clamp(24px, 3vw, 40px) clamp(16px, 4vw, 32px) 32px;
+      position: relative;
+      z-index: 1;
+    }
+    /* #2 — Glassmorphism on intro card */
+    .intro-card {
+      background: rgba(22,22,25,0.75);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(91,138,154,0.15);
+      border-radius: 20px;
+      padding: clamp(28px, 4vw, 44px) clamp(24px, 5vw, 56px);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.3), 0 0 80px rgba(91,138,154,0.04);
+      position: relative;
+      overflow: hidden;
+      animation: cardSlideIn 0.6s ease both;
+    }
+    .intro-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), rgba(91,138,154,0.2));
+    }
+    @keyframes cardSlideIn {
+      from { opacity: 0; transform: translateX(40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .intro-card h1 {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      font-size: clamp(28px, 5vw, 40px);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--fg);
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    /* (trust-points removed — using trust-bar instead) */
+
+    /* Form */
+    .intro-cta-area {
+      text-align: center;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .intro-form {
+      display: flex;
+      gap: 10px;
+      max-width: 480px;
+      margin: 0 auto 12px;
+      flex-wrap: wrap;
+    }
+    .intro-form .form-input { flex: 1; min-width: 160px; }
+    .form-input {
+      font-family: 'Figtree', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      height: 50px;
+      padding: 0 18px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--fg);
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .form-input::placeholder { color: var(--muted); }
+    .form-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); }
+
+    .form-error {
+      font-size: 12px;
+      color: var(--red);
+      text-align: center;
+      display: none;
+      margin-bottom: 8px;
+    }
+
+    .btn-primary {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: 'Figtree', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      background: var(--accent);
+      height: 52px;
+      padding: 0 32px;
+      border-radius: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+      overflow: hidden;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+      width: 100%;
+      box-shadow: 0 2px 12px rgba(91,138,154,0.25);
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      box-shadow: 0 4px 20px rgba(91,138,154,0.35);
+      transform: translateY(-1px);
+    }
+    .btn-primary:active { transform: scale(0.98); }
+    .btn-primary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .btn-primary svg { flex-shrink: 0; }
+
+    .intro-note {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    /* Eyebrow pill */
+    .eyebrow-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Figtree', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
+      border-radius: 100px;
+      padding: 6px 16px;
+      margin-bottom: 16px;
+    }
+    .eyebrow-pill .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+    .framework-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .framework-tag .tag-sep {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--muted);
+      flex-shrink: 0;
+    }
+
+    .intro-card .subtitle {
+      font-size: clamp(16px, 2.5vw, 20px);
+      line-height: 1.4;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+    .intro-card .description {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--fg-muted);
+      max-width: 660px;
+      margin-bottom: 28px;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 4px;
+      margin-bottom: 24px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tab-btn {
+      flex: 1;
+      font-family: 'Figtree', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      background: transparent;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: color 0.2s, background 0.2s, font-weight 0.2s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--fg); }
+    .tab-btn.active {
+      color: var(--fg);
+      font-weight: 700;
+      background: var(--surface-3);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    .tab-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .tab-panel .lead {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--fg-muted);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .tab-panel .lead strong {
+      color: var(--fg);
+      font-weight: 600;
+    }
+
+    /* Check list */
+    .check-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .check-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--fg);
+    }
+    .check-icon {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      margin-top: 2px;
+    }
+
+    /* Disclaimer */
+    .disclaimer {
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--muted);
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Trust bar */
+    .trust-bar {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      padding: 16px 0;
+      margin-top: 24px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .trust-item {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--fg-muted);
+      text-align: center;
+    }
+    .trust-item:not(:last-child) {
+      border-right: 1px solid var(--border);
+    }
+    .trust-item svg {
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+      opacity: 0.7;
+      color: var(--accent);
+    }
+
+    /* Proof bar */
+    .proof-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin-top: 24px;
+      padding: 0;
+      background: var(--surface-2);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .proof-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 16px;
+      text-align: center;
+    }
+    .proof-item:not(:last-child) {
+      border-right: 1px solid var(--border);
+    }
+    .proof-number {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .proof-label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .proof-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .proof-logo img {
+      height: 22px;
+      opacity: 0.7;
+    }
+
+    /* ═══════════════════════════════════════════
+       SCREEN 2 — ASSESSMENT
+       ═══════════════════════════════════════════ */
+    .section-header {
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-label {
+      font-family: 'Figtree', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      font-size: clamp(22px, 4vw, 32px);
+      line-height: 1.05;
+      margin-bottom: 12px;
+      color: var(--fg);
+    }
+    .section-subtext {
+      font-size: 15px;
+      color: var(--fg-muted);
+      line-height: 1.75;
+      font-style: italic;
+    }
+    .scoring-guide {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+      line-height: 1.6;
+      margin-top: 16px;
+      padding: 12px 16px;
+      background: var(--surface-2);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .question-block {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .question-block:last-of-type { border-bottom: none; }
+
+    .question-number {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      margin-bottom: 10px;
+      letter-spacing: 0.05em;
+    }
+    .question-text {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--fg);
+      margin-bottom: 20px;
+    }
+
+    /* Slider styles */
+    .slider-wrap {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+    .slider-track {
+      flex: 1;
+      position: relative;
+    }
+    .slider-track input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 100px;
+      background: var(--surface-3);
+      outline: none;
+      cursor: pointer;
+    }
+    /* #5 — Slider thumb with pulsing glow */
+    .slider-track input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(91,138,154,0.4), 0 0 16px rgba(91,138,154,0.3);
+      transition: transform 0.15s, box-shadow 0.15s;
+      animation: thumbPulse 2s ease-in-out infinite;
+    }
+    @keyframes thumbPulse {
+      0%, 100% { box-shadow: 0 2px 8px rgba(91,138,154,0.4), 0 0 12px rgba(91,138,154,0.2); }
+      50% { box-shadow: 0 2px 8px rgba(91,138,154,0.4), 0 0 22px rgba(91,138,154,0.45); }
+    }
+    .slider-track input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+      box-shadow: 0 3px 12px rgba(91,138,154,0.5), 0 0 24px rgba(91,138,154,0.4);
+      animation: none;
+    }
+    .slider-track input[type="range"]::-webkit-slider-thumb:active {
+      transform: scale(1.1);
+      animation: none;
+    }
+    .slider-track input[type="range"]::-moz-range-thumb {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 2px 8px rgba(91,138,154,0.4), 0 0 16px rgba(91,138,154,0.3);
+    }
+    .slider-track input[type="range"]:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+    }
+    .slider-readout {
+      font-family: 'Space Mono', monospace;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--accent);
+      min-width: 36px;
+      text-align: center;
+      line-height: 1;
+    }
+    .slider-label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      min-height: 18px;
+    }
+
+    /* Nav buttons */
+    .nav-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Figtree', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--fg-muted);
+      background: transparent;
+      border: 1px solid var(--border);
+      height: 52px;
+      padding: 0 28px;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-back:hover { border-color: var(--fg-muted); color: var(--fg); }
+    .btn-back:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .btn-next { flex: 1; }
+
+    .validation-msg {
+      font-size: 12px;
+      color: var(--red);
+      margin-top: 12px;
+      display: none;
+      text-align: center;
+    }
+
+    /* ═══════════════════════════════════════════
+       SCREEN 3 — RESULTS
+       ═══════════════════════════════════════════ */
+    /* #4 — Circular score ring */
+    .results-score-wrap {
+      text-align: center;
+      margin-bottom: 56px;
+      display: flex;
+      justify-content: center;
+    }
+    .score-ring-container {
+      position: relative;
+      width: 240px;
+      height: 240px;
+    }
+    .score-ring-svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+    .score-ring-bg {
+      fill: none;
+      stroke: var(--surface-3);
+      stroke-width: 8;
+    }
+    .score-ring-fill {
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 8;
+      stroke-linecap: round;
+      stroke-dasharray: 628.32;
+      stroke-dashoffset: 628.32;
+      transition: stroke-dashoffset 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+      filter: drop-shadow(0 0 8px rgba(91,138,154,0.4));
+    }
+    .score-ring-glow {
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 12;
+      stroke-linecap: round;
+      stroke-dasharray: 628.32;
+      stroke-dashoffset: 628.32;
+      transition: stroke-dashoffset 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity: 0.15;
+      filter: blur(4px);
+    }
+    .score-ring-inner {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+    .results-score-number {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 300;
+      font-size: clamp(52px, 10vw, 72px);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: var(--accent);
+      display: block;
+    }
+    .results-score-total {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 300;
+      font-size: 18px;
+      color: var(--muted);
+      letter-spacing: -0.02em;
+    }
+
+    .tier-name {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      font-size: clamp(22px, 4vw, 32px);
+      line-height: 1.1;
+      margin-bottom: 20px;
+      color: var(--accent);
+    }
+    .tier-description {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--fg-muted);
+      margin-bottom: 16px;
+    }
+    .tier-financial {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--fg-muted);
+      padding: 16px 20px;
+      background: var(--surface-2);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      margin-bottom: 48px;
+    }
+    .tier-financial strong {
+      color: var(--fg);
+      font-weight: 600;
+    }
+
+    /* Section bars — slim editorial */
+    .section-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+    .section-bar-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .section-bar-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--fg);
+      min-width: 160px;
+      flex-shrink: 0;
+    }
+    .section-bar-track {
+      flex: 1;
+      height: 6px;
+      background: var(--surface-3);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+    .section-bar-fill {
+      height: 100%;
+      border-radius: 100px;
+      width: 0%;
+      background: var(--accent);
+      transition: width 1.2s cubic-bezier(0.16,1,0.3,1);
+    }
+    .section-bar-score {
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      color: var(--fg-muted);
+      min-width: 44px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .weakest-callout {
+      padding: 20px 24px;
+      background: rgba(211,47,47,0.06);
+      border: 1px solid rgba(211,47,47,0.2);
+      border-radius: 14px;
+      margin-bottom: 48px;
+    }
+    .weakest-callout-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--red);
+      margin-bottom: 6px;
+    }
+    .weakest-callout-value {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--fg);
+    }
+
+    .results-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 40px 0;
+    }
+    .results-transition {
+      text-align: center;
+    }
+    .results-transition p {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--fg-muted);
+      margin-bottom: 28px;
+    }
+
+    /* ═══════════════════════════════════════════
+       SCREEN 4 — GAMEPLAN
+       ═══════════════════════════════════════════ */
+    .gameplan-intro {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--fg-muted);
+      margin-bottom: 40px;
+      text-align: center;
+    }
+    .gameplan-intro strong { color: var(--fg); font-weight: 600; }
+
+    /* Left-border accent cards */
+    .gp-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 4px 16px 16px 4px;
+      padding: clamp(28px, 5vw, 40px);
+      margin-bottom: 24px;
+      animation: gpCardSlide 0.5s ease both;
+    }
+    @keyframes gpCardSlide {
+      from { opacity: 0; transform: translateX(30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .gp-timeframe {
+      display: inline-block;
+      font-family: 'Figtree', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+    .gp-headline {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      font-size: clamp(20px, 3.5vw, 26px);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      color: var(--fg);
+    }
+    .gp-body {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--fg-muted);
+      margin-bottom: 20px;
+    }
+    .gp-why {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--fg-muted);
+      padding: 16px 20px;
+      background: var(--surface-3);
+      border-left: 2px solid var(--accent);
+      border-radius: 0 10px 10px 0;
+      margin-bottom: 24px;
+    }
+    .gp-why strong { color: var(--fg); font-weight: 600; }
+
+    /* Action items */
+    .gp-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+    .gp-action-item {
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--fg-muted);
+      padding-left: 16px;
+      border-left: 2px solid var(--border);
+    }
+    .gp-action-item strong {
+      color: var(--fg);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .gp-tier-callout {
+      padding: 16px 20px;
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--fg-muted);
+    }
+    .gp-tier-callout em {
+      font-style: normal;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* CTA block */
+    .cta-block {
+      text-align: center;
+      padding: 48px 0 32px;
+      border-top: 1px solid var(--border);
+      margin-top: 24px;
+    }
+    .cta-block h2 {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      font-size: clamp(22px, 4vw, 32px);
+      line-height: 1.1;
+      margin-bottom: 16px;
+      color: var(--fg);
+    }
+    .cta-block p {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--fg-muted);
+      max-width: 540px;
+      margin: 0 auto 32px;
+    }
+    .cta-block .btn-primary {
+      max-width: 360px;
+      margin: 0 auto 16px;
+    }
+    .cta-secondary-link {
+      display: inline-block;
+      font-family: 'Figtree', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+      transition: color 0.2s;
+      background: none;
+      border: none;
+    }
+    .cta-secondary-link:hover { color: var(--fg); }
+    .cta-small-text {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 12px;
+    }
+
+    /* ═══════════════════════════════════════════
+       SCREEN 5 — THANK YOU
+       ═══════════════════════════════════════════ */
+    .thankyou-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 56px);
+      text-align: center;
+      padding: 48px clamp(20px, 5vw, 48px);
+    }
+    .thankyou-wrap h1 {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      font-size: clamp(28px, 5vw, 42px);
+      line-height: 1.05;
+      margin-bottom: 16px;
+      color: var(--fg);
+    }
+    .thankyou-wrap p {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--fg-muted);
+      margin-bottom: 32px;
+    }
+    .thankyou-wrap img { height: 24px; opacity: 0.5; }
+    .thankyou-next {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 480px;
+      width: 100%;
+      text-align: left;
+      margin-bottom: 8px;
+    }
+    .thankyou-next-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 16px 20px;
+    }
+    .thankyou-next-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Figtree', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+    .thankyou-next-item strong {
+      display: block;
+      font-family: 'Figtree', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--fg);
+      margin-bottom: 4px;
+    }
+    .thankyou-next-item span {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--fg-muted);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 640px) {
+      .screen-inner { padding: 24px 16px 40px; }
+      .intro-card { padding: 20px 14px 24px; }
+      .intro-page { padding: 12px 8px 40px; }
+      /* Hide verbose description on mobile — tabs cover it */
+      .intro-card .description { display: none; }
+      /* Tighten heading spacing */
+      .intro-card h1 { margin-bottom: 6px; font-size: clamp(22px, 6.5vw, 32px); }
+      .intro-card .subtitle { font-size: 14px; margin-bottom: 16px; }
+      .disclaimer { font-size: 11px; margin-top: 12px; }
+      /* Fix white-space overflow on mobile */
+      .title-block-main { white-space: normal; }
+      .tab-btn { white-space: normal; }
+      .gp-timeline-label { white-space: normal; }
+      .gp-table .td-priority { white-space: normal; }
+      .social-proof-line { display: block; border-radius: 14px; }
+      .cost-box { padding: 16px 14px; }
+      .intro-form { flex-direction: column; gap: 10px; }
+      /* Tabs: horizontal scroll row on mobile */
+      .tabs { flex-direction: row; overflow-x: auto; gap: 4px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+      .tabs::-webkit-scrollbar { display: none; }
+      .tab-btn { flex-shrink: 0; text-align: center; padding: 9px 14px; min-height: 40px; font-size: 13px; white-space: nowrap; }
+      .tab-panel .lead { font-size: 12px; margin-bottom: 14px; }
+      /* Larger touch-friendly inputs */
+      .form-input { height: 80px; font-size: 18px; padding: 0 24px; border-radius: 16px; }
+      .btn-primary { height: 80px; font-size: 18px; border-radius: 16px; }
+      .intro-cta-area { padding-top: 20px; }
+      /* Compact trust bar — single row */
+      .trust-bar { flex-direction: row; flex-wrap: nowrap; gap: 6px; justify-content: center; }
+      .trust-item { justify-content: center; padding: 6px 10px; font-size: 11px; border-right: none !important; border-bottom: none !important; background: var(--surface-2); border-radius: 8px; flex: 1 1 0; white-space: nowrap; min-width: 0; }
+      /* Compact proof bar */
+      .proof-bar { gap: 0; margin-top: 16px; }
+      .proof-item { padding: 10px 12px; }
+      .proof-number { font-size: 16px; }
+      .proof-label { font-size: 9px; }
+      .proof-bar img { height: 16px !important; }
+      .trust-bar { flex-direction: column; gap: 12px; }
+      .trust-item { justify-content: flex-start; padding: 0 4px; font-size: 12px; }
+      .trust-item:not(:last-child) { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+      .proof-bar { flex-direction: column; }
+      .proof-item:not(:last-child) { border-right: none; border-bottom: 1px solid var(--border); }
+      .eyebrow-pill { font-size: 10px; padding: 5px 12px; }
+      .framework-tag { font-size: 9px; }
+      .title-block-main { font-size: clamp(16px, 5.2vw, 28px); }
+      .section-title { font-size: clamp(22px, 6vw, 28px); }
+      .question-text { font-size: 14px; }
+      .scoring-guide { font-size: 11px; padding: 10px 12px; }
+      .nav-buttons { flex-direction: column-reverse; gap: 10px; }
+      .nav-buttons .btn-primary,
+      .nav-buttons .btn-back { width: 100%; min-height: 48px; }
+      .results-score-number { font-size: 48px; }
+      .score-ring-container { width: 180px; height: 180px; }
+      .tier-name { font-size: clamp(18px, 5vw, 24px); }
+      .gp-card { padding: 20px 16px; }
+      .gp-headline { font-size: clamp(18px, 5vw, 22px); }
+      .gp-body { font-size: 14px; }
+      .gp-why { font-size: 13px; padding: 14px 16px; }
+      .gp-score-overview { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .gp-score-card { padding: 14px 10px; }
+      .gp-score-card-label { font-size: 10px; }
+      .gp-score-card-value { font-size: 20px; }
+      .gp-timeline-line { width: 24px; }
+      .gp-timeline-label { font-size: 10px; }
+      .gp-timeline-label span { font-size: 9px; }
+      .gp-timeline-step { padding: 12px 8px; }
+      .gp-timeline-dot { width: 32px; height: 32px; font-size: 12px; }
+      .gp-table thead { display: none; }
+      .gp-table tbody tr {
+        display: flex;
+        flex-direction: column;
+        background: var(--surface-2);
+        border-bottom: 1px solid var(--border);
+        padding: 14px 16px;
+        gap: 8px;
+      }
+      .gp-table tbody tr:last-child { border-bottom: none; }
+      .gp-table tbody td {
+        display: block;
+        padding: 0;
+        border-bottom: none;
+      }
+      .gp-table .td-action { min-width: unset; font-size: 14px; font-weight: 600; }
+      .gp-table .td-detail { font-size: 13px; line-height: 1.6; }
+      .gp-table .td-priority { text-align: left; padding-top: 4px; }
+      .gp-card-nav { gap: 10px; }
+      .gp-card-nav button { font-size: 13px; padding: 12px 18px; min-height: 44px; }
+      .cost-row { flex-wrap: wrap; gap: 4px; }
+      .cta-block h2 { font-size: clamp(18px, 5vw, 24px); }
+      .cta-block p { font-size: 14px; }
+      .section-bar-item { flex-wrap: wrap; gap: 8px; }
+      .section-bar-label { min-width: 100%; font-size: 12px; }
+      .section-bar-score { min-width: auto; text-align: right; }
+      .slider-readout { font-size: 18px; }
+      /* Bigger slider thumb for touch */
+      .slider-track input[type="range"] { height: 10px; }
+      .slider-track input[type="range"]::-webkit-slider-thumb { width: 28px; height: 28px; }
+      .slider-track input[type="range"]::-moz-range-thumb { width: 28px; height: 28px; }
+      .social-proof-line { font-size: 12px; padding: 10px 16px; }
+      .urgency-line { font-size: 11px; }
+      .section-nav { gap: 6px; }
+      /* Breakdown columns stack on mobile */
+      .gp-breakdown-row { flex-direction: column; }
+      .gp-breakdown-arrow { width: 100%; height: 24px; font-size: 14px; }
+      .gp-breakdown-header { display: none; }
+      .gp-col-before::before {
+        content: 'NOW: ';
+        font-weight: 600; font-size: 10px; text-transform: uppercase;
+        letter-spacing: 0.08em; color: #e05555;
+      }
+      .gp-col-after::before {
+        content: 'AFTER: ';
+        font-weight: 600; font-size: 10px; text-transform: uppercase;
+        letter-spacing: 0.08em; color: #34a853;
+      }
+      .apply-form-wrap { max-width: 100%; }
+    }
+
+    /* ─── EXTRA NARROW (375px and below) ─── */
+    @media (max-width: 480px) {
+      .gp-score-overview { grid-template-columns: 1fr; gap: 10px; }
+      .score-ring-container { width: 160px; height: 160px; }
+      .results-score-number { font-size: 42px; }
+      .results-score-total { font-size: 15px; }
+      .gp-card-nav { flex-direction: column; gap: 8px; }
+      .gp-card-nav button { width: 100%; text-align: center; }
+      .gp-timeline-line { width: 16px; }
+      .gp-timeline-step { padding: 12px 4px; }
+      .intro-card { padding: 20px 14px; }
+      .gp-breakdown-col { padding: 12px 12px; }
+      .trust-item { font-size: 12px; }
+      .slider-track input[type="range"]::-webkit-slider-thumb { width: 32px; height: 32px; }
+      .slider-track input[type="range"]::-moz-range-thumb { width: 32px; height: 32px; }
+    }
+
+    /* ─── PRINT ─── */
+    @media print {
+      .top-bar, .progress-bar, .btn-primary, .btn-back, .cta-block, .nav-buttons { display: none !important; }
+      .screen { display: none !important; }
+      .screen.active { display: block !important; min-height: auto !important; padding: 0 !important; }
+      .screen-inner { padding: 20px !important; border: none !important; box-shadow: none !important; background: #fff !important; color: #111 !important; }
+      body, body::before, body::after { background: #fff !important; }
+    }
+
+    /* Apply form */
+    .apply-form-wrap {
+      max-width: 420px;
+      margin: 0 auto;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.5s cubic-bezier(0.16,1,0.3,1), opacity 0.4s ease, margin 0.4s ease;
+    }
+    .apply-form-wrap.open {
+      max-height: 300px;
+      opacity: 1;
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+    .apply-form-wrap .form-input { margin-bottom: 12px; }
+    .apply-form-wrap .form-error { font-size: 13px; color: var(--red); margin-bottom: 10px; display: none; }
+    .apply-form-wrap .form-error.visible { display: block; }
+    .apply-btn-hide { display: none !important; }
+    /* ─── GAMEPLAN TABLES & VISUALS ─── */
+    .gp-score-overview {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .gp-score-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+    }
+    .gp-score-card-label {
+      font-family: 'Figtree', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .gp-score-card-value {
+      font-family: 'Space Mono', monospace;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--fg);
+    }
+
+    /* Timeline */
+    .gp-timeline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 40px;
+    }
+    .gp-timeline-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      z-index: 1;
+      cursor: pointer;
+      padding: 8px 0;
+    }
+    .gp-timeline-dot {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--surface-2);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      transition: background 0.3s, border-color 0.3s, color 0.3s, transform 0.3s;
+    }
+    .gp-timeline-step.active .gp-timeline-dot {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      transform: scale(1.1);
+    }
+    .gp-timeline-step.completed .gp-timeline-dot {
+      background: var(--accent-dim);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .gp-timeline-text {
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      transition: color 0.3s;
+      white-space: nowrap;
+    }
+    .gp-timeline-step.active .gp-timeline-text {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .gp-timeline-line {
+      width: 60px;
+      height: 2px;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+    .gp-timeline-line.filled {
+      background: var(--accent);
+    }
+
+    /* GP month cards — show/hide */
+    .gp-month-card {
+      display: none;
+    }
+    .gp-month-card.active {
+      display: block;
+      animation: gpCardSlide 0.4s ease both;
+    }
+
+    /* GP Tables */
+    .gp-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-bottom: 24px;
+      font-size: 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .gp-table thead th {
+      font-family: 'Figtree', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      background: var(--surface-3);
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .gp-table thead th:last-child { text-align: center; }
+    .gp-table tbody td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      line-height: 1.6;
+      color: var(--fg-muted);
+    }
+    .gp-table tbody tr:last-child td { border-bottom: none; }
+    .gp-table .td-action { font-weight: 500; color: var(--fg); min-width: 160px; }
+    .gp-table .td-detail { color: var(--fg-muted); }
+    .gp-table .td-priority { text-align: center; white-space: nowrap; }
+    .gp-priority {
+      display: inline-block;
+      font-family: 'Figtree', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 4px 10px;
+      border-radius: 100px;
+    }
+    /* Cost breakdown box */
+    .cost-box {
+      background: var(--surface-3);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+    }
+    .cost-box-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--red);
+      margin-bottom: 12px;
+    }
+    .cost-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+    .cost-row:last-child { border-bottom: none; font-weight: 600; }
+    .cost-row .cost-label { color: var(--fg-muted); }
+    .cost-row .cost-value { color: var(--fg); font-family: 'Space Mono', monospace; font-size: 13px; }
+    .cost-row:last-child .cost-value { color: var(--red); }
+
+    /* Card nav */
+    .gp-card-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .gp-card-nav button {
+      font-family: 'Figtree', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, transform 0.15s;
+    }
+    .gp-card-nav button:active { transform: scale(0.97); }
+    .gp-nav-prev {
+      background: var(--surface-3);
+      border: 1px solid var(--border);
+      color: var(--fg-muted);
+    }
+    .gp-nav-prev:hover { background: var(--border); color: var(--fg); }
+    .gp-nav-next {
+      background: var(--accent);
+      border: 1px solid var(--accent);
+      color: #fff;
+    }
+    .gp-nav-next:hover { background: var(--accent-hover); }
+
+    /* Score card grades */
+    .gp-score-card-grade {
+      font-family: 'Space Mono', monospace;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .grade-a { color: #34a853; }
+    .grade-b { color: var(--accent); }
+    .grade-c { color: #c8a000; }
+    .grade-d { color: #e05555; }
+    .gp-score-card-value span {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 400;
+    }
+    .gp-score-card-bar {
+      width: 100%;
+      height: 6px;
+      background: var(--surface-3);
+      border-radius: 3px;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+    .gp-score-card-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 3px;
+      transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* Cost box header */
+    .cost-box-header {
+      font-family: 'Figtree', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #e05555;
+      margin-bottom: 14px;
+    }
+    .cost-box .gp-table { margin-bottom: 0; }
+
+    /* Priority badge variants by class name */
+    .gp-priority.critical {
+      background: rgba(211,47,47,0.1);
+      color: #e05555;
+      border: 1px solid rgba(211,47,47,0.25);
+    }
+    .gp-priority.high {
+      background: rgba(200,160,0,0.1);
+      color: #c8a000;
+      border: 1px solid rgba(200,160,0,0.25);
+    }
+    .gp-priority.medium {
+      background: var(--accent-dim);
+      color: var(--accent);
+      border: 1px solid var(--accent-border);
+    }
+    .gp-priority.low {
+      background: rgba(52,168,83,0.1);
+      color: #34a853;
+      border: 1px solid rgba(52,168,83,0.25);
+    }
+
+    /* Breakdown comparison */
+    .gp-breakdown {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .gp-breakdown-header {
+      display: flex;
+      background: var(--surface-3);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px;
+      font-family: 'Figtree', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+    .gp-breakdown-header .gp-breakdown-col { flex: 1; }
+    .gp-breakdown-header .gp-col-after { padding-left: 32px; }
+    .gp-breakdown-row {
+      display: flex;
+      align-items: stretch;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .gp-breakdown-row:last-child { border-bottom: none; }
+    .gp-breakdown-col {
+      flex: 1;
+      padding: 14px 16px;
+    }
+    .gp-col-before {
+      color: var(--muted);
+      background: rgba(211,47,47,0.03);
+    }
+    .gp-col-after {
+      color: var(--fg);
+      background: rgba(52,168,83,0.03);
+    }
+    .gp-breakdown-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      color: var(--accent);
+      font-size: 16px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* Timeline label */
+    .gp-timeline-label {
+      font-family: 'Figtree', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      text-align: center;
+      transition: color 0.3s;
+      white-space: nowrap;
+    }
+    .gp-timeline-label span {
+      display: block;
+      font-size: 10px;
+      margin-top: 2px;
+      opacity: 0.6;
+    }
+    .gp-timeline-step.active .gp-timeline-label {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .gp-timeline-step.done .gp-timeline-dot {
+      background: var(--accent-dim);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Button small variant */
+    .btn-sm {
+      font-size: 13px !important;
+      padding: 10px 20px !important;
+    }
+
+    /* #6 — Staggered entrance for gameplan score cards */
+    .gp-score-card {
+      opacity: 0;
+      transform: translateY(16px);
+      animation: staggerFadeUp 0.5s ease forwards;
+    }
+    .gp-score-card:nth-child(1) { animation-delay: 0.1s; }
+    .gp-score-card:nth-child(2) { animation-delay: 0.2s; }
+    .gp-score-card:nth-child(3) { animation-delay: 0.3s; }
+    .gp-score-card:nth-child(4) { animation-delay: 0.4s; }
+    @keyframes staggerFadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .gp-table tbody tr {
+      opacity: 0;
+      animation: staggerFadeUp 0.4s ease forwards;
+    }
+    .gp-table tbody tr:nth-child(1) { animation-delay: 0.15s; }
+    .gp-table tbody tr:nth-child(2) { animation-delay: 0.25s; }
+    .gp-table tbody tr:nth-child(3) { animation-delay: 0.35s; }
+    .gp-table tbody tr:nth-child(4) { animation-delay: 0.45s; }
+    .gp-table tbody tr:nth-child(5) { animation-delay: 0.55s; }
+
+    /* #7 — Section completion mini-nav */
+    .section-nav {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .section-nav-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--surface-3);
+      border: 1.5px solid var(--border);
+      transition: background 0.3s, border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .section-nav-dot.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      transform: scale(1.2);
+      box-shadow: 0 0 8px rgba(91,138,154,0.4);
+    }
+    .section-nav-dot.done {
+      background: var(--accent);
+      border-color: var(--accent);
+      opacity: 0.5;
+    }
+
+    /* #8 — Social proof line on results */
+    .social-proof-line {
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+      font-style: italic;
+      margin-top: -32px;
+      margin-bottom: 48px;
+      padding: 12px 20px;
+      background: var(--surface-2);
+      border-radius: 100px;
+      display: inline-block;
+      border: 1px solid var(--border);
+    }
+    .social-proof-line strong { color: var(--fg-muted); font-weight: 600; font-style: normal; }
+
+    /* #9 — Urgency line */
+    .urgency-line {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      margin-top: 12px;
+      margin-bottom: 8px;
+      opacity: 0.85;
+    }
+    .urgency-line::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-right: 8px;
+      vertical-align: middle;
+      animation: urgencyBlink 1.5s ease-in-out infinite;
+    }
+    @keyframes urgencyBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* #10 — Apply button attention pulse */
+    @keyframes applyPulse {
+      0%, 100% { box-shadow: 0 2px 12px rgba(91,138,154,0.25); }
+      50% { box-shadow: 0 2px 12px rgba(91,138,154,0.25), 0 0 24px rgba(91,138,154,0.3); }
+    }
+    .btn-apply-pulse {
+      animation: applyPulse 2.5s ease-in-out infinite;
+      animation-delay: 3s;
+    }
+
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" integrity="sha384-HAH79XdRvHr6axVGh4xQWVCp14kcd32bNk4Xu0sHDHtFQ42n6BAM8ykvB47dGz6D" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <header class="top-bar">
+    <img src="brand_assets/Paradigm Logo White.svg" alt="Paradigm Consulting">
+  </header>
+
+  <!-- #3 — Fixed progress bar -->
+  <div class="progress-bar-fixed" id="progressBarFixed">
+    <div class="progress-fill" id="progressFillFixed"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SCREEN 1 — INTRO                           -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="screen active" id="screen1">
+    <div class="intro-page">
+      <div class="intro-card-wrap">
+        <div class="intro-card">
+
+          <div style="text-align:center;">
+            <span class="eyebrow-pill">
+              <span class="pill-dot"></span>
+              Culture Maturity Audit
+            </span>
+            <br>
+            <span class="framework-tag" style="margin-top:8px; display:inline-flex;">
+              3X3OS
+              <span class="tag-sep"></span>
+              Culture
+            </span>
+          </div>
+
+          <h1>Is Your Culture Built to Scale or Built Around You?</h1>
+          <p class="subtitle">A 20-question diagnostic that reveals if your culture can survive your growth.</p>
+          <p class="description">This assessment by Paradigm Consulting evaluates the four structural pillars of organizational culture: Clarity, Accountability, Incentive Alignment, and Leadership Stability. It will reveal whether your culture operates as a system or whether it depends entirely on you to function.</p>
+
+          <!-- Tabs -->
+          <div class="tabs" role="tablist" aria-label="Assessment overview">
+            <button class="tab-btn active" onclick="switchTab(0, this)" type="button" role="tab" aria-selected="true" aria-controls="tab0">Who It's For</button>
+            <button class="tab-btn" onclick="switchTab(1, this)" type="button" role="tab" aria-selected="false" aria-controls="tab1">What It Measures</button>
+            <button class="tab-btn" onclick="switchTab(2, this)" type="button" role="tab" aria-selected="false" aria-controls="tab2">What You'll Discover</button>
+          </div>
+
+          <!-- Tab 1: Who It's For -->
+          <div class="tab-panel active" id="tab0" role="tabpanel">
+            <p class="lead">This assessment is ideal for <strong>founders and operators</strong> who:</p>
+            <ul class="check-list">
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(91,138,154,0.12)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#5b8a9a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Run businesses generating $100K to $10M annually.
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(91,138,154,0.12)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#5b8a9a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Have a team of 3 to 50 and feel like the culture still depends on them personally.
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(91,138,154,0.12)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#5b8a9a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Want to scale but are not sure their culture can hold it.
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(91,138,154,0.12)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#5b8a9a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Suspect their team underperforms when they are not in the room.
+              </li>
+            </ul>
+          </div>
+
+          <!-- Tab 2: What It Measures -->
+          <div class="tab-panel" id="tab1" role="tabpanel">
+            <p class="lead">This diagnostic evaluates four structural pillars of culture:</p>
+            <ul class="check-list">
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(91,138,154,0.12)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#5b8a9a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Clarity
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(91,138,154,0.12)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#5b8a9a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Accountability
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(91,138,154,0.12)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#5b8a9a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Incentive Alignment
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(91,138,154,0.12)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#5b8a9a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Leadership Stability
+              </li>
+            </ul>
+          </div>
+
+          <!-- Tab 3: What You'll Discover -->
+          <div class="tab-panel" id="tab2" role="tabpanel">
+            <ul class="check-list">
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(91,138,154,0.12)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#5b8a9a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Whether your team can perform without you in the room.
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(91,138,154,0.12)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#5b8a9a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Where your culture creates turnover, confusion, and decision bottlenecks.
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(91,138,154,0.12)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#5b8a9a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Which of the four pillars is your weakest and what it is costing you.
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(91,138,154,0.12)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#5b8a9a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Whether your culture is scalable, acquirable, and worth owning.
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(91,138,154,0.12)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#5b8a9a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                A 90-day correction plan based on your exact score and tier.
+              </li>
+            </ul>
+          </div>
+
+          <p class="disclaimer">*If you do not manage people or oversee team operations, this assessment may not be relevant to your role.</p>
+
+          <!-- Trust Bar -->
+          <div class="trust-bar">
+            <div class="trust-item">
+              <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1"/><path d="M8 4.5v4l2.5 1.5" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              3 Minutes
+            </div>
+            <div class="trust-item">
+              <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1"/><path d="M6 8h4M8 6v4" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>
+              20 Questions
+            </div>
+            <div class="trust-item">
+              <svg viewBox="0 0 16 16" fill="none"><path d="M3.5 9l3 3L12.5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Immediate results
+            </div>
+          </div>
+
+          <!-- CTA / Form -->
+          <div class="intro-cta-area">
+            <div class="form-error" id="formError">Please enter your name and a valid email address.</div>
+            <form class="intro-form" id="introForm" onsubmit="return false;">
+              <input type="text" class="form-input" id="firstName" placeholder="First name" autocomplete="given-name" maxlength="100" required>
+              <input type="email" class="form-input" id="email" placeholder="Email address" autocomplete="email" maxlength="254" required>
+              <input type="text" name="website" id="honeyField" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;pointer-events:none;" tabindex="-1" autocomplete="off">
+            </form>
+            <button type="button" class="btn-primary" style="max-width:480px; margin:0 auto;" onclick="submitIntro()">
+              Begin Assessment
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <p class="intro-note">No spam. Your results are emailed immediately after completion.</p>
+          </div>
+
+          <!-- Proof Bar -->
+          <div class="proof-bar">
+            <div class="proof-item">
+              <div class="proof-number">200</div>
+              <div class="proof-label">Points Possible</div>
+            </div>
+            <div class="proof-item">
+              <div class="proof-logo">
+                Developed by
+                <img src="brand_assets/Paradigm Logo White.svg" alt="Paradigm Consulting">
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN 2 — ASSESSMENT -->
+  <div class="screen" id="screen2">
+    <div class="screen-inner">
+      <!-- #7 — Section completion mini-nav -->
+      <div class="section-nav" id="sectionNav">
+        <div class="section-nav-dot active" id="secDot0"></div>
+        <div class="section-nav-dot" id="secDot1"></div>
+        <div class="section-nav-dot" id="secDot2"></div>
+        <div class="section-nav-dot" id="secDot3"></div>
+      </div>
+      <div id="assessmentContainer"></div>
+    </div>
+  </div>
+
+  <!-- SCREEN 3 — RESULTS -->
+  <div class="screen" id="screen3">
+    <div class="screen-inner" id="resultsContainer"></div>
+  </div>
+
+  <!-- SCREEN 4 — GAMEPLAN -->
+  <div class="screen" id="screen4">
+    <div class="screen-inner" id="gameplanContainer"></div>
+  </div>
+
+  <!-- SCREEN 5 — THANK YOU -->
+  <div class="screen" id="screen5">
+    <div class="thankyou-wrap">
+      <h1>Application Received.</h1>
+      <p>We review every application personally and only accept founders we can genuinely move the needle for. Expect a response within 48 hours.</p>
+      <div class="thankyou-next">
+        <div class="thankyou-next-item">
+          <div class="thankyou-next-num">1</div>
+          <div>
+            <strong>Check your inbox</strong>
+            <span>Your full culture audit results have been sent to your email.</span>
+          </div>
+        </div>
+        <div class="thankyou-next-item">
+          <div class="thankyou-next-num">2</div>
+          <div>
+            <strong>Review your culture score</strong>
+            <span>Note which of the four areas scored lowest and where the gap between your current and target state is widest. Those are your highest-leverage starting points.</span>
+          </div>
+        </div>
+        <div class="thankyou-next-item">
+          <div class="thankyou-next-num">3</div>
+          <div>
+            <strong>Expect our call</strong>
+            <span>If your profile is a fit, someone from the Paradigm team will reach out to discuss your results and what building a high-performance culture looks like for your business specifically.</span>
+          </div>
+        </div>
+      </div>
+      <img src="brand_assets/Paradigm Logo White.svg" alt="Paradigm Consulting" style="max-width:160px;opacity:0.75;margin-top:32px;">
+    </div>
+  </div>
+
+
+<script>
+// ═══════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════
+var state = {
+  firstName: '',
+  email: '',
+  currentSection: 0,
+  answers: {},
+  sliderTouched: {}
+};
+
+
+function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+// Sanitize input: strip control chars, limit length
+function sanitize(s, maxLen) {
+  maxLen = maxLen || 200;
+  return String(s || '').replace(/[\x00-\x1f\x7f]/g, '').trim().substring(0, maxLen);
+}
+
+// Rate-limited webhook sender (min 2s between calls)
+var _lastWebhookTime = 0;
+function sendWebhook(payload) {
+  var now = Date.now();
+  if (now - _lastWebhookTime < 2000) return;
+  _lastWebhookTime = now;
+  try {
+    fetch('/api/webhook', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(function() {});
+  } catch(e) {}
+}
+
+// ═══════════════════════════════════════════
+// TABS
+// ═══════════════════════════════════════════
+function switchTab(idx, btn) {
+  var panels = document.querySelectorAll('.tab-panel');
+  var btns = document.querySelectorAll('.tab-btn');
+  for (var i = 0; i < panels.length; i++) { panels[i].classList.remove('active'); }
+  for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); btns[i].setAttribute('aria-selected', 'false'); }
+  document.getElementById('tab' + idx).classList.add('active');
+  btn.classList.add('active');
+  btn.setAttribute('aria-selected', 'true');
+}
+
+// ═══════════════════════════════════════════
+// QUESTIONS DATA
+// ═══════════════════════════════════════════
+var sections = [
+  {
+    key: 'a',
+    label: 'Section A',
+    title: 'Clarity',
+    subtext: 'A team cannot perform against expectations they have never seen written down.',
+    questions: [
+      'Everyone on your team has a job title. But does each person actually know what they own, what they are responsible for producing, and where their authority ends? Rate how clearly roles and ownership are defined and documented across your team.',
+      'Performance reviews happen, but are the standards you are evaluating people against written down and agreed on before the review? Rate how well your performance standards are documented before evaluations begin.',
+      'If you pulled your team together right now and asked each person what number they are responsible for moving this week, how many could answer without hesitation? Rate how visible and specific your KPIs are to the people responsible for hitting them.',
+      'Talented people leave when they cannot see a future. If someone on your team asked what they need to do to grow in this company, is there an actual documented answer? Rate how clearly career advancement paths are defined in your organization.',
+      'Standards without documented consequences are suggestions. If a team member repeatedly missed expectations, is there a documented process for what happens next? Rate how well your consequences for underperformance are documented and applied consistently.'
+    ]
+  },
+  {
+    key: 'b',
+    label: 'Section B',
+    title: 'Accountability',
+    subtext: 'Accountability is not a personality trait. It is a system. And right now, that system might be you.',
+    questions: [
+      'Is there a structured weekly performance review that happens regardless of how busy things get, where leaders report on their numbers and commit to specific actions? Rate how consistently structured accountability reviews happen in your business.',
+      'When a team member underperforms, how long does it typically take before it gets addressed? A culture that tolerates underperformance for weeks teaches the entire team what the real standard is. Rate how quickly underperformance is identified and addressed.',
+      'Feedback in growing businesses usually flows from whoever speaks up loudest. Is there a written, consistent feedback system that every manager uses? Rate how formalized and consistent your feedback system is across the organization.',
+      'Decisions get made in meetings, on calls, over text. And then two weeks later nobody can agree on what was actually decided. Rate how consistently significant decisions are documented with clear ownership and rationale.',
+      'Look at your current task list right now. How many items have no clear owner, no deadline, and no visible status? Rate how thoroughly every active task in your business has a clear owner, deadline, and visible status.'
+    ]
+  },
+  {
+    key: 'c',
+    label: 'Section C',
+    title: 'Incentive Alignment',
+    subtext: 'Culture follows incentives. Whatever you reward, you get more of. Whatever you tolerate, you get more of.',
+    questions: [
+      'Is your team\'s compensation tied to the outcomes you actually need or are you paying for presence, effort, and tenure? There is a difference between motivated and properly incentivized. Rate how directly your compensation structures reward measurable business outcomes.',
+      'Your bonus structure: is it written down, communicated before the performance period begins, and tied to specific metrics your team can influence? Rate how clearly your bonus criteria are documented and communicated in advance.',
+      'If someone on your commission-based team wanted to calculate exactly what they earned this week, could they do it without asking you? Rate how transparent and self-service your commission structure is to the people who earn it.',
+      'Does your incentive structure create people who protect margin, retain clients, and build something sustainable? Or does it reward revenue at any cost? Rate how well your incentives align with long-term profitability and sustainability.',
+      'Top performers need to see that performance is noticed publicly and consistently, not just in private conversations when you remember. Rate how structured and consistent your public recognition system is.'
+    ]
+  },
+  {
+    key: 'd',
+    label: 'Section D',
+    title: 'Leadership Stability',
+    subtext: 'There is a version of your business where the culture runs itself. Most founders have not built it yet because they are still the culture.',
+    questions: [
+      'Track how many operational decisions came to you in the last seven days. Were those decisions yours to make or had they migrated to you because no one else had clarity to handle them? Rate how well decision-making authority is distributed beyond you.',
+      'Feedback is a skill and most people were never trained in it. Are your managers confident and structured in delivering feedback or do they avoid it? Rate how capable your managers are at delivering structured feedback independently.',
+      'When something goes wrong and it escalates, where does it land? Does your organization have a clear path for resolving issues without defaulting to you? Rate how well your escalation and resolution paths function without founder involvement.',
+      'Meetings in growing businesses drift. They start late, run long, and produce nothing documented. Rate how structured, respected, and productive your meeting cadence is across the organization.',
+      'If you had a bad week personally, would your team be able to tell? If the energy or tone of your business shifts based on how you are feeling, that is a mood-dependent culture. Rate how consistent your leadership culture operates regardless of your personal state.'
+    ]
+  }
+];
+
+// ═══════════════════════════════════════════
+// PROGRESS BAR
+// ═══════════════════════════════════════════
+function updateProgress(pct) {
+  document.getElementById('progressFillFixed').style.width = pct + '%';
+}
+
+// ═══════════════════════════════════════════
+// SCREEN NAVIGATION — slide from right
+// ═══════════════════════════════════════════
+function showScreen(id) {
+  var screens = document.querySelectorAll('.screen');
+  for (var i = 0; i < screens.length; i++) { screens[i].classList.remove('active'); }
+  var target = document.getElementById(id);
+  target.classList.add('active');
+  target.style.animation = 'none';
+  target.offsetHeight; // reflow
+  target.style.animation = 'screenSlide 0.5s ease both';
+  window.scrollTo(0, 0);
+  // Show/hide fixed progress bar on assessment screen only
+  var bar = document.getElementById('progressBarFixed');
+  if (id === 'screen2') { bar.classList.add('visible'); }
+  else { bar.classList.remove('visible'); }
+}
+
+// ═══════════════════════════════════════════
+// SCREEN 1: INTRO SUBMIT
+// ═══════════════════════════════════════════
+function submitIntro() {
+  if (document.getElementById('honeyField').value) return;
+
+  var name = sanitize(document.getElementById('firstName').value, 100);
+  var email = sanitize(document.getElementById('email').value, 254);
+  var emailRegex = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
+
+  if (!name || !emailRegex.test(email)) {
+    document.getElementById('formError').style.display = 'block';
+    return;
+  }
+
+  document.getElementById('formError').style.display = 'none';
+  state.firstName = name;
+  state.email = email;
+
+  // Fire webhook immediately to capture lead
+  sendWebhook({
+    first_name: name,
+    email: email,
+    source: 'culture-maturity-audit',
+    event: 'started',
+    timestamp: new Date().toISOString()
+  });
+
+  renderSection(0);
+  showScreen('screen2');
+  updateProgress(0);
+}
+
+// ═══════════════════════════════════════════
+// SLIDER MICRO-LABEL
+// ═══════════════════════════════════════════
+function getSliderLabel(val) {
+  if (val <= 3) return 'Not in place';
+  if (val <= 6) return 'Informal and inconsistent';
+  if (val <= 8) return 'Defined and documented';
+  return 'Actively enforced';
+}
+
+// ═══════════════════════════════════════════
+// SCREEN 2: RENDER SECTION
+// ═══════════════════════════════════════════
+function renderSection(idx) {
+  state.currentSection = idx;
+  var section = sections[idx];
+  var container = document.getElementById('assessmentContainer');
+  var qOffset = idx * 5;
+
+  // #7 — Update section nav dots
+  for (var d = 0; d < 4; d++) {
+    var dot = document.getElementById('secDot' + d);
+    dot.className = 'section-nav-dot';
+    if (d < idx) dot.classList.add('done');
+    if (d === idx) dot.classList.add('active');
+  }
+
+  var html = '<div class="title-block">' +
+    '<div class="title-block-main">The Culture Maturity Audit</div>' +
+    '<div class="title-block-sub">Assessment</div>' +
+    '</div>' +
+    '<div class="section-header">' +
+    '<div class="section-label">' + section.label + ' &mdash; ' + section.title + '</div>' +
+    '<h2 class="section-title">' + section.title + '</h2>' +
+    '<p class="section-subtext">&ldquo;' + section.subtext + '&rdquo;</p>' +
+    '<div class="scoring-guide">1 to 3 = Not in place &middot; 4 to 6 = Informal and inconsistent &middot; 7 to 8 = Defined and documented &middot; 9 to 10 = Actively enforced</div>' +
+    '</div>';
+
+  for (var i = 0; i < section.questions.length; i++) {
+    var qNum = qOffset + i + 1;
+    var currentVal = state.answers[qNum] || 1;
+    var touched = state.sliderTouched[qNum] || false;
+    html += '<div class="question-block">' +
+      '<div class="question-number">Q' + String(qNum).padStart(2, '0') + '</div>' +
+      '<div class="question-text">' + section.questions[i] + '</div>' +
+      '<div class="slider-wrap">' +
+      '<div class="slider-track">' +
+      '<input type="range" min="1" max="10" value="' + currentVal + '" ' +
+      'id="slider_' + qNum + '" ' +
+      'oninput="onSliderInput(' + qNum + ', this)" ' +
+      'onchange="onSliderInput(' + qNum + ', this)" ' +
+      'onpointerdown="onSliderTouch(' + qNum + ')" ' +
+      'onmousedown="onSliderTouch(' + qNum + ')">' +
+      '</div>' +
+      '<div class="slider-readout" id="readout_' + qNum + '">' + currentVal + '</div>' +
+      '</div>' +
+      '<div class="slider-label" id="sliderLabel_' + qNum + '">' + (touched ? getSliderLabel(currentVal) : '') + '</div>' +
+      '</div>';
+  }
+
+  var isFirst = idx === 0;
+  var isLast = idx === sections.length - 1;
+
+  html += '<div class="validation-msg" id="sectionValidation">Please score all questions before continuing.</div>' +
+    '<div class="nav-buttons">';
+  if (!isFirst) {
+    html += '<button class="btn-back" onclick="prevSection()">Back</button>';
+  }
+  html += '<button class="btn-primary btn-next" onclick="nextSection()">' + (isLast ? 'Calculate My Score' : 'Next Section') + '</button>' +
+    '</div>';
+
+  container.innerHTML = html;
+  container.style.animation = 'none';
+  container.offsetHeight;
+  container.style.animation = 'gpCardSlide 0.4s ease both';
+  updateProgress(idx * 25);
+
+  // Update slider track fills for already-touched sliders
+  for (var j = 0; j < section.questions.length; j++) {
+    var q = qOffset + j + 1;
+    if (state.sliderTouched[q]) {
+      updateSliderFill(document.getElementById('slider_' + q));
+    }
+  }
+}
+
+function onSliderTouch(qNum) {
+  state.sliderTouched[qNum] = true;
+}
+
+function onSliderInput(qNum, el) {
+  var val = parseInt(el.value);
+  state.answers[qNum] = val;
+  state.sliderTouched[qNum] = true;
+  document.getElementById('readout_' + qNum).textContent = val;
+  document.getElementById('sliderLabel_' + qNum).textContent = getSliderLabel(val);
+  updateSliderFill(el);
+}
+
+function updateSliderFill(el) {
+  var val = parseInt(el.value);
+  var pct = ((val - 1) / 9) * 100;
+  el.style.background = 'linear-gradient(to right, var(--accent) 0%, var(--accent) ' + pct + '%, var(--surface-3) ' + pct + '%, var(--surface-3) 100%)';
+}
+
+function prevSection() {
+  if (state.currentSection > 0) {
+    renderSection(state.currentSection - 1);
+    window.scrollTo(0, 0);
+  }
+}
+
+function nextSection() {
+  var idx = state.currentSection;
+  var qOffset = idx * 5;
+  var allTouched = true;
+  for (var i = 1; i <= 5; i++) {
+    if (!state.sliderTouched[qOffset + i]) { allTouched = false; break; }
+  }
+
+  if (!allTouched) {
+    document.getElementById('sectionValidation').style.display = 'block';
+    return;
+  }
+  document.getElementById('sectionValidation').style.display = 'none';
+
+  // Fire partial progress webhook after each section
+  var sectionKeys = ['a', 'b', 'c', 'd'];
+  var sectionLabels = ['clarity', 'accountability', 'incentive_alignment', 'leadership_stability'];
+  var partialScores = {};
+  var partialTotal = 0;
+  for (var s = 0; s <= idx; s++) {
+    var secScore = 0;
+    for (var q = 1; q <= 5; q++) { secScore += (state.answers[s * 5 + q] || 0); }
+    partialScores['section_' + sectionKeys[s] + '_' + sectionLabels[s]] = secScore;
+    partialTotal += secScore;
+  }
+  sendWebhook(Object.assign({
+    first_name: state.firstName,
+    email: state.email,
+    source: 'culture-maturity-audit',
+    event: 'section_' + (idx + 1) + '_complete',
+    sections_completed: idx + 1,
+    partial_score: partialTotal,
+    timestamp: new Date().toISOString()
+  }, partialScores));
+
+  if (idx < sections.length - 1) {
+    renderSection(idx + 1);
+    window.scrollTo(0, 0);
+  } else {
+    updateProgress(100);
+    calculateResults();
+  }
+}
+
+// ═══════════════════════════════════════════
+// SCREEN 3: RESULTS
+// ═══════════════════════════════════════════
+function calculateResults() {
+  var sectionScores = { a: 0, b: 0, c: 0, d: 0 };
+  var sectionNames = {
+    a: 'Clarity',
+    b: 'Accountability',
+    c: 'Incentive Alignment',
+    d: 'Leadership Stability'
+  };
+  var sectionKeys = ['a', 'b', 'c', 'd'];
+
+  sectionKeys.forEach(function(key, si) {
+    for (var i = 1; i <= 5; i++) {
+      sectionScores[key] += (state.answers[si * 5 + i] || 0);
+    }
+  });
+
+  var total = sectionScores.a + sectionScores.b + sectionScores.c + sectionScores.d;
+
+  var tier, tierDesc, tierFinancial;
+  if (total <= 80) {
+    tier = 'FOUNDER DEPENDENT';
+    tierDesc = 'Your culture is a reflection of you, not a system. When you are present, things work. When you are not, they do not. This is the ceiling that stops founders from ever reaching $3M.';
+    tierFinancial = 'Founder-dependent cultures lose an estimated <strong>20 to 35% of revenue capacity</strong> annually to turnover, rework, and decision bottlenecks. At $500K revenue that is up to <strong>$175,000 in recoverable output</strong> leaving every year.';
+  } else if (total <= 120) {
+    tier = 'GROWING BUT FRAGILE';
+    tierDesc = 'You have culture, but it lives in people, not systems. One key departure, one bad hire, or one fast growth phase will expose the gaps that informal culture cannot survive.';
+    tierFinancial = 'Replacing a single mid-level team member costs <strong>1.5 to 2x their annual salary</strong>. A fragile culture with 20% annual turnover on a team of 10 at $60K average is <strong>$180,000 per year</strong> in replacement costs alone, before accounting for lost momentum.';
+  } else if (total <= 160) {
+    tier = 'STRUCTURED BUT STILL PERSONAL';
+    tierDesc = 'Your culture has real structure. The risk at your stage is that it still depends on key individuals, including you, to maintain it. The next phase is making culture self-sustaining.';
+    tierFinancial = 'Businesses with structured but leader-dependent cultures plateau at <strong>60 to 70% of their revenue potential</strong>. The gap between where you are and institution-level culture is worth <strong>1.5 to 2x in team output</strong> and a measurable premium at exit.';
+  } else {
+    tier = 'INSTITUTIONAL CULTURE';
+    tierDesc = 'Your culture operates as a system, not a personality. It recruits, performs, and self-corrects with or without you. This is what makes a business scalable, acquirable, and worth owning.';
+    tierFinancial = 'Institutional cultures retain top performers at <strong>2 to 3x the rate</strong> of founder-dependent ones. At scale, that retention difference compounds into <strong>hundreds of thousands in preserved productivity</strong>, reduced hiring costs, and a valuation premium acquirers pay for.';
+  }
+
+  var weakestKey = 'a';
+  var weakestScore = sectionScores.a;
+  sectionKeys.forEach(function(k) {
+    if (sectionScores[k] < weakestScore) {
+      weakestScore = sectionScores[k];
+      weakestKey = k;
+    }
+  });
+
+  // Fire webhook with full results
+  sendWebhook({
+    first_name: state.firstName,
+    email: state.email,
+    total_score: total,
+    tier: tier,
+    section_a_clarity: sectionScores.a,
+    section_b_accountability: sectionScores.b,
+    section_c_incentive_alignment: sectionScores.c,
+    section_d_leadership_stability: sectionScores.d,
+    weakest_section: sectionNames[weakestKey],
+    source: 'culture-maturity-audit',
+    event: 'scored',
+    timestamp: new Date().toISOString()
+  });
+
+  state.total = total;
+  state.tier = tier;
+  state.sectionScores = sectionScores;
+  state.weakestKey = weakestKey;
+
+  var container = document.getElementById('resultsContainer');
+  container.innerHTML =
+    '<div class="title-block">' +
+    '<div class="title-block-main">The Culture Maturity Audit</div>' +
+    '<div class="title-block-sub">Your Results</div>' +
+    '</div>' +
+    '<div class="results-score-wrap">' +
+    '<div class="score-ring-container">' +
+    '<svg class="score-ring-svg" viewBox="0 0 220 220">' +
+    '<circle class="score-ring-bg" cx="110" cy="110" r="100"/>' +
+    '<circle class="score-ring-glow" cx="110" cy="110" r="100" id="scoreRingGlow"/>' +
+    '<circle class="score-ring-fill" cx="110" cy="110" r="100" id="scoreRingFill"/>' +
+    '</svg>' +
+    '<div class="score-ring-inner">' +
+    '<span class="results-score-number" id="scoreCounter">0</span>' +
+    '<span class="results-score-total">/ 200</span>' +
+    '</div>' +
+    '</div>' +
+    '</div>' +
+    '<div style="text-align:center; margin-bottom: 48px;">' +
+    '<div class="social-proof-line">Founders scoring in this range typically <strong>' + (total <= 80 ? 'hit a growth ceiling within 12 months' : total <= 120 ? 'plateau between $1M and $2M' : total <= 160 ? 'are 1 to 2 hires away from a breakthrough' : 'outperform 90% of peer businesses') + '</strong></div>' +
+    '<h2 class="tier-name">' + tier + '</h2>' +
+    '<p class="tier-description">' + tierDesc + '</p>' +
+    '<div class="tier-financial">' + tierFinancial + '</div>' +
+    '</div>' +
+    '<div class="section-bars">' +
+    '<div class="section-bar-item"><span class="section-bar-label">Clarity</span><div class="section-bar-track"><div class="section-bar-fill" data-width="' + (sectionScores.a / 50 * 100).toFixed(1) + '"></div></div><span class="section-bar-score">' + sectionScores.a + '/50</span></div>' +
+    '<div class="section-bar-item"><span class="section-bar-label">Accountability</span><div class="section-bar-track"><div class="section-bar-fill" data-width="' + (sectionScores.b / 50 * 100).toFixed(1) + '"></div></div><span class="section-bar-score">' + sectionScores.b + '/50</span></div>' +
+    '<div class="section-bar-item"><span class="section-bar-label">Incentive Alignment</span><div class="section-bar-track"><div class="section-bar-fill" data-width="' + (sectionScores.c / 50 * 100).toFixed(1) + '"></div></div><span class="section-bar-score">' + sectionScores.c + '/50</span></div>' +
+    '<div class="section-bar-item"><span class="section-bar-label">Leadership Stability</span><div class="section-bar-track"><div class="section-bar-fill" data-width="' + (sectionScores.d / 50 * 100).toFixed(1) + '"></div></div><span class="section-bar-score">' + sectionScores.d + '/50</span></div>' +
+    '</div>' +
+    '<div class="weakest-callout">' +
+    '<div class="weakest-callout-label">Your Weakest Area</div>' +
+    '<div class="weakest-callout-value">' + sectionNames[weakestKey] + ' &mdash; ' + weakestScore + '/50</div>' +
+    '</div>' +
+    '<div class="results-divider"></div>' +
+    '<div class="results-transition">' +
+    '<p>Now that you know where your culture stands, here is how to rebuild it as a system.</p>' +
+    '<button class="btn-primary" style="max-width:360px; margin:0 auto;" onclick="showGameplan()">See Your Correction Plan</button>' +
+    '</div>';
+
+  showScreen('screen3');
+
+  setTimeout(function() {
+    var counter = document.getElementById('scoreCounter');
+    var duration = 1500;
+    var start = performance.now();
+
+    // #4 — Animate score ring
+    var circumference = 2 * Math.PI * 100; // 628.32
+    var targetOffset = circumference * (1 - total / 200);
+    var ringFill = document.getElementById('scoreRingFill');
+    var ringGlow = document.getElementById('scoreRingGlow');
+    if (ringFill) {
+      ringFill.style.strokeDashoffset = targetOffset;
+      ringGlow.style.strokeDashoffset = targetOffset;
+    }
+
+    function tick(now) {
+      var elapsed = now - start;
+      var progress = Math.min(elapsed / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      counter.textContent = Math.round(eased * total);
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    var bars = document.querySelectorAll('.section-bar-fill');
+    for (var i = 0; i < bars.length; i++) {
+      (function(bar) {
+        setTimeout(function() { bar.style.width = bar.dataset.width + '%'; }, 200);
+      })(bars[i]);
+    }
+  }, 100);
+}
+
+// ═══════════════════════════════════════════
+// SCREEN 4: GAMEPLAN
+// ═══════════════════════════════════════════
+var gpActiveMonth = 1;
+
+function switchGpMonth(month) {
+  gpActiveMonth = month;
+  var cards = document.querySelectorAll('.gp-month-card');
+  for (var i = 0; i < cards.length; i++) {
+    cards[i].classList.remove('active');
+  }
+  document.getElementById('gpMonth' + month).classList.add('active');
+
+  var steps = document.querySelectorAll('.gp-timeline-step');
+  for (var j = 0; j < steps.length; j++) {
+    steps[j].classList.remove('active');
+    if (j < month) steps[j].classList.add('done');
+    else steps[j].classList.remove('done');
+  }
+  steps[month - 1].classList.add('active');
+  steps[month - 1].classList.remove('done');
+
+  document.getElementById('gameplanContainer').scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showGameplan() {
+  var total = state.total;
+  var tier = state.tier;
+  var ss = state.sectionScores;
+  var sectionNames = { a: 'Clarity', b: 'Accountability', c: 'Incentive Alignment', d: 'Leadership Stability' };
+  var sectionKeys = ['a', 'b', 'c', 'd'];
+
+  function tierCallout(card) {
+    var callouts = {
+      1: {
+        low: 'At your current score, your team is operating on assumption. This 30-day sprint converts those assumptions into agreements, and agreements are what culture is actually built on.',
+        mid: 'You have some of this. The goal is to get it out of your head and into a document your team can reference without you in the room.',
+        high: 'Your clarity is relatively strong. Use this sprint to audit what exists, verify it is current, accessible, and actually being used by the people it was written for.'
+      },
+      2: {
+        low: 'Right now your accountability system is you. This 60-day phase replaces you with a structure so the business can perform at the level you need without requiring your constant presence.',
+        mid: 'You have accountability in some areas. The goal is consistency. Accountability that works in every department, not just the ones you watch most closely.',
+        high: 'Your systems are relatively strong. Focus this phase on independence. Can your managers run accountability without you involved at all? If not, that is the gap to close.'
+      },
+      3: {
+        low: 'Your culture is currently running on your energy and presence. This 90-day phase is where you build the structure that replaces both, so the business performs because of its systems, not because of you.',
+        mid: 'You have culture, but it is still heavily influenced by key personalities including yours. This phase is about transferring that influence to structures.',
+        high: 'Your goal here is optimization. Where are your incentives misaligned with your actual performance goals? Find the specific gaps and close them.'
+      }
+    };
+    var c = callouts[card];
+    if (total <= 80) return c.low;
+    if (total <= 120) return c.mid;
+    return c.high;
+  }
+
+  // Cost-of-inaction data by tier
+  var costData;
+  if (total <= 80) {
+    costData = {
+      title: 'The Cost of Staying Founder-Dependent',
+      rows: [
+        { label: 'Revenue lost to turnover & rework', value: '20\u201335%', severity: 'critical' },
+        { label: 'Est. annual recoverable output (at $500K rev)', value: '$100K\u2013$175K', severity: 'critical' },
+        { label: 'Decision bottleneck tax on growth', value: 'High', severity: 'critical' },
+        { label: 'Burnout risk to founder', value: 'Severe', severity: 'critical' }
+      ]
+    };
+  } else if (total <= 120) {
+    costData = {
+      title: 'The Cost of Staying Fragile',
+      rows: [
+        { label: 'Cost per mid-level departure', value: '1.5\u20132x salary', severity: 'high' },
+        { label: 'Est. annual replacement cost (10 team, 20% turnover)', value: '$180K+', severity: 'high' },
+        { label: 'Culture resilience to key departures', value: 'Low', severity: 'high' },
+        { label: 'Growth ceiling without systems', value: '$1\u20132M', severity: 'medium' }
+      ]
+    };
+  } else if (total <= 160) {
+    costData = {
+      title: 'The Cost of Staying Leader-Dependent',
+      rows: [
+        { label: 'Revenue potential currently realized', value: '60\u201370%', severity: 'medium' },
+        { label: 'Team output gap vs. institutional culture', value: '1.5\u20132x', severity: 'medium' },
+        { label: 'Exit/acquisition premium at risk', value: 'Significant', severity: 'medium' },
+        { label: 'Scalability without founder involvement', value: 'Limited', severity: 'low' }
+      ]
+    };
+  } else {
+    costData = {
+      title: 'Optimization Opportunity',
+      rows: [
+        { label: 'Retention advantage vs. industry avg', value: '2\u20133x', severity: 'low' },
+        { label: 'Productivity compound from retention', value: 'High', severity: 'low' },
+        { label: 'Valuation premium potential', value: 'Strong', severity: 'low' },
+        { label: 'Self-correction capability', value: 'Active', severity: 'low' }
+      ]
+    };
+  }
+
+  // Build score overview
+  var scoreOverviewHtml = '<div class="gp-score-overview">';
+  sectionKeys.forEach(function(key) {
+    var pct = Math.round((ss[key] / 50) * 100);
+    var grade = pct >= 80 ? 'A' : pct >= 60 ? 'B' : pct >= 40 ? 'C' : 'D';
+    var gradeClass = pct >= 80 ? 'grade-a' : pct >= 60 ? 'grade-b' : pct >= 40 ? 'grade-c' : 'grade-d';
+    scoreOverviewHtml +=
+      '<div class="gp-score-card">' +
+      '<div class="gp-score-card-grade ' + gradeClass + '">' + grade + '</div>' +
+      '<div class="gp-score-card-label">' + sectionNames[key] + '</div>' +
+      '<div class="gp-score-card-value">' + ss[key] + '<span>/50</span></div>' +
+      '<div class="gp-score-card-bar"><div class="gp-score-card-fill" style="width:' + pct + '%;"></div></div>' +
+      '</div>';
+  });
+  scoreOverviewHtml += '</div>';
+
+  // Build cost box
+  var costHtml =
+    '<div class="cost-box">' +
+    '<div class="cost-box-header">' + costData.title + '</div>' +
+    '<table class="gp-table"><tbody>';
+  costData.rows.forEach(function(row) {
+    costHtml += '<tr><td>' + row.label + '</td><td><span class="gp-priority ' + row.severity + '">' + row.value + '</span></td></tr>';
+  });
+  costHtml += '</tbody></table></div>';
+
+  // Month 1 action table
+  var m1Actions = [
+    { action: 'Write role definitions as functions', priority: 'critical', owner: 'Founder' },
+    { action: 'Document performance expectations', priority: 'critical', owner: 'Founder + Leads' },
+    { action: 'Make KPIs visible to team', priority: 'high', owner: 'Ops / Founder' },
+    { action: 'Define advancement criteria', priority: 'high', owner: 'Founder' },
+    { action: 'Document consequences for underperformance', priority: 'medium', owner: 'Founder + HR' }
+  ];
+
+  // Month 2 action table
+  var m2Actions = [
+    { action: 'Install weekly performance review cadence', priority: 'critical', owner: 'Leadership' },
+    { action: 'Create 7-day underperformance protocol', priority: 'critical', owner: 'Founder + Leads' },
+    { action: 'Build written feedback system', priority: 'high', owner: 'All Managers' },
+    { action: 'Implement decision documentation', priority: 'medium', owner: 'All Leaders' },
+    { action: 'Eliminate ghost tasks', priority: 'high', owner: 'Ops / PM' }
+  ];
+
+  // Month 3 action table
+  var m3Actions = [
+    { action: 'Audit comp structures (results vs activity)', priority: 'critical', owner: 'Founder + Finance' },
+    { action: 'Build documented bonus structure', priority: 'critical', owner: 'Founder' },
+    { action: 'Clarify commission structures', priority: 'high', owner: 'Sales Lead + Founder' },
+    { action: 'Create weekly recognition system', priority: 'medium', owner: 'Leadership' },
+    { action: 'Separate founder emotion from culture', priority: 'high', owner: 'Founder' }
+  ];
+
+  function buildActionTable(actions) {
+    var html = '<table class="gp-table"><thead><tr><th>Action</th><th>Priority</th><th>Owner</th></tr></thead><tbody>';
+    actions.forEach(function(a) {
+      html += '<tr><td>' + a.action + '</td><td><span class="gp-priority ' + a.priority + '">' + a.priority.charAt(0).toUpperCase() + a.priority.slice(1) + '</span></td><td>' + a.owner + '</td></tr>';
+    });
+    html += '</tbody></table>';
+    return html;
+  }
+
+  // Breakdown comparison diagram (before/after)
+  function buildBreakdown(month) {
+    var items;
+    if (month === 1) {
+      items = [
+        { before: 'Expectations live in founder\'s head', after: 'Written role definitions for every seat' },
+        { before: 'Performance reviews based on feeling', after: 'Documented standards with measurable KPIs' },
+        { before: 'Advancement path is unclear', after: 'Defined criteria visible to all team members' }
+      ];
+    } else if (month === 2) {
+      items = [
+        { before: 'Accountability depends on founder follow-up', after: 'Structured weekly cadence runs itself' },
+        { before: 'Underperformance festers for weeks', after: '7-day response protocol catches it early' },
+        { before: 'Decisions get forgotten or rewritten', after: 'Every decision documented at time of making' }
+      ];
+    } else {
+      items = [
+        { before: 'Compensation rewards tenure and activity', after: 'Compensation tied to measurable outcomes' },
+        { before: 'Bonuses feel arbitrary to the team', after: 'Self-calculable bonus tied to specific metrics' },
+        { before: 'Culture shifts with founder\'s mood', after: 'Consistent institutional culture regardless of founder' }
+      ];
+    }
+    var html =
+      '<div class="gp-breakdown">' +
+      '<div class="gp-breakdown-header"><div class="gp-breakdown-col gp-col-before">Where You Are</div><div class="gp-breakdown-col gp-col-after">Where You\'ll Be</div></div>';
+    items.forEach(function(item) {
+      html +=
+        '<div class="gp-breakdown-row">' +
+        '<div class="gp-breakdown-col gp-col-before">' + item.before + '</div>' +
+        '<div class="gp-breakdown-arrow">&rarr;</div>' +
+        '<div class="gp-breakdown-col gp-col-after">' + item.after + '</div>' +
+        '</div>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  var container = document.getElementById('gameplanContainer');
+  container.innerHTML =
+    '<div class="title-block">' +
+    '<div class="title-block-main">The Culture Maturity Audit</div>' +
+    '<div class="title-block-sub">Your Culture Correction Plan</div>' +
+    '</div>' +
+    '<p class="gameplan-intro">Based on your score of <strong>' + total + '/200</strong> and your tier <strong>' + tier + '</strong>, here is your 90-day system for transforming culture from personality-dependent to performance-driven.</p>' +
+
+    scoreOverviewHtml +
+    costHtml +
+
+    /* Timeline Nav */
+    '<div class="gp-timeline">' +
+    '<div class="gp-timeline-step active" onclick="switchGpMonth(1)"><div class="gp-timeline-dot">1</div><div class="gp-timeline-label">Month 1<span>Clarity</span></div></div>' +
+    '<div class="gp-timeline-line"></div>' +
+    '<div class="gp-timeline-step" onclick="switchGpMonth(2)"><div class="gp-timeline-dot">2</div><div class="gp-timeline-label">Month 2<span>Accountability</span></div></div>' +
+    '<div class="gp-timeline-line"></div>' +
+    '<div class="gp-timeline-step" onclick="switchGpMonth(3)"><div class="gp-timeline-dot">3</div><div class="gp-timeline-label">Month 3<span>Incentives</span></div></div>' +
+    '</div>' +
+
+    /* Month 1 Card */
+    '<div class="gp-month-card active" id="gpMonth1">' +
+    '<div class="gp-card">' +
+    '<div class="gp-timeframe">Month 1 &mdash; Days 1\u201330</div>' +
+    '<h3 class="gp-headline">Make the Invisible Rules Visible</h3>' +
+    '<p class="gp-body">Culture problems are not people problems. They are clarity problems. Your team cannot meet expectations they have never seen written down. This phase converts what you know into what everyone knows.</p>' +
+    buildActionTable(m1Actions) +
+    buildBreakdown(1) +
+    '<div class="gp-tier-callout"><em>At your tier:</em> ' + tierCallout(1) + '</div>' +
+    '<div class="gp-card-nav"><span></span><button class="btn-primary btn-sm" onclick="switchGpMonth(2)">Next: Accountability &rarr;</button></div>' +
+    '</div>' +
+    '</div>' +
+
+    /* Month 2 Card */
+    '<div class="gp-month-card" id="gpMonth2">' +
+    '<div class="gp-card">' +
+    '<div class="gp-timeframe">Month 2 &mdash; Days 31\u201360</div>' +
+    '<h3 class="gp-headline">Install Accountability Infrastructure</h3>' +
+    '<p class="gp-body">Accountability is not a personality trait. It is a system. This phase installs the structures that make your team self-accountable, so performance is maintained whether you are in the room or not.</p>' +
+    buildActionTable(m2Actions) +
+    buildBreakdown(2) +
+    '<div class="gp-tier-callout"><em>At your tier:</em> ' + tierCallout(2) + '</div>' +
+    '<div class="gp-card-nav"><button class="btn-back btn-sm" onclick="switchGpMonth(1)">&larr; Month 1</button><button class="btn-primary btn-sm" onclick="switchGpMonth(3)">Next: Incentives &rarr;</button></div>' +
+    '</div>' +
+    '</div>' +
+
+    /* Month 3 Card */
+    '<div class="gp-month-card" id="gpMonth3">' +
+    '<div class="gp-card">' +
+    '<div class="gp-timeframe">Month 3 &mdash; Days 61\u201390</div>' +
+    '<h3 class="gp-headline">Align Incentives to Performance</h3>' +
+    '<p class="gp-body">Culture follows incentives. Whatever you reward, you get more of. Whatever you tolerate, you get more of. This phase redesigns what you reward so your culture naturally produces what you are trying to build.</p>' +
+    buildActionTable(m3Actions) +
+    buildBreakdown(3) +
+    '<div class="gp-tier-callout"><em>At your tier:</em> ' + tierCallout(3) + '</div>' +
+    '<div class="gp-card-nav"><button class="btn-back btn-sm" onclick="switchGpMonth(2)">&larr; Month 2</button><span></span></div>' +
+    '</div>' +
+    '</div>' +
+
+    /* CTA Block */
+    '<div class="cta-block">' +
+    '<h2>Get This Installed Inside Your Business in 90 Days.</h2>' +
+    '<p>The 3x3OS engagement builds what this assessment revealed, with hands-on support, structural maps, and a 90-day correction plan built around your exact score. It is application-only.</p>' +
+    '<div class="urgency-line">Applications reviewed weekly. Limited spots per cohort.</div>' +
+    '<button class="btn-primary btn-apply-pulse" id="applyToggleBtn" onclick="openApplyForm()" style="max-width:360px; margin:0 auto 16px;">Apply for 3x3OS</button>' +
+    '<div class="apply-form-wrap" id="applyFormWrap">' +
+    '<div class="form-error" id="applyFormError">Please enter your phone number and business name.</div>' +
+    '<input type="tel" class="form-input" id="applyPhone" placeholder="Phone number" autocomplete="tel" maxlength="20">' +
+    '<input type="text" class="form-input" id="applyBusiness" placeholder="Business name" autocomplete="organization" maxlength="150">' +
+    '<button class="btn-primary" onclick="submitApply()" style="max-width:360px; margin:0 auto 16px; width:100%;">Submit Application</button>' +
+    '</div>' +
+    '<div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">' +
+    '<button class="cta-secondary-link" onclick="window.print()">Download your full results</button>' +
+    '<button class="cta-secondary-link" onclick="location.reload()">Retake assessment</button>' +
+    '</div>' +
+    '<div class="cta-small-text">Results also sent to ' + esc(state.email) + '</div>' +
+    '</div>';
+
+  showScreen('screen4');
+  gpActiveMonth = 1;
+}
+
+// ═══════════════════════════════════════════
+// APPLY FORM + CONFETTI
+// ═══════════════════════════════════════════
+function openApplyForm() {
+  var btn = document.getElementById('applyToggleBtn');
+  var wrap = document.getElementById('applyFormWrap');
+  btn.classList.add('apply-btn-hide');
+  wrap.classList.add('open');
+  setTimeout(function() {
+    document.getElementById('applyPhone').focus();
+  }, 300);
+}
+
+function submitApply() {
+  var phone = sanitize(document.getElementById('applyPhone').value, 20).replace(/[^0-9+\-() ]/g, '');
+  var business = sanitize(document.getElementById('applyBusiness').value, 150);
+  var errEl = document.getElementById('applyFormError');
+
+  if (!phone || !business) {
+    errEl.classList.add('visible');
+    return;
+  }
+  errEl.classList.remove('visible');
+
+  // Prevent double-submit
+  var submitBtn = document.querySelector('#applyFormWrap .btn-primary');
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submitting…'; }
+
+  sendWebhook({
+    first_name: state.firstName,
+    email: state.email,
+    phone: phone,
+    business_name: business,
+    total_score: state.total,
+    tier: state.tier,
+    section_a_clarity: state.sectionScores.a,
+    section_b_accountability: state.sectionScores.b,
+    section_c_incentive_alignment: state.sectionScores.c,
+    section_d_leadership_stability: state.sectionScores.d,
+    source: 'culture-maturity-audit-application',
+    event: 'applied',
+    timestamp: new Date().toISOString()
+  });
+
+  fireConfetti();
+  setTimeout(function() { showScreen('screen5'); }, 2200);
+}
+
+function fireConfetti() {
+  var colors = ['#5b8a9a', '#6d9dae', '#e8e8ec', '#a0a0a8'];
+  var end = Date.now() + 2000;
+  (function frame() {
+    confetti({
+      particleCount: 3,
+      angle: 60,
+      spread: 55,
+      origin: { x: 0 },
+      colors: colors,
+      zIndex: 99999
+    });
+    confetti({
+      particleCount: 3,
+      angle: 120,
+      spread: 55,
+      origin: { x: 1 },
+      colors: colors,
+      zIndex: 99999
+    });
+    if (Date.now() < end) requestAnimationFrame(frame);
+  })();
+}
+
+// Add slide animation
+var styleEl = document.createElement('style');
+styleEl.textContent = '@keyframes screenSlide { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }';
+document.head.appendChild(styleEl);
+
+</script>
+</body>
+</html>

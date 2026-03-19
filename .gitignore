@@ -2,6 +2,9 @@ node_modules/
 temporary screenshots/
 .claude/
 .DS_Store
+.env
+.env.*
+!.env.example
 
 # Raw source/reference assets (large files, not needed for production)
 website_reference/truth card images/*.png
