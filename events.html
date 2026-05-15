@@ -4,23 +4,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Events — Paradigm Consulting</title>
-  <meta name="description" content="Paradigm Consulting events — where founders, operators, and industry leaders gather. Upcoming events and speaker booking.">
+  <meta name="description" content="Three rooms. Three outcomes. Corporate keynotes, SOS Accelerators, and the 3×3 Mastermind. Built for founders who refuse to stay small.">
   <meta property="og:title" content="Events — Paradigm Consulting">
-  <meta property="og:description" content="Where operators gather. Upcoming events and speaker booking from Paradigm Consulting.">
+  <meta property="og:description" content="Three rooms. Three outcomes. All built for founders who refuse to stay small.">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="https://paradigmconsulting.io/brand_assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://paradigmconsulting.io/events">
+  <meta property="og:site_name" content="Paradigm Consulting">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Events — Paradigm Consulting">
+  <meta name="twitter:description" content="Three rooms. Three outcomes. All built for founders who refuse to stay small.">
+  <meta name="twitter:image" content="https://paradigmconsulting.io/brand_assets/og-image.jpg">
   <link rel="icon" type="image/x-icon" href="brand_assets/favicon.ico">
   <link rel="apple-touch-icon" sizes="180x180" href="brand_assets/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.cdnfonts.com/css/ranade" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
       --bg: #0d0d0d;
-      --red: #0c8ce9;
+      --accent: #0c8ce9;
+      --blue: #0052FF;
       --border: rgba(255,255,255,0.1);
       --muted: rgba(255,255,255,0.45);
     }
@@ -33,20 +43,18 @@
       overflow-x: hidden;
     }
 
-    /* Grain overlay — matches main site */
+    /* Grain overlay — lightweight, no mix-blend-mode */
     body::after {
       content: '';
       position: fixed;
       inset: 0;
       pointer-events: none;
       z-index: 9999;
-      opacity: 0.028;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.018;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
       background-size: 256px 256px;
-      mix-blend-mode: overlay;
     }
 
-    /* ── Display heading (matches main site .display) ── */
     .display {
       font-family: 'Ranade', sans-serif;
       font-weight: 500;
@@ -55,7 +63,7 @@
       line-height: 0.92;
     }
 
-    /* ── NAV (matches main site exactly) ── */
+    /* ── NAV ── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -101,12 +109,8 @@
       white-space: nowrap;
       cursor: pointer;
     }
-    .nav-tube-link:hover {
-      color: rgba(255,255,255,0.9);
-    }
-    .nav-tube-link.active {
-      color: #fff;
-    }
+    .nav-tube-link:hover { color: rgba(255,255,255,0.9); }
+    .nav-tube-link.active { color: #fff; }
     .nav-tube-lamp {
       position: absolute;
       inset: 0;
@@ -122,7 +126,7 @@
       transform: translateX(-50%);
       width: 32px;
       height: 4px;
-      background: var(--red);
+      background: var(--accent);
       border-radius: 4px 4px 0 0;
     }
     .nav-tube-glow::before {
@@ -196,7 +200,7 @@
     .nav-cta .arrow svg { width: 12px; height: 12px; }
     .nav-cta .arrow svg path { stroke: #fff; }
 
-    /* ── Section pill (matches main site) ── */
+    /* ── Section pill ── */
     .section-pill {
       display: inline-flex;
       align-items: center;
@@ -213,286 +217,6 @@
     .section-pill-dark {
       border-color: rgba(0,0,0,0.14);
       color: rgba(0,0,0,0.42);
-    }
-
-    /* ── HERO (dark, compact) ── */
-    .events-hero {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 180px 32px 120px;
-      position: relative;
-      overflow: hidden;
-    }
-    .events-hero::before {
-      content: '';
-      position: absolute;
-      top: -40%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 700px;
-      height: 700px;
-      background: radial-gradient(circle, rgba(12,140,233,0.1) 0%, transparent 65%);
-      pointer-events: none;
-    }
-
-    .events-hero h1 {
-      font-size: clamp(48px, 8vw, 96px);
-      color: #fff;
-      margin-bottom: 20px;
-    }
-    .events-hero h1 span { color: var(--red); }
-
-    .events-hero p {
-      font-family: 'Figtree', sans-serif;
-      font-size: 17px;
-      font-weight: 400;
-      color: rgba(255,255,255,0.45);
-      max-width: 520px;
-      line-height: 1.7;
-    }
-
-    /* ── EVENT SECTION (white bg) ── */
-    .event-section {
-      background: #ffffff;
-      padding: 80px 32px;
-    }
-    .event-section-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .event-card {
-      position: relative;
-      background: #f8f8f8;
-      border: 1px solid rgba(0,0,0,0.08);
-      border-radius: 20px;
-      overflow: hidden;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      margin-top: 32px;
-    }
-
-    .event-card-content {
-      padding: 48px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 18px;
-    }
-
-    .event-date-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--red);
-      letter-spacing: 0.04em;
-    }
-    .event-date-badge svg {
-      width: 16px; height: 16px;
-      stroke: var(--red);
-    }
-
-    .event-card-content h3 {
-      font-family: 'Ranade', sans-serif;
-      font-weight: 600;
-      font-size: 32px;
-      color: #0d0d0d;
-      letter-spacing: -0.03em;
-      line-height: 1.15;
-    }
-
-    .event-card-content .event-tagline {
-      font-size: 16px;
-      font-weight: 500;
-      color: rgba(0,0,0,0.55);
-      font-style: italic;
-    }
-
-    .event-card-content .event-desc {
-      font-size: 15px;
-      color: rgba(0,0,0,0.5);
-      line-height: 1.7;
-    }
-
-    .event-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 18px;
-    }
-    .event-meta-item {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      font-size: 13px;
-      color: rgba(0,0,0,0.4);
-    }
-    .event-meta-item svg {
-      width: 15px; height: 15px;
-      stroke: rgba(0,0,0,0.3);
-      flex-shrink: 0;
-    }
-
-    .event-speakers {
-      display: flex;
-      gap: 10px;
-    }
-    .speaker-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(0,0,0,0.05);
-      border: 1px solid rgba(0,0,0,0.08);
-      border-radius: 100px;
-      padding: 5px 14px 5px 5px;
-    }
-    .speaker-chip img {
-      width: 30px; height: 30px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-    .speaker-chip span {
-      font-size: 13px;
-      font-weight: 500;
-      color: rgba(0,0,0,0.65);
-    }
-
-    .event-card-visual {
-      position: relative;
-      background: var(--bg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      min-height: 420px;
-    }
-    .event-card-visual::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 30% 40%, rgba(12,140,233,0.18) 0%, transparent 50%),
-        radial-gradient(circle at 80% 70%, rgba(12,140,233,0.08) 0%, transparent 50%);
-      transition: opacity 0.4s;
-      z-index: 1;
-    }
-    .event-visual-date {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      transition: opacity 0.4s;
-    }
-    .event-visual-date .month {
-      font-family: 'Figtree', sans-serif;
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 4px;
-    }
-    .event-visual-date .day {
-      font-family: 'Ranade', sans-serif;
-      font-size: 110px;
-      font-weight: 700;
-      color: #fff;
-      letter-spacing: -0.04em;
-      line-height: 1;
-    }
-    .event-visual-date .year {
-      font-family: 'Figtree', sans-serif;
-      font-size: 18px;
-      font-weight: 300;
-      color: rgba(255,255,255,0.3);
-      letter-spacing: 0.2em;
-    }
-    .event-visual-location {
-      position: absolute;
-      bottom: 24px;
-      left: 0; right: 0;
-      text-align: center;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.25);
-      z-index: 2;
-      transition: opacity 0.4s;
-    }
-    .event-preview-iframe {
-      position: absolute;
-      inset: 0;
-      width: 200%;
-      height: 200%;
-      border: none;
-      transform: scale(0.5);
-      transform-origin: top left;
-      opacity: 0;
-      transition: opacity 0.5s cubic-bezier(0.16,1,0.3,1);
-      pointer-events: none;
-      z-index: 1;
-    }
-    .event-card:hover .event-preview-iframe {
-      opacity: 1;
-    }
-    .event-card:hover #eventDate,
-    .event-card:hover #eventLocation {
-      opacity: 0;
-    }
-    .event-card:hover .event-card-visual::before {
-      opacity: 0;
-      transition: opacity 0.4s;
-    }
-
-    /* ── CTA ROW + COUNTDOWN ── */
-    .event-cta-row {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-    .countdown {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .countdown-unit {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-width: 44px;
-      background: rgba(0,0,0,0.06);
-      border: 1px solid rgba(0,0,0,0.08);
-      border-radius: 10px;
-      padding: 8px 6px 6px;
-    }
-    .countdown-num {
-      font-family: 'Ranade', sans-serif;
-      font-weight: 600;
-      font-size: 20px;
-      color: #0d0d0d;
-      line-height: 1;
-      letter-spacing: -0.02em;
-    }
-    .countdown-label {
-      font-family: 'Figtree', sans-serif;
-      font-size: 9px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: rgba(0,0,0,0.35);
-      margin-top: 3px;
-    }
-    .countdown-sep {
-      font-family: 'Ranade', sans-serif;
-      font-size: 18px;
-      font-weight: 600;
-      color: rgba(0,0,0,0.2);
-      margin-top: -8px;
     }
 
     /* ── BUTTON (matches main site) ── */
@@ -520,6 +244,13 @@
     .btn-primary:hover {
       padding: 4px 24px 4px 56px;
       background: #1a1a1a;
+    }
+    .btn-primary:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .btn-primary:active {
+      transform: scale(0.98);
     }
     .btn-primary .btn-label {
       position: relative;
@@ -554,62 +285,813 @@
     .btn-primary-light .arrow svg path { stroke: #fff; }
     .btn-primary-light:hover { background: #f0f0f0; }
 
-    /* ── SPEAKER SECTION (dark) ── */
-    .speaker-section {
-      padding: 80px 32px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .speaker-header {
-      margin-bottom: 32px;
-    }
-    .speaker-header h2 {
-      font-size: clamp(36px, 5vw, 56px);
-      color: #fff;
-    }
-    .speaker-header h2 span { color: var(--red); }
-
-    .speaker-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      align-items: stretch;
-    }
-
-    .speaker-left {
+    /* ── HERO ── */
+    .events-hero {
       display: flex;
       flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 200px 32px 140px;
+      position: relative;
+      overflow: hidden;
     }
-
-    .speaker-info p {
-      font-size: 16px;
-      color: rgba(255,255,255,0.5);
+    .events-hero::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(12,140,233,0.1) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .events-hero h1 {
+      color: #fff;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .hero-top {
+      font-size: clamp(28px, 4.5vw, 56px);
+      letter-spacing: 0.15em;
+      display: block;
+    }
+    .hero-bottom {
+      color: var(--accent);
+      display: block;
+      line-height: 0.85;
+      margin-top: -0.05em;
+      /* Scale to fill the same width as the top line */
+      font-size: clamp(72px, 13.5vw, 170px);
+      letter-spacing: -0.04em;
+    }
+    .events-hero p {
+      font-family: 'Figtree', sans-serif;
+      font-size: 17px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.45);
+      max-width: 540px;
       line-height: 1.7;
-      margin-bottom: 16px;
     }
 
-    .speaker-topics {
-      list-style: none;
-      padding: 0;
-      margin-top: 24px;
+    /* ════════════════════════════════════════════════════ */
+    /* OBJECT VISUALS — shared tilt, shadow, scale         */
+    /* ════════════════════════════════════════════════════ */
+    .object-tilt {
+      transform: perspective(1000px) rotateY(-6deg) rotateX(3deg);
+      transition: transform 0.8s cubic-bezier(0.16,1,0.3,1);
     }
-    .speaker-topics li {
+    .object-tilt:hover {
+      transform: perspective(1000px) rotateY(-1deg) rotateX(1deg);
+    }
+
+    /* ── 1. LANYARD BADGE ── */
+    .lanyard-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 0;
+      position: relative;
+    }
+    /* Lanyard fabric strap — woven texture */
+    .lanyard-strap {
+      width: 18px;
+      height: 100px;
+      margin-bottom: 0;
+      position: relative;
+      background:
+        repeating-linear-gradient(
+          0deg,
+          rgba(255,255,255,0.06) 0px,
+          rgba(255,255,255,0.03) 1px,
+          transparent 1px,
+          transparent 3px
+        ),
+        linear-gradient(180deg, rgba(30,30,30,0) 0%, rgba(30,30,30,0.9) 15%, #1e1e1e 100%);
+      border-radius: 2px;
+      /* Fabric edge highlight */
+      box-shadow:
+        inset 1px 0 0 rgba(255,255,255,0.04),
+        inset -1px 0 0 rgba(0,0,0,0.3);
+    }
+    /* Metal clip connector */
+    .lanyard-clip {
+      width: 24px;
+      height: 18px;
+      position: relative;
+      margin-top: -2px;
+      margin-bottom: -1px;
+      z-index: 2;
+    }
+    .lanyard-clip-body {
+      width: 24px;
+      height: 14px;
+      background: linear-gradient(180deg, #4a4a4a 0%, #3a3a3a 40%, #2a2a2a 100%);
+      border-radius: 3px;
+      position: relative;
+      /* Brushed metal effect */
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.2),
+        inset 0 -1px 0 rgba(0,0,0,0.3),
+        0 2px 4px rgba(0,0,0,0.4);
+    }
+    .lanyard-clip-body::before {
+      content: '';
+      position: absolute;
+      inset: 2px 4px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 60%);
+      border-radius: 1px;
+    }
+    /* Clip ring/hook */
+    .lanyard-clip-ring {
+      width: 10px;
+      height: 10px;
+      border: 2px solid #3a3a3a;
+      border-radius: 50%;
+      margin: -4px auto 0;
+      position: relative;
+      box-shadow:
+        0 1px 2px rgba(0,0,0,0.3),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+
+    .lanyard-badge {
+      width: 232px;
+      background: linear-gradient(170deg, #141414 0%, #111 40%, #0f0f0f 100%);
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.07);
+      padding: 24px 24px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+      /* Apple-level layered shadow */
+      box-shadow:
+        0 0 0 0.5px rgba(255,255,255,0.05),
+        0 1px 2px rgba(0,0,0,0.2),
+        0 4px 8px rgba(0,0,0,0.15),
+        0 12px 24px rgba(0,0,0,0.15),
+        0 32px 64px rgba(0,0,0,0.12);
+    }
+    /* Blue accent stripe */
+    .lanyard-badge::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--blue) 0%, #3377ff 50%, var(--blue) 100%);
+      border-radius: 16px 16px 0 0;
+    }
+    /* Edge highlight — light catching the top-left edge */
+    .badge-edge-light {
+      position: absolute;
+      top: 3px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 10%, rgba(255,255,255,0.06) 30%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.06) 70%, transparent 90%);
+      pointer-events: none;
+    }
+    .badge-logo {
+      width: 40px;
+      height: 40px;
+      margin-top: 4px;
+    }
+    .badge-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 20%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.06) 80%, transparent 100%);
+    }
+    .badge-event-name {
+      font-family: 'Ranade', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      text-align: center;
+    }
+    /* Photo placeholder */
+    .badge-photo {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1a1a1a 0%, #222 100%);
+      border: 2px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .badge-photo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+      pointer-events: none;
+    }
+    .badge-photo svg {
+      width: 24px;
+      height: 24px;
+      opacity: 0.2;
+    }
+    .badge-attendee {
+      font-family: 'Figtree', sans-serif;
+      font-size: 17px;
+      font-weight: 600;
+      color: #fff;
+      text-align: center;
+      letter-spacing: -0.01em;
+    }
+    .badge-role {
+      font-family: 'Figtree', sans-serif;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--blue);
+      background: rgba(0,82,255,0.08);
+      padding: 3px 10px;
+      border-radius: 100px;
+    }
+    .badge-bottom {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 4px;
+    }
+    .badge-barcode {
+      display: flex;
+      align-items: flex-end;
+      gap: 1px;
+      height: 20px;
+    }
+    .badge-barcode span {
+      display: block;
+      width: 1.5px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 0.5px;
+    }
+    .badge-id {
+      font-family: 'Space Mono', monospace;
+      font-size: 8px;
+      color: rgba(255,255,255,0.15);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── 2. SEALED INVITATION ── */
+    .invitation-wrap {
+      position: relative;
+      width: 290px;
+      height: 400px;
+      flex-shrink: 0;
+    }
+    /* Background card (offset — stack effect) */
+    .invitation-bg {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      right: -6px;
+      bottom: -6px;
+      background: linear-gradient(145deg, #e8e4df 0%, #ddd9d3 100%);
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,0.06);
+      transform: perspective(800px) rotateY(-6deg) rotateX(2deg) rotate(-1.5deg);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    /* Third card hint — deeper in the stack */
+    .invitation-bg::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: -4px;
+      bottom: -4px;
+      background: #d5d1cb;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,0.04);
+      transform: rotate(-1deg);
+      z-index: -1;
+    }
+    .invitation-card {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(155deg, #faf8f5 0%, #f5f2ed 30%, #f0ece6 60%, #ede9e3 100%);
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,0.06);
+      padding: 40px 32px 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      /* Hyper-real shadow stack */
+      box-shadow:
+        0 0 0 0.5px rgba(0,0,0,0.04),
+        0 1px 1px rgba(0,0,0,0.08),
+        0 2px 4px rgba(0,0,0,0.06),
+        0 8px 16px rgba(0,0,0,0.08),
+        0 16px 32px rgba(0,0,0,0.06),
+        0 32px 64px rgba(0,0,0,0.05);
+    }
+    /* Edge catch light */
+    .invitation-card::after {
+      content: '';
+      position: absolute;
+      top: 1px;
+      left: 20px;
+      right: 20px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.7) 30%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0.7) 70%, transparent 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+    .invitation-top-line {
+      font-family: 'Figtree', sans-serif;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.3);
+      position: relative;
+      z-index: 3;
+    }
+    .invitation-rule {
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(0,0,0,0.1) 0%, transparent 100%);
+      margin-top: 16px;
+    }
+    .invitation-title {
+      font-family: 'Ranade', sans-serif;
+      font-size: 24px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #0d0d0d;
+      line-height: 1.35;
+      position: relative;
+      z-index: 3;
+      /* Letterpress / debossed effect on light card */
+      text-shadow:
+        0 1px 0 rgba(255,255,255,0.6),
+        0 -1px 0 rgba(0,0,0,0.04);
+    }
+    .invitation-subtitle {
+      font-family: 'Figtree', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.25);
+      margin-top: 14px;
+      position: relative;
+      z-index: 3;
+    }
+    .invitation-bottom {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      position: relative;
+      z-index: 3;
+    }
+    .invitation-detail {
+      font-family: 'Space Mono', monospace;
+      font-size: 8px;
+      color: rgba(0,0,0,0.2);
+      letter-spacing: 0.06em;
+      line-height: 2;
+    }
+    /* Wax seal — hyper-real with drip edge and depth */
+    .wax-seal {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 38% 32%, #5588ff 0%, #3366ee 20%, var(--blue) 50%, #003cc7 80%, #002a99 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      flex-shrink: 0;
+      /* Layered shadow for wax depth */
+      box-shadow:
+        0 1px 2px rgba(0,82,255,0.4),
+        0 3px 6px rgba(0,0,0,0.3),
+        0 6px 12px rgba(0,0,0,0.2),
+        0 12px 24px rgba(0,0,0,0.15),
+        inset 0 2px 3px rgba(255,255,255,0.18),
+        inset 0 -3px 6px rgba(0,0,0,0.25);
+    }
+    /* Inner ring (pressed seal edge) */
+    .wax-seal::before {
+      content: '';
+      position: absolute;
+      inset: 5px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.1);
+      box-shadow:
+        inset 0 1px 2px rgba(255,255,255,0.08),
+        inset 0 -1px 2px rgba(0,0,0,0.15);
+    }
+    /* Specular highlight — light catching the wax surface */
+    .wax-seal::after {
+      content: '';
+      position: absolute;
+      top: 6px;
+      left: 12px;
+      width: 24px;
+      height: 12px;
+      background: radial-gradient(ellipse, rgba(255,255,255,0.2) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .wax-seal svg {
+      width: 24px;
+      height: 24px;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 1px 1px rgba(0,0,0,0.3));
+    }
+    /* Irregular drip edges */
+    .wax-drip {
+      position: absolute;
+      border-radius: 50%;
+      background: inherit;
+      background:
+        radial-gradient(circle at 40% 35%, #4477ee 0%, var(--blue) 50%, #003cc7 100%);
+      box-shadow:
+        inset 0 1px 2px rgba(255,255,255,0.1),
+        inset 0 -1px 2px rgba(0,0,0,0.2);
+    }
+    .wax-drip-1 {
+      width: 10px; height: 8px;
+      top: -2px; right: 8px;
+      border-radius: 40% 60% 50% 50%;
+    }
+    .wax-drip-2 {
+      width: 8px; height: 10px;
+      bottom: -3px; left: 12px;
+      border-radius: 50% 50% 40% 60%;
+    }
+    .wax-drip-3 {
+      width: 9px; height: 7px;
+      left: -2px; top: 20px;
+      border-radius: 50% 40% 50% 60%;
+    }
+
+    /* ── 3. MEMBERSHIP CARD ── */
+    .member-card-wrap {
+      position: absolute;
+      top: -20px;
+      left: 48px;
+      right: -48px;
+      bottom: 20px;
+      z-index: 2;
+      transform: rotate(4deg);
+      transform-origin: center center;
+    }
+    /* Contact shadow — separate from card for realism */
+    .member-card-shadow {
+      position: absolute;
+      bottom: -8px;
+      left: 10%;
+      right: 10%;
+      height: 40px;
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0.12) 0%, transparent 70%);
+      filter: blur(8px);
+      pointer-events: none;
+    }
+    .member-card {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(165deg, #2a2a2a 0%, #232323 30%, #1e1e1e 60%, #1a1a1a 100%);
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 28px 28px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 0.5px rgba(0,0,0,0.2),
+        0 1px 2px rgba(0,0,0,0.12),
+        0 4px 8px rgba(0,0,0,0.1),
+        0 12px 24px rgba(0,0,0,0.1),
+        0 32px 64px rgba(0,0,0,0.08);
+    }
+    /* Blue stripe along top */
+    .member-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #003cc7 0%, var(--blue) 30%, #3377ff 50%, var(--blue) 70%, #003cc7 100%);
+      z-index: 2;
+    }
+    /* Holographic band */
+    .member-card::after {
+      content: '';
+      position: absolute;
+      top: -60%;
+      right: -30%;
+      width: 260px;
+      height: 400px;
+      background: linear-gradient(
+        135deg,
+        transparent 25%,
+        rgba(0,82,255,0.05) 32%,
+        rgba(0,82,255,0.1) 36%,
+        rgba(100,160,255,0.12) 40%,
+        rgba(180,120,255,0.08) 44%,
+        rgba(0,200,150,0.06) 48%,
+        rgba(0,82,255,0.1) 52%,
+        rgba(120,80,255,0.06) 56%,
+        transparent 62%
+      );
+      transform: rotate(-20deg);
+      pointer-events: none;
+      z-index: 1;
+    }
+    /* Edge highlight */
+    .member-edge-light {
+      position: absolute;
+      top: 5px;
+      left: 16px;
+      right: 16px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.06) 30%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.06) 70%, transparent 100%);
+      z-index: 3;
+      pointer-events: none;
+    }
+    .member-card-top {
       display: flex;
       align-items: flex-start;
-      gap: 10px;
-      font-size: 14px;
-      color: rgba(255,255,255,0.55);
-      padding: 12px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      justify-content: space-between;
+      position: relative;
+      z-index: 4;
     }
-    .speaker-topics li svg {
-      width: 16px; height: 16px;
-      stroke: var(--red);
+    .member-card-logo {
+      width: 32px;
+      height: 32px;
+      opacity: 0.5;
+    }
+    .member-card-label {
+      font-family: 'Figtree', sans-serif;
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      padding: 4px 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 100px;
+      background: rgba(255,255,255,0.04);
+    }
+    .member-card-mid {
+      position: relative;
+      z-index: 4;
+    }
+    .member-card-title {
+      font-family: 'Ranade', sans-serif;
+      font-size: 17px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+    }
+    /* Contactless / NFC chip */
+    .member-chip {
+      width: 36px;
+      height: 28px;
+      border-radius: 5px;
+      background: linear-gradient(145deg, #d4c9a8 0%, #c7bc9b 30%, #b8ad8e 60%, #c2b798 100%);
+      border: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+      margin-top: 10px;
+      box-shadow:
+        inset 0 1px 1px rgba(255,255,255,0.4),
+        inset 0 -1px 1px rgba(0,0,0,0.2),
+        0 1px 3px rgba(0,0,0,0.2);
+    }
+    /* Chip contact pads */
+    .member-chip::before {
+      content: '';
+      position: absolute;
+      top: 4px; left: 4px; right: 4px; bottom: 4px;
+      border: 1px solid rgba(0,0,0,0.12);
+      border-radius: 3px;
+    }
+    .member-chip::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 4px;
+      right: 4px;
+      height: 1px;
+      background: rgba(0,0,0,0.1);
+    }
+    /* Chip vertical divider */
+    .member-chip-line {
+      position: absolute;
+      left: 50%;
+      top: 4px;
+      bottom: 4px;
+      width: 1px;
+      background: rgba(0,0,0,0.1);
+    }
+    .member-card-bottom {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      position: relative;
+      z-index: 4;
+    }
+    .member-card-name {
+      font-family: 'Figtree', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.03em;
+    }
+    .member-card-number {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── 3x3 OS Framework card (behind member card) ── */
+    .member-stack {
+      position: relative;
+      width: 380px;
+      aspect-ratio: 1.586 / 1;
+      flex-shrink: 0;
+    }
+    .os-card {
+      position: absolute;
+      top: -50px;
+      left: -70px;
+      right: -70px;
+      bottom: -60px;
+      background: #0a0a0a;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.05);
+      overflow: hidden;
+      transform: rotate(-8deg) translateX(-30px) translateY(10px);
+      transform-origin: center center;
+      box-shadow:
+        0 2px 8px rgba(0,0,0,0.08),
+        0 12px 32px rgba(0,0,0,0.06);
+    }
+    /* PARADIGM logo at top center */
+    .os-card-logo {
+      position: absolute;
+      top: 20px;
+      left: 0;
+      right: 0;
+      text-align: center;
+    }
+    .os-card-logo img {
+      height: 18px;
+      opacity: 0.6;
+    }
+    /* Large 3X3 text bottom-left */
+    .os-card-title {
+      position: absolute;
+      bottom: 16px;
+      left: 24px;
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+    }
+    .os-card-3x3 {
+      font-family: 'Ranade', sans-serif;
+      font-size: 64px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    /* OS badge — cream rounded rect */
+    .os-card-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #f0ece6;
+      border-radius: 10px;
+      padding: 6px 12px;
+      margin-bottom: 6px;
+    }
+    .os-card-badge span {
+      font-family: 'Ranade', sans-serif;
+      font-size: 34px;
+      font-weight: 700;
+      color: #0a0a0a;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    /* Credits bottom-right */
+    .os-card-credits {
+      position: absolute;
+      bottom: 18px;
+      right: 24px;
+      text-align: right;
+    }
+    .os-card-credit {
+      margin-bottom: 8px;
+    }
+    .os-card-credit:last-child {
+      margin-bottom: 0;
+    }
+    .os-card-credit-role {
+      font-family: 'Figtree', sans-serif;
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+    .os-card-credit-name {
+      font-family: 'Figtree', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* ── SECTION 1: CORPORATE KEYNOTES (light) ── */
+    .keynotes-section {
+      background: #ffffff;
+      padding: 100px 32px;
+    }
+    .keynotes-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 240px 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+    .keynotes-visual {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 40px;
+    }
+    .keynotes-content { padding-top: 8px; }
+    .keynotes-content h2 {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      font-size: clamp(28px, 3vw, 38px);
+      color: #0d0d0d;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .keynotes-content .section-desc {
+      font-size: 16px;
+      color: rgba(0,0,0,0.5);
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+    .check-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .check-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 15px;
+      color: rgba(0,0,0,0.6);
+      padding: 10px 0;
+      line-height: 1.5;
+    }
+    .check-list li svg {
+      width: 18px;
+      height: 18px;
       flex-shrink: 0;
       margin-top: 2px;
     }
 
+    /* ── FORM CARD ── */
     .speaker-form-card {
       background: #fff;
       border: 1px solid rgba(0,0,0,0.08);
@@ -617,7 +1099,7 @@
       padding: 40px;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 32px rgba(0,0,0,0.06);
       position: relative;
       overflow: hidden;
     }
@@ -637,7 +1119,6 @@
       color: #111;
       margin-bottom: 28px;
     }
-
     .form-group {
       margin-bottom: 16px;
     }
@@ -667,8 +1148,8 @@
     .form-group input:focus,
     .form-group textarea:focus,
     .form-group select:focus {
-      border-color: var(--red);
-      box-shadow: 0 0 0 3px rgba(200,30,30,0.1);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(12,140,233,0.1);
       background: #fff;
     }
     .form-group input::placeholder,
@@ -690,13 +1171,11 @@
       background: #fff;
       color: #111;
     }
-
     .form-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
     }
-
     .form-submit {
       margin-top: 8px;
     }
@@ -746,7 +1225,146 @@
       margin-top: 16px;
     }
 
-    /* ── FOOTER (matches main site) ── */
+    /* ── SECTION 2: SOS ACCELERATORS (dark) ── */
+    .sos-section {
+      background: #0a0a0a;
+      padding: 120px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .sos-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 500px;
+      background: radial-gradient(ellipse at center top, rgba(12,140,233,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .sos-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .sos-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .sos-text { }
+    .sos-text h2 {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      font-size: clamp(36px, 5vw, 56px);
+      color: #fff;
+      letter-spacing: -0.02em;
+      line-height: 1.0;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .sos-text .section-desc {
+      font-size: 17px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.7;
+      max-width: 480px;
+      margin-bottom: 48px;
+    }
+    .sos-callouts {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 48px;
+    }
+    .sos-callout {
+      font-family: 'Figtree', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.7);
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      letter-spacing: 0.01em;
+    }
+    .sos-callout:first-child {
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    /* ── SECTION 3: 3×3 MASTERMIND (warm light) ── */
+    .mastermind-section {
+      background: #f6f4f1;
+      padding: 120px 32px;
+    }
+    .mastermind-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center;
+    }
+    .mastermind-text { }
+    .mastermind-inner .section-pill-warm {
+      border-color: rgba(0,0,0,0.12);
+      color: rgba(0,0,0,0.4);
+    }
+    .mastermind-text h2 {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      font-size: clamp(36px, 5vw, 56px);
+      color: #0d0d0d;
+      letter-spacing: -0.02em;
+      line-height: 1.0;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .mastermind-text .section-desc {
+      font-size: 17px;
+      color: rgba(0,0,0,0.45);
+      line-height: 1.7;
+      max-width: 480px;
+      margin-bottom: 48px;
+    }
+    .mastermind-callouts {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 48px;
+    }
+    .mastermind-callout {
+      font-family: 'Figtree', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: rgba(0,0,0,0.55);
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      letter-spacing: 0.01em;
+    }
+    .mastermind-callout:first-child {
+      border-top: 1px solid rgba(0,0,0,0.06);
+    }
+    .mastermind-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* Dark button on light bg */
+    .btn-primary-dark {
+      background: #0d0d0d;
+      color: #fff;
+    }
+    .btn-primary-dark .arrow {
+      background: #fff;
+    }
+    .btn-primary-dark .arrow svg path { stroke: #0d0d0d; }
+    .btn-primary-dark:hover { background: #1a1a1a; }
+
+    /* ── FOOTER ── */
     .site-footer {
       position: relative;
       overflow: hidden;
@@ -843,9 +1461,7 @@
       transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1);
       display: block;
     }
-    .footer-logo-hover-inner:hover img {
-      opacity: 0;
-    }
+    .footer-logo-hover-inner:hover img { opacity: 0; }
     .footer-logo-hover-glow {
       position: absolute;
       top: 0; bottom: 0;
@@ -863,83 +1479,250 @@
       -webkit-mask-repeat: no-repeat;
       mask-repeat: no-repeat;
     }
-    .footer-logo-hover-inner:hover .footer-logo-hover-glow {
-      opacity: 1;
+    .footer-logo-hover-inner:hover .footer-logo-hover-glow { opacity: 1; }
+
+    /* ── WAITLIST PROGRESS RING ── */
+    .waitlist-meter {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      margin-bottom: 40px;
+    }
+    .meter-ring {
+      position: relative;
+      width: 96px;
+      height: 96px;
+      flex-shrink: 0;
+    }
+    .meter-ring svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+    .meter-ring-bg {
+      fill: none;
+      stroke: rgba(0,0,0,0.06);
+      stroke-width: 4;
+    }
+    .meter-ring-fill {
+      fill: none;
+      stroke: var(--blue);
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-dasharray: 264;
+      stroke-dashoffset: 264;
+      transition: stroke-dashoffset 1.5s cubic-bezier(0.16,1,0.3,1);
+    }
+    .meter-number {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .meter-count {
+      font-family: 'Ranade', sans-serif;
+      font-size: 32px;
+      font-weight: 600;
+      color: #0d0d0d;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .meter-label-small {
+      font-family: 'Figtree', sans-serif;
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.3);
+      margin-top: 2px;
+    }
+    .meter-text {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .meter-headline {
+      font-family: 'Ranade', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      color: #0d0d0d;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+    .meter-sub {
+      font-family: 'Figtree', sans-serif;
+      font-size: 13px;
+      color: rgba(0,0,0,0.4);
+      line-height: 1.5;
     }
 
-    @media (max-width: 900px) {
-      .site-footer { margin: 16px; border-radius: 18px; }
-      .site-footer-content { padding: 48px 28px 0; }
-      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
-      .footer-bottom { padding-left: 28px; padding-right: 28px; flex-direction: column; gap: 16px; }
-      .footer-logo-hover { height: 120px; margin-top: -40px; margin-bottom: -20px; }
-    }
-    @media (max-width: 600px) {
-      .footer-grid { grid-template-columns: 1fr; }
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      .nav-tube { display: none; }
-      .event-card {
-        grid-template-columns: 1fr;
-      }
-      .event-card-visual {
-        min-height: 240px;
-        order: -1;
-      }
-      .event-card-content {
-        padding: 32px;
-      }
-      .speaker-grid {
-        grid-template-columns: 1fr;
-        gap: 36px;
-      }
-      .event-speakers {
-        flex-direction: column;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .events-hero { padding: 140px 24px 80px; }
-      .event-section { padding: 56px 20px; }
-      .event-card-content {
-        padding: 24px;
-      }
-      .event-card-content h3 { font-size: 24px; }
-      .event-visual-date .day { font-size: 72px; }
-      .speaker-section { padding: 56px 20px; }
-      .speaker-form-card { padding: 24px; }
-      .form-row { grid-template-columns: 1fr; }
-      .event-meta { flex-direction: column; gap: 8px; }
-    }
-
-    /* ── PAGE TRANSITION OVERLAY ── */
-    .page-transition-overlay {
+    /* ── WAITLIST MODAL ── */
+    .modal-overlay {
       position: fixed;
       inset: 0;
-      z-index: 10000;
-      background: var(--bg);
-      pointer-events: none;
-      opacity: 1;
-      transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1);
-    }
-    .page-transition-overlay.done {
+      z-index: 10001;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
       opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s cubic-bezier(0.16,1,0.3,1);
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-card {
+      background: #fff;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 440px;
+      padding: 40px 36px 36px;
+      position: relative;
+      box-shadow:
+        0 4px 12px rgba(0,0,0,0.08),
+        0 24px 64px rgba(0,0,0,0.16);
+      transform: translateY(16px) scale(0.97);
+      transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+    }
+    .modal-overlay.active .modal-card {
+      transform: translateY(0) scale(1);
+    }
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: rgba(0,0,0,0.05);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .modal-close:hover { background: rgba(0,0,0,0.1); }
+    .modal-close:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .modal-close svg { width: 14px; height: 14px; stroke: rgba(0,0,0,0.5); }
+    .modal-card h3 {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      font-size: 22px;
+      color: #0d0d0d;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+    .modal-card .modal-sub {
+      font-size: 14px;
+      color: rgba(0,0,0,0.45);
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+    /* Location search input */
+    .location-wrap {
+      position: relative;
+    }
+    .location-wrap input {
+      padding-right: 36px;
+    }
+    .location-icon {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      stroke: rgba(0,0,0,0.3);
+      pointer-events: none;
+    }
+    .location-dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 8px;
+      margin-top: 4px;
+      max-height: 180px;
+      overflow-y: auto;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      z-index: 10;
+      display: none;
+    }
+    .location-dropdown.open { display: block; }
+    .location-option {
+      padding: 10px 14px;
+      font-family: 'Figtree', sans-serif;
+      font-size: 13px;
+      color: #333;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .location-option:hover,
+    .location-option.highlighted {
+      background: rgba(12,140,233,0.06);
+    }
+    .location-no-results {
+      padding: 10px 14px;
+      font-size: 13px;
+      color: rgba(0,0,0,0.35);
+      font-style: italic;
+    }
+    /* Modal thank you */
+    .modal-thankyou {
+      display: none;
+      text-align: center;
+      padding: 20px 0;
+    }
+    .modal-thankyou.active {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 240px;
+      animation: spkFadeIn 0.4s cubic-bezier(0.32,0.72,0,1) forwards;
+    }
+    .modal-thankyou-icon {
+      width: 48px; height: 48px;
+      background: #f0faf0;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+    .modal-thankyou h3 {
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .modal-thankyou p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(0,0,0,0.55);
+      max-width: 300px;
+    }
+    @media (max-width: 600px) {
+      .modal-card { padding: 28px 20px 24px; }
     }
 
-    /* Page content slides up on enter */
-    .page-content {
+    /* ── ANIMATIONS ── */
+    .fade-up {
       opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1) 0.15s, transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.15s;
+      transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
     }
-    .page-content.entered {
+    .fade-up.visible {
       opacity: 1;
       transform: translateY(0);
     }
 
-    /* ── STAGE LIGHT / SPOTLIGHT EFFECT ── */
+    /* Spotlight effects */
     .spotlight-container {
       position: relative;
       display: inline-block;
@@ -952,7 +1735,6 @@
       border-radius: 50%;
       opacity: 0;
     }
-    /* Main spotlight cone from above */
     .spotlight-container::before {
       top: -80px;
       left: 50%;
@@ -962,7 +1744,6 @@
       background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.12) 0%, rgba(12,140,233,0.06) 40%, transparent 70%);
       animation: spotlightOn 2s cubic-bezier(0.16,1,0.3,1) 0.4s forwards;
     }
-    /* Warm fill light from below */
     .spotlight-container::after {
       bottom: -40px;
       left: 50%;
@@ -972,7 +1753,6 @@
       background: radial-gradient(ellipse, rgba(12,140,233,0.08) 0%, transparent 70%);
       animation: spotlightOn 2s cubic-bezier(0.16,1,0.3,1) 0.6s forwards;
     }
-
     @keyframes spotlightOn {
       0% { opacity: 0; }
       15% { opacity: 0.9; }
@@ -982,13 +1762,10 @@
       70% { opacity: 1; }
       100% { opacity: 1; }
     }
-
-    /* Text reveal with spotlight flicker */
     .spotlight-text {
       opacity: 0;
       animation: textFlickerIn 1.8s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;
     }
-
     @keyframes textFlickerIn {
       0% { opacity: 0; transform: translateY(12px); }
       10% { opacity: 0.7; transform: translateY(4px); }
@@ -1000,7 +1777,6 @@
       80% { opacity: 1; }
       100% { opacity: 1; transform: translateY(0); }
     }
-
     .spotlight-sub {
       opacity: 0;
       animation: fadeSlideUp 0.8s cubic-bezier(0.16,1,0.3,1) 1s forwards;
@@ -1009,21 +1785,98 @@
       opacity: 0;
       animation: fadeSlideUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s forwards;
     }
-
     @keyframes fadeSlideUp {
       0% { opacity: 0; transform: translateY(16px); }
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── ANIMATIONS ── */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    /* ── PAGE TRANSITION ── */
+    .page-transition-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: var(--bg);
+      pointer-events: none;
+      opacity: 1;
+      transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1);
     }
-    .fade-up.visible {
+    .page-transition-overlay.done { opacity: 0; }
+    .page-content {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1) 0.15s, transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.15s;
+    }
+    .page-content.entered {
       opacity: 1;
       transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1080px) {
+      .keynotes-inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+      .keynotes-visual { display: none; }
+    }
+    @media (max-width: 900px) {
+      .nav-tube { display: none; }
+      .keynotes-inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+      .keynotes-visual {
+        display: flex;
+        order: -1;
+        justify-content: center;
+      }
+      .sos-inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+      .sos-visual {
+        order: -1;
+        justify-content: center;
+      }
+      .sos-text { text-align: center; }
+      .sos-text .section-desc { margin-left: auto; margin-right: auto; }
+      .sos-callouts { text-align: center; }
+      .sos-text .fade-up:last-child { display: flex; justify-content: center; }
+      .mastermind-inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+      .mastermind-visual {
+        order: -1;
+        justify-content: center;
+      }
+      .mastermind-text { text-align: center; }
+      .mastermind-text .section-desc { margin-left: auto; margin-right: auto; }
+      .mastermind-callouts { text-align: center; }
+      .mastermind-text .fade-up:last-child { display: flex; justify-content: center; }
+      .site-footer { margin: 16px; border-radius: 18px; }
+      .site-footer-content { padding: 48px 28px 0; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .footer-bottom { padding-left: 28px; padding-right: 28px; flex-direction: column; gap: 16px; }
+      .footer-logo-hover { height: 120px; margin-top: -40px; margin-bottom: -20px; }
+    }
+    @media (max-width: 600px) {
+      .events-hero { padding: 160px 24px 100px; }
+      .keynotes-section { padding: 72px 20px; }
+      .sos-section { padding: 80px 20px; }
+      .mastermind-section { padding: 80px 20px; }
+      .speaker-form-card { padding: 24px; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .lanyard-badge { width: 200px; padding: 20px 18px 16px; }
+      .lanyard-strap { height: 70px; width: 14px; }
+      .badge-photo { width: 44px; height: 44px; }
+      .badge-photo svg { width: 20px; height: 20px; }
+      .invitation-wrap { width: 240px; height: 340px; }
+      .invitation-card { padding: 28px 24px; }
+      .invitation-title { font-size: 20px; }
+      .member-stack { width: 290px; }
+      .member-chip { width: 30px; height: 24px; }
     }
   </style>
 </head>
@@ -1051,142 +1904,83 @@
   </a>
 </nav>
 
-<!-- HERO (dark, compact) -->
+<!-- HERO -->
 <section class="events-hero">
-  <span class="section-pill spotlight-pill" style="margin-bottom: 28px;">Upcoming Events</span>
+  <span class="section-pill spotlight-pill" style="margin-bottom: 28px;">Paradigm Events</span>
   <div class="spotlight-container">
-    <h1 class="display spotlight-text">Where Operators <span>Gather.</span></h1>
+    <h1 class="display spotlight-text"><span class="hero-top">Where Operators</span><span class="hero-bottom">Gather.</span></h1>
   </div>
-  <p class="spotlight-sub">Paradigm doesn't just consult. We convene. Our events bring together founders, operators, and industry leaders who build under real pressure.</p>
+  <p class="spotlight-sub">Three rooms. Three outcomes.<br>All built for founders who refuse to stay small.</p>
 </section>
 
-<!-- UPCOMING EVENTS (white bg) -->
-<section class="event-section">
-  <div class="event-section-inner">
-    <span class="section-pill section-pill-dark">Upcoming Events</span>
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 1: CORPORATE KEYNOTES (light)               -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="keynotes-section">
+  <div class="keynotes-inner">
 
-    <div class="event-card fade-up">
-      <div class="event-card-content">
-        <div class="event-date-badge">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          June 26, 2026 &nbsp;·&nbsp; Scottsdale, AZ
+    <!-- Lanyard Badge -->
+    <div class="keynotes-visual fade-up">
+      <div class="lanyard-wrap object-tilt">
+        <div class="lanyard-strap"></div>
+        <div class="lanyard-clip">
+          <div class="lanyard-clip-body"></div>
+          <div class="lanyard-clip-ring"></div>
         </div>
-
-        <h3>Final Notice 2026</h3>
-
-        <p class="event-tagline">"One Day. Three Legends. No Excuses."</p>
-
-        <p class="event-desc">A one-day business mastery event featuring three elite entrepreneurs delivering training on sales, compliance strategy, and culture-building. Built for founders operating in regulated markets who refuse to play small.</p>
-
-        <div class="event-meta">
-          <div class="event-meta-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            9:00 AM – 8:00 PM
+        <div class="lanyard-badge">
+          <div class="badge-edge-light"></div>
+          <svg class="badge-logo" viewBox="0 0 40 40" fill="none">
+            <path d="M20 5L35 33H5L20 5Z" stroke="rgba(255,255,255,0.35)" stroke-width="1" fill="none"/>
+            <path d="M20 14L27 28H13L20 14Z" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.15)" stroke-width="0.5"/>
+            <circle cx="20" cy="20" r="1" fill="rgba(0,82,255,0.5)"/>
+          </svg>
+          <div class="badge-divider"></div>
+          <div class="badge-event-name">Corporate Keynotes</div>
+          <div class="badge-photo">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="4" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/><path d="M4 20c0-3.3 2.7-6 6-6h4c3.3 0 6 2.7 6 6" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" stroke-linecap="round"/></svg>
           </div>
-          <div class="event-meta-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            The Lions Den, Scottsdale
-          </div>
-          <div class="event-meta-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-            Only 50 VIP Seats
-          </div>
-        </div>
-
-        <div class="event-speakers">
-          <div class="speaker-chip">
-            <img src="brand_assets/optimized/matt-512.jpg" alt="Matt Rosa" loading="lazy">
-            <span>Matt Rosa</span>
-          </div>
-          <div class="speaker-chip">
-            <img src="brand_assets/optimized/andy-512.jpg" alt="Andy Elliott" loading="lazy">
-            <span>Andy Elliott</span>
-          </div>
-          <div class="speaker-chip">
-            <img src="brand_assets/optimized/paul-512.jpg" alt="Paul Alex" loading="lazy">
-            <span>Paul Alex</span>
-          </div>
-        </div>
-
-        <div class="event-cta-row">
-          <a href="https://www.finalnoticeevent.com" target="_blank" rel="noopener" class="btn-primary">
-            <span class="btn-label">Get Tickets Now</span>
-            <span class="arrow"><svg viewBox="0 0 10 10" fill="none"><path d="M2 8L8 2M8 2H3M8 2V7" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          </a>
-          <div class="countdown" id="eventCountdown">
-            <div class="countdown-unit">
-              <span class="countdown-num" id="cdDays">--</span>
-              <span class="countdown-label">Days</span>
+          <div class="badge-attendee">Your Name</div>
+          <div class="badge-role">VIP Attendee</div>
+          <div class="badge-bottom">
+            <div class="badge-barcode">
+              <span style="height:14px"></span><span style="height:18px"></span><span style="height:10px"></span><span style="height:20px"></span><span style="height:8px"></span><span style="height:16px"></span><span style="height:12px"></span><span style="height:20px"></span><span style="height:14px"></span><span style="height:6px"></span><span style="height:18px"></span><span style="height:10px"></span><span style="height:16px"></span><span style="height:20px"></span><span style="height:8px"></span><span style="height:14px"></span>
             </div>
-            <div class="countdown-sep">:</div>
-            <div class="countdown-unit">
-              <span class="countdown-num" id="cdHours">--</span>
-              <span class="countdown-label">Hrs</span>
-            </div>
-            <div class="countdown-sep">:</div>
-            <div class="countdown-unit">
-              <span class="countdown-num" id="cdMins">--</span>
-              <span class="countdown-label">Min</span>
-            </div>
-            <div class="countdown-sep">:</div>
-            <div class="countdown-unit">
-              <span class="countdown-num" id="cdSecs">--</span>
-              <span class="countdown-label">Sec</span>
-            </div>
+            <div class="badge-id">PKN-2026</div>
           </div>
         </div>
-      </div>
-
-      <div class="event-card-visual" id="eventVisual">
-        <div class="event-visual-date" id="eventDate">
-          <div class="month">June</div>
-          <div class="day">26</div>
-          <div class="year">2026</div>
-        </div>
-        <div class="event-visual-location" id="eventLocation">Scottsdale, Arizona</div>
-        <iframe class="event-preview-iframe" src="https://www.finalnoticeevent.com" tabindex="-1" loading="lazy"></iframe>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- SPEAKER REQUEST (dark) -->
-<section class="speaker-section">
-  <div class="speaker-grid">
-    <div class="speaker-left fade-up">
-      <div class="speaker-header">
-        <span class="section-pill" style="margin-bottom: 24px;">Book a Speaker</span>
-        <h2 class="display">Bring Paradigm to<br><span>Your Stage.</span></h2>
-      </div>
-      <div class="speaker-info">
-      <p>Our founders have built and scaled companies across regulated industries. They don't deliver theory. They share what actually worked under real pressure.</p>
-      <p>Available for keynotes, panels, workshops, and private executive sessions. Topics we cover include:</p>
-
-      <ul class="speaker-topics">
+    <!-- Text Content -->
+    <div class="keynotes-content fade-up">
+      <span class="section-pill section-pill-dark">Corporate Keynotes</span>
+      <h2>Install the System.<br>Inside Your Walls.</h2>
+      <p class="section-desc">We don't deliver speeches. We deliver structural upgrades. Live, in-person, to the teams responsible for keeping your company alive. Compliance. Culture. AI-enabled operations. Built for executive rooms, not conference stages.</p>
+      <ul class="check-list">
         <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Compliance trainings for executive teams
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0c8ce9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Compliance &amp; regulatory preparedness
         </li>
         <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Tech and AI trainings for technical and executive teams
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0c8ce9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          AI and automation for operational teams
         </li>
         <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Sales trainings and revenue systems
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0c8ce9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Revenue systems and sales infrastructure
         </li>
         <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Culture building in high-growth environments
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0c8ce9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Culture installation for high-growth environments
         </li>
         <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Scaling operations in regulated markets
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0c8ce9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Scaling inside regulated markets
         </li>
       </ul>
-      </div>
     </div>
 
+    <!-- Form -->
     <div class="speaker-form-card fade-up" style="transition-delay: 0.1s;">
       <h3 id="spkFormTitle">Request a Speaker</h3>
       <form id="speakerForm" onsubmit="handleSpeakerSubmit(event)">
@@ -1207,7 +2001,10 @@
           </div>
           <div class="form-group">
             <label>Phone</label>
-            <input id="spkPhone" type="tel" placeholder="(555) 000-0000">
+            <div style="display:flex;align-items:center;gap:0;">
+              <select id="spkPhoneCode" style="padding:10px 4px 10px 8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-right:none;border-radius:8px 0 0 8px;font-size:0.85rem;color:rgba(255,255,255,0.85);cursor:pointer;"><option value="+1" selected>US +1</option><option value="+1">CA +1</option><option value="+44">UK +44</option><option value="+61">AU +61</option><option value="+33">FR +33</option><option value="+49">DE +49</option><option value="+39">IT +39</option><option value="+34">ES +34</option><option value="+31">NL +31</option><option value="+46">SE +46</option><option value="+41">CH +41</option><option value="+353">IE +353</option><option value="+91">IN +91</option><option value="+86">CN +86</option><option value="+81">JP +81</option><option value="+82">KR +82</option><option value="+65">SG +65</option><option value="+63">PH +63</option><option value="+64">NZ +64</option><option value="+55">BR +55</option><option value="+52">MX +52</option><option value="+57">CO +57</option><option value="+971">AE +971</option><option value="+972">IL +972</option><option value="+27">ZA +27</option><option value="+234">NG +234</option></select>
+              <input id="spkPhone" type="tel" placeholder="(555) 000-0000" style="border-radius:0 8px 8px 0;">
+            </div>
           </div>
         </div>
         <div class="form-group">
@@ -1235,8 +2032,12 @@
           <label>Additional Details</label>
           <textarea id="spkDetails" placeholder="Tell us about your event, audience, and what topics you'd like covered..."></textarea>
         </div>
+        <!-- Honeypot — hidden from humans, catches bots -->
+        <div style="display:none" aria-hidden="true">
+          <input type="text" id="spkCompanyUrl" name="company_url" tabindex="-1" autocomplete="off">
+        </div>
         <div class="form-submit">
-          <button type="submit" class="btn-primary">
+          <button type="submit" class="btn-primary" id="spkSubmitBtn">
             <span class="btn-label">Submit Request</span>
             <span class="arrow"><svg viewBox="0 0 10 10" fill="none"><path d="M2 8L8 2M8 2H3M8 2V7" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
           </button>
@@ -1250,6 +2051,163 @@
         <p>Our team is reviewing your event details now. Someone from Paradigm will be in touch within 48 hours to discuss availability, format, and next steps.</p>
         <p class="thankyou-note">We look forward to speaking at your event.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 2: SOS ACCELERATORS (dark)                  -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="sos-section">
+  <div class="sos-inner">
+
+    <!-- Sealed Invitation Visual -->
+    <div class="sos-visual fade-up">
+      <div class="invitation-wrap object-tilt">
+        <div class="invitation-bg"></div>
+        <div class="invitation-card">
+          <div>
+            <div class="invitation-top-line">Paradigm Consulting</div>
+            <div class="invitation-rule"></div>
+          </div>
+          <div>
+            <div class="invitation-title">SOS<br>Accelerator</div>
+            <div class="invitation-subtitle">By Invitation Only</div>
+          </div>
+          <div class="invitation-bottom">
+            <div class="invitation-detail">
+              Application Required<br>
+              Seats Are Limited<br>
+              90-Day Correction Plan
+            </div>
+            <!-- Wax Seal with drip edges -->
+            <div class="wax-seal">
+              <div class="wax-drip wax-drip-1"></div>
+              <div class="wax-drip wax-drip-2"></div>
+              <div class="wax-drip wax-drip-3"></div>
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 4L21 20H3L12 4Z" stroke="rgba(255,255,255,0.8)" stroke-width="1.5" fill="none"/>
+                <path d="M12 10L16.5 18H7.5L12 10Z" fill="rgba(255,255,255,0.12)"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Text Content -->
+    <div class="sos-text">
+      <span class="section-pill fade-up">SOS Accelerators</span>
+      <h2 class="fade-up">Small Room.<br>Nothing Hides.</h2>
+      <p class="section-desc fade-up">Private. Application-only. Built for founders who are done performing growth and ready to architect it. You'll leave with your 3x3 diagnostic complete, your structural blind spots exposed, and a correction plan you can execute in 90 days.</p>
+
+      <div class="sos-callouts fade-up">
+        <div class="sos-callout">The room is tight on purpose. Every seat is accounted for.</div>
+        <div class="sos-callout">Live 3×3 Effect™ diagnostic and structural correction plan.</div>
+        <div class="sos-callout">Direct working sessions with the Paradigm founding team.</div>
+      </div>
+
+      <div class="fade-up">
+        <a href="#sos-apply" class="btn-primary btn-primary-light" style="pointer-events:none;opacity:0.6;">
+          <span class="btn-label">Coming Soon</span>
+          <span class="arrow"><svg viewBox="0 0 10 10" fill="none"><path d="M2 8L8 2M8 2H3M8 2V7" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 3: 3×3 MASTERMIND (warm light)              -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section class="mastermind-section">
+  <div class="mastermind-inner">
+
+    <!-- Text Content -->
+    <div class="mastermind-text">
+      <span class="section-pill section-pill-warm fade-up">3×3 Mastermind</span>
+      <h2 class="fade-up">The Room That Compounds.</h2>
+      <p class="section-desc fade-up">One event changes your trajectory. The Mastermind keeps it compounding. Once we hit 100 operators on the waitlist, the room opens. Monthly strategic calls with founders and their teams, built around the 3x3 framework. Plus full access to the self-diagnosis 3x3 OS.</p>
+
+      <div class="mastermind-callouts fade-up">
+        <div class="mastermind-callout">Monthly strategic calls with operators and their teams.</div>
+        <div class="mastermind-callout">Full access to the 3x3 OS self-diagnosis framework.</div>
+        <div class="mastermind-callout"><span id="spotsCallout">Opens at 100 members. Not before.</span></div>
+      </div>
+
+      <div class="waitlist-meter fade-up" id="waitlistMeter" style="display:none;">
+        <div class="meter-ring">
+          <svg viewBox="0 0 96 96">
+            <circle class="meter-ring-bg" cx="48" cy="48" r="42"/>
+            <circle class="meter-ring-fill" id="meterFill" cx="48" cy="48" r="42"/>
+          </svg>
+          <div class="meter-number">
+            <span class="meter-count" id="meterCount">--</span>
+            <span class="meter-label-small">Spots Left</span>
+          </div>
+        </div>
+        <div class="meter-text">
+          <div class="meter-headline" id="meterHeadline">Counting down to launch</div>
+          <div class="meter-sub" id="meterSub">The room opens when we hit 100. Claim your spot before it's gone.</div>
+        </div>
+      </div>
+
+      <div class="fade-up">
+        <button type="button" onclick="openWaitlistModal()" class="btn-primary btn-primary-dark">
+          <span class="btn-label">Join the Waitlist</span>
+          <span class="arrow"><svg viewBox="0 0 10 10" fill="none"><path d="M2 8L8 2M8 2H3M8 2V7" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Membership Card Visual -->
+    <div class="mastermind-visual fade-up">
+      <div class="member-stack object-tilt">
+        <!-- 3x3 OS card (behind) -->
+        <div class="os-card">
+          <div class="os-card-logo"><img src="brand_assets/paradigm-logo-white.webp" alt="Paradigm" loading="lazy"></div>
+          <div class="os-card-title">
+            <span class="os-card-3x3">3X3</span>
+            <div class="os-card-badge"><span>OS</span></div>
+          </div>
+          <div class="os-card-credits">
+            <div class="os-card-credit">
+              <div class="os-card-credit-role">Founder</div>
+              <div class="os-card-credit-name">Matt Rosa</div>
+            </div>
+            <div class="os-card-credit">
+              <div class="os-card-credit-role">President</div>
+              <div class="os-card-credit-name">Jay Awal</div>
+            </div>
+          </div>
+        </div>
+        <!-- Member card (on top) -->
+        <div class="member-card-wrap">
+        <div class="member-card-shadow"></div>
+        <div class="member-card">
+          <div class="member-edge-light"></div>
+          <div class="member-card-top">
+            <!-- Paradigm triangle mark -->
+            <svg class="member-card-logo" viewBox="0 0 32 32" fill="none">
+              <path d="M16 3L29 27H3L16 3Z" stroke="rgba(255,255,255,0.3)" stroke-width="1" fill="none"/>
+              <path d="M16 11L22 23H10L16 11Z" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.12)" stroke-width="0.5"/>
+              <circle cx="16" cy="16" r="1" fill="rgba(0,82,255,0.5)"/>
+            </svg>
+            <div class="member-card-label">Member</div>
+          </div>
+          <div class="member-card-mid">
+            <div class="member-card-title">3×3 Mastermind</div>
+            <div class="member-chip">
+              <div class="member-chip-line"></div>
+            </div>
+          </div>
+          <div class="member-card-bottom">
+            <div class="member-card-name">Your Name Here</div>
+            <div class="member-card-number">No. 0001</div>
+          </div>
+        </div>
+        </div><!-- end member-card-wrap -->
+      </div><!-- end member-stack -->
     </div>
   </div>
 </section>
@@ -1303,11 +2261,71 @@
   </div>
 
   <div class="footer-bottom">
-    <div class="footer-copy">© 2026 Paradigm Consulting Inc. All rights reserved.</div>
+    <div class="footer-copy">&copy; 2026 Paradigm Consulting Inc. All rights reserved.</div>
   </div>
 </footer>
 
 </div><!-- end .page-content -->
+
+<!-- WAITLIST MODAL (outside page-content to avoid transform stacking context) -->
+<div class="modal-overlay" id="waitlistModal">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeWaitlistModal()" aria-label="Close">
+      <svg viewBox="0 0 14 14" fill="none" stroke-width="2" stroke-linecap="round"><line x1="1" y1="1" x2="13" y2="13"/><line x1="13" y1="1" x2="1" y2="13"/></svg>
+    </button>
+
+    <div id="wlFormWrap">
+      <h3>Join the Waitlist</h3>
+      <p class="modal-sub">We open at 100 members. Get your spot and be first to know.</p>
+
+      <form id="waitlistForm" onsubmit="handleWaitlistSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input id="wlName" type="text" placeholder="Your name" required>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input id="wlEmail" type="email" placeholder="you@company.com" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <div style="display:flex;align-items:center;gap:0;">
+            <select id="wlPhoneCode" style="padding:10px 4px 10px 8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-right:none;border-radius:8px 0 0 8px;font-size:0.85rem;color:rgba(255,255,255,0.85);cursor:pointer;"><option value="+1" selected>US +1</option><option value="+1">CA +1</option><option value="+44">UK +44</option><option value="+61">AU +61</option><option value="+33">FR +33</option><option value="+49">DE +49</option><option value="+39">IT +39</option><option value="+34">ES +34</option><option value="+31">NL +31</option><option value="+46">SE +46</option><option value="+41">CH +41</option><option value="+353">IE +353</option><option value="+91">IN +91</option><option value="+86">CN +86</option><option value="+81">JP +81</option><option value="+82">KR +82</option><option value="+65">SG +65</option><option value="+63">PH +63</option><option value="+64">NZ +64</option><option value="+55">BR +55</option><option value="+52">MX +52</option><option value="+57">CO +57</option><option value="+971">AE +971</option><option value="+972">IL +972</option><option value="+27">ZA +27</option><option value="+234">NG +234</option></select>
+            <input id="wlPhone" type="tel" placeholder="(555) 000-0000" style="border-radius:0 8px 8px 0;">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Location</label>
+          <div class="location-wrap">
+            <input id="wlLocation" type="text" placeholder="Type your city or state" autocomplete="off">
+            <svg class="location-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div class="location-dropdown" id="locationDropdown"></div>
+          </div>
+        </div>
+        <!-- Honeypot -->
+        <div style="display:none" aria-hidden="true">
+          <input type="text" id="wlCompanyUrl" name="company_url" tabindex="-1" autocomplete="off">
+        </div>
+        <div class="form-submit" style="margin-top:12px;">
+          <button type="submit" class="btn-primary" id="wlSubmitBtn">
+            <span class="btn-label">Reserve My Spot</span>
+            <span class="arrow"><svg viewBox="0 0 10 10" fill="none"><path d="M2 8L8 2M8 2H3M8 2V7" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-thankyou" id="wlThankYou">
+      <div class="modal-thankyou-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h3>You're on the list.</h3>
+      <p>We'll reach out as soon as we hit 100 members and the room opens.</p>
+    </div>
+  </div>
+</div>
 
 <script>
   // Page enter transition
@@ -1318,7 +2336,6 @@
       overlay.classList.add('done');
       content.classList.add('entered');
     });
-    // Remove overlay from DOM after transition
     setTimeout(function() { overlay.remove(); }, 800);
   })();
 
@@ -1334,49 +2351,44 @@
   }, { threshold: 0.15 });
   fadeEls.forEach(function(el) { observer.observe(el); });
 
-  // Countdown timer — June 26, 2026 9:00 AM MST (UTC-7)
-  (function() {
-    var target = new Date('2026-06-26T09:00:00-07:00').getTime();
-    var dEl = document.getElementById('cdDays');
-    var hEl = document.getElementById('cdHours');
-    var mEl = document.getElementById('cdMins');
-    var sEl = document.getElementById('cdSecs');
-    function pad(n) { return n < 10 ? '0' + n : n; }
-    function tick() {
-      var now = Date.now();
-      var diff = target - now;
-      if (diff <= 0) {
-        dEl.textContent = '00'; hEl.textContent = '00';
-        mEl.textContent = '00'; sEl.textContent = '00';
-        return;
-      }
-      var d = Math.floor(diff / 86400000);
-      var h = Math.floor((diff % 86400000) / 3600000);
-      var m = Math.floor((diff % 3600000) / 60000);
-      var s = Math.floor((diff % 60000) / 1000);
-      dEl.textContent = pad(d);
-      hEl.textContent = pad(h);
-      mEl.textContent = pad(m);
-      sEl.textContent = pad(s);
-    }
-    tick();
-    setInterval(tick, 1000);
-  })();
+  // --- Security helpers ---
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  var PHONE_RE = /^[\d\s\-+().]{7,20}$/;
+  var lastSpkSubmit = 0;
+  function sanitize(str, maxLen) {
+    if (str == null) return '';
+    return String(str).replace(/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/g, '').replace(/\s+/g, ' ').trim().substring(0, maxLen || 500);
+  }
 
   // Form handler
   function handleSpeakerSubmit(e) {
     e.preventDefault();
 
-    // Fire webhook async — non-blocking
+    // Honeypot check
+    if (document.getElementById('spkCompanyUrl').value) return;
+    // Debounce — 2s minimum
+    var now = Date.now();
+    if (now - lastSpkSubmit < 2000) return;
+    lastSpkSubmit = now;
+    // Validate email/phone
+    var email = document.getElementById('spkEmail').value.trim();
+    var phone = document.getElementById('spkPhone').value.trim();
+    if (!EMAIL_RE.test(email)) { alert('Please enter a valid email address.'); return; }
+    if (phone && !PHONE_RE.test(phone)) { alert('Please enter a valid phone number.'); return; }
+    // Disable submit
+    var btn = document.getElementById('spkSubmitBtn');
+    if (btn) btn.disabled = true;
+
     var payload = {
-      full_name: document.getElementById('spkName').value.trim(),
-      organization: document.getElementById('spkOrg').value.trim(),
-      email: document.getElementById('spkEmail').value.trim(),
-      phone: document.getElementById('spkPhone').value.trim() || "",
+      full_name: sanitize(document.getElementById('spkName').value, 100),
+      organization: sanitize(document.getElementById('spkOrg').value, 200),
+      email: sanitize(email, 200),
+      phone: document.getElementById('spkPhoneCode').value + ' ' + sanitize(phone, 30),
       event_type: document.getElementById('spkEventType').value,
       event_date: document.getElementById('spkDate').value,
-      audience_size: document.getElementById('spkAudience').value.trim() || "",
-      additional_details: document.getElementById('spkDetails').value.trim() || "",
+      audience_size: sanitize(document.getElementById('spkAudience').value, 20),
+      additional_details: sanitize(document.getElementById('spkDetails').value, 2000),
+      company_url: document.getElementById('spkCompanyUrl').value,
       source: "events-speaker-request",
       lead_source: "speaker-request",
       timestamp: new Date().toISOString()
@@ -1385,7 +2397,7 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
-    }).catch(function(err) { console.error('Webhook proxy failed:', err); });
+    }).catch(function() {});
 
     // Hide form, show thank you
     document.getElementById('speakerForm').style.display = 'none';
@@ -1399,7 +2411,6 @@
     var tube = document.getElementById('navTube');
     var links = tube.querySelectorAll('.nav-tube-link');
 
-    // Create lamp on active link
     var activeLink = tube.querySelector('.nav-tube-link.active');
     if (activeLink) {
       var lamp = document.createElement('div');
@@ -1408,7 +2419,6 @@
       activeLink.appendChild(lamp);
     }
 
-    // Scroll — add background
     window.addEventListener('scroll', function() {
       if (window.scrollY > 60) {
         nav.classList.add('nav-scrolled');
@@ -1431,6 +2441,182 @@
       glow.style.setProperty('--my', my + '%');
     });
   })();
+
+
+</script>
+
+<script src="locations.js"></script>
+<script>
+  // ── WAITLIST MODAL (isolated script) ──
+  function openWaitlistModal() {
+    document.getElementById('waitlistModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeWaitlistModal() {
+    document.getElementById('waitlistModal').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('waitlistModal').addEventListener('click', function(e) {
+    if (e.target === this) closeWaitlistModal();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeWaitlistModal();
+  });
+
+  // ── SEARCHABLE LOCATION ──
+  (function() {
+    // WORLD_LOCATIONS loaded from locations.js
+
+    var input = document.getElementById('wlLocation');
+    var dropdown = document.getElementById('locationDropdown');
+    if (!input || !dropdown) { console.error('Waitlist location elements not found'); return; }
+    var highlighted = -1;
+
+    function render(matches) {
+      dropdown.innerHTML = '';
+      highlighted = -1;
+      if (matches.length === 0) {
+        dropdown.innerHTML = '<div class="location-no-results">No matches</div>';
+        dropdown.classList.add('open');
+        return;
+      }
+      matches.forEach(function(loc) {
+        var div = document.createElement('div');
+        div.className = 'location-option';
+        div.textContent = loc;
+        div.addEventListener('mousedown', function(e) {
+          e.preventDefault();
+          input.value = loc;
+          dropdown.classList.remove('open');
+        });
+        dropdown.appendChild(div);
+      });
+      dropdown.classList.add('open');
+    }
+
+    function doSearch() {
+      var q = input.value.trim().toLowerCase();
+      if (q.length < 1) { dropdown.classList.remove('open'); return; }
+      var matches = WORLD_LOCATIONS.filter(function(loc) {
+        return loc.toLowerCase().indexOf(q) !== -1;
+      }).slice(0, 8);
+      render(matches);
+    }
+
+    input.addEventListener('input', doSearch);
+    input.addEventListener('keyup', doSearch);
+    input.addEventListener('focus', function() { if (this.value.trim().length >= 1) doSearch(); });
+    input.addEventListener('blur', function() { setTimeout(function() { dropdown.classList.remove('open'); }, 150); });
+    input.addEventListener('keydown', function(e) {
+      var opts = dropdown.querySelectorAll('.location-option');
+      if (!opts.length) return;
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        highlighted = Math.min(highlighted + 1, opts.length - 1);
+        opts.forEach(function(o, i) { o.classList.toggle('highlighted', i === highlighted); });
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        highlighted = Math.max(highlighted - 1, 0);
+        opts.forEach(function(o, i) { o.classList.toggle('highlighted', i === highlighted); });
+      } else if (e.key === 'Enter' && highlighted >= 0) {
+        e.preventDefault();
+        input.value = opts[highlighted].textContent;
+        dropdown.classList.remove('open');
+      }
+    });
+  })();
+
+  // ── LIVE SPOTS COUNTER + RING ──
+  (function() {
+    var circumference = 2 * Math.PI * 42; // r=42
+    fetch('/api/waitlist-count')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (typeof data.remaining !== 'number') return;
+        var remaining = data.remaining;
+        var count = data.count || 0;
+        var pct = count / data.cap;
+
+        // Update callout text
+        var el = document.getElementById('spotsCallout');
+        if (el) {
+          el.textContent = remaining <= 0
+            ? 'The room is full. Join the overflow list.'
+            : remaining + ' of 100 spots remaining.';
+        }
+
+        // Show and animate the ring
+        var meter = document.getElementById('waitlistMeter');
+        var fill = document.getElementById('meterFill');
+        var countEl = document.getElementById('meterCount');
+        var headline = document.getElementById('meterHeadline');
+        var sub = document.getElementById('meterSub');
+        if (!meter || !fill || !countEl) return;
+
+        meter.style.display = 'flex';
+        countEl.textContent = remaining;
+
+        if (remaining <= 0) {
+          headline.textContent = 'The room is full';
+          sub.textContent = 'Join the overflow list to be first in line if a spot opens.';
+        } else if (remaining <= 10) {
+          headline.textContent = 'Almost there';
+          sub.textContent = 'Only ' + remaining + ' spots left. Don\'t wait on this one.';
+        } else if (remaining <= 50) {
+          headline.textContent = 'Filling up';
+          sub.textContent = count + ' operators in. The room opens at 100.';
+        }
+
+        // Animate the arc fill after a short delay
+        setTimeout(function() {
+          fill.style.strokeDashoffset = circumference * (1 - pct);
+        }, 300);
+      })
+      .catch(function() {
+        // Silently fail — meter stays hidden, callout keeps static text
+      });
+  })();
+
+  // ── WAITLIST FORM HANDLER ──
+  var EMAIL_RE2 = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  var PHONE_RE2 = /^[\d\s\-+().]{7,20}$/;
+  var lastWlSubmit = 0;
+  function sanitizeWl(str, maxLen) {
+    if (str == null) return '';
+    return String(str).replace(/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/g, '').replace(/\s+/g, ' ').trim().substring(0, maxLen || 500);
+  }
+  function handleWaitlistSubmit(e) {
+    e.preventDefault();
+    if (document.getElementById('wlCompanyUrl').value) return;
+    var now = Date.now();
+    if (now - lastWlSubmit < 2000) return;
+    lastWlSubmit = now;
+    var email = document.getElementById('wlEmail').value.trim();
+    var phone = document.getElementById('wlPhone').value.trim();
+    if (!EMAIL_RE2.test(email)) { alert('Please enter a valid email address.'); return; }
+    if (phone && !PHONE_RE2.test(phone)) { alert('Please enter a valid phone number.'); return; }
+    var btn = document.getElementById('wlSubmitBtn');
+    if (btn) btn.disabled = true;
+
+    var payload = {
+      full_name: sanitizeWl(document.getElementById('wlName').value, 100),
+      email: sanitizeWl(email, 200),
+      phone: document.getElementById('wlPhoneCode').value + ' ' + sanitizeWl(phone, 30),
+      location: sanitizeWl(document.getElementById('wlLocation').value, 200),
+      company_url: document.getElementById('wlCompanyUrl').value,
+      source: 'mastermind-waitlist',
+      lead_source: 'mastermind-waitlist',
+      timestamp: new Date().toISOString()
+    };
+    fetch('/api/webhook', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(function() {});
+
+    document.getElementById('wlFormWrap').style.display = 'none';
+    document.getElementById('wlThankYou').classList.add('active');
+  }
 </script>
 
 </body>

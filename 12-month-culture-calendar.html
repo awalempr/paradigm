@@ -6,8 +6,26 @@
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#0d0d0d">
   <title>The 12 Month Culture Calendar | Paradigm Consulting</title>
+  <meta name="description" content="Map your next 12 months of culture-shaping initiatives. Diagnose where your team is drifting — and get a calendar that keeps them aligned. Free. 5 minutes.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Do You Know Where Your Team Is Headed?">
+  <meta property="og:description" content="Map your next 12 months of culture-shaping initiatives. Diagnose where your team is drifting — and get a calendar that keeps them aligned.">
+  <meta property="og:image" content="https://paradigmconsulting.io/brand_assets/og-12-month-culture-calendar.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://paradigmconsulting.io/12-month-culture-calendar">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Paradigm Consulting">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Do You Know Where Your Team Is Headed?">
+  <meta name="twitter:description" content="Map your next 12 months of culture-shaping initiatives. Diagnose where your team is drifting — and get a calendar that keeps them aligned.">
+  <meta name="twitter:image" content="https://paradigmconsulting.io/brand_assets/og-12-month-culture-calendar.png">
 
   <link rel="icon" type="image/x-icon" href="brand_assets/favicon.ico">
+  <link rel="apple-touch-icon" href="brand_assets/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin>
@@ -136,7 +154,7 @@
       line-height: 0.92;
       font-size: clamp(28px, 5vw, 42px);
       color: var(--fg);
-      white-space: nowrap;
+      word-wrap: break-word;
     }
     .title-block-sub {
       font-family: 'Figtree', sans-serif;
@@ -149,7 +167,7 @@
     }
 
     /* ═══════════════════════════════════════════
-       SCREEN 1 — INTRO
+       SCREEN 1. INTRO
        ═══════════════════════════════════════════ */
     .intro-page {
       min-height: calc(100vh - 56px);
@@ -534,6 +552,46 @@
     .btn-primary:focus-visible, .btn-accent:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     .btn-primary svg, .btn-accent svg { flex-shrink: 0; }
 
+    /* ─── DOWNLOAD BUTTON ─── */
+    .btn-download {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-family: 'Figtree', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--accent);
+      background: transparent;
+      border: 2px solid var(--accent);
+      height: 52px;
+      padding: 0 36px;
+      border-radius: 14px;
+      cursor: pointer;
+      margin-top: 20px;
+      position: relative;
+      overflow: hidden;
+      transition: color 0.25s, background 0.25s, transform 0.1s, box-shadow 0.25s;
+    }
+    .btn-download::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--accent);
+      opacity: 0;
+      transition: opacity 0.25s;
+      z-index: 0;
+    }
+    .btn-download:hover::before { opacity: 1; }
+    .btn-download:hover {
+      color: #fff;
+      box-shadow: 0 4px 24px rgba(196,96,58,0.35), 0 0 0 4px rgba(196,96,58,0.12);
+      transform: translateY(-1px);
+    }
+    .btn-download:active { transform: scale(0.97); }
+    .btn-download:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .btn-download svg, .btn-download span { position: relative; z-index: 1; }
+
     .btn-back {
       display: inline-flex;
       align-items: center;
@@ -554,8 +612,47 @@
     .btn-back:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     .btn-next { flex: 1; }
 
+    /* ─── SECTION PANELS (one section per page) ─── */
+    .section-panel { display: none; }
+    .section-panel.active { display: block; animation: sectionSlideIn 0.4s cubic-bezier(0.16,1,0.3,1) both; }
+    @keyframes sectionSlideIn {
+      from { opacity: 0; transform: translateX(30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* In-container progress bar */
+    .container-progress {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .container-progress-track {
+      flex: 1;
+      height: 4px;
+      background: var(--surface-3);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .container-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+      border-radius: 4px;
+      transition: width 0.5s cubic-bezier(0.16,1,0.3,1);
+    }
+    .container-progress-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
     /* ═══════════════════════════════════════════
-       SCREEN 2 — ASSESSMENT
+       SCREEN 2. ASSESSMENT
        ═══════════════════════════════════════════ */
     .section-header {
       margin-bottom: 32px;
@@ -701,7 +798,7 @@
     }
 
     /* ═══════════════════════════════════════════
-       SCREEN 3 — RESULTS
+       SCREEN 3. RESULTS
        ═══════════════════════════════════════════ */
     /* Score ring */
     .results-score-wrap {
@@ -1015,10 +1112,11 @@
     /* Timeline */
     .gp-timeline {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
       gap: 0;
       margin-bottom: 40px;
+      position: relative;
     }
     .gp-timeline-step {
       display: flex;
@@ -1029,6 +1127,7 @@
       padding: 8px 0;
       flex: 0 0 auto;
       z-index: 1;
+      position: relative;
     }
     .gp-timeline-dot {
       width: 36px;
@@ -1074,6 +1173,10 @@
       height: 2px;
       background: var(--border);
       flex-shrink: 0;
+      align-self: flex-start;
+      margin-top: 26px;
+      margin-left: -4px;
+      margin-right: -4px;
     }
     .gp-timeline-line.filled {
       background: var(--accent);
@@ -1175,6 +1278,61 @@
       display: block;
       margin-bottom: 4px;
     }
+
+    /* ─── GAMEPLAN TABLES (from FBE) ─── */
+    .gp-table-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 12px;
+      margin-top: 28px;
+    }
+    .gp-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .gp-table thead th {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      padding: 12px 16px;
+      text-align: left;
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+    }
+    .gp-table thead th:last-child { text-align: center; }
+    .gp-table tbody td {
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--fg-muted);
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .gp-table tbody tr:last-child td { border-bottom: none; }
+    .gp-table .td-action { font-weight: 500; color: var(--fg); min-width: 160px; }
+    .gp-table .td-priority { text-align: center; white-space: nowrap; }
+    .gp-priority {
+      font-family: 'Figtree', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      padding: 3px 10px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+    .gp-priority-critical { background: rgba(211,47,47,0.08); color: #d32f2f; border: 1px solid rgba(211,47,47,0.2); }
+    .gp-priority-high { background: rgba(196,96,58,0.08); color: var(--accent); border: 1px solid var(--accent-border); }
+    .gp-priority-medium { background: rgba(161,161,170,0.08); color: var(--muted); border: 1px solid rgba(161,161,170,0.2); }
 
     .gp-tier-callout {
       padding: 16px 20px;
@@ -1354,17 +1512,17 @@
     .print-footer { display: none; }
 
     /* ═══════════════════════════════════════════
-       RESPONSIVE — 640px
+       RESPONSIVE. 640px
        ═══════════════════════════════════════════ */
     @media (max-width: 640px) {
       .screen-inner { padding: 24px 16px 40px; }
       .intro-card { padding: 20px 14px 24px; }
-      .intro-page { padding: 12px 8px 40px; }
+      .intro-page { padding: 12px 0 40px; }
+      .intro-card-wrap { padding: 16px 12px 0; }
       .intro-card .description { display: none; }
       .intro-card h1 { margin-bottom: 6px; font-size: clamp(22px, 6.5vw, 32px); }
       .intro-card .subtitle { font-size: 14px; margin-bottom: 16px; }
       .disclaimer { font-size: 11px; margin-top: 12px; }
-      .title-block-main { white-space: normal; }
       .tab-btn { white-space: normal; }
       .intro-form { flex-direction: column; gap: 10px; }
       /* Tabs: horizontal scroll on mobile */
@@ -1408,6 +1566,17 @@
       .gp-headline { font-size: clamp(18px, 5vw, 22px); }
       .gp-body { font-size: 14px; }
       .gp-why { font-size: 13px; padding: 14px 16px; }
+      .gp-table { border: none; }
+      .gp-table thead { display: none; }
+      .gp-table tbody tr {
+        display: flex; flex-direction: column; gap: 6px;
+        padding: 14px 0; border-bottom: 1px solid var(--border);
+      }
+      .gp-table tbody tr:last-child { margin-bottom: 0; }
+      .gp-table tbody td { padding: 0; border-bottom: none; }
+      .gp-table .td-action { min-width: unset; font-size: 14px; font-weight: 600; }
+      .gp-table .td-detail { font-size: 13px; line-height: 1.6; }
+      .gp-table .td-priority { text-align: left; padding-top: 4px; }
       .gp-timeline-line { width: 24px; }
       .gp-timeline-text { font-size: 10px; }
       .gp-timeline-dot { width: 32px; height: 32px; font-size: 12px; }
@@ -1427,7 +1596,7 @@
     }
 
     /* ═══════════════════════════════════════════
-       RESPONSIVE — 480px
+       RESPONSIVE. 480px
        ═══════════════════════════════════════════ */
     @media (max-width: 480px) {
       .score-ring-container { width: 160px; height: 160px; }
@@ -1441,29 +1610,86 @@
     }
 
     /* ═══════════════════════════════════════════
-       PRINT — LANDSCAPE CALENDAR
+       PRINT. LANDSCAPE CALENDAR
        ═══════════════════════════════════════════ */
     @media print {
       @page { size: landscape; margin: 1cm; }
+
+      /* ── Global light theme reset — override all CSS vars ── */
+      :root {
+        --bg: #ffffff !important;
+        --surface: #ffffff !important;
+        --surface-2: #f5f5f5 !important;
+        --surface-3: #eeeeee !important;
+        --fg: #111111 !important;
+        --fg-muted: #333333 !important;
+        --muted: #666666 !important;
+        --border: #dddddd !important;
+        --border-light: #cccccc !important;
+        --accent-dim: rgba(196,96,58,0.08) !important;
+        --accent-border: rgba(196,96,58,0.3) !important;
+      }
       body, html { background: #fff !important; color: #111 !important; }
-      .top-bar, .progress-bar-fixed, .btn-primary, .btn-back, .nav-buttons,
+
+      /* ── Hide everything except the calendar (screen-4) ── */
+      .top-bar, .progress-bar-fixed, .btn-primary, .btn-back, .btn-download, .nav-buttons,
       .phase-transition, .cta-block, .gp-card, #screen-1, #screen-2, #screen-3,
-      #screen-5, #screen-6, .results-score-wrap, .tier-badge, .tier-description,
-      .tier-financial, .weakest-callout, .results-transition-block,
+      #screen-5, #screen-6,
+      .results-score-wrap, #tier-badge, #tier-name, #tier-description,
+      #section-bars,
+      .results-transition-block, #results-transition-text, .results-divider,
       .apply-form-wrap { display: none !important; }
-      #screen-4 { display: block !important; min-height: auto !important; padding: 0 !important; }
-      .screen-inner { background: #fff !important; border: none !important; box-shadow: none !important; color: #111 !important; padding: 20px !important; }
+
+      /* ── Show only screen-4 ── */
+      #screen-4 { display: block !important; min-height: auto !important; padding: 0 !important; background: #fff !important; }
+      .screen-inner { background: #fff !important; border: none !important; box-shadow: none !important; padding: 20px !important; }
+
+      /* ── Force all text to dark on white ── */
+      .screen-inner, .screen-inner div, .screen-inner span,
+      .screen-inner h2, .screen-inner h3, .screen-inner p { color: #222 !important; }
+      .screen-inner strong { color: #111 !important; }
+      .title-block-main { color: #111 !important; }
+      .title-block-sub { color: #666 !important; }
+
+      /* ── Calendar grid ── */
       .calendar-grid { gap: 1px; }
-      .month-cell { background: #f8f8f8 !important; border: 1px solid #ddd; }
-      .quarter-strip { background: rgba(196,96,58,0.1) !important; }
+      .month-cell { background: #f8f8f8 !important; border: 1px solid #ddd !important; }
+      .q1-tint { background: #fdf2ee !important; }
+      .q2-tint { background: #fef6f3 !important; }
+      .q3-tint { background: #fef9f7 !important; }
+      .q4-tint { background: #fefcfb !important; }
+      .quarter-strip { border: none !important; }
+      .q1-strip { background: rgba(196,96,58,0.18) !important; }
+      .q2-strip { background: rgba(196,96,58,0.14) !important; }
+      .q3-strip { background: rgba(196,96,58,0.10) !important; }
+      .q4-strip { background: rgba(196,96,58,0.07) !important; }
+      .quarter-strip-num { color: #333 !important; }
+      .month-cell-name { color: #666 !important; }
+      .month-cell-theme, .quarter-strip-theme { color: #C4603A !important; }
+
+      /* ── Badges ── */
       .badge-primary, .badge-accent, .badge-celebration { background: #C4603A !important; color: #fff !important; }
-      .badge-secondary { border-color: #C4603A !important; color: #C4603A !important; }
-      .accordion-item { break-inside: avoid; }
+      .badge-secondary { background: transparent !important; border-color: #C4603A !important; color: #C4603A !important; }
+
+      /* ── Accordion ── */
+      .accordion-item { break-inside: avoid; background: #fafafa !important; border: 1px solid #ddd !important; border-left: 5px solid #C4603A !important; }
       .accordion-item .accordion-body { max-height: none !important; }
       .accordion-item .accordion-chevron { display: none; }
-      .month-cell-name, .accordion-label { color: #666 !important; }
-      .month-cell-theme, .quarter-strip-theme, .accordion-header { color: #C4603A !important; }
-      .accordion-text, .accordion-content { color: #333 !important; }
+      .accordion-header { color: #C4603A !important; background: transparent !important; }
+      .accordion-label { color: #666 !important; }
+      .accordion-text { color: #333 !important; }
+      .accordion-content { color: #333 !important; }
+
+      /* ── Financial impact box ── */
+      #tier-financial { display: block !important; background: #f9f5f3 !important; border: 1px solid #e0cfc8 !important; color: #333 !important; margin-bottom: 32px; }
+      #tier-financial strong { color: #111 !important; }
+
+      /* ── Weakest callout ── */
+      .weakest-callout { background: rgba(211,47,47,0.06) !important; border: 1px solid rgba(211,47,47,0.25) !important; }
+      .weakest-callout-label { color: #d32f2f !important; }
+      .weakest-callout-value { color: #222 !important; }
+
+      /* ── Print footer ── */
       .print-footer { display: block !important; text-align: center; font-size: 11px; color: #999; padding-top: 20px; border-top: 1px solid #ddd; margin-top: 20px; }
     }
   </style>
@@ -1482,7 +1708,7 @@
   </div>
 
   <!-- ═══════════════════════════════════════
-       SCREEN 1 — INTRO / GATE
+       SCREEN 1. INTRO / GATE
   ═══════════════════════════════════════ -->
   <div id="screen-1" class="screen active">
     <div class="intro-page">
@@ -1503,7 +1729,7 @@
 
           <h1>Your Team Will Go Where You Send Them. Do You Know Where That Is?</h1>
           <p class="subtitle">A two-phase diagnostic that builds a personalized 12-month culture calendar for your team.</p>
-          <p class="description">Phase 1 reveals where your culture rhythm stands today across four critical areas. Phase 2 generates a personalized 12-month calendar with quarterly sprints, challenges, recognition events, and meeting upgrades your team can run toward — starting this quarter.</p>
+          <p class="description">Phase 1 reveals where your culture rhythm stands today across four critical areas. Phase 2 generates a personalized 12-month calendar with quarterly sprints, challenges, recognition events, and meeting upgrades your team can run toward, starting this quarter.</p>
 
           <!-- Tabs -->
           <div class="tabs">
@@ -1527,10 +1753,10 @@
           <div class="tab-panel" id="tab1">
             <p class="lead">This diagnostic evaluates four culture rhythm areas:</p>
             <ul class="check-list">
-              <li><svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(196,96,58,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#C4603A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Meeting and Rhythm Health — how your team gathers and decides</li>
-              <li><svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(196,96,58,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#C4603A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>What Drives Your Team — incentives, recognition, and alignment</li>
-              <li><svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(196,96,58,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#C4603A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Sprint and Goal Architecture — how you plan and track progress</li>
-              <li><svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(196,96,58,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#C4603A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Culture Challenges and Energy — the intangibles that make or break a team</li>
+              <li><svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(196,96,58,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#C4603A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Meeting and Rhythm Health, how your team gathers and decides</li>
+              <li><svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(196,96,58,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#C4603A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>What Drives Your Team, incentives, recognition, and alignment</li>
+              <li><svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(196,96,58,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#C4603A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Sprint and Goal Architecture, how you plan and track progress</li>
+              <li><svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(196,96,58,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#C4603A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Culture Challenges and Energy, the intangibles that make or break a team</li>
             </ul>
           </div>
 
@@ -1568,7 +1794,7 @@
               <input type="email" class="form-input" id="input-email" placeholder="Email address" autocomplete="email" maxlength="254">
               <input type="text" name="website" id="honeyField" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;pointer-events:none;" tabindex="-1" autocomplete="off">
             </div>
-            <button class="btn-primary" onclick="submitIntro()">Begin Assessment →</button>
+            <button class="btn-primary" style="max-width:480px; margin:0 auto;" onclick="submitIntro()">Begin Assessment →</button>
             <p class="intro-note">No spam. Your calendar is emailed immediately after completion.</p>
           </div>
 
@@ -1592,20 +1818,23 @@
   </div>
 
   <!-- ═══════════════════════════════════════
-       SCREEN 2 — PHASE 1 DIAGNOSTIC (20 Qs)
+       SCREEN 2. PHASE 1 DIAGNOSTIC (20 Qs)
   ═══════════════════════════════════════ -->
   <div id="screen-2" class="screen">
     <div class="screen-inner">
 
-      <div class="title-block">
-        <div class="title-block-main">The 12 Month Culture Calendar</div>
-        <div class="title-block-sub">Phase 1 — Culture Rhythm Diagnostic</div>
+      <!-- In-container progress bar -->
+      <div class="container-progress">
+        <div class="container-progress-track">
+          <div class="container-progress-fill" id="section-progress-fill"></div>
+        </div>
+        <div class="container-progress-label" id="section-progress-label">Section 1 of 4</div>
       </div>
 
       <!-- SECTION A -->
       <div id="section-a" class="section-panel active">
         <div class="section-header">
-          <div class="section-label">Section A of 4 — 5 Questions</div>
+          <div class="section-label">Section A of 4 · 5 Questions</div>
           <div class="section-title">Meeting and Rhythm Health</div>
           <div class="section-subtext">The way your team gathers tells you everything about how your culture actually functions.</div>
           <div class="scoring-guide">Never = not in place · Rarely = occasional · Sometimes = inconsistent · Always = active and consistent</div>
@@ -1613,7 +1842,7 @@
 
         <!-- A1 freq -->
         <div class="question-block">
-          <div class="question-number">01 — 20</div>
+          <div class="question-number">01 / 20</div>
           <p class="question-text">When your team finishes a meeting, how often does everyone leave knowing exactly what was decided and who owns what next?</p>
           <div class="freq-row">
             <button class="freq-btn" onclick="selectFreq('a1',0,this)">Never</button>
@@ -1625,7 +1854,7 @@
 
         <!-- A2 scenario -->
         <div class="question-block">
-          <div class="question-number">02 — 20</div>
+          <div class="question-number">02 / 20</div>
           <p class="question-text">Think about your last all-hands or team meeting. Which of these sounds most like what actually happened?</p>
           <div class="scenario-buttons">
             <button class="scenario-btn" onclick="selectScenario('a2',0,this)"><span class="scenario-btn-chip">A</span>There was no set agenda. It mostly became a roundtable of updates and I answered questions until we ran out of time.</button>
@@ -1637,7 +1866,7 @@
 
         <!-- A3 freq -->
         <div class="question-block">
-          <div class="question-number">03 — 20</div>
+          <div class="question-number">03 / 20</div>
           <p class="question-text">How often does your team have a structured weekly review where each person reports on their progress and commits to the next week's priorities?</p>
           <div class="freq-row">
             <button class="freq-btn" onclick="selectFreq('a3',0,this)">Never</button>
@@ -1649,7 +1878,7 @@
 
         <!-- A4 scenario -->
         <div class="question-block">
-          <div class="question-number">04 — 20</div>
+          <div class="question-number">04 / 20</div>
           <p class="question-text">When a new quarter begins in your business, which of these most accurately describes what happens?</p>
           <div class="scenario-buttons">
             <button class="scenario-btn" onclick="selectScenario('a4',0,this)"><span class="scenario-btn-chip">A</span>Nothing formal changes. We continue working on what we were working on and figure out the new priorities as they come up.</button>
@@ -1661,7 +1890,7 @@
 
         <!-- A5 freq -->
         <div class="question-block">
-          <div class="question-number">05 — 20</div>
+          <div class="question-number">05 / 20</div>
           <p class="question-text">How often does your team have a clear shared goal for the current 90-day period that every person can name without looking anything up?</p>
           <div class="freq-row">
             <button class="freq-btn" onclick="selectFreq('a5',0,this)">Never</button>
@@ -1680,7 +1909,7 @@
       <!-- SECTION B -->
       <div id="section-b" class="section-panel">
         <div class="section-header">
-          <div class="section-label">Section B of 4 — 5 Questions</div>
+          <div class="section-label">Section B of 4 · 5 Questions</div>
           <div class="section-title">What Drives Your Team</div>
           <div class="section-subtext">Incentives shape behavior faster than speeches. What your team chases tells you what your culture actually values.</div>
           <div class="scoring-guide">Never = not in place · Rarely = occasional · Sometimes = inconsistent · Always = active and consistent</div>
@@ -1688,7 +1917,7 @@
 
         <!-- B1 scenario -->
         <div class="question-block">
-          <div class="question-number">06 — 20</div>
+          <div class="question-number">06 / 20</div>
           <p class="question-text">When a team member does exceptional work, what typically happens in your organization?</p>
           <div class="scenario-buttons">
             <button class="scenario-btn" onclick="selectScenario('b1',0,this)"><span class="scenario-btn-chip">A</span>It gets noticed by the people who work directly with them but nothing formal happens. Good work is expected.</button>
@@ -1700,7 +1929,7 @@
 
         <!-- B2 freq -->
         <div class="question-block">
-          <div class="question-number">07 — 20</div>
+          <div class="question-number">07 / 20</div>
           <p class="question-text">How often does your team's compensation structure reward the outcomes you actually need rather than just effort and tenure?</p>
           <div class="freq-row">
             <button class="freq-btn" onclick="selectFreq('b2',0,this)">Never</button>
@@ -1712,7 +1941,7 @@
 
         <!-- B3 scenario -->
         <div class="question-block">
-          <div class="question-number">08 — 20</div>
+          <div class="question-number">08 / 20</div>
           <p class="question-text">If you asked your team today what they are personally working toward in this business, which answer would you most likely get?</p>
           <div class="scenario-buttons">
             <button class="scenario-btn" onclick="selectScenario('b3',0,this)"><span class="scenario-btn-chip">A</span>Most people would say they are just doing their job. There is no defined path for growth or advancement.</button>
@@ -1724,8 +1953,8 @@
 
         <!-- B4 freq -->
         <div class="question-block">
-          <div class="question-number">09 — 20</div>
-          <p class="question-text">How often does your team have something specific to work toward beyond their daily responsibilities — a challenge, a milestone, or a sprint goal with a defined end date?</p>
+          <div class="question-number">09 / 20</div>
+          <p class="question-text">How often does your team have something specific to work toward beyond their daily responsibilities, a challenge, a milestone, or a sprint goal with a defined end date?</p>
           <div class="freq-row">
             <button class="freq-btn" onclick="selectFreq('b4',0,this)">Never</button>
             <button class="freq-btn" onclick="selectFreq('b4',1,this)">Rarely</button>
@@ -1736,7 +1965,7 @@
 
         <!-- B5 scenario -->
         <div class="question-block">
-          <div class="question-number">10 — 20</div>
+          <div class="question-number">10 / 20</div>
           <p class="question-text">Which of these most accurately describes how your organization celebrates the end of a successful quarter or a major milestone?</p>
           <div class="scenario-buttons">
             <button class="scenario-btn" onclick="selectScenario('b5',0,this)"><span class="scenario-btn-chip">A</span>We do not formally celebrate. Things move on to the next challenge without acknowledgment.</button>
@@ -1756,7 +1985,7 @@
       <!-- SECTION C -->
       <div id="section-c" class="section-panel">
         <div class="section-header">
-          <div class="section-label">Section C of 4 — 5 Questions</div>
+          <div class="section-label">Section C of 4 · 5 Questions</div>
           <div class="section-title">Sprint and Goal Architecture</div>
           <div class="section-subtext">A team without a horizon to run toward is a team running on instinct. Instinct does not scale.</div>
           <div class="scoring-guide">Never = not in place · Rarely = occasional · Sometimes = inconsistent · Always = active and consistent</div>
@@ -1764,7 +1993,7 @@
 
         <!-- C1 freq -->
         <div class="question-block">
-          <div class="question-number">11 — 20</div>
+          <div class="question-number">11 / 20</div>
           <p class="question-text">How often does your organization plan in 90-day increments with specific goals assigned to each sprint?</p>
           <div class="freq-row">
             <button class="freq-btn" onclick="selectFreq('c1',0,this)">Never</button>
@@ -1776,7 +2005,7 @@
 
         <!-- C2 scenario -->
         <div class="question-block">
-          <div class="question-number">12 — 20</div>
+          <div class="question-number">12 / 20</div>
           <p class="question-text">When your organization sets annual goals, which of these most closely describes what happens to those goals over the course of the year?</p>
           <div class="scenario-buttons">
             <button class="scenario-btn" onclick="selectScenario('c2',0,this)"><span class="scenario-btn-chip">A</span>Annual goals get set and mostly forgotten within a few weeks. Day-to-day urgency takes over.</button>
@@ -1788,7 +2017,7 @@
 
         <!-- C3 freq -->
         <div class="question-block">
-          <div class="question-number">13 — 20</div>
+          <div class="question-number">13 / 20</div>
           <p class="question-text">How often does your team have a visible scoreboard or progress tracker that shows movement toward a shared goal in real time?</p>
           <div class="freq-row">
             <button class="freq-btn" onclick="selectFreq('c3',0,this)">Never</button>
@@ -1800,7 +2029,7 @@
 
         <!-- C4 scenario -->
         <div class="question-block">
-          <div class="question-number">14 — 20</div>
+          <div class="question-number">14 / 20</div>
           <p class="question-text">Think about the last time your team missed a goal or fell short of a target. Which of these most accurately describes what happened next?</p>
           <div class="scenario-buttons">
             <button class="scenario-btn" onclick="selectScenario('c4',0,this)"><span class="scenario-btn-chip">A</span>It was not formally addressed. We moved on without a structured conversation about what happened or what to do differently.</button>
@@ -1812,7 +2041,7 @@
 
         <!-- C5 freq -->
         <div class="question-block">
-          <div class="question-number">15 — 20</div>
+          <div class="question-number">15 / 20</div>
           <p class="question-text">How often does your team have a structured retrospective at the end of a project, sprint, or quarter to review what worked and what did not?</p>
           <div class="freq-row">
             <button class="freq-btn" onclick="selectFreq('c5',0,this)">Never</button>
@@ -1832,7 +2061,7 @@
       <!-- SECTION D -->
       <div id="section-d" class="section-panel">
         <div class="section-header">
-          <div class="section-label">Section D of 4 — 5 Questions</div>
+          <div class="section-label">Section D of 4 · 5 Questions</div>
           <div class="section-title">Culture Challenges and Energy</div>
           <div class="section-subtext">Culture is not what you post on a wall. It is what happens when no one is watching and when things get hard.</div>
           <div class="scoring-guide">Never = not in place · Rarely = occasional · Sometimes = inconsistent · Always = active and consistent</div>
@@ -1840,7 +2069,7 @@
 
         <!-- D1 scenario -->
         <div class="question-block">
-          <div class="question-number">16 — 20</div>
+          <div class="question-number">16 / 20</div>
           <p class="question-text">Which of these most accurately describes the overall energy of your team right now?</p>
           <div class="scenario-buttons">
             <button class="scenario-btn" onclick="selectScenario('d1',0,this)"><span class="scenario-btn-chip">A</span>The team is operational but the energy feels flat. People show up and do their jobs but there is not much excitement or forward momentum.</button>
@@ -1852,7 +2081,7 @@
 
         <!-- D2 freq -->
         <div class="question-block">
-          <div class="question-number">17 — 20</div>
+          <div class="question-number">17 / 20</div>
           <p class="question-text">How often do team members hold each other accountable without the situation needing to escalate to leadership?</p>
           <div class="freq-row">
             <button class="freq-btn" onclick="selectFreq('d2',0,this)">Never</button>
@@ -1864,7 +2093,7 @@
 
         <!-- D3 scenario -->
         <div class="question-block">
-          <div class="question-number">18 — 20</div>
+          <div class="question-number">18 / 20</div>
           <p class="question-text">When a new team member joins your organization, which of these most accurately describes their onboarding experience?</p>
           <div class="scenario-buttons">
             <button class="scenario-btn" onclick="selectScenario('d3',0,this)"><span class="scenario-btn-chip">A</span>There is no structured onboarding. New people figure out the culture by watching what happens around them.</button>
@@ -1876,7 +2105,7 @@
 
         <!-- D4 freq -->
         <div class="question-block">
-          <div class="question-number">19 — 20</div>
+          <div class="question-number">19 / 20</div>
           <p class="question-text">How often does your culture feel the same whether you are in the room or not?</p>
           <div class="freq-row">
             <button class="freq-btn" onclick="selectFreq('d4',0,this)">Never</button>
@@ -1888,7 +2117,7 @@
 
         <!-- D5 scenario -->
         <div class="question-block">
-          <div class="question-number">20 — 20</div>
+          <div class="question-number">20 / 20</div>
           <p class="question-text">Which of these most accurately describes the relationship between your team members right now?</p>
           <div class="scenario-buttons">
             <button class="scenario-btn" onclick="selectScenario('d5',0,this)"><span class="scenario-btn-chip">A</span>People work alongside each other but there is not much genuine connection. Relationships are mostly transactional.</button>
@@ -1909,7 +2138,7 @@
   </div>
 
   <!-- ═══════════════════════════════════════
-       SCREEN 3 — PHASE TRANSITION + PHASE 2
+       SCREEN 3. PHASE TRANSITION + PHASE 2
   ═══════════════════════════════════════ -->
   <div id="screen-3" class="screen">
 
@@ -1925,7 +2154,7 @@
 
       <div class="title-block">
         <div class="title-block-main">The 12 Month Culture Calendar</div>
-        <div class="title-block-sub">Phase 2 — Calendar Builder</div>
+        <div class="title-block-sub">Phase 2: Calendar Builder</div>
       </div>
 
       <!-- P2 Q1 - Team Size -->
@@ -1959,10 +2188,10 @@
           <p class="question-text">What is the primary outcome you are building your culture toward in the next 12 months?</p>
           <div class="scenario-buttons">
             <button class="scenario-btn" onclick="selectP2('primaryGoal','revenue',this)"><span class="scenario-btn-chip">A</span>Growing revenue and hitting a specific number that requires the whole team to perform at a higher level.</button>
-            <button class="scenario-btn" onclick="selectP2('primaryGoal','team',this)"><span class="scenario-btn-chip">B</span>Building a stronger team — better retention, better leadership depth, and a culture that does not depend on me to maintain it.</button>
-            <button class="scenario-btn" onclick="selectP2('primaryGoal','systems',this)"><span class="scenario-btn-chip">C</span>Systematizing the business — replacing manual processes and founder dependency with documented systems and infrastructure.</button>
+            <button class="scenario-btn" onclick="selectP2('primaryGoal','team',this)"><span class="scenario-btn-chip">B</span>Building a stronger team, better retention, better leadership depth, and a culture that does not depend on me to maintain it.</button>
+            <button class="scenario-btn" onclick="selectP2('primaryGoal','systems',this)"><span class="scenario-btn-chip">C</span>Systematizing the business, replacing manual processes and founder dependency with documented systems and infrastructure.</button>
             <button class="scenario-btn" onclick="selectP2('primaryGoal','exit',this)"><span class="scenario-btn-chip">D</span>Preparing the business for an exit, a sale, or an investment event that requires the organization to operate independently of the founder.</button>
-            <button class="scenario-btn" onclick="selectP2('primaryGoal','launch',this)"><span class="scenario-btn-chip">E</span>Launching something new — a product, an offer, a market, or a brand extension that requires unified team execution.</button>
+            <button class="scenario-btn" onclick="selectP2('primaryGoal','launch',this)"><span class="scenario-btn-chip">E</span>Launching something new, a product, an offer, a market, or a brand extension that requires unified team execution.</button>
           </div>
         </div>
         <div class="nav-buttons">
@@ -1981,10 +2210,10 @@
           <p class="question-text">Right now, what does your team get the most energy and recognition from?</p>
           <div class="scenario-buttons">
             <button class="scenario-btn" onclick="selectP2('teamCelebrates','nothing',this)"><span class="scenario-btn-chip">A</span>Honestly, we do not celebrate much. Good work is expected and the team mostly moves on to the next thing.</button>
-            <button class="scenario-btn" onclick="selectP2('teamCelebrates','individual',this)"><span class="scenario-btn-chip">B</span>Individual wins — someone closes a deal, hits a personal target, or gets recognized externally.</button>
-            <button class="scenario-btn" onclick="selectP2('teamCelebrates','milestones',this)"><span class="scenario-btn-chip">C</span>Team milestones — when we collectively hit a number, finish a launch, or achieve something we have been building toward.</button>
-            <button class="scenario-btn" onclick="selectP2('teamCelebrates','clients',this)"><span class="scenario-btn-chip">D</span>Client outcomes — when a client gets a result or shares feedback that the work mattered.</button>
-            <button class="scenario-btn" onclick="selectP2('teamCelebrates','everything',this)"><span class="scenario-btn-chip">E</span>Everything — we celebrate individual wins, team milestones, client outcomes, and personal growth. Recognition is baked into the culture already.</button>
+            <button class="scenario-btn" onclick="selectP2('teamCelebrates','individual',this)"><span class="scenario-btn-chip">B</span>Individual wins, someone closes a deal, hits a personal target, or gets recognized externally.</button>
+            <button class="scenario-btn" onclick="selectP2('teamCelebrates','milestones',this)"><span class="scenario-btn-chip">C</span>Team milestones, when we collectively hit a number, finish a launch, or achieve something we have been building toward.</button>
+            <button class="scenario-btn" onclick="selectP2('teamCelebrates','clients',this)"><span class="scenario-btn-chip">D</span>Client outcomes, when a client gets a result or shares feedback that the work mattered.</button>
+            <button class="scenario-btn" onclick="selectP2('teamCelebrates','everything',this)"><span class="scenario-btn-chip">E</span>Everything, we celebrate individual wins, team milestones, client outcomes, and personal growth. Recognition is baked into the culture already.</button>
           </div>
         </div>
         <div class="nav-buttons">
@@ -2002,10 +2231,10 @@
         <div class="question-block" style="border-bottom:none;">
           <p class="question-text">Which quarter do you want your 12-month culture calendar to begin?</p>
           <div class="scenario-buttons">
-            <button class="scenario-btn" onclick="selectP2('startQuarter','q1',this)"><span class="scenario-btn-chip">A</span>January to March — I want to start with the calendar year.</button>
-            <button class="scenario-btn" onclick="selectP2('startQuarter','q2',this)"><span class="scenario-btn-chip">B</span>April to June — we are mid-year and ready to launch a new rhythm now.</button>
-            <button class="scenario-btn" onclick="selectP2('startQuarter','q3',this)"><span class="scenario-btn-chip">C</span>July to September — I want to start in the second half of the year.</button>
-            <button class="scenario-btn" onclick="selectP2('startQuarter','q4',this)"><span class="scenario-btn-chip">D</span>October to December — I want to close this year with momentum and carry it into the next.</button>
+            <button class="scenario-btn" onclick="selectP2('startQuarter','q1',this)"><span class="scenario-btn-chip">A</span>January to March. I want to start with the calendar year.</button>
+            <button class="scenario-btn" onclick="selectP2('startQuarter','q2',this)"><span class="scenario-btn-chip">B</span>April to June, we are mid-year and ready to launch a new rhythm now.</button>
+            <button class="scenario-btn" onclick="selectP2('startQuarter','q3',this)"><span class="scenario-btn-chip">C</span>July to September. I want to start in the second half of the year.</button>
+            <button class="scenario-btn" onclick="selectP2('startQuarter','q4',this)"><span class="scenario-btn-chip">D</span>October to December. I want to close this year with momentum and carry it into the next.</button>
           </div>
         </div>
         <div class="nav-buttons">
@@ -2039,7 +2268,7 @@
   </div>
 
   <!-- ═══════════════════════════════════════
-       SCREEN 4 — RESULTS + CALENDAR
+       SCREEN 4. RESULTS + CALENDAR
   ═══════════════════════════════════════ -->
   <div id="screen-4" class="screen">
     <div class="screen-inner">
@@ -2080,6 +2309,10 @@
       <div style="text-align:center; margin-bottom:32px;">
         <h2 style="font-family:'Ranade',sans-serif; font-weight:500; text-transform:uppercase; letter-spacing:-0.02em; font-size:clamp(18px,3.5vw,26px); line-height:1.15; color:var(--fg); margin-bottom:12px;">Your 12-Month Culture Calendar</h2>
         <p style="font-size:14px; line-height:1.7; color:var(--fg-muted);">Four 90-day sprints. One transformational year. Built from your answers.</p>
+        <button class="btn-download" onclick="window.print()">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2v9m0 0l-3.5-3.5M9 11l3.5-3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 13v1.5A1.5 1.5 0 004.5 16h9a1.5 1.5 0 001.5-1.5V13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Download Your Calendar
+        </button>
       </div>
 
       <!-- Calendar grid (populated by JS) -->
@@ -2089,7 +2322,7 @@
       <div id="calendar-accordion"></div>
 
       <!-- Print footer (hidden on screen) -->
-      <div class="print-footer">Generated by the 12 Month Culture Calendar — Paradigm Consulting — paradigmconsulting.co</div>
+      <div class="print-footer">Generated by the 12 Month Culture Calendar | Paradigm Consulting | paradigmconsulting.io</div>
 
       <!-- Transition to gameplan -->
       <div class="results-divider" id="results-transition-block"></div>
@@ -2102,7 +2335,7 @@
   </div>
 
   <!-- ═══════════════════════════════════════
-       SCREEN 5 — GAMEPLAN (3 CARDS)
+       SCREEN 5. GAMEPLAN (3 CARDS)
   ═══════════════════════════════════════ -->
   <div id="screen-5" class="screen">
     <div class="screen-inner">
@@ -2134,17 +2367,32 @@
 
       <!-- CARD 1 -->
       <div class="gp-card active" id="gpCard1">
-        <div class="gp-timeframe">Before You Launch — Week 1</div>
+        <div class="gp-timeframe">Before You Launch: Week 1</div>
         <h3 class="gp-headline">Introduce the Calendar to Your Team Before You Start Running It</h3>
         <p class="gp-body">The most common reason culture calendars fail is not execution. It is adoption. When the founder builds a calendar alone and presents it as a directive, the team follows it obligatorily. When the founder presents the calendar as a shared operating system and invites the team into it, the team runs toward it.</p>
-        <div class="gp-why"><strong>Why this matters for scaling:</strong> A culture calendar only works if the team believes in the goal, understands their role in the sprint, and can see the recognition waiting at the end. Installing the calendar publicly — in a kickoff meeting, with a shared scoreboard, and with each person knowing what winning looks like for them — is the difference between a planning exercise and a culture movement.</div>
+        <div class="gp-why"><strong>Why this matters for scaling:</strong> A culture calendar only works if the team believes in the goal, understands their role in the sprint, and can see the recognition waiting at the end. Installing the calendar publicly, in a kickoff meeting, with a shared scoreboard, and with each person knowing what winning looks like for them, is the difference between a planning exercise and a culture movement.</div>
 
-        <div class="gp-actions">
-          <div class="gp-action-item"><strong>Run a quarterly kickoff meeting before the first sprint begins.</strong> Not an update meeting. A launch meeting. Walk the team through the theme, the shared goal, the sprint challenge, the recognition event waiting at the end, and what each department's contribution looks like. Keep it to 90 minutes. Make it feel like the beginning of something, not the announcement of an initiative.</div>
-          <div class="gp-action-item"><strong>Build a visible scoreboard before the sprint starts.</strong> The goal needs to be visible, tracked, and updated at a cadence the team can see. A number on a whiteboard, a shared dashboard, a weekly update in a team channel — the format does not matter. The visibility does.</div>
-          <div class="gp-action-item"><strong>Assign a sprint owner who is not the founder.</strong> The fastest way to turn a culture calendar into a founder dependency is to make the founder responsible for running the rhythm. Identify one person on your team whose role includes owning the cadence, the scoreboard updates, and the recognition event preparation.</div>
-          <div class="gp-action-item"><strong>Set the recognition event in stone before the sprint begins.</strong> If the recognition event is contingent on performance or budget, the team treats it as aspirational. If it is already scheduled, already communicated, and already planned, the team treats it as real. Book it before the first day of the sprint.</div>
-        </div>
+        <div class="gp-table-label">Week 1 Actions</div>
+        <table class="gp-table">
+          <thead><tr><th>Action</th><th>What to do</th><th>Priority</th></tr></thead>
+          <tbody>
+            <tr><td class="td-action">Run a quarterly kickoff meeting</td><td>Not an update meeting. A launch meeting. Walk the team through the theme, the shared goal, the sprint challenge, the recognition event, and what each department's contribution looks like. Keep it to 90 minutes. Make it feel like the beginning of something, not the announcement of an initiative.</td><td class="td-priority"><span class="gp-priority gp-priority-critical">critical</span></td></tr>
+            <tr><td class="td-action">Build a visible scoreboard</td><td>The goal needs to be visible, tracked, and updated at a cadence the team can see. A number on a whiteboard, a shared dashboard, a weekly update in a team channel. The format does not matter. The visibility does.</td><td class="td-priority"><span class="gp-priority gp-priority-critical">critical</span></td></tr>
+            <tr><td class="td-action">Assign a sprint owner who is not the founder</td><td>The fastest way to turn a culture calendar into a founder dependency is to make the founder responsible for running the rhythm. Identify one person whose role includes owning the cadence, the scoreboard updates, and the recognition event preparation.</td><td class="td-priority"><span class="gp-priority gp-priority-high">high</span></td></tr>
+            <tr><td class="td-action">Set the recognition event in stone</td><td>If the recognition event is contingent on performance or budget, the team treats it as aspirational. If it is already scheduled, already communicated, and already planned, the team treats it as real. Book it before the first day of the sprint.</td><td class="td-priority"><span class="gp-priority gp-priority-high">high</span></td></tr>
+          </tbody>
+        </table>
+
+        <div class="gp-table-label">Cost of Not Doing This</div>
+        <table class="gp-table">
+          <thead><tr><th>Pattern</th><th>What Happens</th><th>Impact</th></tr></thead>
+          <tbody>
+            <tr><td class="td-action">No kickoff meeting</td><td style="color:#d32f2f;">Team treats the calendar as a document, not a commitment. Adoption drops by week 3.</td><td style="color:#d32f2f;">60-80% sprint failure rate</td></tr>
+            <tr><td class="td-action">No visible scoreboard</td><td style="color:var(--accent);">Goals feel abstract. Team cannot see progress or urgency. Accountability disappears.</td><td style="color:var(--accent);">Sprint momentum dies by mid-quarter</td></tr>
+            <tr><td class="td-action">Founder runs the rhythm</td><td style="color:#d32f2f;">Calendar becomes another founder dependency. When founder gets busy, culture stalls.</td><td style="color:#d32f2f;">Culture initiative becomes a bottleneck</td></tr>
+            <tr><td class="td-action">Recognition event is vague</td><td style="color:var(--accent);">Team has no finish line. Performance drifts without a tangible reward in sight.</td><td style="color:var(--accent);">Engagement drops 30-40% by end of quarter</td></tr>
+          </tbody>
+        </table>
 
         <div class="gp-tier-callout"><em>At your tier:</em> <span id="gp-callout-1"></span></div>
 
@@ -2156,17 +2404,32 @@
 
       <!-- CARD 2 -->
       <div class="gp-card" id="gpCard2">
-        <div class="gp-timeframe">During the Sprint — Weekly</div>
+        <div class="gp-timeframe">During the Sprint: Weekly</div>
         <h3 class="gp-headline">Run the Rhythm That Makes the Calendar Real</h3>
         <p class="gp-body">The calendar is the architecture. The weekly rhythm is what makes it live. Most culture initiatives fail not because the plan was wrong but because the week-to-week execution drifted. Meetings got skipped. Scoreboard updates got delayed. Recognition got deprioritized. And the team quietly stopped believing the sprint mattered.</p>
         <div class="gp-why"><strong>Why this matters for scaling:</strong> The research on high-performing teams consistently shows that it is not the quality of the goal that drives performance. It is the consistency of the accountability cadence around it. A mediocre goal with a rigorous weekly rhythm outperforms a great goal with inconsistent follow-through.</div>
 
-        <div class="gp-actions">
-          <div class="gp-action-item"><strong>Run your weekly team meeting with a fixed agenda every single week.</strong> Not most weeks. Every week. The meeting should cover: scoreboard update against the sprint goal, one win from the previous week, one gap to address, and commitments for the coming week from each team lead. Keep it to 45 minutes. End on time.</div>
-          <div class="gp-action-item"><strong>Update the scoreboard every week without exception.</strong> If the scoreboard goes two weeks without an update, the team stops believing in it. Assign the update to your sprint owner and build it into their weekly non-negotiables.</div>
-          <div class="gp-action-item"><strong>Address gaps in the same week they are identified.</strong> The gap between when a problem is identified and when it is addressed is one of the most telling signals about a culture's health. A culture that addresses gaps within the same week they surface is a culture the team trusts.</div>
-          <div class="gp-action-item"><strong>Give the recognition moment its own protected time.</strong> Do not bury it at the end of a meeting as an afterthought. Make it a distinct, visible moment in your weekly rhythm. Even two minutes of structured public recognition done consistently outperforms an elaborate recognition event done once a quarter.</div>
-        </div>
+        <div class="gp-table-label">Weekly Actions</div>
+        <table class="gp-table">
+          <thead><tr><th>Action</th><th>What to do</th><th>Priority</th></tr></thead>
+          <tbody>
+            <tr><td class="td-action">Run your weekly team meeting with a fixed agenda</td><td>Not most weeks. Every week. Cover: scoreboard update against the sprint goal, one win from the previous week, one gap to address, and commitments for the coming week from each team lead. Keep it to 45 minutes. End on time.</td><td class="td-priority"><span class="gp-priority gp-priority-critical">critical</span></td></tr>
+            <tr><td class="td-action">Update the scoreboard every week</td><td>If the scoreboard goes two weeks without an update, the team stops believing in it. Assign the update to your sprint owner and build it into their weekly non-negotiables. No exceptions.</td><td class="td-priority"><span class="gp-priority gp-priority-critical">critical</span></td></tr>
+            <tr><td class="td-action">Address gaps in the same week they surface</td><td>The gap between when a problem is identified and when it is addressed is one of the most telling signals about a culture's health. A culture that addresses gaps within the same week they surface is a culture the team trusts.</td><td class="td-priority"><span class="gp-priority gp-priority-high">high</span></td></tr>
+            <tr><td class="td-action">Give recognition its own protected time</td><td>Do not bury it at the end of a meeting as an afterthought. Make it a distinct, visible moment in your weekly rhythm. Even two minutes of structured public recognition done consistently outperforms an elaborate recognition event done once a quarter.</td><td class="td-priority"><span class="gp-priority gp-priority-high">high</span></td></tr>
+          </tbody>
+        </table>
+
+        <div class="gp-table-label">Culture Rhythm: Without vs. With Structure</div>
+        <table class="gp-table">
+          <thead><tr><th>Area</th><th>Without Structure</th><th>With Structure</th></tr></thead>
+          <tbody>
+            <tr><td class="td-action">Weekly meetings</td><td style="color:#d32f2f;">Inconsistent. Agenda changes each week. Team stops preparing. Accountability erodes.</td><td style="color:var(--green, #34a853);">Fixed agenda every week. Team knows what to expect. Commitments get tracked.</td></tr>
+            <tr><td class="td-action">Scoreboard</td><td style="color:#d32f2f;">Goal is discussed at kickoff then forgotten. Progress is invisible to the team.</td><td style="color:var(--green, #34a853);">Updated weekly. Team sees momentum building. Progress compounds publicly.</td></tr>
+            <tr><td class="td-action">Gap response time</td><td style="color:#d32f2f;">Problems noted but addressed "next week." Trust erodes. Team stops flagging issues.</td><td style="color:var(--green, #34a853);">Gaps addressed same week. Team learns that raising problems leads to action.</td></tr>
+            <tr><td class="td-action">Recognition</td><td style="color:#d32f2f;">Sporadic. Generic. Often skipped when busy. Team feels unseen.</td><td style="color:var(--green, #34a853);">Structured and consistent. Specific to contributions. Becomes part of the culture.</td></tr>
+          </tbody>
+        </table>
 
         <div class="gp-tier-callout"><em>At your tier:</em> <span id="gp-callout-2"></span></div>
 
@@ -2178,35 +2441,51 @@
 
       <!-- CARD 3 -->
       <div class="gp-card" id="gpCard3">
-        <div class="gp-timeframe">End of Quarter — Review and Reset</div>
+        <div class="gp-timeframe">End of Quarter: Review and Reset</div>
         <h3 class="gp-headline">Close the Sprint and Launch the Next One Like It Matters</h3>
         <p class="gp-body">The end of a sprint is not the end of the culture rhythm. It is the transition point that determines whether the next sprint has more momentum or less. Most organizations end quarters with a vague sense of what happened. High-performance cultures end quarters with a structured close that celebrates, evaluates, and immediately sets the next horizon.</p>
         <div class="gp-why"><strong>Why this matters for scaling:</strong> The quarterly close is where your culture becomes self-sustaining. If the team experiences a structured sprint close with recognition, a retrospective, and an immediate kickoff for the next quarter, they learn that the rhythm is permanent. If the quarter ends ambiguously, the rhythm erodes and the next sprint starts from zero.</div>
 
-        <div class="gp-actions">
-          <div class="gp-action-item"><strong>Run the recognition event you committed to at the start of the sprint.</strong> This is the moment the team has been working toward. Execute it fully. Celebrate publicly. Make it specific to the sprint goal that was set, not generic praise. The team should leave knowing exactly what was achieved and who contributed to it.</div>
-          <div class="gp-action-item"><strong>Run a structured retrospective before the next sprint begins.</strong> What worked this quarter? What broke? What do we keep, what do we change? This is a 60-minute meeting with a fixed format. The output is three to five specific adjustments for the next sprint. Document them. Share them. Build them into the next kickoff.</div>
-          <div class="gp-action-item"><strong>Launch the next sprint within one week of closing the current one.</strong> The gap between sprints is where momentum dies. If the team goes two or three weeks without a defined goal and a new sprint structure, they revert to instinct. One week. That is your transition window.</div>
-          <div class="gp-action-item"><strong>Share the full-year progress at the mid-year and year-end marks.</strong> At the Q2 close and the Q4 close, zoom out. Show the team the full arc. Where they started. What changed. What held. What they built. This is the moment that turns a culture calendar into a culture identity.</div>
-        </div>
+        <div class="gp-table-label">Quarter Close Actions</div>
+        <table class="gp-table">
+          <thead><tr><th>Action</th><th>What to do</th><th>Priority</th></tr></thead>
+          <tbody>
+            <tr><td class="td-action">Run the recognition event</td><td>This is the moment the team has been working toward. Execute it fully. Celebrate publicly. Make it specific to the sprint goal that was set, not generic praise. The team should leave knowing exactly what was achieved and who contributed to it.</td><td class="td-priority"><span class="gp-priority gp-priority-critical">critical</span></td></tr>
+            <tr><td class="td-action">Run a structured retrospective</td><td>What worked this quarter? What broke? What do we keep, what do we change? A 60-minute meeting with a fixed format. The output is three to five specific adjustments for the next sprint. Document them. Share them. Build them into the next kickoff.</td><td class="td-priority"><span class="gp-priority gp-priority-critical">critical</span></td></tr>
+            <tr><td class="td-action">Launch the next sprint within one week</td><td>The gap between sprints is where momentum dies. If the team goes two or three weeks without a defined goal and a new sprint structure, they revert to instinct. One week. That is your transition window.</td><td class="td-priority"><span class="gp-priority gp-priority-high">high</span></td></tr>
+            <tr><td class="td-action">Share full-year progress at mid-year and year-end</td><td>At the Q2 close and the Q4 close, zoom out. Show the team the full arc. Where they started. What changed. What held. What they built. This is the moment that turns a culture calendar into a culture identity.</td><td class="td-priority"><span class="gp-priority gp-priority-medium">medium</span></td></tr>
+          </tbody>
+        </table>
+
+        <div class="gp-table-label">Cost of Not Doing This</div>
+        <table class="gp-table">
+          <thead><tr><th>Pattern</th><th>What Happens</th><th>Impact</th></tr></thead>
+          <tbody>
+            <tr><td class="td-action">No recognition event</td><td style="color:#d32f2f;">Team learns that culture goals do not lead to anything tangible. Next sprint starts with skepticism.</td><td style="color:#d32f2f;">Team engagement drops 40-60% in the following quarter</td></tr>
+            <tr><td class="td-action">No retrospective</td><td style="color:var(--accent);">Same mistakes repeat. Team does not improve. The calendar becomes a routine instead of a system.</td><td style="color:var(--accent);">Culture stagnates. No compounding improvement.</td></tr>
+            <tr><td class="td-action">Gap between sprints exceeds one week</td><td style="color:#d32f2f;">Momentum dies. Team reverts to default behavior. Each new sprint starts from zero instead of building on the last.</td><td style="color:#d32f2f;">Calendar becomes a quarterly event, not a culture operating system</td></tr>
+          </tbody>
+        </table>
 
         <div class="gp-tier-callout"><em>At your tier:</em> <span id="gp-callout-3"></span></div>
 
         <div class="gp-card-nav">
           <button class="gp-nav-prev" onclick="switchGpCard(2)">← Back</button>
-          <button class="gp-nav-next" onclick="document.getElementById('gpCtaBlock').scrollIntoView({behavior:'smooth',block:'start'})">See How to Get This Installed →</button>
         </div>
       </div>
 
       <!-- CTA Block -->
       <div class="cta-block" id="gpCtaBlock">
         <h2>Get Your Culture Calendar Installed by the People Who Built It.</h2>
-        <p>The 3x3OS engagement installs what this assessment revealed — a complete culture operating system with sprint architecture, meeting cadence, recognition structure, and quarterly accountability built around your exact diagnostic results. It is application-only.</p>
+        <p>The 3x3OS engagement installs what this assessment revealed, a complete culture operating system with sprint architecture, meeting cadence, recognition structure, and quarterly accountability built around your exact diagnostic results. It is application-only.</p>
         <div class="urgency-line">Applications reviewed weekly. Limited spots per cohort.</div>
         <button class="btn-primary btn-apply-pulse" id="applyToggleBtn" style="max-width:360px;margin:0 auto 16px;" onclick="openApplyForm()">Apply for 3x3OS</button>
         <div class="apply-form-wrap" id="applyFormWrap">
           <div class="form-error" id="applyFormError">Please enter your phone number and business name.</div>
-          <input type="tel" class="form-input" id="applyPhone" placeholder="Phone number" autocomplete="tel" maxlength="20">
+          <div style="display:flex;align-items:center;gap:0;">
+            <select id="applyPhoneCode" style="padding:10px 4px 10px 8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-right:none;border-radius:8px 0 0 8px;font-size:0.85rem;color:rgba(255,255,255,0.85);cursor:pointer;"><option value="+1" selected>US +1</option><option value="+1">CA +1</option><option value="+44">UK +44</option><option value="+61">AU +61</option><option value="+33">FR +33</option><option value="+49">DE +49</option><option value="+39">IT +39</option><option value="+34">ES +34</option><option value="+31">NL +31</option><option value="+46">SE +46</option><option value="+41">CH +41</option><option value="+353">IE +353</option><option value="+91">IN +91</option><option value="+86">CN +86</option><option value="+81">JP +81</option><option value="+82">KR +82</option><option value="+65">SG +65</option><option value="+63">PH +63</option><option value="+64">NZ +64</option><option value="+55">BR +55</option><option value="+52">MX +52</option><option value="+57">CO +57</option><option value="+971">AE +971</option><option value="+972">IL +972</option><option value="+27">ZA +27</option><option value="+234">NG +234</option></select>
+            <input type="tel" class="form-input" id="applyPhone" placeholder="(555) 000-0000" autocomplete="tel" maxlength="20" style="border-radius:0 8px 8px 0;">
+          </div>
           <input type="text" class="form-input" id="applyBusiness" placeholder="Business name" autocomplete="organization" maxlength="150">
           <button class="btn-primary" onclick="submitApply()" style="max-width:360px;margin:0 auto 16px;width:100%;">Submit Application</button>
         </div>
@@ -2221,7 +2500,7 @@
   </div>
 
   <!-- ═══════════════════════════════════════
-       SCREEN 6 — THANK YOU
+       SCREEN 6. THANK YOU
   ═══════════════════════════════════════ -->
   <div id="screen-6" class="screen">
     <div class="thankyou-wrap">
@@ -2339,39 +2618,39 @@
 
     const sprintChallenges = {
       solo: {
-        low: '30-day personal operating rhythm installation — document every recurring decision and process you currently carry alone',
-        mid: '60-day delegation sprint — identify the top 10 decisions and tasks that should not require you and build a handoff plan for each',
-        high: '90-day leverage sprint — replace yourself in at least three operational functions with documented systems'
+        low: '30-day personal operating rhythm installation, document every recurring decision and process you currently carry alone',
+        mid: '60-day delegation sprint, identify the top 10 decisions and tasks that should not require you and build a handoff plan for each',
+        high: '90-day leverage sprint, replace yourself in at least three operational functions with documented systems'
       },
       small: {
-        low: 'Team clarity sprint — every person on your team writes their own role definition and you audit the gaps together',
-        mid: 'Accountability rhythm sprint — install a weekly performance review that runs without you in 60 days',
-        high: '90-day championship challenge — one shared team goal with a weekly scoreboard everyone can see'
+        low: 'Team clarity sprint, every person on your team writes their own role definition and you audit the gaps together',
+        mid: 'Accountability rhythm sprint, install a weekly performance review that runs without you in 60 days',
+        high: '90-day championship challenge, one shared team goal with a weekly scoreboard everyone can see'
       },
       medium: {
-        low: 'Culture audit sprint — every department scores their own section of the Culture Maturity assessment and presents findings',
-        mid: 'Cross-department collaboration challenge — two departments that rarely work together co-own one shared goal for the quarter',
-        high: 'Leadership development sprint — every manager identifies one person they are developing and presents their progress at the end of the quarter'
+        low: 'Culture audit sprint, every department scores their own section of the Culture Maturity assessment and presents findings',
+        mid: 'Cross-department collaboration challenge, two departments that rarely work together co-own one shared goal for the quarter',
+        high: 'Leadership development sprint, every manager identifies one person they are developing and presents their progress at the end of the quarter'
       },
       large: {
-        low: 'Organizational alignment sprint — every team lead publishes a one-page plan for how their department contributes to the company goal this quarter',
-        mid: 'Performance culture activation — introduce a formal recognition system and measure engagement change at end of quarter',
-        high: 'Institutional culture sprint — document the culture standards well enough that a new hire can read them and know exactly what is expected without a single conversation with you'
+        low: 'Organizational alignment sprint, every team lead publishes a one-page plan for how their department contributes to the company goal this quarter',
+        mid: 'Performance culture activation, introduce a formal recognition system and measure engagement change at end of quarter',
+        high: 'Institutional culture sprint, document the culture standards well enough that a new hire can read them and know exactly what is expected without a single conversation with you'
       }
     };
 
     const recognitionEvents = {
-      nothing: 'Introduce your first structured recognition moment — a brief weekly public spotlight on one team result. Keep it specific, keep it consistent, and do it even when the week was hard.',
-      individual: 'Upgrade individual recognition to include peer-nominated wins — have the team identify who made the biggest difference this quarter and celebrate it publicly at the end of the sprint.',
-      milestones: 'Add a quarterly milestone celebration event — a team gathering tied specifically to what was achieved in the 90-day sprint. Make it a ritual the team looks forward to, not a formality.',
-      clients: 'Create a client impact showcase — at the end of each quarter, share one client result story with the full team so they can see the downstream impact of their work. Tie recognition to outcomes, not just effort.',
-      everything: 'Elevate your recognition to a quarterly awards format — identify three to five categories that matter most to your culture and recognize a winner in each at the end of every sprint. Make it something the team campaigns for.'
+      nothing: 'Introduce your first structured recognition moment, a brief weekly public spotlight on one team result. Keep it specific, keep it consistent, and do it even when the week was hard.',
+      individual: 'Upgrade individual recognition to include peer-nominated wins, have the team identify who made the biggest difference this quarter and celebrate it publicly at the end of the sprint.',
+      milestones: 'Add a quarterly milestone celebration event, a team gathering tied specifically to what was achieved in the 90-day sprint. Make it a ritual the team looks forward to, not a formality.',
+      clients: 'Create a client impact showcase, at the end of each quarter, share one client result story with the full team so they can see the downstream impact of their work. Tie recognition to outcomes, not just effort.',
+      everything: 'Elevate your recognition to a quarterly awards format, identify three to five categories that matter most to your culture and recognize a winner in each at the end of every sprint. Make it something the team campaigns for.'
     };
 
     const meetingUpgrades = {
-      low: 'Install one non-negotiable weekly team meeting with a fixed agenda — no updates, only decisions and commitments. Keep it to 45 minutes. Run it even when things are busy.',
-      mid: 'Add a quarterly kickoff meeting at the start of each sprint — 90 minutes where the team aligns on the theme, the goal, and their individual role in it. This is the meeting that makes the other meetings matter.',
-      high: 'Complete the full meeting architecture — daily standup (15 minutes), weekly team review (45 minutes), monthly leadership sync (90 minutes), and quarterly kickoff (half day). Each gathering has a different purpose. None of them should feel like the others.'
+      low: 'Install one non-negotiable weekly team meeting with a fixed agenda, no updates, only decisions and commitments. Keep it to 45 minutes. Run it even when things are busy.',
+      mid: 'Add a quarterly kickoff meeting at the start of each sprint. 90 minutes where the team aligns on the theme, the goal, and their individual role in it. This is the meeting that makes the other meetings matter.',
+      high: 'Complete the full meeting architecture, daily standup (15 minutes), weekly team review (45 minutes), monthly leadership sync (90 minutes), and quarterly kickoff (half day). Each gathering has a different purpose. None of them should feel like the others.'
     };
 
     const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -2386,26 +2665,26 @@
 
     function buildQ4Sprint(inputs) {
       const v = {
-        performance: 'Final quarter championship — the team sets their own individual performance target for Q4 and reports results publicly at year-end',
-        ownership: 'Ownership audit sprint — every team member documents one area of the business they have improved this year and one they will own in the next',
-        energy: 'Culture energy sprint — every department identifies one ritual that kept the culture alive this year and proposes one new one for next year',
-        legacy: 'Legacy sprint — every team member writes one paragraph on what they built this year that will still matter in five years. Shared at the year-end gathering.'
+        performance: 'Final quarter championship, the team sets their own individual performance target for Q4 and reports results publicly at year-end',
+        ownership: 'Ownership audit sprint, every team member documents one area of the business they have improved this year and one they will own in the next',
+        energy: 'Culture energy sprint, every department identifies one ritual that kept the culture alive this year and proposes one new one for next year',
+        legacy: 'Legacy sprint, every team member writes one paragraph on what they built this year that will still matter in five years. Shared at the year-end gathering.'
       };
       return v[inputs.cultureVision];
     }
 
     function buildYearEndCelebration(inputs) {
       const s = {
-        solo: 'Personal year-end review — document your own wins, gaps, and commitments for the coming year. Share it with one person who will hold you accountable.',
-        small: 'Team year-end dinner or gathering — informal, off-site, focused on the journey not the metrics. One story per person about what they are most proud of.',
-        medium: 'Annual culture awards — formalized recognition across five categories voted on by the team. The team decides who wins, not the founder.',
-        large: 'Annual company summit — half-day event covering year-in-review, recognition ceremony, and a first look at the themes and goals for the year ahead.'
+        solo: 'Personal year-end review, document your own wins, gaps, and commitments for the coming year. Share it with one person who will hold you accountable.',
+        small: 'Team year-end dinner or gathering, informal, off-site, focused on the journey not the metrics. One story per person about what they are most proud of.',
+        medium: 'Annual culture awards, formalized recognition across five categories voted on by the team. The team decides who wins, not the founder.',
+        large: 'Annual company summit, half-day event covering year-in-review, recognition ceremony, and a first look at the themes and goals for the year ahead.'
       };
       return s[inputs.teamSize];
     }
 
-    function adaptSprintForQ2(b) { return b + ' This quarter the focus shifts from installation to consistency — the system now exists and the standard is enforcing it without exception.'; }
-    function adaptSprintForQ3(b) { return b + ' This quarter the focus shifts to measurement and optimization — audit what is running, identify what has drifted, and refine the system based on three months of real data.'; }
+    function adaptSprintForQ2(b) { return b + ' This quarter the focus shifts from installation to consistency, the system now exists and the standard is enforcing it without exception.'; }
+    function adaptSprintForQ3(b) { return b + ' This quarter the focus shifts to measurement and optimization, audit what is running, identify what has drifted, and refine the system based on three months of real data.'; }
 
     function generateCalendar(score, inputs) {
       const tier = score <= 35 ? 'low' : score <= 75 ? 'mid' : 'high';
@@ -2442,7 +2721,7 @@
           theme: themes.q4.name, focus: themes.q4.focus,
           sprintChallenge: buildQ4Sprint(inputs), recognitionEvent: buildYearEndCelebration(inputs),
           meetingUpgrade: meeting,
-          milestone: 'Year-end close: full team review of the 12-month journey — what changed, what held, what gets carried into the next year'
+          milestone: 'Year-end close: full team review of the 12-month journey, what changed, what held, what gets carried into the next year'
         }
       ];
     }
@@ -2492,6 +2771,7 @@
       showScreen('screen-2');
       document.getElementById('progress-bar-fixed').classList.add('visible');
       updateProgress(0);
+      updateSectionProgress('a');
     }
 
     function showScreen(id) {
@@ -2502,6 +2782,16 @@
 
     function updateProgress(pct) {
       document.getElementById('progress-fill').style.width = pct + '%';
+    }
+
+    /* Update in-container section progress bar */
+    var sectionMap = { a: 1, b: 2, c: 3, d: 4 };
+    function updateSectionProgress(sectionLetter) {
+      var idx = sectionMap[sectionLetter] || 1;
+      var fill = document.getElementById('section-progress-fill');
+      var label = document.getElementById('section-progress-label');
+      if (fill) fill.style.width = ((idx / 4) * 100) + '%';
+      if (label) label.textContent = 'Section ' + idx + ' of 4';
     }
 
     /* Frequency selector */
@@ -2532,6 +2822,7 @@
       document.getElementById('section-' + from).classList.remove('active');
       document.getElementById('section-' + to).classList.add('active');
       updateProgress(pct);
+      updateSectionProgress(to);
       window.scrollTo({ top: 0, behavior: 'instant' });
     }
 
@@ -2539,6 +2830,7 @@
       document.getElementById('section-' + from).classList.remove('active');
       document.getElementById('section-' + to).classList.add('active');
       updateProgress(pct);
+      updateSectionProgress(to);
       window.scrollTo({ top: 0, behavior: 'instant' });
     }
 
@@ -2598,7 +2890,7 @@
       if (score <= 35) return {
         name: 'NO RHYTHM', tier: 'NO RHYTHM',
         desc: 'Your culture is running on instinct and personal energy. There is no operating rhythm your team can count on, no sprint structure giving them a horizon to run toward, and no recognition system telling them what the organization values. Culture without rhythm is culture by accident.',
-        financial: '<strong>Financial impact:</strong> Organizations without a defined culture rhythm lose an estimated 20 to 34% of team productivity to ambiguity, misalignment, and disengagement. At $500K in revenue that is up to $170,000 in recoverable output — not from hiring more people, but from giving the ones you have something to run toward.',
+        financial: '<strong>Financial impact:</strong> Organizations without a defined culture rhythm lose an estimated 20 to 34% of team productivity to ambiguity, misalignment, and disengagement. At $500K in revenue that is up to $170,000 in recoverable output, not from hiring more people, but from giving the ones you have something to run toward.',
         callouts: [
           'Your team has never experienced a structured sprint kickoff. The first one will feel different and possibly awkward. That is normal. Do it anyway. The second one will feel like culture.',
           'Start with one non-negotiable. Pick the weekly team meeting. Run it every week for 90 days without skipping it regardless of how busy things are. That single habit will change how your team experiences time and accountability.',
@@ -2607,7 +2899,7 @@
       };
       if (score <= 55) return {
         name: 'EARLY STAGE', tier: 'EARLY STAGE',
-        desc: 'The foundation is there but the rhythm is not consistent enough to produce predictable performance. Your culture works when things are going well. The test is whether it holds when things get hard — and right now the answer is probably not reliably.',
+        desc: 'The foundation is there but the rhythm is not consistent enough to produce predictable performance. Your culture works when things are going well. The test is whether it holds when things get hard, and right now the answer is probably not reliably.',
         financial: '<strong>Financial impact:</strong> Early-stage culture organizations plateau at 50 to 65% of their team\'s actual output capacity. The gap is not capability. It is structure. Installing a 90-day sprint rhythm alone has been shown to increase team performance metrics by 20 to 30% within the first two quarters.',
         callouts: [
           'You have done some version of this before. The upgrade is the formality and the commitment. A kickoff that gets put on the calendar three weeks in advance and actually happens is worth ten times a kickoff that happens when you remember to schedule it.',
@@ -2617,7 +2909,7 @@
       };
       if (score <= 75) return {
         name: 'DEVELOPING', tier: 'DEVELOPING',
-        desc: 'You have real rhythm in some areas and real gaps in others. The inconsistency is costing you in team trust, goal alignment, and performance predictability. You are close to a culture that runs itself — but close is not the same as there.',
+        desc: 'You have real rhythm in some areas and real gaps in others. The inconsistency is costing you in team trust, goal alignment, and performance predictability. You are close to a culture that runs itself, but close is not the same as there.',
         financial: '<strong>Financial impact:</strong> Developing culture organizations leave 15 to 25% of team capacity unrealized. At your stage, closing the remaining gaps is worth more than adding headcount.',
         callouts: [
           'Your team is ready for this. The missing piece is probably the sprint owner role. Identify that person before the first quarter begins.',
@@ -2630,8 +2922,8 @@
         desc: 'Your culture has real rhythm. The diagnostic shows meeting structure, goal architecture, and team energy that most organizations never build. The 12-month calendar below is designed to take what you have and make it transformational.',
         financial: '<strong>Financial impact:</strong> Organizations at your culture maturity level that install a structured 12-month sprint architecture see 2 to 3x improvement in goal attainment rates compared to organizations that operate without a defined annual rhythm.',
         callouts: [
-          'Your team already has the muscle memory for structured sprints. The calendar adds the annual arc — the thing that turns quarterly execution into a 12-month transformation. Use the kickoff to frame the full year, not just the first quarter.',
-          'At your level, the weekly rhythm is not the challenge. The challenge is keeping it from becoming routine. Introduce one new element each quarter — a different recognition format, a guest speaker at the retrospective, a team-nominated sprint goal. Keep the structure and change the texture.',
+          'Your team already has the muscle memory for structured sprints. The calendar adds the annual arc, the thing that turns quarterly execution into a 12-month transformation. Use the kickoff to frame the full year, not just the first quarter.',
+          'At your level, the weekly rhythm is not the challenge. The challenge is keeping it from becoming routine. Introduce one new element each quarter, a different recognition format, a guest speaker at the retrospective, a team-nominated sprint goal. Keep the structure and change the texture.',
           'Your year-end close should be significant. Not a casual dinner. A formal event that matches the weight of what the team built over 12 months. This is the moment that locks the culture into institutional memory.'
         ]
       };
@@ -2722,7 +3014,7 @@
 
       // Weakest section
       document.getElementById('weakest-callout-value').textContent =
-        sectionNames[weakest] + ' — ' + scores[weakest] + '/25';
+        sectionNames[weakest] + ': ' + scores[weakest] + '/25';
 
       // Gameplan callouts
       document.getElementById('gp-callout-1').textContent = tierInfo.callouts[0];
@@ -2737,12 +3029,6 @@
       renderCalendarGrid(calendar);
       renderAccordion(calendar);
 
-      // Confetti
-      if (typeof confetti === 'function') {
-        setTimeout(() => {
-          confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 }, colors: ['#C4603A', '#d4714b', '#e8956a', '#f2f2f7'] });
-        }, 800);
-      }
     }
 
     /* ═══════════════════════════════════════
@@ -2791,12 +3077,12 @@
         item.className = 'accordion-item' + (qi === 0 ? ' open' : '');
         item.innerHTML = `
           <div class="accordion-header" onclick="toggleAccordion(this)">
-            <span>${q.quarterLabel} — ${q.theme}</span>
+            <span>${q.quarterLabel}: ${q.theme}</span>
             <svg class="accordion-chevron" viewBox="0 0 20 20" fill="none"><path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
           <div class="accordion-body">
             <div class="accordion-content">
-              <div><div class="accordion-label">Theme</div><div class="accordion-text"><strong>${q.theme}</strong> — ${q.focus}</div></div>
+              <div><div class="accordion-label">Theme</div><div class="accordion-text"><strong>${q.theme}</strong>: ${q.focus}</div></div>
               <div><div class="accordion-label">Sprint Challenge</div><div class="accordion-text">${q.sprintChallenge}</div></div>
               <div><div class="accordion-label">Recognition Event</div><div class="accordion-text">${q.recognitionEvent}</div></div>
               <div><div class="accordion-label">Meeting Upgrade</div><div class="accordion-text">${q.meetingUpgrade}</div></div>
@@ -2853,11 +3139,11 @@
     }
 
     function submitApply() {
-      var phone = sanitize(document.getElementById('applyPhone').value, 20).replace(/[^0-9+\-() ]/g, '');
+      var phoneRaw = sanitize(document.getElementById('applyPhone').value, 20).replace(/[^0-9+\-() ]/g, '');
       var biz = sanitize(document.getElementById('applyBusiness').value, 150);
       var errEl = document.getElementById('applyFormError');
 
-      if (!phone || !biz) {
+      if (!phoneRaw || !biz) {
         errEl.classList.add('visible');
         return;
       }
@@ -2870,7 +3156,7 @@
       sendWebhook({
         first_name: sanitize(state.firstName, 100),
         email: sanitize(state.email, 254),
-        phone: phone,
+        phone: document.getElementById('applyPhoneCode').value + ' ' + phoneRaw,
         business_name: biz,
         total_score: state.total || 0,
         tier: state.tier || '',

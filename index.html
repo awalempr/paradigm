@@ -1,4 +1,4 @@
-<w!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -1277,7 +1277,7 @@
       font-size: clamp(32px, 8vw, 76px);
       text-transform: uppercase;
       letter-spacing: -0.03em;
-      line-height: 0.9;
+      line-height: 0.92;
       color: #0d0d0d;
       position: sticky;
       top: 120px;
@@ -1834,7 +1834,7 @@
     .sym-headline {
       font-family: 'Ranade', sans-serif;
       font-weight: 500;
-      font-size: clamp(36px, 4.8vw, 72px);
+      font-size: clamp(32px, 8vw, 76px);
       text-transform: uppercase;
       letter-spacing: -0.03em;
       line-height: 0.92;
@@ -2081,14 +2081,13 @@
     .meth-headline {
       font-family: 'Ranade', sans-serif;
       font-weight: 500;
-      font-size: clamp(36px, 4.4vw, 66px);
+      font-size: clamp(32px, 8vw, 76px);
       text-transform: uppercase;
       letter-spacing: -0.03em;
-      line-height: 1;
+      line-height: 0.92;
       color: #fff;
       margin-bottom: 72px;
       text-align: center;
-      white-space: nowrap;
     }
     .meth-headline em { font-style: normal; color: var(--red); }
 
@@ -3417,7 +3416,6 @@
       border-bottom: 1px solid rgba(0,0,0,0.06);
       background: #ffffff;
       position: relative;
-      overflow: clip;
     }
 
     /* Ambient color behind glass — light mode */
@@ -3439,12 +3437,12 @@
     }
 
     .proof-headline {
-      font-size: clamp(40px, 6vw, 82px);
+      font-size: clamp(32px, 8vw, 76px);
       font-family: 'Ranade', sans-serif;
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: -0.03em;
-      line-height: 0.95;
+      line-height: 0.92;
       margin-bottom: 24px;
     }
     .proof-headline-white {
@@ -3488,7 +3486,7 @@
     .cs-card-stack {
       position: relative;
       width: 100%;
-      min-height: 280px;
+      min-height: 380px;
       margin-bottom: 20px;
     }
     /* Stacked cards behind */
@@ -4067,10 +4065,10 @@
     .final-cta-headline {
       font-family: 'Ranade', sans-serif;
       font-weight: 500;
-      font-size: clamp(48px, 7vw, 82px);
+      font-size: clamp(32px, 8vw, 76px);
       text-transform: uppercase;
       letter-spacing: -0.03em;
-      line-height: 0.95;
+      line-height: 0.92;
       color: #0d0d0d;
       margin-bottom: 28px;
     }
@@ -5679,7 +5677,7 @@
   <div class="section-inner">
     <div class="fw-header">
       <span class="section-pill">3 × 3 Operating System</span>
-      <h2 class="fw-main-headline">The <span class="fw-headline-num">3</span> systems that determine scale.<span class="sr-only"> — Culture, Compliance & Technology operating systems for founders</span></h2>
+      <h2 class="fw-main-headline">The <span class="fw-headline-num">3</span> systems that<br>determine scale.<span class="sr-only"> — Culture, Compliance & Technology operating systems for founders</span></h2>
     </div>
     <div class="fw-grid">
 
@@ -5909,7 +5907,7 @@
   <div class="section-inner">
     <div class="sym-header">
       <span class="section-pill">Founder Symptoms</span>
-      <h2 class="sym-headline">The Moment You <br class="desktop-br">Realize Something <br class="mobile-br"><span style="color:var(--red);">Has to Change</span></h2>
+      <h2 class="sym-headline">The Moment You<br class="desktop-br"> Realize Something<br> <span style="color:var(--red);">Has to Change</span></h2>
     </div>
   </div>
 
@@ -6515,7 +6513,7 @@
 
     <div class="eng-header">
       <span class="section-pill">Engagements</span>
-      <h2 class="eng-headline">Start where you are. <span class="hl-red">Build from there.</span></h2>
+      <h2 class="eng-headline">Start where you are.<br><span class="hl-red">Build from there.</span></h2>
       <div class="eng-subcopy">
         <p>Not every organization is in the same place. Some need to understand what's structurally at risk. Some need those systems designed. Some need them built.</p>
         <p>Every tier stands on its own. Each one sets the foundation for what comes next.</p>
@@ -7232,17 +7230,33 @@
 
     window.addEventListener('scroll', onScroll, { passive: true });
     setCard(0);
+    // Recalculate after fonts/images load so card height is accurate
+    window.addEventListener('load', function() { setCard(currentIdx); });
 
-    // Video modal
+    // Video modal — safe DOM construction (no innerHTML with dynamic src)
+    var allowedVideoHosts = ['player.vimeo.com', 'www.youtube.com', 'youtube.com', 'youtu.be'];
     document.querySelectorAll('.cs-play').forEach(function(btn) {
       btn.addEventListener('click', function() {
         var src = btn.getAttribute('data-video');
         var modal = document.getElementById('csVideoModal');
         var container = document.getElementById('csVideoContainer');
+        container.innerHTML = '';
+        try {
+          var url = new URL(src);
+          if (!allowedVideoHosts.includes(url.hostname)) return;
+        } catch(e) { return; }
         if (src.includes('youtube') || src.includes('vimeo')) {
-          container.innerHTML = '<iframe src="' + src + '" width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+          var iframe = document.createElement('iframe');
+          iframe.src = src;
+          iframe.width = '100%'; iframe.height = '100%';
+          iframe.frameBorder = '0';
+          iframe.allow = 'autoplay; fullscreen; picture-in-picture';
+          iframe.allowFullscreen = true;
+          container.appendChild(iframe);
         } else {
-          container.innerHTML = '<video src="' + src + '" controls autoplay></video>';
+          var vid = document.createElement('video');
+          vid.src = src; vid.controls = true; vid.autoplay = true;
+          container.appendChild(vid);
         }
         modal.classList.add('active');
       });
@@ -7672,7 +7686,7 @@
           <div class="dx-cover-headline">Find your friction point.</div>
           <div class="dx-cover-body">A few questions about how your business runs. We'll map where the drag is and tell you exactly where to start.</div>
           <button class="dx-btn-begin" id="dxBegin">BEGIN THE DIAGNOSTIC</button>
-          <div class="dx-cover-muted">Takes about 3 minutes.</div>
+          <div class="dx-cover-muted">Takes about 90 seconds.</div>
         </div>
       </div>
 
@@ -7711,14 +7725,11 @@
         <button class="dx-btn-begin" id="dxInterstitialContinue">CONTINUE</button>
       </div>
 
-      <!-- STEP 2 -->
+      <!-- STEP 2: YOUR REVENUE ENGINE -->
       <div class="dx-step" id="dxStep2">
         <div class="dx-step-label">YOUR REVENUE ENGINE</div>
-        <div class="dx-step-hint" style="margin-bottom:24px;"></div>
 
-        <div class="dx-question" id="dxS2Q1"></div>
-
-        <div class="dx-question" id="dxS2Q2" style="display:none;">
+        <div class="dx-question" id="dxS2Q2">
           <div class="dx-q-text">How visible is your revenue data day to day?</div>
           <div class="dx-q-hint">This is one of the most common drag points we find.</div>
           <div class="dx-cards" data-q="s2q2" data-mode="single">
@@ -7728,17 +7739,7 @@
           </div>
         </div>
 
-        <div class="dx-btn-row" id="dxS2Btns" style="display:none;">
-          <button class="dx-btn-back" id="dxS2Back">BACK</button>
-          <button class="dx-btn-next" id="dxS2Next" disabled>NEXT</button>
-        </div>
-      </div>
-
-      <!-- STEP 3 -->
-      <div class="dx-step" id="dxStep3">
-        <div class="dx-step-label">HOW YOU GO TO MARKET</div>
-
-        <div class="dx-question" id="dxS3Q1">
+        <div class="dx-question" id="dxS3Q1" style="display:none;">
           <div class="dx-q-text">How do you primarily sell and collect payment?</div>
           <div class="dx-q-hint">Payment structure is one of the most common sources of hidden exposure in growing businesses.</div>
           <div class="dx-cards" data-q="s3q1" data-mode="multi" data-max="3">
@@ -7750,9 +7751,17 @@
           </div>
         </div>
 
-        <div class="dx-question" id="dxS3Q2" style="display:none;"></div>
+        <div class="dx-btn-row" id="dxS2Btns" style="display:none;">
+          <button class="dx-btn-back" id="dxS2Back">BACK</button>
+          <button class="dx-btn-next" id="dxS2Next" disabled>NEXT</button>
+        </div>
+      </div>
 
-        <div class="dx-question" id="dxS3Q3" style="display:none;">
+      <!-- STEP 3: YOUR EXPOSURE -->
+      <div class="dx-step" id="dxStep3">
+        <div class="dx-step-label">YOUR EXPOSURE</div>
+
+        <div class="dx-question" id="dxS3Q3">
           <div class="dx-q-text">Do you publish content referencing results, outcomes, or transformation?</div>
           <div class="dx-q-hint">Most businesses publishing this type of content don't know they have risk here.</div>
           <div class="dx-cards" data-q="s3q3" data-mode="single">
@@ -7760,28 +7769,6 @@
             <div class="dx-card" data-val="some">Sometimes. We share results but haven't thought about the framing.</div>
             <div class="dx-card" data-val="careful">Occasionally. We're careful about what we say.</div>
             <div class="dx-card" data-val="no">No.</div>
-          </div>
-        </div>
-
-        <div class="dx-btn-row" id="dxS3Btns" style="display:none;">
-          <button class="dx-btn-back" id="dxS3Back">BACK</button>
-          <button class="dx-btn-next" id="dxS3Next" disabled>NEXT</button>
-        </div>
-      </div>
-
-      <!-- STEP 4 -->
-      <div class="dx-step" id="dxStep4">
-        <div class="dx-step-label">WHEN YOU'RE NOT IN THE ROOM</div>
-
-        <div class="dx-question" id="dxS4Q1"></div>
-
-        <div class="dx-question" id="dxS4Q2" style="display:none;">
-          <div class="dx-q-text">How are roles, responsibilities, and decision rights defined?</div>
-          <div class="dx-cards" data-q="s4q2" data-mode="single">
-            <div class="dx-card" data-val="a">Mostly understood. Nothing documented.</div>
-            <div class="dx-card" data-val="b">Some documentation. Outdated or not enforced.</div>
-            <div class="dx-card" data-val="c">Clear structure, but we're growing into complexity it wasn't designed for.</div>
-            <div class="dx-card" data-val="d">Fully documented with accountability systems in place.</div>
           </div>
         </div>
 
@@ -7795,9 +7782,9 @@
           </div>
         </div>
 
-        <div class="dx-btn-row" id="dxS4Btns" style="display:none;">
-          <button class="dx-btn-back" id="dxS4Back">BACK</button>
-          <button class="dx-btn-next" id="dxS4Next" disabled>NEXT</button>
+        <div class="dx-btn-row" id="dxS3Btns" style="display:none;">
+          <button class="dx-btn-back" id="dxS3Back">BACK</button>
+          <button class="dx-btn-next" id="dxS3Next" disabled>NEXT</button>
         </div>
       </div>
 
@@ -7822,7 +7809,10 @@
           </div>
           <div class="form-field">
             <label>Phone *</label>
-            <input type="tel" id="dxPhone" placeholder="+1 (555) 000-0000" required>
+            <div style="display:flex;align-items:center;gap:0;">
+              <select id="dxPhoneCode" style="padding:13px 4px 13px 10px;background:rgba(255,255,255,0.6);border:1px solid rgba(0,0,0,0.1);border-right:none;border-radius:10px 0 0 10px;font-family:'Figtree',sans-serif;font-size:14px;font-weight:400;color:#111;cursor:pointer;outline:none;"><option value="+1" selected>US +1</option><option value="+1">CA +1</option><option value="+44">UK +44</option><option value="+61">AU +61</option><option value="+33">FR +33</option><option value="+49">DE +49</option><option value="+39">IT +39</option><option value="+34">ES +34</option><option value="+31">NL +31</option><option value="+46">SE +46</option><option value="+41">CH +41</option><option value="+353">IE +353</option><option value="+91">IN +91</option><option value="+86">CN +86</option><option value="+81">JP +81</option><option value="+82">KR +82</option><option value="+65">SG +65</option><option value="+63">PH +63</option><option value="+64">NZ +64</option><option value="+55">BR +55</option><option value="+52">MX +52</option><option value="+57">CO +57</option><option value="+971">AE +971</option><option value="+972">IL +972</option><option value="+27">ZA +27</option><option value="+234">NG +234</option></select>
+              <input type="tel" id="dxPhone" placeholder="(555) 000-0000" required style="border-radius:0 10px 10px 0;">
+            </div>
           </div>
           <div class="form-field">
             <label>Company Name *</label>
@@ -7832,6 +7822,10 @@
             <label>Company Website *</label>
             <input type="url" id="dxWebsite" placeholder="https://yourcompany.com" required>
           </div>
+        </div>
+        <!-- Honeypot — hidden from humans, catches bots -->
+        <div style="display:none" aria-hidden="true">
+          <input type="text" id="dxCompanyUrl" name="company_url" tabindex="-1" autocomplete="off">
         </div>
 
         <div class="dx-trust-markers">
@@ -7886,6 +7880,24 @@
 <script>
 // ── DIAGNOSTIC MODAL ENGINE ──
 (function() {
+  // --- Security helpers ---
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  var PHONE_RE = /^[\d\s\-+().]{7,20}$/;
+  function sanitize(str, maxLen) {
+    if (str == null) return '';
+    return String(str)
+      .replace(/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .substring(0, maxLen || 500);
+  }
+  function esc(str) {
+    var d = document.createElement('div');
+    d.appendChild(document.createTextNode(str));
+    return d.innerHTML;
+  }
+  var lastSubmitTime = 0;
+
   const overlay = document.getElementById('contactModal');
   const closeBtn = document.getElementById('modalClose');
   const progressFill = document.getElementById('dxProgressFill');
@@ -7903,16 +7915,16 @@
   let S = {};
   function resetState() {
     S = {
-      score: 0, stage: null, complexScaling: false, skipToStep4: false,
+      score: 0, stage: null, complexScaling: false, skipToStep3: false,
       primaryPillar: null, directSales: false, subscriptions: false,
       thirdPartyPayments: false, invoicing: false, salesTeam: false,
       complianceRisk: false, marketingRisk: false, hardTier3: false,
-      tier3candidate: false, assignedTier: null
+      assignedTier: null
     };
   }
 
   // Steps management — cache DOM refs for speed
-  const allStepIds = ['dxCover','dxStep1','dxStep2','dxStep3','dxStep4','dxContact','dxThankYou'];
+  const allStepIds = ['dxCover','dxStep1','dxStep2','dxStep3','dxContact','dxThankYou'];
   const stepEls = {};
   allStepIds.forEach(id => { stepEls[id] = document.getElementById(id); });
   const modalContainer = overlay.querySelector('.modal-container');
@@ -7922,8 +7934,8 @@
   const answers = {};
 
   function getActiveStepSequence() {
-    if (S.skipToStep4) return ['dxCover','dxStep1','dxStep4','dxContact','dxThankYou'];
-    return ['dxCover','dxStep1','dxStep2','dxStep3','dxStep4','dxContact','dxThankYou'];
+    if (S.skipToStep3) return ['dxCover','dxStep1','dxStep3','dxContact','dxThankYou'];
+    return ['dxCover','dxStep1','dxStep2','dxStep3','dxContact','dxThankYou'];
   }
 
   function setProgress(stepId) {
@@ -8002,7 +8014,7 @@
 
   // Show questions progressively
   function onAnswerChange() {
-    // Step 1
+    // Round 1: WHERE YOU ARE
     if (currentStep === 'dxStep1') {
       if (answers.s1q1) {
         document.getElementById('dxS1Q2').style.display = '';
@@ -8010,126 +8022,26 @@
       }
       document.getElementById('dxS1Next').disabled = !(answers.s1q1 && answers.s1q2);
     }
-    // Step 2
+    // Round 2: YOUR REVENUE ENGINE (S2Q2 visible immediately, S3Q1 after S2Q2)
     if (currentStep === 'dxStep2') {
-      if (answers.s2q1) {
-        document.getElementById('dxS2Q2').style.display = '';
+      if (answers.s2q2) {
+        document.getElementById('dxS3Q1').style.display = '';
         document.getElementById('dxS2Btns').style.display = '';
       }
-      document.getElementById('dxS2Next').disabled = !(answers.s2q1 && answers.s2q2);
+      document.getElementById('dxS2Next').disabled = !(answers.s2q2 && answers.s3q1 && answers.s3q1.length > 0);
     }
-    // Step 3
+    // Round 3: YOUR EXPOSURE (S3Q3 visible immediately, S4Q3 after S3Q3)
     if (currentStep === 'dxStep3') {
-      if (answers.s3q1 && answers.s3q1.length > 0) {
-        buildS3Q2();
-        document.getElementById('dxS3Q2').style.display = '';
-      }
-      if (answers.s3q2) {
-        document.getElementById('dxS3Q3').style.display = '';
+      if (answers.s3q3) {
+        document.getElementById('dxS4Q3').style.display = '';
         document.getElementById('dxS3Btns').style.display = '';
       }
-      const allAnswered = answers.s3q1 && answers.s3q1.length > 0 && answers.s3q2 && answers.s3q3;
-      document.getElementById('dxS3Next').disabled = !allAnswered;
-    }
-    // Step 4
-    if (currentStep === 'dxStep4') {
-      if (answers.s4q1) {
-        document.getElementById('dxS4Q2').style.display = '';
-      }
-      if (answers.s4q2) {
-        document.getElementById('dxS4Q3').style.display = '';
-        document.getElementById('dxS4Btns').style.display = '';
-      }
-      document.getElementById('dxS4Next').disabled = !(answers.s4q1 && answers.s4q2 && answers.s4q3);
+      document.getElementById('dxS3Next').disabled = !(answers.s3q3 && answers.s4q3);
     }
     // Contact
     if (currentStep === 'dxContact') {
       validateContact();
     }
-  }
-
-  // Build dynamic Q content for Step 2 Q1
-  function buildS2Q1() {
-    const container = document.getElementById('dxS2Q1');
-    let html = '';
-    if (!S.complexScaling) {
-      html = '<div class="dx-q-text">How would you describe your current tech stack?</div>' +
-        '<div class="dx-cards" data-q="s2q1" data-mode="single">' +
-          '<div class="dx-card" data-val="a">We add tools when something breaks. It grew with us.</div>' +
-          '<div class="dx-card" data-val="b">We have a CRM but it\'s not running the business.</div>' +
-          '<div class="dx-card" data-val="c">Systems are set up but not connected.</div>' +
-          '<div class="dx-card" data-val="d">No clear system for tracking pipeline or revenue.</div>' +
-        '</div>';
-    } else {
-      html = '<div class="dx-q-text">How well are your systems integrated?</div>' +
-        '<div class="dx-cards" data-q="s2q1" data-mode="single">' +
-          '<div class="dx-card" data-val="a">Each department tracks things differently. Nothing feeds one place.</div>' +
-          '<div class="dx-card" data-val="b">Integrated tools, but data integrity is inconsistent.</div>' +
-          '<div class="dx-card" data-val="c">Mostly connected, but reporting lags.</div>' +
-        '</div>';
-    }
-    container.innerHTML = html;
-    initCardsIn(container);
-  }
-
-  // Build dynamic S3Q2 based on subscriptions flag
-  let s3q2Built = false;
-  function buildS3Q2() {
-    if (s3q2Built) return;
-    // Determine subscriptions from S3Q1 selection
-    const sel = answers.s3q1 || [];
-    S.subscriptions = sel.includes('subscriptions');
-    S.directSales = sel.includes('direct');
-    S.thirdPartyPayments = sel.includes('thirdparty');
-    S.invoicing = sel.includes('invoicing');
-    S.salesTeam = sel.includes('salesteam');
-    if (S.subscriptions) S.score += 2;
-
-    const container = document.getElementById('dxS3Q2');
-    let html = '';
-    if (S.subscriptions) {
-      html = '<div class="dx-q-text">How are your subscription terms documented?</div>' +
-        '<div class="dx-cards" data-q="s3q2" data-mode="single">' +
-          '<div class="dx-card" data-val="a">They sign up and get access. Terms are in the fine print.</div>' +
-          '<div class="dx-card" data-val="b">We have terms. They haven\'t been reviewed by anyone legal.</div>' +
-          '<div class="dx-card" data-val="c">Reviewed terms, clear cancellation and refund process.</div>' +
-        '</div>';
-    } else {
-      html = '<div class="dx-q-text">When a customer pays you, what do they agree to?</div>' +
-        '<div class="dx-cards" data-q="s3q2" data-mode="single">' +
-          '<div class="dx-card" data-val="a">It\'s verbal or in an email. Nothing formal.</div>' +
-          '<div class="dx-card" data-val="b">We have a contract. It was self-drafted, never reviewed.</div>' +
-          '<div class="dx-card" data-val="c">Reviewed agreements in place for every transaction.</div>' +
-        '</div>';
-    }
-    container.innerHTML = html;
-    initCardsIn(container);
-    s3q2Built = true;
-  }
-
-  // Build dynamic S4Q1 based on marketingRisk
-  function buildS4Q1() {
-    const container = document.getElementById('dxS4Q1');
-    let html = '';
-    if (S.marketingRisk) {
-      html = '<div class="dx-q-text">Who reviews your marketing content before it goes out?</div>' +
-        '<div class="dx-cards" data-q="s4q1" data-mode="single">' +
-          '<div class="dx-card" data-val="a">Just me, or whoever created it. No formal review.</div>' +
-          '<div class="dx-card" data-val="b">The team reviews it. No one has context for how it should be framed.</div>' +
-          '<div class="dx-card" data-val="c">We have a review process. It wasn\'t built to any formal standard.</div>' +
-          '<div class="dx-card" data-val="d">Reviewed guidelines and a defined sign-off process.</div>' +
-        '</div>';
-    } else {
-      html = '<div class="dx-q-text">When you\'re unavailable, what happens to decisions?</div>' +
-        '<div class="dx-cards" data-q="s4q1" data-mode="single">' +
-          '<div class="dx-card" data-val="a">Things wait. Or someone finds a way to reach me.</div>' +
-          '<div class="dx-card" data-val="b">People make calls. The quality is inconsistent.</div>' +
-          '<div class="dx-card" data-val="c">We have a structure. It works most of the time.</div>' +
-          '<div class="dx-card" data-val="d">Leadership layers run independently.</div>' +
-        '</div>';
-    }
-    container.innerHTML = html;
-    initCardsIn(container);
   }
 
   function initCardsIn(container) {
@@ -8171,65 +8083,43 @@
     if (q2 === 'p1') { S.score += 2; S.primaryPillar = 1; }
     if (q2 === 'p2') { S.score += 2; S.primaryPillar = 2; }
     if (q2 === 'p3') { S.score += 2; S.primaryPillar = 3; }
-    if (q2 === 'all') { S.score += 6; S.hardTier3 = true; S.skipToStep4 = true; }
+    if (q2 === 'all') { S.score += 6; S.hardTier3 = true; S.skipToStep3 = true; }
   }
 
-  // Process Step 2 answers
+  // Process Round 2 answers (S2Q2 + S3Q1)
   function processStep2() {
-    const q1 = answers.s2q1;
-    if (!S.complexScaling) {
-      if (q1 === 'a') S.score += 3;
-      if (q1 === 'b') S.score += 2;
-      if (q1 === 'c') S.score += 1;
-      if (q1 === 'd') S.score += 3;
-    } else {
-      if (q1 === 'a') S.score += 3;
-      if (q1 === 'b') S.score += 2;
-      if (q1 === 'c') S.score += 1;
-    }
-    const q2 = answers.s2q2;
-    if (q2 === 'a') S.score += 3;
-    if (q2 === 'b') S.score += 2;
-    if (q2 === 'c') S.score += 1;
+    // S2Q2: revenue visibility
+    const q = answers.s2q2;
+    if (q === 'a') S.score += 3;
+    if (q === 'b') S.score += 2;
+    if (q === 'c') S.score += 1;
+
+    // S3Q1: sales channels — set flags + subscription bonus
+    const sel = answers.s3q1 || [];
+    S.subscriptions = sel.includes('subscriptions');
+    S.directSales = sel.includes('direct');
+    S.thirdPartyPayments = sel.includes('thirdparty');
+    S.invoicing = sel.includes('invoicing');
+    S.salesTeam = sel.includes('salesteam');
+    if (S.subscriptions) S.score += 2;
   }
 
-  // Process Step 3 answers
+  // Process Round 3 answers (S3Q3 + S4Q3)
   function processStep3() {
-    const q2 = answers.s3q2;
-    if (q2 === 'a') { S.score += 3; S.complianceRisk = true; }
-    if (q2 === 'b') { S.score += 2; S.complianceRisk = true; }
-
+    // S3Q3: content / marketing claims
     const q3 = answers.s3q3;
     if (q3 === 'heavy')   { S.score += 3; S.marketingRisk = true; S.complianceRisk = true; }
     if (q3 === 'some')    { S.score += 2; S.marketingRisk = true; S.complianceRisk = true; }
     if (q3 === 'careful') { S.score += 1; S.marketingRisk = true; }
-  }
 
-  // Process Step 4 answers
-  function processStep4() {
-    const q1 = answers.s4q1;
-    if (S.marketingRisk) {
-      if (q1 === 'a') { S.score += 3; S.hardTier3 = true; }
-      if (q1 === 'b') { S.score += 2; S.complianceRisk = true; }
-      if (q1 === 'c') S.score += 1;
-    } else {
-      if (q1 === 'a') S.score += 3;
-      if (q1 === 'b') S.score += 2;
-      if (q1 === 'c') S.score += 1;
-    }
+    // S4Q3: operating agreements
+    const q4 = answers.s4q3;
+    if (q4 === 'a') { S.score += 3; S.complianceRisk = true; }
+    if (q4 === 'b') S.score += 2;
+    if (q4 === 'd') S.score += 1;
 
-    const q2 = answers.s4q2;
-    if (q2 === 'a') S.score += 3;
-    if (q2 === 'b') S.score += 2;
-    if (q2 === 'c') { S.score += 1; S.tier3candidate = true; }
-
-    const q3 = answers.s4q3;
-    if (q3 === 'a') { S.score += 3; S.complianceRisk = true; }
-    if (q3 === 'b') S.score += 2;
-    if (q3 === 'd') S.score += 1;
-
-    // Post-step check
-    if (S.complianceRisk && S.marketingRisk && S.score >= 8) {
+    // Post-round check
+    if (S.complianceRisk && S.marketingRisk && S.score >= 6) {
       S.hardTier3 = true;
     }
   }
@@ -8238,26 +8128,35 @@
   function validateContact() {
     const fields = ['dxFirst','dxLast','dxEmail','dxPhone','dxCompany','dxWebsite'];
     const allFilled = fields.every(id => document.getElementById(id).value.trim() !== '');
+    const emailValid = EMAIL_RE.test(document.getElementById('dxEmail').value.trim());
+    const phoneValid = PHONE_RE.test(document.getElementById('dxPhone').value.trim());
     const consented = document.getElementById('dxConsent').checked;
-    document.getElementById('dxContactSubmit').disabled = !(allFilled && consented);
+    document.getElementById('dxContactSubmit').disabled = !(allFilled && emailValid && phoneValid && consented);
   }
 
-  // Tier assignment
+  // Tier assignment (recalibrated for 6-question quiz)
   function assignTier() {
     if (S.hardTier3) S.assignedTier = 3;
-    else if (S.score >= 12) S.assignedTier = 3;
-    else if (S.score >= 6) S.assignedTier = 2;
+    else if (S.score >= 9) S.assignedTier = 3;
+    else if (S.score >= 4) S.assignedTier = 2;
     else S.assignedTier = 1;
   }
 
   // Fire GHL webhook
   async function fireWebhook() {
+    // Honeypot check — if filled, silently reject
+    if (document.getElementById('dxCompanyUrl').value) return;
+    // Debounce — minimum 2s between submissions
+    var now = Date.now();
+    if (now - lastSubmitTime < 2000) return;
+    lastSubmitTime = now;
     const payload = {
-      first_name: document.getElementById('dxFirst').value.trim(),
-      last_name: document.getElementById('dxLast').value.trim(),
-      email: document.getElementById('dxEmail').value.trim(),
-      phone: document.getElementById('dxPhone').value.trim() || "",
-      company_name: document.getElementById('dxCompany').value.trim(),
+      first_name: sanitize(document.getElementById('dxFirst').value, 100),
+      last_name: sanitize(document.getElementById('dxLast').value, 100),
+      email: sanitize(document.getElementById('dxEmail').value, 200),
+      phone: document.getElementById('dxPhoneCode').value + ' ' + sanitize(document.getElementById('dxPhone').value, 30),
+      company_name: sanitize(document.getElementById('dxCompany').value, 200),
+      company_url: document.getElementById('dxCompanyUrl').value,
       paradigm_score: S.score,
       assigned_tier: String(S.assignedTier),
       primary_pillar: String(S.primaryPillar),
@@ -8279,7 +8178,7 @@
         body: JSON.stringify(payload)
       });
     } catch (error) {
-      console.error('Webhook proxy failed:', error);
+      // silent failure — server-side logging handles errors
     }
   }
 
@@ -8288,22 +8187,17 @@
     resetState();
     Object.keys(answers).forEach(k => delete answers[k]);
     stepHistory = [];
-    s3q2Built = false;
     // Reset all card selections
     document.querySelectorAll('.dx-card').forEach(c => {
       c.classList.remove('selected', 'dx-card-max');
     });
     // Hide progressive questions
-    ['dxS1Q2','dxS1Btns','dxS2Q2','dxS2Btns','dxS3Q2','dxS3Q3','dxS3Btns','dxS4Q2','dxS4Q3','dxS4Btns'].forEach(id => {
+    ['dxS1Q2','dxS1Btns','dxS3Q1','dxS2Btns','dxS4Q3','dxS3Btns'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.style.display = 'none';
     });
-    // Reset dynamic containers
-    document.getElementById('dxS2Q1').innerHTML = '';
-    document.getElementById('dxS3Q2').innerHTML = '';
-    document.getElementById('dxS4Q1').innerHTML = '';
     // Reset buttons
-    ['dxS1Next','dxS2Next','dxS3Next','dxS4Next','dxContactSubmit'].forEach(id => {
+    ['dxS1Next','dxS2Next','dxS3Next','dxContactSubmit'].forEach(id => {
       const btn = document.getElementById(id);
       if (btn) btn.disabled = true;
     });
@@ -8326,6 +8220,7 @@
   function closeModal() {
     overlay.classList.remove('modal-open');
     document.body.style.overflow = '';
+    document.getElementById('dxThankYouVideo').src = '';
   }
 
   // Wire CTA links
@@ -8351,19 +8246,17 @@
 
   document.getElementById('dxS1Next').addEventListener('click', function() {
     processStep1();
-    if (S.skipToStep4) {
-      // Show interstitial
+    if (S.skipToStep3) {
+      // Show interstitial then skip to Round 3
       interstitial.style.display = 'flex';
     } else {
-      buildS2Q1();
       goForward('dxStep2');
     }
   });
 
   document.getElementById('dxInterstitialContinue').addEventListener('click', function() {
     interstitial.style.display = 'none';
-    buildS4Q1();
-    goForward('dxStep4');
+    goForward('dxStep3');
   });
 
   document.getElementById('dxS2Back').addEventListener('click', goBack);
@@ -8375,13 +8268,6 @@
   document.getElementById('dxS3Back').addEventListener('click', goBack);
   document.getElementById('dxS3Next').addEventListener('click', function() {
     processStep3();
-    buildS4Q1();
-    goForward('dxStep4');
-  });
-
-  document.getElementById('dxS4Back').addEventListener('click', goBack);
-  document.getElementById('dxS4Next').addEventListener('click', function() {
-    processStep4();
     goForward('dxContact');
   });
 
@@ -8394,6 +8280,7 @@
   document.getElementById('dxConsent').addEventListener('change', validateContact);
 
   document.getElementById('dxContactSubmit').addEventListener('click', function() {
+    this.disabled = true;
     assignTier();
     // Fire webhook async — don't block thank you page
     fireWebhook();
