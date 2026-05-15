@@ -157,10 +157,15 @@
 
     .top-nav { position: sticky; top: 0; z-index: 50; background: rgba(13,13,13,0.85); backdrop-filter: saturate(160%) blur(14px); -webkit-backdrop-filter: saturate(160%) blur(14px); border-bottom: 1px solid var(--border); }
     .top-nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; max-width: 1100px; margin: 0 auto; }
-    .nav-brand { font-family: 'Ranade', sans-serif; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; font-size: 13px; color: var(--fg); }
-    .nav-brand-dot { display: inline-block; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; margin-right: 8px; vertical-align: middle; }
-    .nav-cta { background: var(--accent); color: #fff; border: none; cursor: pointer; padding: 10px 18px; border-radius: 8px; font-family: 'Figtree', sans-serif; font-weight: 600; font-size: 13px; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 8px 28px -10px rgba(12,140,233,0.55); }
-    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 14px 36px -10px rgba(12,140,233,0.7); }
+    .nav-logo { flex-shrink: 0; }
+    .nav-logo img { height: 22px; display: block; }
+    .nav-cta { position: relative; display: inline-flex; align-items: center; font-family: 'Figtree', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #0d0d0d; background: #f5f5f5; height: 38px; padding: 3px 44px 3px 16px; border-radius: 100px; cursor: pointer; text-decoration: none; white-space: nowrap; flex-shrink: 0; overflow: hidden; transition: padding 0.5s cubic-bezier(0.16,1,0.3,1), background 0.3s; }
+    .nav-cta:hover { background: #fff; padding: 3px 16px 3px 44px; }
+    .nav-cta .btn-label { position: relative; z-index: 1; transition: transform 0.5s cubic-bezier(0.16,1,0.3,1); white-space: nowrap; }
+    .nav-cta .arrow { position: absolute; right: 3px; width: 32px; height: 32px; background: #0d0d0d; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: right 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.5s cubic-bezier(0.16,1,0.3,1); }
+    .nav-cta:hover .arrow { right: calc(100% - 35px); transform: rotate(45deg); }
+    .nav-cta .arrow svg { width: 12px; height: 12px; }
+    .nav-cta .arrow svg path { stroke: #fff; }
 
     .hero { padding: 96px 0 72px; position: relative; overflow: hidden; }
     .hero::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(800px 400px at 20% 0%, rgba(12,140,233,0.10), transparent 70%), radial-gradient(600px 300px at 90% 30%, rgba(255,179,0,0.05), transparent 70%); }
@@ -169,10 +174,15 @@
     .hero h1 em { font-style: normal; color: var(--accent); }
     .hero-sub { font-size: clamp(17px, 2vw, 20px); color: var(--muted); max-width: 720px; margin-bottom: 36px; position: relative; }
     .hero-cta-row { display: flex; gap: 14px; flex-wrap: wrap; position: relative; }
-    .btn-primary { background: var(--accent); color: #fff; border: none; cursor: pointer; padding: 16px 28px; border-radius: 10px; font-family: 'Figtree', sans-serif; font-weight: 600; font-size: 15px; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 14px 36px -12px rgba(12,140,233,0.55); display: inline-flex; align-items: center; gap: 8px; }
-    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 18px 44px -10px rgba(12,140,233,0.7); }
-    .btn-secondary { background: transparent; color: var(--fg); border: 1px solid var(--border-light); cursor: pointer; padding: 16px 24px; border-radius: 10px; font-family: 'Figtree', sans-serif; font-weight: 500; font-size: 15px; transition: border-color 0.2s, background 0.2s; }
-    .btn-secondary:hover { border-color: var(--fg); background: var(--surface); }
+    .btn-primary { position: relative; display: inline-flex; align-items: center; font-family: 'Figtree', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: #0d0d0d; background: #fff; height: 48px; padding: 4px 56px 4px 24px; border-radius: 100px; cursor: pointer; text-decoration: none; overflow: hidden; transition: padding 0.5s cubic-bezier(0.16,1,0.3,1), background 0.3s; width: fit-content; }
+    .btn-primary:hover { padding: 4px 24px 4px 56px; }
+    .btn-primary .btn-label { position: relative; z-index: 1; transition: transform 0.5s cubic-bezier(0.16,1,0.3,1); white-space: nowrap; }
+    .btn-primary .arrow { position: absolute; right: 4px; width: 40px; height: 40px; background: #0d0d0d; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: right 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.5s cubic-bezier(0.16,1,0.3,1); }
+    .btn-primary:hover .arrow { right: calc(100% - 44px); transform: rotate(45deg); }
+    .btn-primary .arrow svg { width: 14px; height: 14px; }
+    .btn-primary .arrow svg path { stroke: #fff; }
+    .btn-outline { display: inline-flex; align-items: center; gap: 10px; font-family: 'Figtree', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: #fff; background: transparent; padding: 11px 21px; border-radius: 100px; border: 2px solid rgba(255,255,255,0.2); cursor: pointer; text-decoration: none; transition: background 0.2s, border-color 0.2s; }
+    .btn-outline:hover { background: rgba(255,255,255,0.06); border-color: #555; }
 
     .stat-band { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 32px 0; background: var(--surface); }
     .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
@@ -258,8 +268,11 @@
 
 <nav class="top-nav" aria-label="Primary">
   <div class="top-nav-inner">
-    <a href="/" class="nav-brand"><span class="nav-brand-dot"></span>PARADIGM</a>
-    <a href="/system-architecture-audit" class="nav-cta">Take the Architecture Audit →</a>
+    <a href="/" class="nav-logo" aria-label="Paradigm Consulting home"><img src="brand_assets/paradigm-logo-white.webp" alt="Paradigm Consulting"></a>
+    <a href="/system-architecture-audit" class="nav-cta">
+      <span class="btn-label">Architecture Audit</span>
+      <span class="arrow"><svg viewBox="0 0 10 10" fill="none"><path d="M2 8L8 2M8 2H3M8 2V7" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </a>
   </div>
 </nav>
 
@@ -269,10 +282,11 @@
     <h1>Technology Systems That <em>Run the Business</em> Without the Founder Being the Business.</h1>
     <p class="hero-sub">AI-powered operational infrastructure that removes the founder from the daily decision path. Not a stack of new tools — a working operating layer over the tools you already pay for, plus the agentic workflows your competitors don't have yet.</p>
     <div class="hero-cta-row">
-      <a href="/system-architecture-audit" class="btn-primary">Take the System Architecture Audit
-        <svg width="14" height="14" viewBox="0 0 10 10" fill="none"><path d="M2 8L8 2M8 2H3M8 2V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <a href="/system-architecture-audit" class="btn-primary">
+        <span class="btn-label">Take the Architecture Audit</span>
+        <span class="arrow"><svg viewBox="0 0 10 10" fill="none"><path d="M2 8L8 2M8 2H3M8 2V7" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </a>
-      <a href="#framework" class="btn-secondary">See the framework</a>
+      <a href="#framework" class="btn-outline">See the framework</a>
     </div>
   </div>
 </header>
@@ -540,8 +554,9 @@
   <div class="container-narrow">
     <h2>You'll see in 5 minutes whether your tech runs the business or just runs in the background.</h2>
     <p>The System Architecture Audit maps your operations across 6 critical system categories and shows where infrastructure gaps are quietly costing leverage.</p>
-    <a href="/system-architecture-audit" class="btn-primary">Take the System Architecture Audit
-      <svg width="14" height="14" viewBox="0 0 10 10" fill="none"><path d="M2 8L8 2M8 2H3M8 2V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <a href="/system-architecture-audit" class="btn-primary">
+      <span class="btn-label">Take the Architecture Audit</span>
+      <span class="arrow"><svg viewBox="0 0 10 10" fill="none"><path d="M2 8L8 2M8 2H3M8 2V7" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
     </a>
   </div>
 </section>
