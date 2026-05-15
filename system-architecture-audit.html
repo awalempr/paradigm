@@ -1,0 +1,2842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0d0d0d">
+  <title>System Architecture Audit | Paradigm Consulting</title>
+  <meta name="description" content="Map your business architecture across 6 critical system categories. See where your infrastructure is working, where it is fragile, and where gaps are costing you leverage.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Your Business Runs on Systems or It Runs on You">
+  <meta property="og:description" content="Map your business architecture across 6 critical system categories. See where your infrastructure is working, where it is fragile, and where gaps are costing you leverage.">
+  <meta property="og:url" content="https://paradigmconsulting.io/system-architecture-audit">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Paradigm Consulting">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Your Business Runs on Systems or It Runs on You">
+  <meta name="twitter:description" content="Map your business architecture across 6 critical system categories with estimated cost per gap.">
+
+  <link rel="icon" type="image/x-icon" href="brand_assets/favicon.ico">
+  <link rel="apple-touch-icon" href="brand_assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/ranade" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --surface: #18181b;
+      --surface-2: #27272a;
+      --surface-3: #3f3f46;
+      --fg: #fafafa;
+      --fg-muted: #d4d4d8;
+      --muted: #a1a1aa;
+      --border: #3f3f46;
+      --border-light: #52525b;
+      --accent: #00BFA5;
+      --accent-hover: #00897B;
+      --accent-dim: rgba(0,191,165,0.05);
+      --accent-border: rgba(0,191,165,0.30);
+      --accent-glow: rgba(0,191,165,0.15);
+      --red: #ef5350;
+      --red-dim: rgba(239,83,80,0.08);
+      --red-border: rgba(239,83,80,0.25);
+      --amber: #FFB300;
+      --amber-dim: rgba(255,179,0,0.08);
+      --amber-border: rgba(255,179,0,0.25);
+      --orange: #FF8A65;
+      --orange-dim: rgba(255,138,101,0.08);
+      --orange-border: rgba(255,138,101,0.25);
+      --green: #00BFA5;
+      --green-dim: rgba(0,191,165,0.08);
+      --green-border: rgba(0,191,165,0.25);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      background: var(--bg);
+      color: var(--fg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: 'Figtree', sans-serif;
+      background: var(--bg);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ─── TOP BAR ─── */
+    .top-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .top-bar::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0.4;
+    }
+    .top-bar img { height: 20px; }
+
+    /* ─── PROGRESS BAR ─── */
+    .progress-bar-fixed {
+      position: fixed;
+      top: 56px; left: 0; right: 0;
+      z-index: 99;
+      height: 3px;
+      background: var(--border);
+      overflow: hidden;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .progress-bar-fixed.visible { opacity: 1; }
+    .progress-bar-fixed .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+      transition: width 0.5s cubic-bezier(0.16,1,0.3,1);
+      box-shadow: 0 0 8px var(--accent-glow);
+    }
+
+    /* ─── SCREENS ─── */
+    .screen {
+      display: none;
+      min-height: 100vh;
+      padding: 56px 0 0;
+    }
+    .screen.active { display: block; animation: screenFadeIn 0.35s ease both; }
+    @keyframes screenFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .screen-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px clamp(20px, 5vw, 48px) 64px;
+      background: var(--surface);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      margin-top: clamp(24px, 3vw, 40px);
+      margin-bottom: 40px;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.4), 0 1px 0 rgba(255,255,255,0.03) inset;
+    }
+
+    .screen-inner-wide {
+      max-width: 960px;
+    }
+
+    /* ─── TITLE BLOCK ─── */
+    .title-block {
+      margin-bottom: 48px;
+      text-align: center;
+    }
+    .title-block-main {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      line-height: 0.92;
+      font-size: clamp(28px, 5vw, 42px);
+      color: var(--fg);
+      word-wrap: break-word;
+    }
+    .title-block-sub {
+      font-family: 'Figtree', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    /* ─── INTRO PAGE ─── */
+    .intro-page {
+      min-height: calc(100vh - 56px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 56px 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .intro-page::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background:
+        radial-gradient(ellipse 600px 400px at 20% 30%, rgba(0,191,165,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 500px 500px at 80% 60%, rgba(0,191,165,0.05) 0%, transparent 70%),
+        radial-gradient(ellipse 400px 300px at 50% 80%, rgba(0,137,123,0.04) 0%, transparent 70%);
+      animation: meshDrift 20s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes meshDrift {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      33% { transform: translate(2%, -1%) rotate(0.5deg); }
+      66% { transform: translate(-1%, 2%) rotate(-0.3deg); }
+      100% { transform: translate(1%, -2%) rotate(0.2deg); }
+    }
+    .intro-card-wrap {
+      width: 100%;
+      max-width: 960px;
+      padding: clamp(24px, 3vw, 40px) clamp(16px, 4vw, 32px) 32px;
+      position: relative;
+      z-index: 1;
+    }
+    .intro-card {
+      background: rgba(24,24,27,0.82);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(0,191,165,0.18);
+      border-radius: 20px;
+      padding: clamp(28px, 4vw, 44px) clamp(24px, 5vw, 56px);
+      box-shadow: 0 4px 32px rgba(0,0,0,0.4), 0 0 80px rgba(0,191,165,0.05);
+      position: relative;
+      overflow: hidden;
+      animation: cardSlideIn 0.6s ease both;
+    }
+    .intro-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), rgba(0,191,165,0.2));
+    }
+    @keyframes cardSlideIn {
+      from { opacity: 0; transform: translateX(40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .eyebrow-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Figtree', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
+      border-radius: 100px;
+      padding: 6px 16px;
+      margin-bottom: 16px;
+    }
+    .eyebrow-pill .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .intro-card h1 {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      font-size: clamp(28px, 5vw, 40px);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--fg);
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .intro-card .description {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--fg-muted);
+      max-width: 660px;
+      margin-bottom: 28px;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Trust bar */
+    .trust-bar {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      padding: 16px 0;
+      margin-bottom: 24px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .trust-item {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--fg-muted);
+      text-align: center;
+    }
+    .trust-item:not(:last-child) {
+      border-right: 1px solid var(--border);
+    }
+    .trust-item svg {
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+      opacity: 0.7;
+      color: var(--accent);
+    }
+
+    .framework-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .framework-tag .tag-sep {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--muted);
+      flex-shrink: 0;
+    }
+
+    .intro-card .subtitle {
+      font-size: clamp(16px, 2.5vw, 20px);
+      line-height: 1.4;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 4px;
+      margin-bottom: 24px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tab-btn {
+      flex: 1;
+      font-family: 'Figtree', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      background: transparent;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: color 0.2s, background 0.2s, font-weight 0.2s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--fg); }
+    .tab-btn.active {
+      color: var(--fg);
+      font-weight: 700;
+      background: var(--surface-3);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    .tab-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .tab-panel .lead {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--fg-muted);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .tab-panel .lead strong {
+      color: var(--fg);
+      font-weight: 600;
+    }
+
+    /* Check list */
+    .check-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .check-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--fg);
+    }
+    .check-icon {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      margin-top: 2px;
+    }
+
+    /* Disclaimer */
+    .disclaimer {
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--muted);
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Form */
+    .intro-cta-area {
+      text-align: center;
+      padding-top: 24px;
+    }
+    .intro-form {
+      display: flex;
+      gap: 10px;
+      max-width: 480px;
+      margin: 0 auto 12px;
+      flex-wrap: wrap;
+    }
+    .intro-form .form-input { flex: 1; min-width: 160px; }
+    .form-input {
+      font-family: 'Figtree', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      height: 50px;
+      padding: 0 18px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--fg);
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .form-input::placeholder { color: var(--muted); }
+    .form-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); }
+
+    .form-error {
+      font-size: 12px;
+      color: var(--red);
+      text-align: center;
+      display: none;
+      margin-bottom: 8px;
+    }
+    .intro-note {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    /* ─── BUTTONS ─── */
+    .btn-primary {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: 'Figtree', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      background: var(--accent);
+      height: 52px;
+      padding: 0 32px;
+      border-radius: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+      overflow: hidden;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+      width: 100%;
+      box-shadow: 0 2px 12px rgba(0,191,165,0.25);
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      box-shadow: 0 4px 20px rgba(0,191,165,0.35);
+      transform: translateY(-1px);
+    }
+    .btn-primary:active { transform: scale(0.98); }
+    .btn-primary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .btn-primary:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    .btn-primary:disabled:hover {
+      background: var(--accent);
+      transform: none;
+      box-shadow: none;
+    }
+
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-family: 'Figtree', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--surface-2);
+      height: 44px;
+      padding: 0 20px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .btn-back:hover { color: var(--fg); border-color: var(--border-light); }
+    .btn-back:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    /* ─── SECTION HEADER ─── */
+    .section-header {
+      margin-bottom: 32px;
+    }
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .section-title {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      font-size: clamp(20px, 3.5vw, 28px);
+      line-height: 1.1;
+      color: var(--fg);
+    }
+    .section-subtitle {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    /* ═══════════════════════════════════════════
+       PHASE 1 — CATEGORY CARDS
+       ═══════════════════════════════════════════ */
+    .category-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    @media (max-width: 640px) {
+      .category-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .cat-card {
+      background: var(--surface-2);
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 20px 20px;
+      text-align: center;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .cat-card.has-selection {
+      border-color: var(--border-light);
+    }
+    .cat-card-icon {
+      font-size: 36px;
+      line-height: 1;
+      margin-bottom: 12px;
+      color: var(--fg-muted);
+    }
+    .cat-card-label {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      font-size: 18px;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+      margin-bottom: 8px;
+    }
+    .cat-card-desc {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .cat-card-pills {
+      display: flex;
+      gap: 8px;
+    }
+    .cat-pill {
+      flex: 1;
+      height: 40px;
+      border-radius: 10px;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.15s, background 0.15s, color 0.15s, transform 0.1s, box-shadow 0.15s;
+    }
+    .cat-pill:hover {
+      border-color: var(--fg-muted);
+      color: var(--fg-muted);
+    }
+    .cat-pill:active { transform: scale(0.96); }
+    .cat-pill:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .cat-pill.selected-inplace {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      box-shadow: 0 2px 12px rgba(0,191,165,0.3);
+    }
+    .cat-pill.selected-partial {
+      background: var(--amber);
+      border-color: var(--amber);
+      color: #1a1a1a;
+      box-shadow: 0 2px 12px rgba(255,179,0,0.3);
+    }
+    .cat-pill.selected-missing {
+      background: var(--red);
+      border-color: var(--red);
+      color: #fff;
+      box-shadow: 0 2px 12px rgba(239,83,80,0.3);
+    }
+
+    .completion-indicator {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 24px;
+      letter-spacing: 0.03em;
+    }
+    .completion-indicator span {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ═══════════════════════════════════════════
+       PHASE 2 — DEPTH QUESTIONS
+       ═══════════════════════════════════════════ */
+    .phase2-category-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .phase2-cat-icon {
+      font-size: 28px;
+      line-height: 1;
+    }
+    .phase2-cat-label {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      font-size: clamp(20px, 3.5vw, 26px);
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+    }
+    .phase2-cat-status {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    .question-block {
+      padding-bottom: 28px;
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+    }
+    .question-block:last-of-type {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    .question-number {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .question-text {
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1.6;
+      color: var(--fg);
+      margin-bottom: 16px;
+    }
+
+    .toggle-row {
+      display: flex;
+      gap: 10px;
+    }
+    .toggle-btn {
+      flex: 1;
+      height: 52px;
+      border-radius: 12px;
+      border: 1.5px solid var(--border);
+      background: var(--surface-2);
+      color: var(--fg-muted);
+      font-family: 'Figtree', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: border-color 0.15s, background 0.15s, color 0.15s, transform 0.1s, box-shadow 0.15s;
+    }
+    .toggle-btn:hover {
+      border-color: var(--accent);
+      color: var(--fg);
+      background: var(--accent-dim);
+    }
+    .toggle-btn:active { transform: scale(0.98); }
+    .toggle-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .toggle-btn .toggle-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+    .toggle-btn.selected-yes {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      box-shadow: 0 2px 12px rgba(0,191,165,0.3);
+    }
+    .toggle-btn.selected-no {
+      background: #c62828;
+      border-color: #c62828;
+      color: #fff;
+      box-shadow: 0 2px 12px rgba(198,40,40,0.3);
+    }
+
+    .progress-indicator {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 8px;
+      letter-spacing: 0.05em;
+    }
+
+    .validation-msg {
+      font-size: 12px;
+      color: var(--red);
+      margin-top: 12px;
+      display: none;
+      text-align: center;
+    }
+
+    /* ═══════════════════════════════════════════
+       SCREEN 4 — RESULTS / SYSTEMS MAP
+       ═══════════════════════════════════════════ */
+
+    /* Architecture score */
+    .arch-score-block {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .arch-score-number {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(56px, 10vw, 80px);
+      font-weight: 700;
+      color: var(--fg);
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+    .arch-score-max {
+      font-size: clamp(20px, 4vw, 32px);
+      color: var(--muted);
+      font-weight: 400;
+    }
+    .arch-tier-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-top: 12px;
+    }
+    .arch-tier-desc {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 600px;
+      margin: 12px auto 0;
+    }
+
+    /* Cost summary block */
+    .cost-summary-block {
+      background: var(--accent-dim);
+      border-left: 6px solid var(--accent);
+      border-radius: 4px 16px 16px 4px;
+      padding: 28px 24px;
+      margin-bottom: 40px;
+    }
+    .cost-summary-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .cost-summary-range {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(24px, 4vw, 32px);
+      font-weight: 700;
+      color: var(--fg);
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .cost-summary-desc {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--fg-muted);
+      margin-bottom: 12px;
+    }
+    .cost-summary-disclaimer {
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* ─── FLOW DIAGRAM ─── */
+    .flow-diagram {
+      margin-bottom: 40px;
+    }
+    .flow-row-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 12px;
+      padding-left: 4px;
+    }
+
+    /* Pipeline row: 3 nodes with arrows between */
+    .flow-pipeline {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      margin-bottom: 20px;
+    }
+    .flow-arrow-h {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .flow-arrow-h svg {
+      width: 40px;
+      height: 24px;
+    }
+
+    /* Infrastructure row: 3 nodes */
+    .flow-infra {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    /* Vertical connectors between rows */
+    .flow-verticals {
+      display: flex;
+      justify-content: space-around;
+      padding: 0 20px;
+      margin-bottom: 12px;
+    }
+    .flow-arrow-v {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 40px;
+    }
+    .flow-arrow-v svg {
+      width: 24px;
+      height: 32px;
+    }
+
+    /* Nodes */
+    .flow-node {
+      flex: 1;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 12px;
+      text-align: center;
+      position: relative;
+      min-width: 0;
+    }
+    .flow-node-optimized { border-top: 4px solid var(--accent); }
+    .flow-node-functional { border-top: 4px solid var(--amber); }
+    .flow-node-fragile { border-top: 4px solid var(--orange); }
+    .flow-node-gap { border-top: 4px solid var(--red); border-style: dashed; border-top-style: dashed; }
+
+    .flow-node-icon {
+      font-size: 24px;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .flow-node-label {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      color: var(--fg);
+      margin-bottom: 6px;
+    }
+    .flow-node-score {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .flow-node-oneliner {
+      font-size: 11px;
+      line-height: 1.45;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .flow-node-cost {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 6px;
+      border-radius: 6px;
+      display: inline-block;
+    }
+    .flow-node-cost-gap {
+      background: var(--red-dim);
+      border: 1px solid var(--red-border);
+      color: var(--red);
+    }
+    .flow-node-cost-fragile {
+      background: var(--orange-dim);
+      border: 1px solid var(--orange-border);
+      color: var(--orange);
+    }
+
+    /* Connection line/arrow coloring */
+    .arrow-optimized { color: var(--accent); }
+    .arrow-functional { color: var(--amber); }
+    .arrow-fragile { color: var(--orange); }
+    .arrow-gap { color: var(--red); }
+
+    /* Mobile: stack pipeline vertically */
+    @media (max-width: 600px) {
+      .flow-pipeline {
+        flex-direction: column;
+        gap: 0;
+      }
+      .flow-arrow-h {
+        width: 100%;
+        height: 28px;
+        transform: rotate(90deg);
+      }
+      .flow-infra {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+      .flow-verticals {
+        display: none;
+      }
+      .flow-node {
+        padding: 14px 16px;
+      }
+    }
+
+    /* Status badge (shared) */
+    .status-badge {
+      display: inline-block;
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 4px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+      margin-bottom: 8px;
+    }
+    .badge-optimized {
+      background: var(--green-dim);
+      border: 1px solid var(--green-border);
+      color: var(--accent);
+    }
+    .badge-functional {
+      background: var(--amber-dim);
+      border: 1px solid var(--amber-border);
+      color: var(--amber);
+    }
+    .badge-fragile {
+      background: var(--orange-dim);
+      border: 1px solid var(--orange-border);
+      color: var(--orange);
+    }
+    .badge-gap {
+      background: var(--red-dim);
+      border: 1px solid var(--red-border);
+      color: var(--red);
+    }
+
+    /* Summary bar */
+    .summary-bar {
+      display: flex;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+    .summary-bar-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 8px;
+      text-align: center;
+    }
+    .summary-bar-item:not(:last-child) {
+      border-right: 1px solid var(--border);
+    }
+    .summary-bar-count {
+      font-family: 'Space Mono', monospace;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .summary-bar-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .count-gap { color: var(--red); }
+    .count-fragile { color: var(--orange); }
+    .count-functional { color: var(--amber); }
+    .count-optimized { color: var(--accent); }
+
+    /* Gap analysis accordion */
+    .accordion-block {
+      margin-bottom: 24px;
+    }
+    .accordion-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 16px;
+      transition: opacity 0.2s;
+    }
+    .accordion-toggle:hover { opacity: 0.85; }
+    .accordion-toggle-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+    }
+    .accordion-toggle-left .status-badge { margin-bottom: 0; }
+    .accordion-cat-name {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      font-size: clamp(16px, 2.5vw, 20px);
+      color: var(--fg);
+    }
+    .accordion-arrow {
+      width: 24px;
+      height: 24px;
+      color: var(--muted);
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+    .accordion-block.collapsed .accordion-arrow {
+      transform: rotate(-90deg);
+    }
+    .accordion-block.collapsed .accordion-content {
+      display: none;
+    }
+    .accordion-content {
+      animation: accordionOpen 0.3s ease both;
+    }
+    @keyframes accordionOpen {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Accordion inner content */
+    .acc-cost-block {
+      padding: 12px 16px;
+      border-left: 3px solid var(--accent);
+      border-radius: 2px 10px 10px 2px;
+      margin-bottom: 16px;
+    }
+    .acc-cost-block-gap {
+      background: rgba(239,83,80,0.05);
+      border-left-color: var(--red);
+    }
+    .acc-cost-block-fragile {
+      background: rgba(255,138,101,0.05);
+      border-left-color: var(--orange);
+    }
+    .acc-cost-range {
+      font-family: 'Space Mono', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--fg);
+      margin-bottom: 4px;
+    }
+    .acc-cost-note {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .acc-recommendation {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--fg-muted);
+      margin-bottom: 16px;
+    }
+
+    .acc-gap-item {
+      margin-bottom: 12px;
+    }
+    .acc-gap-implication {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--fg-muted);
+    }
+    .acc-gap-cost {
+      font-size: 12px;
+      line-height: 1.55;
+      margin-top: 4px;
+      margin-left: 20px;
+      padding: 6px 10px;
+      border-radius: 2px 6px 6px 2px;
+    }
+    .acc-gap-cost-fragile {
+      background: rgba(255,138,101,0.05);
+      border-left: 3px solid rgba(255,138,101,0.3);
+      color: var(--orange);
+    }
+    .acc-gap-cost-gap {
+      background: rgba(239,83,80,0.05);
+      border-left: 3px solid rgba(239,83,80,0.3);
+      color: #e57373;
+    }
+
+    .acc-action {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .acc-no-action {
+      font-size: 13px;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* ─── CTA BLOCK ─── */
+    .cta-block {
+      text-align: center;
+      padding: 48px 0 32px;
+      border-top: 1px solid var(--border);
+      margin-top: 24px;
+    }
+    .cta-block h2 {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      font-size: clamp(20px, 3.5vw, 28px);
+      line-height: 1.15;
+      margin-bottom: 16px;
+      color: var(--fg);
+    }
+    .cta-block p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 540px;
+      margin: 0 auto 32px;
+    }
+    .cta-block .btn-primary {
+      max-width: 360px;
+      margin: 0 auto 16px;
+    }
+    .cta-secondary-link {
+      display: inline-block;
+      font-family: 'Figtree', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+      transition: color 0.2s;
+      background: none;
+      border: none;
+    }
+    .cta-secondary-link:hover { color: var(--fg); }
+    .cta-small-text {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 12px;
+    }
+
+    /* ═══════════════════════════════════════════
+       SCREEN 5 — THANK YOU
+       ═══════════════════════════════════════════ */
+    .thankyou-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 56px);
+      text-align: center;
+      padding: 48px clamp(20px, 5vw, 48px);
+    }
+    .thankyou-wrap h1 {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      font-size: clamp(28px, 5vw, 42px);
+      line-height: 1.05;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+    .thankyou-wrap p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #a3a3a3;
+      max-width: 480px;
+      margin-bottom: 40px;
+    }
+    .thankyou-wrap img {
+      height: 20px;
+      opacity: 0.4;
+    }
+
+    /* ─── MOBILE TWEAKS ─── */
+    @media (max-width: 640px) {
+      /* Intro */
+      .intro-card { padding: 20px 14px 24px; }
+      .intro-card h1 { margin-bottom: 6px; font-size: clamp(22px, 6.5vw, 32px); }
+      .intro-card .subtitle { font-size: 14px; margin-bottom: 16px; }
+      .intro-card .description { display: none; }
+      .tabs { flex-direction: column; gap: 2px; }
+      .tab-btn { font-size: 13px; padding: 8px 12px; }
+      .trust-bar {
+        flex-direction: column;
+        gap: 0;
+      }
+      .trust-item {
+        padding: 10px 0;
+      }
+      .trust-item:not(:last-child) {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+
+      /* Screen inner */
+      .screen-inner { padding: 24px clamp(14px, 4vw, 20px) 40px; margin-top: 16px; }
+
+      /* Phase 1 — category cards */
+      .cat-card { padding: 18px 14px 16px; }
+      .cat-card-icon { font-size: 28px; margin-bottom: 8px; }
+      .cat-card-label { font-size: 16px; }
+      .cat-card-desc { font-size: 12px; margin-bottom: 12px; }
+      .cat-card-pills { gap: 6px; }
+      .cat-pill { height: 36px; font-size: 9px; border-radius: 8px; }
+
+      /* Phase 2 — questions */
+      .toggle-btn { height: 46px; font-size: 14px; border-radius: 10px; }
+      .question-text { font-size: 14px; }
+      .nav-buttons { flex-direction: column; gap: 8px; }
+      .nav-buttons .btn-back { width: 100%; justify-content: center; }
+      .nav-buttons .btn-primary { width: 100%; }
+
+      /* Results — score */
+      .arch-score-number { font-size: clamp(48px, 14vw, 64px); }
+      .arch-tier-desc { font-size: 14px; }
+
+      /* Results — cost summary */
+      .cost-summary-block { padding: 20px 16px; }
+      .cost-summary-range { font-size: clamp(18px, 5vw, 24px); }
+      .cost-summary-desc { font-size: 13px; }
+
+      /* Results — flow diagram */
+      .flow-pipeline {
+        flex-direction: column;
+        gap: 0;
+      }
+      .flow-arrow-h {
+        width: 100%;
+        height: 32px;
+        transform: none;
+      }
+      .flow-arrow-h svg {
+        width: 24px;
+        height: 32px;
+        transform: rotate(90deg);
+      }
+      .flow-infra {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .flow-verticals {
+        display: none;
+      }
+      .flow-node {
+        padding: 16px;
+      }
+      .flow-node-label { font-size: 14px; }
+      .flow-node-oneliner { font-size: 12px; }
+
+      /* Results — summary bar */
+      .summary-bar { flex-wrap: wrap; }
+      .summary-bar-item { flex: 1 1 50%; padding: 12px 6px; }
+      .summary-bar-item:nth-child(1),
+      .summary-bar-item:nth-child(2) { border-bottom: 1px solid var(--border); }
+      .summary-bar-item:nth-child(2) { border-right: none; }
+      .summary-bar-item:nth-child(4) { border-right: none; }
+      .summary-bar-count { font-size: 20px; }
+      .summary-bar-label { font-size: 10px; }
+
+      /* Results — accordion */
+      .accordion-cat-name { font-size: clamp(14px, 4vw, 18px); }
+      .accordion-toggle-left { gap: 8px; flex-wrap: wrap; }
+      .acc-cost-block { padding: 10px 12px; }
+      .acc-cost-range { font-size: 13px; }
+      .acc-cost-note { font-size: 12px; }
+      .acc-gap-implication { font-size: 13px; }
+      .acc-gap-cost { font-size: 11px; margin-left: 12px; }
+      .pain-callout { padding: 12px 14px; }
+      .pain-callout p { font-size: 13px; }
+      .solution-block { padding: 12px 14px; }
+      .solution-block p { font-size: 13px; }
+
+      /* CTA */
+      .cta-block { padding: 32px 0 24px; }
+      .cta-block h2 { font-size: clamp(18px, 5vw, 24px); }
+      .cta-block p { font-size: 14px; }
+      .cta-block .btn-primary { max-width: 100%; }
+    }
+
+    /* ─── PRINT STYLESHEET ─── */
+    @media print {
+      * { -webkit-print-color-adjust: exact !important; color-adjust: exact !important; print-color-adjust: exact !important; }
+
+      body {
+        background: #fff !important;
+        color: #1a1a1a !important;
+      }
+
+      .top-bar,
+      .progress-bar-fixed,
+      #screen1,
+      #screen2,
+      #screen3,
+      #screen5,
+      .btn-primary,
+      .btn-back,
+      .cta-block,
+      .nav-buttons {
+        display: none !important;
+      }
+
+      .screen {
+        display: block !important;
+        padding: 0 !important;
+        min-height: auto !important;
+      }
+      .screen-inner, .screen-inner-wide {
+        background: #fff !important;
+        border: none !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+        padding: 20px !important;
+        border-radius: 0 !important;
+        max-width: 100% !important;
+      }
+
+      .arch-score-number { color: #1a1a1a !important; }
+      .arch-tier-label { color: #00897B !important; }
+      .arch-tier-desc { color: #555 !important; }
+
+      .cost-summary-block {
+        border-left-color: #00897B !important;
+        background: #f0faf8 !important;
+      }
+      .cost-summary-range { color: #1a1a1a !important; }
+      .cost-summary-label { color: #00897B !important; }
+
+      .map-node {
+        background: #fff !important;
+        border: 1px solid #ddd !important;
+        page-break-inside: avoid;
+      }
+      .map-node-label { color: #1a1a1a !important; }
+      .map-node-oneliner, .map-node-score { color: #666 !important; }
+
+      .summary-bar {
+        background: #f5f5f5 !important;
+        border-color: #ddd !important;
+      }
+
+      .accordion-block { page-break-inside: avoid; }
+      .accordion-block.collapsed .accordion-content { display: block !important; }
+      .accordion-arrow { display: none !important; }
+      .accordion-cat-name { color: #1a1a1a !important; }
+      .acc-recommendation { color: #333 !important; }
+      .acc-gap-implication { color: #333 !important; }
+      .acc-cost-note { color: #555 !important; }
+
+      @page { margin: 1.5cm; }
+
+      .print-footer {
+        display: block !important;
+        text-align: center;
+        font-size: 10px;
+        color: #999;
+        padding-top: 24px;
+        border-top: 1px solid #ddd;
+        margin-top: 32px;
+      }
+    }
+    .print-footer { display: none; }
+
+    /* Apply form inline */
+    .apply-form-wrap {
+      max-width: 420px;
+      margin: 0 auto;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.5s cubic-bezier(0.16,1,0.3,1), opacity 0.4s ease, margin 0.4s ease;
+    }
+    .apply-form-wrap.open {
+      max-height: 300px;
+      opacity: 1;
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+    .apply-form-wrap .form-input {
+      margin-bottom: 12px;
+    }
+    .apply-form-wrap .form-error {
+      font-size: 13px;
+      color: var(--red);
+      margin-bottom: 10px;
+      display: none;
+    }
+    .apply-form-wrap .form-error.visible {
+      display: block;
+    }
+    .apply-btn-hide {
+      display: none !important;
+    }
+
+    /* Pain callout block */
+    .pain-callout {
+      background: var(--red-dim);
+      border-left: 4px solid var(--red);
+      border-radius: 4px 12px 12px 4px;
+      padding: 16px 20px;
+      margin-bottom: 16px;
+    }
+    .pain-callout-fragile {
+      background: var(--orange-dim);
+      border-left-color: var(--orange);
+    }
+    .pain-callout p {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--fg-muted);
+    }
+    .pain-callout strong {
+      color: var(--fg);
+      font-weight: 600;
+    }
+
+    .solution-block {
+      background: var(--accent-dim);
+      border-left: 4px solid var(--accent);
+      border-radius: 4px 12px 12px 4px;
+      padding: 16px 20px;
+      margin-top: 16px;
+    }
+    .solution-block p {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--fg-muted);
+    }
+    .solution-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" integrity="sha384-HAH79XdRvHr6axVGh4xQWVCp14kcd32bNk4Xu0sHDHtFQ42n6BAM8ykvB47dGz6D" crossorigin="anonymous"></script>
+</head>
+<body>
+  <!-- Honeypot -->
+  <input type="text" name="company_url" id="honeyField" style="display:none;" tabindex="-1" autocomplete="off">
+
+  <!-- Top Bar -->
+  <header class="top-bar">
+    <img src="brand_assets/Paradigm Logo White.svg" alt="Paradigm Consulting">
+  </header>
+
+  <!-- Progress Bar -->
+  <div class="progress-bar-fixed" id="progressBar">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SCREEN 1 — INTRO / GATE
+       ═══════════════════════════════════════════ -->
+  <div class="screen active" id="screen1">
+    <div class="intro-page">
+      <div class="intro-card-wrap">
+        <div class="intro-card">
+          <div style="text-align:center;">
+            <span class="eyebrow-pill">
+              <span class="pill-dot"></span>
+              System Architecture Audit
+            </span>
+            <br>
+            <span class="framework-tag" style="margin-top:8px; display:inline-flex;">
+              3X3OS
+              <span class="tag-sep"></span>
+              Technology
+            </span>
+          </div>
+
+          <h1>Your Business Runs on Systems or It Runs on You. Which One Is It?</h1>
+          <p class="subtitle">Map your infrastructure. See what is working, what is fragile, and what it is costing you.</p>
+          <p class="description">This audit by Paradigm Consulting evaluates 6 critical system categories across 18 specific checkpoints. It will reveal where your architecture is producing leverage, where it is creating drag, and what the gaps are costing you annually in unrealized capacity.</p>
+
+          <!-- Tabs -->
+          <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab(0, this)" type="button">Who It's For</button>
+            <button class="tab-btn" onclick="switchTab(1, this)" type="button">What It Measures</button>
+            <button class="tab-btn" onclick="switchTab(2, this)" type="button">What You'll Discover</button>
+          </div>
+
+          <!-- Tab 1: Who It's For -->
+          <div class="tab-panel active" id="tab0">
+            <p class="lead">This audit is built for <strong>founders and operators</strong> who:</p>
+            <ul class="check-list">
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(0,191,165,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#00BFA5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Run businesses generating $250K to $10M annually
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(0,191,165,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#00BFA5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Suspect their systems are held together by people rather than infrastructure
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(0,191,165,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#00BFA5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Want to scale but are not sure if their architecture can hold the weight
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(0,191,165,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#00BFA5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Need to know what their infrastructure gaps are actually costing them
+              </li>
+            </ul>
+          </div>
+
+          <!-- Tab 2: What It Measures -->
+          <div class="tab-panel" id="tab1">
+            <p class="lead">This audit evaluates <strong>six system categories</strong> that determine whether your business runs on infrastructure or on you:</p>
+            <ul class="check-list">
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(0,191,165,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#00BFA5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                CRM and Sales — lead tracking, pipeline visibility, sales process
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(0,191,165,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#00BFA5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Marketing — execution independence, analytics, nurturing automation
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(0,191,165,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#00BFA5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Delivery — SOPs, onboarding consistency, quality tracking
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(0,191,165,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#00BFA5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Finance — automated reporting, reconciliation, spending authority
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(0,191,165,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#00BFA5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Team and Ops — operating rhythm, decision authority, founder independence
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(0,191,165,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#00BFA5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Technology — tool integration, automation, tech stack governance
+              </li>
+            </ul>
+          </div>
+
+          <!-- Tab 3: What You'll Discover -->
+          <div class="tab-panel" id="tab2">
+            <ul class="check-list">
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(0,191,165,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#00BFA5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Which systems are producing leverage and which are producing drag
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(0,191,165,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#00BFA5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Where founder dependency is hiding inside systems that appear to be working
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(0,191,165,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#00BFA5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                The estimated annual cost of each infrastructure gap
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(0,191,165,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#00BFA5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                A full systems map showing your architecture health across all six categories
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="11" fill="rgba(0,191,165,0.1)"/><path d="M7 11.5l2.5 2.5L15 9" stroke="#00BFA5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Exactly what to fix first and what each gap is costing your business
+              </li>
+            </ul>
+          </div>
+
+          <p class="disclaimer">*If you do not manage business operations or oversee system infrastructure, this audit may not be relevant to your role.</p>
+
+          <div class="trust-bar">
+            <div class="trust-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Takes 3 minutes
+            </div>
+            <div class="trust-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              6 categories, 18 checkpoints
+            </div>
+            <div class="trust-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              Visual systems map with cost estimates
+            </div>
+          </div>
+
+          <div class="intro-cta-area">
+            <div class="intro-form" id="introForm">
+              <input type="text" class="form-input" id="firstName" placeholder="First name" maxlength="100" autocomplete="given-name">
+              <input type="email" class="form-input" id="email" placeholder="Email address" maxlength="254" autocomplete="email">
+            </div>
+            <div class="form-error" id="formError">Please enter your name and a valid email address.</div>
+            <button class="btn-primary" onclick="submitIntro()" id="introBtn" style="max-width:480px; margin:0 auto;">Build My Systems Map</button>
+            <p class="intro-note">No spam. Your systems map is sent immediately after completion.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SCREEN 2 — PHASE 1: CATEGORY SELECTION
+       ═══════════════════════════════════════════ -->
+  <div class="screen" id="screen2">
+    <div class="screen-inner screen-inner-wide">
+      <div class="section-header">
+        <div class="section-label">Step 1 of 2 — Map Your Systems</div>
+        <div class="section-title">For each system category, select the option that best describes your current state.</div>
+      </div>
+
+      <div class="category-grid" id="categoryGrid">
+        <!-- rendered by JS -->
+      </div>
+
+      <div class="completion-indicator" id="completionIndicator">
+        <span>0</span> of 6 categories mapped
+      </div>
+
+      <div class="nav-buttons">
+        <button class="btn-back" onclick="showScreen('screen1')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          Back
+        </button>
+        <button class="btn-primary" id="phase1ContinueBtn" onclick="finishPhase1()" disabled>Continue to Assessment</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SCREEN 3 — PHASE 2: DEPTH QUESTIONS
+       ═══════════════════════════════════════════ -->
+  <div class="screen" id="screen3">
+    <div class="screen-inner">
+      <div class="section-header">
+        <div class="section-label">Step 2 of 2 — Assess Each System</div>
+        <div class="progress-indicator" id="phase2Progress">Category 1 of 1</div>
+      </div>
+
+      <div id="phase2Content">
+        <!-- rendered by JS per category -->
+      </div>
+
+      <div class="validation-msg" id="phase2Validation">Please answer all questions before continuing.</div>
+
+      <div class="nav-buttons">
+        <button class="btn-back" id="phase2BackBtn" onclick="phase2Back()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          Back
+        </button>
+        <button class="btn-primary" id="phase2NextBtn" onclick="phase2Next()" disabled>Next Category</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SCREEN 4 — RESULTS / SYSTEMS MAP
+       ═══════════════════════════════════════════ -->
+  <div class="screen" id="screen4">
+    <div class="screen-inner screen-inner-wide" id="resultsContainer">
+      <!-- rendered by JS -->
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SCREEN 5 — THANK YOU
+       ═══════════════════════════════════════════ -->
+  <div class="screen" id="screen5">
+    <div class="thankyou-wrap">
+      <h1>Application Received.</h1>
+      <p>We review every application personally. Expect a response within 48 hours.</p>
+      <img src="brand_assets/Paradigm Logo White.svg" alt="Paradigm Consulting">
+    </div>
+  </div>
+
+<script>
+// ============================================================
+// UTILITIES
+// ============================================================
+
+function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+function switchTab(idx, btn) {
+  var panels = document.querySelectorAll('.tab-panel');
+  var btns = document.querySelectorAll('.tab-btn');
+  for (var i = 0; i < panels.length; i++) { panels[i].classList.remove('active'); }
+  for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); }
+  document.getElementById('tab' + idx).classList.add('active');
+  btn.classList.add('active');
+}
+
+function sanitize(str, maxLen) {
+  if (!str) return '';
+  return String(str)
+    .replace(/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .substring(0, maxLen || 500);
+}
+
+// ============================================================
+// STATE
+// ============================================================
+
+var contactInfo = { firstName: '', email: '' };
+
+var categoryData = [
+  {
+    id: 'crm',
+    label: 'CRM and Sales',
+    icon: '◎',
+    cardDescription: 'How your business tracks leads, manages relationships, and moves opportunities through the sales process.',
+    phase2Questions: [
+      {
+        id: 'crm-q1',
+        text: 'Does your CRM automatically track every lead from first contact through to close without manual data entry by the founder?',
+        yesImplication: 'Lead tracking is automated and reliable.',
+        noImplication: 'Lead tracking is manual or inconsistent. Revenue is leaking from gaps the founder cannot see.',
+        costImplication: 'Manual lead tracking loses an average of 23% of leads to follow-up gaps. At $500K revenue that is $115,000 in uncontacted opportunities annually.'
+      },
+      {
+        id: 'crm-q2',
+        text: 'Can you see your pipeline health and conversion rates at any time without pulling data or asking your team?',
+        yesImplication: 'Pipeline visibility is real-time.',
+        noImplication: 'Pipeline visibility requires manual effort. Decision-making is slower and less accurate than it should be.',
+        costImplication: 'Founders without real-time pipeline visibility make pricing and capacity decisions with an average 3 to 6 week data lag. Deals close slower and forecast accuracy is typically 40% below businesses with live pipeline data.'
+      },
+      {
+        id: 'crm-q3',
+        text: 'Does your sales process have documented stages that your team follows consistently without founder involvement in each deal?',
+        yesImplication: 'Sales process is documented and team-owned.',
+        noImplication: 'The sales process depends on the founder or key individuals. Consistency drops when those people are unavailable.',
+        costImplication: 'Undocumented sales processes produce conversion rates 25 to 40% below documented processes because consistency drops when the founder or top performer is unavailable.'
+      }
+    ],
+    recommendations: {
+      gap: 'Your business has no CRM infrastructure. Every lead relationship lives in someone\'s head or inbox. Installing a CRM is the first action \u2014 before marketing spend increases, before the team grows, before anything else that generates more leads than the current system can handle.',
+      fragile: 'Your CRM system exists but is not functioning as leverage. The specific gaps your answers identified \u2014 manual data entry, limited visibility, or inconsistent process \u2014 mean the CRM is a record system rather than a revenue system. The 3x3OS Technology pillar addresses this directly.',
+      functional: 'Your CRM is working but not optimized. There are specific gaps in automation or visibility that are creating drag. The remaining gaps are closable without a system replacement.',
+      optimized: 'Your CRM and sales infrastructure is functioning as a genuine leverage system. Leads are tracked automatically, pipeline is visible in real time, and the sales process runs without founder involvement in each deal.'
+    },
+    costData: {
+      gap: { annualLow: 20000, annualHigh: 80000, note: 'Businesses without CRM infrastructure lose an estimated 20 to 35% of leads to follow-up gaps and pipeline invisibility. At most revenue stages this is the single highest-cost architecture gap.' },
+      fragile: { annualLow: 10000, annualHigh: 40000, note: 'A fragile CRM \u2014 one that exists but lacks automation, visibility, or documented process \u2014 produces inconsistent revenue output. Deals close slower, follow-up drops off, and pipeline accuracy is unreliable.' }
+    }
+  },
+  {
+    id: 'marketing',
+    label: 'Marketing',
+    icon: '◈',
+    cardDescription: 'How your business generates awareness, attracts leads, and nurtures them through to a sales conversation.',
+    phase2Questions: [
+      {
+        id: 'mkt-q1',
+        text: 'Does your marketing run consistently without requiring the founder to initiate, write, or approve each campaign or piece of content?',
+        yesImplication: 'Marketing execution is systematized and team-owned.',
+        noImplication: 'Marketing is founder-dependent. When the founder is stretched, marketing slows. Lead flow is inconsistent as a result.',
+        costImplication: 'Founder-dependent marketing execution produces lead flow that correlates directly with founder availability. Businesses in this category average 35% lower annual lead volume than those with systematized marketing because of the periods when the founder is stretched or absent.'
+      },
+      {
+        id: 'mkt-q2',
+        text: 'Do you know your cost per lead and conversion rate across your primary acquisition channels without having to calculate it manually?',
+        yesImplication: 'Marketing analytics are automated and accessible.',
+        noImplication: 'Marketing performance is not measured in real time. Spend decisions are made without reliable data.',
+        costImplication: 'Marketing spend without real-time analytics produces an average 30 to 50% higher cost per acquisition than instrumented campaigns because underperforming spend continues without the data to stop it.'
+      },
+      {
+        id: 'mkt-q3',
+        text: 'Is your lead nurturing automated from initial opt-in through to sales conversation without manual follow-up steps?',
+        yesImplication: 'Lead nurturing runs automatically and consistently.',
+        noImplication: 'Lead nurturing is manual or inconsistent. Leads are falling through the gap between opt-in and sales conversation.',
+        costImplication: 'Manual lead nurturing drops an average of 40 to 60% of leads before the sales conversation. Automated nurturing reduces this to under 15% with no additional founder time.'
+      }
+    ],
+    recommendations: {
+      gap: 'Your business has no marketing infrastructure. Lead generation depends entirely on the founder\'s direct effort and presence. This is the single most common growth ceiling in founder-led businesses \u2014 and the most immediately addressable.',
+      fragile: 'Your marketing system exists but it requires founder involvement to run consistently. The specific gaps in your answers \u2014 founder-dependent execution, missing analytics, or manual nurturing \u2014 mean lead flow is tied to the founder\'s capacity rather than the system\'s capacity.',
+      functional: 'Your marketing is working but has specific gaps that are limiting its leverage potential. Automating the remaining manual steps and instrumenting the analytics gaps will significantly increase what the system produces without additional founder time.',
+      optimized: 'Your marketing infrastructure is functioning as a genuine leverage system. It runs consistently without founder initiation, performance is visible in real time, and lead nurturing is automated from opt-in through to sales conversation.'
+    },
+    costData: {
+      gap: { annualLow: 25000, annualHigh: 100000, note: 'Without marketing infrastructure, lead generation is entirely founder-dependent. Revenue growth is capped at the founder\'s personal outreach capacity and stops when the founder stops.' },
+      fragile: { annualLow: 12000, annualHigh: 50000, note: 'Founder-dependent marketing execution produces inconsistent lead flow. The specific cost is proportional to how much revenue the business is not generating during the periods when the founder is stretched.' }
+    }
+  },
+  {
+    id: 'delivery',
+    label: 'Delivery',
+    icon: '◐',
+    cardDescription: 'How your business delivers its product or service consistently, onboards clients, and maintains quality without founder involvement in every engagement.',
+    phase2Questions: [
+      {
+        id: 'del-q1',
+        text: 'Can a new team member deliver your core product or service using documented SOPs without asking the founder how to do it?',
+        yesImplication: 'Delivery is documented and transferable.',
+        noImplication: 'Delivery knowledge lives in the founder or key individuals. Scaling delivery requires scaling those people rather than the system.',
+        costImplication: 'Undocumented delivery processes cap client capacity at the number of engagements the founder can personally oversee. Each undocumented process is a direct constraint on how many clients the business can serve simultaneously.'
+      },
+      {
+        id: 'del-q2',
+        text: 'Do clients experience a consistent onboarding process regardless of which team member manages their account?',
+        yesImplication: 'Client onboarding is systematized and consistent.',
+        noImplication: 'Client experience varies by team member. Inconsistency is a churn risk and a founder dependency signal.',
+        costImplication: 'Inconsistent client onboarding produces churn rates 2 to 3x higher in the first 90 days than businesses with systematized onboarding. The cost of replacing a churned client typically runs 3 to 5x the cost of the retention infrastructure that would have kept them.'
+      },
+      {
+        id: 'del-q3',
+        text: 'Do you have a system that tracks delivery quality and client satisfaction without requiring the founder to manually check in on each client?',
+        yesImplication: 'Delivery quality is monitored systematically.',
+        noImplication: 'Delivery quality depends on the founder staying close to every client relationship. At scale this is not sustainable.',
+        costImplication: 'Without systematic quality tracking, delivery problems surface through client complaints rather than internal metrics. Reactive problem resolution costs an average of 4 to 6x more than proactive detection and correction.'
+      }
+    ],
+    recommendations: {
+      gap: 'Your delivery infrastructure does not exist as a system. Every client engagement is managed through founder relationships and tribal knowledge. This is the bottleneck that limits how many clients the business can serve and how consistently it can serve them.',
+      fragile: 'Your delivery system exists but is fragile. The gaps your answers identified \u2014 undocumented SOPs, inconsistent onboarding, or manual quality tracking \u2014 mean delivery quality depends on specific people rather than documented infrastructure.',
+      functional: 'Your delivery infrastructure is working but has specific gaps that are creating inconsistency or founder dependency in certain areas. Closing those gaps produces consistent client experience at scale.',
+      optimized: 'Your delivery infrastructure is fully systematized. New team members can deliver using documentation, clients experience a consistent onboarding process, and quality is tracked without founder oversight of each engagement.'
+    },
+    costData: {
+      gap: { annualLow: 15000, annualHigh: 60000, note: 'Without delivery infrastructure, client capacity is capped by the founder\'s personal involvement in every engagement. Scaling client count requires scaling founder hours rather than scaling systems.' },
+      fragile: { annualLow: 8000, annualHigh: 35000, note: 'Fragile delivery infrastructure produces inconsistent client experience. Churn from inconsistency typically costs 2 to 3x more to replace than the revenue lost from the churned client directly.' }
+    }
+  },
+  {
+    id: 'finance',
+    label: 'Finance',
+    icon: '◑',
+    cardDescription: 'How your business tracks money, produces financial reports, manages spending authority, and gives the founder real-time visibility without manual data pulling.',
+    phase2Questions: [
+      {
+        id: 'fin-q1',
+        text: 'Do you receive automated financial reports showing revenue, expenses, and cash position without pulling data yourself or asking your bookkeeper?',
+        yesImplication: 'Financial reporting is automated and accessible.',
+        noImplication: 'Financial visibility requires manual effort. Decisions are made with delayed or incomplete information.',
+        costImplication: 'Founders without automated financial reporting spend an average of 3 to 5 hours per week pulling and reviewing financial data manually. At typical founder opportunity cost that represents $15,000 to $50,000 annually in time that should be producing revenue.'
+      },
+      {
+        id: 'fin-q2',
+        text: 'Are your books reconciled monthly by someone other than the founder with results reviewed rather than produced by the founder?',
+        yesImplication: 'Financial reconciliation is delegated and systematic.',
+        noImplication: 'Financial reconciliation requires the founder. This is both a time sink and a financial control gap.',
+        costImplication: 'Without monthly reconciliation by a dedicated person, financial discrepancies go undetected for an average of 14 months. Average undetected financial loss during that window is $80,000 to $150,000 per incident.'
+      },
+      {
+        id: 'fin-q3',
+        text: 'Does your team have documented spending authority so they can approve purchases within defined limits without asking the founder?',
+        yesImplication: 'Spending authority is documented and delegated.',
+        noImplication: 'All spending routes to the founder. This is a bottleneck and a fraud risk \u2014 the two most expensive financial infrastructure gaps for scaling businesses.',
+        costImplication: 'Undefined spending authority routes all financial approvals to the founder, adding an average of 2 to 4 days to every purchase decision. In a business making 50 or more vendor decisions per month this produces $20,000 to $60,000 annually in team waiting time and delayed operations.'
+      }
+    ],
+    recommendations: {
+      gap: 'Your business has no financial infrastructure beyond basic bookkeeping. Revenue and cash position are not visible in real time, financial decisions route to the founder by default, and spending authority is undefined. This is one of the highest-risk infrastructure gaps for a scaling business.',
+      fragile: 'Your financial system exists but the specific gaps your answers identified \u2014 manual reporting, founder-dependent reconciliation, or undefined spending authority \u2014 mean financial visibility and control are not operating as leverage.',
+      functional: 'Your financial infrastructure is working but has specific gaps that are creating manual effort or decision bottlenecks. The remaining gaps are closable without a system overhaul.',
+      optimized: 'Your financial infrastructure is functioning as a genuine control and visibility system. Reports are automated, reconciliation is delegated, and spending authority is documented across all roles.'
+    },
+    costData: {
+      gap: { annualLow: 18000, annualHigh: 75000, note: 'Without financial infrastructure, the business makes decisions with delayed or incomplete information. The compounding cost of slow or wrong financial decisions exceeds the cost of the infrastructure that would have prevented them.' },
+      fragile: { annualLow: 8000, annualHigh: 30000, note: 'Fragile financial infrastructure \u2014 manual reporting, founder-dependent reconciliation, undefined spending authority \u2014 creates both a time cost and a decision quality cost across every financial choice the business makes.' }
+    }
+  },
+  {
+    id: 'team',
+    label: 'Team and Ops',
+    icon: '◒',
+    cardDescription: 'How your business runs its operating rhythm, manages team performance, documents decision authority, and operates consistently without the founder in every function.',
+    phase2Questions: [
+      {
+        id: 'team-q1',
+        text: 'Does your team have a documented operating rhythm \u2014 weekly meetings, sprint goals, and accountability cadences \u2014 that runs without the founder initiating it each cycle?',
+        yesImplication: 'Team operating rhythm is documented and self-sustaining.',
+        noImplication: 'The operating rhythm depends on the founder to initiate and maintain it. When the founder is unavailable, the rhythm stops.',
+        costImplication: 'Teams without a documented operating rhythm perform at 50 to 65% of their actual output capacity due to ambiguity, misalignment, and waiting for direction. The recoverable output from installing a structured rhythm is typically 20 to 30% of current team cost.'
+      },
+      {
+        id: 'team-q2',
+        text: 'Are roles, responsibilities, and decision authority documented so your team knows what they can own and decide without asking the founder first?',
+        yesImplication: 'Decision authority is documented and delegated.',
+        noImplication: 'Decision authority is informal. The team defaults to the founder for decisions that should be owned at lower levels.',
+        costImplication: 'Undocumented decision authority routes an average of 40 to 60% of team decisions to the founder that should be resolved at a lower level. This is the most directly recoverable founder hour category in the entire architecture.'
+      },
+      {
+        id: 'team-q3',
+        text: 'Can the business operate for two consecutive weeks without the founder present without significant disruption to revenue or client delivery?',
+        yesImplication: 'The business has meaningful operational independence from the founder.',
+        noImplication: 'The business requires the founder to operate at its current level. This is the clearest single signal of a team and operations infrastructure gap.',
+        costImplication: 'A business that cannot operate for two weeks without the founder has a key-person discount of 20 to 40% in any transaction or investment valuation. Beyond valuation, the operational cost is the limit it places on the founder\'s ability to do strategic work during periods of operational demand.'
+      }
+    ],
+    recommendations: {
+      gap: 'Your business has no team and operations infrastructure. Everything runs through the founder. This is the most common ceiling in founder-led businesses and the one that limits growth most directly \u2014 not market size, not product quality, not team capability. The operating system is missing.',
+      fragile: 'Your team and operations system exists but the gaps your answers identified \u2014 founder-dependent rhythm, informal decision authority, or founder-required presence \u2014 mean operational independence is limited.',
+      functional: 'Your team and operations infrastructure is working but has specific gaps. The remaining pieces \u2014 typically decision authority documentation or the two-week independence test \u2014 are closable in 90 days with the right installation.',
+      optimized: 'Your team and operations infrastructure is functioning as a genuine operating system. The rhythm runs without founder initiation, decision authority is documented, and the business can operate independently for extended periods.'
+    },
+    costData: {
+      gap: { annualLow: 30000, annualHigh: 120000, note: 'Without team and operations infrastructure, the business cannot scale beyond the founder\'s personal capacity. This is the most expensive architecture gap because it compounds across every other category \u2014 nothing else scales if the operating system is missing.' },
+      fragile: { annualLow: 15000, annualHigh: 60000, note: 'Fragile team infrastructure \u2014 founder-dependent rhythm, informal authority, limited operational independence \u2014 means the business performs at a fraction of its actual team capacity. The gap between what the team could produce with the right structure and what it currently produces is the cost.' }
+    }
+  },
+  {
+    id: 'technology',
+    label: 'Technology',
+    icon: '◓',
+    cardDescription: 'How your business uses tools and automation to replace manual work, connect systems, and create infrastructure that runs without founder or team involvement.',
+    phase2Questions: [
+      {
+        id: 'tech-q1',
+        text: 'Are your core business tools connected and sharing data automatically rather than requiring manual updates or copy-paste across platforms?',
+        yesImplication: 'Core tools are integrated and data flows automatically.',
+        noImplication: 'Tools are siloed. Manual data transfer between platforms is consuming team time and introducing errors.',
+        costImplication: 'Siloed tools that do not share data automatically require an average of 5 to 10 hours of manual data transfer per week across the team. At typical team cost that is $15,000 to $40,000 annually in labor that automation should be handling.'
+      },
+      {
+        id: 'tech-q2',
+        text: 'Do you have automation handling repetitive tasks \u2014 follow-ups, reporting, onboarding sequences, and operational notifications \u2014 without manual triggers?',
+        yesImplication: 'Repetitive operational tasks are automated.',
+        noImplication: 'Repetitive tasks are handled manually. This is recoverable team and founder time that automation could return immediately.',
+        costImplication: 'Manual operational tasks that could be automated consume an average of 15 to 25% of team capacity in businesses without automation infrastructure. Installing the right automation layer typically recovers this capacity within 60 days.'
+      },
+      {
+        id: 'tech-q3',
+        text: 'Do you have a documented tech stack with clear ownership for each tool and a defined process for evaluating and adding new tools?',
+        yesImplication: 'Tech stack is documented and governed.',
+        noImplication: 'The tech stack grew organically without a governance process. Tool sprawl, duplicate functionality, and undefined ownership are the typical results.',
+        costImplication: 'Undocumented tech stacks with unclear ownership produce tool sprawl, duplicate functionality, and shadow IT. The average business without tech stack governance pays for 2 to 3 tools performing overlapping functions while missing critical ones entirely.'
+      }
+    ],
+    recommendations: {
+      gap: 'Your business has minimal technology infrastructure beyond basic tools. Automation is not in place, tools are not integrated, and manual work is filling the gaps that technology should be handling. This is the highest-leverage installation available at your stage \u2014 but it requires the systems and delegation layers to be in place first for automation to produce real leverage rather than just automated chaos.',
+      fragile: 'Your technology infrastructure exists but the specific gaps your answers identified \u2014 siloed tools, manual triggers, or undocumented stack \u2014 mean it is producing friction rather than leverage in key areas.',
+      functional: 'Your technology infrastructure is working but has specific integration or automation gaps. The remaining gaps are closable without a platform replacement \u2014 typically through better use of existing tools plus targeted automation additions.',
+      optimized: 'Your technology infrastructure is functioning as a genuine leverage system. Tools are integrated, repetitive tasks are automated, and the stack is documented and governed. This is the infrastructure that makes scaling without proportional headcount growth possible.'
+    },
+    costData: {
+      gap: { annualLow: 20000, annualHigh: 80000, note: 'Without technology infrastructure, manual work fills every gap that automation could close. The cost is not just the hours spent on manual tasks \u2014 it is the leverage that those hours could be producing if the technology layer were in place.' },
+      fragile: { annualLow: 10000, annualHigh: 40000, note: 'Siloed tools, manual triggers, and undocumented tech stack produce integration friction that costs team time and introduces errors. The compounding cost of these gaps grows proportionally with the number of transactions and team members passing through the system.' }
+    }
+  }
+];
+
+var phase1Selections = { crm: null, marketing: null, delivery: null, finance: null, team: null, technology: null };
+var phase2Answers = { crm: [], marketing: [], delivery: [], finance: [], team: [], technology: [] };
+
+// Phase 2 navigation state
+var activeCategories = [];
+var currentPhase2Index = 0;
+
+
+// ============================================================
+// SCORING ENGINE
+// ============================================================
+
+var phaseOneScore = { 'in-place': 2, 'partial': 1, 'missing': 0 };
+
+function getCategoryScore(categoryId) {
+  var base = phaseOneScore[phase1Selections[categoryId]] || 0;
+  if (phase1Selections[categoryId] === 'missing') return 0;
+  var yesCount = phase2Answers[categoryId].filter(function(a) { return a === 'yes'; }).length;
+  return base + yesCount;
+}
+
+function getCategoryStatus(categoryId) {
+  var score = getCategoryScore(categoryId);
+  var selection = phase1Selections[categoryId];
+  if (selection === 'missing') return 'GAP';
+  if (score === 5) return 'OPTIMIZED';
+  if (score >= 3) return 'FUNCTIONAL';
+  if (score >= 1) return 'FRAGILE';
+  return 'GAP';
+}
+
+function getOverallScore() {
+  var totalPoints = categoryData.reduce(function(sum, cat) { return sum + getCategoryScore(cat.id); }, 0);
+  var maxPoints = categoryData.length * 5;
+  return Math.round((totalPoints / maxPoints) * 100);
+}
+
+function getArchitectureTier(score) {
+  if (score <= 25) return { label: 'FRAGMENTED', description: 'Your systems exist in isolation. High founder dependency across most or all categories. The business runs on people, not infrastructure.' };
+  if (score <= 50) return { label: 'DEVELOPING', description: 'Some systems are working. Significant gaps remain in critical categories. Growth is happening but it is constrained by the architecture.' };
+  if (score <= 75) return { label: 'STRUCTURED', description: 'Most systems are in place. The gaps that remain are creating drag and limiting what the business can produce without the founder.' };
+  return { label: 'INTEGRATED', description: 'Your systems work together. The architecture is strong. The remaining gaps are optimization opportunities rather than structural risks.' };
+}
+
+function getActiveCategories() {
+  return categoryData.filter(function(cat) { return phase1Selections[cat.id] !== 'missing'; });
+}
+
+// ============================================================
+// COST ENGINE
+// ============================================================
+
+function getCostTier(overallScore, gapCount, fragileCount) {
+  var exposureIndex = gapCount * 3 + fragileCount * 1;
+  if (overallScore <= 25 || exposureIndex >= 12) return { tier: 'critical', annualLow: 120000, annualHigh: 480000, weeklyLow: 2300, weeklyHigh: 9200, label: 'Critical Architecture Exposure' };
+  if (overallScore <= 50 || exposureIndex >= 7) return { tier: 'significant', annualLow: 60000, annualHigh: 240000, weeklyLow: 1150, weeklyHigh: 4600, label: 'Significant Architecture Drag' };
+  if (overallScore <= 75 || exposureIndex >= 3) return { tier: 'moderate', annualLow: 25000, annualHigh: 100000, weeklyLow: 480, weeklyHigh: 1920, label: 'Moderate Architecture Drag' };
+  return { tier: 'low', annualLow: 8000, annualHigh: 35000, weeklyLow: 150, weeklyHigh: 670, label: 'Low Architecture Drag' };
+}
+
+function getCategoryNodeCostBanner(categoryId, status) {
+  if (status !== 'GAP' && status !== 'FRAGILE') return null;
+  var cat = categoryData.find(function(c) { return c.id === categoryId; });
+  var key = status === 'GAP' ? 'gap' : 'fragile';
+  return cat.costData[key];
+}
+
+function formatCurrency(n) {
+  if (n >= 1000000) return '$' + (n / 1000000).toFixed(1) + 'M';
+  if (n >= 1000) return '$' + Math.round(n / 1000) + 'K';
+  return '$' + n.toLocaleString('en-US');
+}
+
+function formatCurrencyRange(low, high) {
+  return formatCurrency(low) + ' to ' + formatCurrency(high);
+}
+
+function getCategoryOneLiner(categoryId, status) {
+  if (status === 'GAP') return 'Not in place. Highest priority gap.';
+  if (status === 'OPTIMIZED') return 'Fully systematized. No action required.';
+  var noCount = phase2Answers[categoryId].filter(function(a) { return a === 'no'; }).length;
+  if (status === 'FRAGILE') return 'In place but fragile. ' + noCount + ' critical gap' + (noCount > 1 ? 's' : '') + ' identified.';
+  return 'Functional with ' + noCount + ' optimization gap' + (noCount > 1 ? 's' : '') + ' remaining.';
+}
+
+function generateResults() {
+  var scores = {};
+  var statuses = {};
+  categoryData.forEach(function(cat) {
+    scores[cat.id] = getCategoryScore(cat.id);
+    statuses[cat.id] = getCategoryStatus(cat.id);
+  });
+  var overallScore = getOverallScore();
+  var tier = getArchitectureTier(overallScore);
+  var gapCount = Object.values(statuses).filter(function(s) { return s === 'GAP'; }).length;
+  var fragileCount = Object.values(statuses).filter(function(s) { return s === 'FRAGILE'; }).length;
+  var functionalCount = Object.values(statuses).filter(function(s) { return s === 'FUNCTIONAL'; }).length;
+  var optimizedCount = Object.values(statuses).filter(function(s) { return s === 'OPTIMIZED'; }).length;
+  var costTier = getCostTier(overallScore, gapCount, fragileCount);
+  return { scores: scores, statuses: statuses, overallScore: overallScore, tier: tier, gapCount: gapCount, fragileCount: fragileCount, functionalCount: functionalCount, optimizedCount: optimizedCount, costTier: costTier };
+}
+
+
+// ============================================================
+// SCREEN NAVIGATION
+// ============================================================
+
+function showScreen(id) {
+  var screens = document.querySelectorAll('.screen');
+  for (var i = 0; i < screens.length; i++) { screens[i].classList.remove('active'); }
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+
+  // Progress bar visibility
+  var bar = document.getElementById('progressBar');
+  if (id === 'screen2' || id === 'screen3') {
+    bar.classList.add('visible');
+  } else {
+    bar.classList.remove('visible');
+  }
+}
+
+function updateProgress(pct) {
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+
+// ============================================================
+// SCREEN 1 — INTRO
+// ============================================================
+
+var lastSubmitTime = 0;
+
+function submitIntro() {
+  if (document.getElementById('honeyField').value) return;
+
+  var now = Date.now();
+  if (now - lastSubmitTime < 2000) return;
+  lastSubmitTime = now;
+
+  var name = sanitize(document.getElementById('firstName').value, 100);
+  var email = sanitize(document.getElementById('email').value, 254);
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!name || !emailRegex.test(email)) {
+    document.getElementById('formError').style.display = 'block';
+    return;
+  }
+  document.getElementById('formError').style.display = 'none';
+  contactInfo.firstName = name;
+  contactInfo.email = email;
+
+  // Fire lead capture webhook
+  try {
+    fetch('/api/webhook', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        first_name: name,
+        email: email,
+        company_url: document.getElementById('honeyField').value,
+        source: 'system-architecture-audit',
+        event: 'started',
+        timestamp: new Date().toISOString()
+      })
+    }).catch(function() {});
+  } catch(e) {}
+
+  renderPhase1();
+  showScreen('screen2');
+  updateProgress(10);
+}
+
+
+// ============================================================
+// SCREEN 2 — PHASE 1: CATEGORY SELECTION
+// ============================================================
+
+function renderPhase1() {
+  var grid = document.getElementById('categoryGrid');
+  var html = '';
+  categoryData.forEach(function(cat) {
+    html += '<div class="cat-card" id="card-' + cat.id + '">';
+    html += '<div class="cat-card-icon">' + cat.icon + '</div>';
+    html += '<div class="cat-card-label">' + esc(cat.label) + '</div>';
+    html += '<div class="cat-card-desc">' + esc(cat.cardDescription) + '</div>';
+    html += '<div class="cat-card-pills">';
+    html += '<button class="cat-pill" data-cat="' + cat.id + '" data-val="in-place" onclick="selectPhase1(\'' + cat.id + '\',\'in-place\',this)">In Place</button>';
+    html += '<button class="cat-pill" data-cat="' + cat.id + '" data-val="partial" onclick="selectPhase1(\'' + cat.id + '\',\'partial\',this)">Partial</button>';
+    html += '<button class="cat-pill" data-cat="' + cat.id + '" data-val="missing" onclick="selectPhase1(\'' + cat.id + '\',\'missing\',this)">Missing</button>';
+    html += '</div></div>';
+  });
+  grid.innerHTML = html;
+}
+
+function selectPhase1(catId, value, btn) {
+  phase1Selections[catId] = value;
+
+  // Clear siblings
+  var siblings = btn.parentElement.querySelectorAll('.cat-pill');
+  for (var i = 0; i < siblings.length; i++) {
+    siblings[i].classList.remove('selected-inplace', 'selected-partial', 'selected-missing');
+  }
+
+  // Apply selection
+  if (value === 'in-place') btn.classList.add('selected-inplace');
+  else if (value === 'partial') btn.classList.add('selected-partial');
+  else btn.classList.add('selected-missing');
+
+  // Card border
+  var card = document.getElementById('card-' + catId);
+  card.classList.add('has-selection');
+
+  // Update completion
+  var count = 0;
+  var keys = Object.keys(phase1Selections);
+  for (var j = 0; j < keys.length; j++) {
+    if (phase1Selections[keys[j]] !== null) count++;
+  }
+  document.getElementById('completionIndicator').innerHTML = '<span>' + count + '</span> of 6 categories mapped';
+
+  var continueBtn = document.getElementById('phase1ContinueBtn');
+  if (count === 6) {
+    continueBtn.disabled = false;
+  } else {
+    continueBtn.disabled = true;
+  }
+}
+
+function finishPhase1() {
+  activeCategories = getActiveCategories();
+
+  if (activeCategories.length === 0) {
+    // All missing — skip to results
+    renderResults();
+    showScreen('screen4');
+    updateProgress(100);
+    return;
+  }
+
+  currentPhase2Index = 0;
+  renderPhase2Category();
+  showScreen('screen3');
+  updateProgress(40);
+}
+
+
+// ============================================================
+// SCREEN 3 — PHASE 2: DEPTH QUESTIONS
+// ============================================================
+
+function renderPhase2Category() {
+  var cat = activeCategories[currentPhase2Index];
+  var selectionLabel = phase1Selections[cat.id] === 'in-place' ? 'In Place' : 'Partial';
+  var total = activeCategories.length;
+
+  document.getElementById('phase2Progress').textContent = 'Category ' + (currentPhase2Index + 1) + ' of ' + total;
+
+  var html = '';
+  html += '<div class="phase2-category-header">';
+  html += '<div class="phase2-cat-icon">' + cat.icon + '</div>';
+  html += '<div class="phase2-cat-label">' + esc(cat.label) + '</div>';
+  html += '</div>';
+  html += '<div class="phase2-cat-status">You marked this as ' + esc(selectionLabel) + '</div>';
+
+  cat.phase2Questions.forEach(function(q, idx) {
+    var existing = phase2Answers[cat.id][idx] || null;
+    html += '<div class="question-block">';
+    html += '<div class="question-number">Question ' + (idx + 1) + ' of 3</div>';
+    html += '<div class="question-text">' + esc(q.text) + '</div>';
+    html += '<div class="toggle-row">';
+    html += '<button class="toggle-btn' + (existing === 'yes' ? ' selected-yes' : '') + '" onclick="answerPhase2(\'' + cat.id + '\',' + idx + ',\'yes\',this)">';
+    html += '<svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+    html += 'Yes</button>';
+    html += '<button class="toggle-btn' + (existing === 'no' ? ' selected-no' : '') + '" onclick="answerPhase2(\'' + cat.id + '\',' + idx + ',\'no\',this)">';
+    html += '<svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+    html += 'No</button>';
+    html += '</div></div>';
+  });
+
+  document.getElementById('phase2Content').innerHTML = html;
+  document.getElementById('phase2Validation').style.display = 'none';
+
+  // Button label
+  var nextBtn = document.getElementById('phase2NextBtn');
+  if (currentPhase2Index === total - 1) {
+    nextBtn.textContent = 'Generate My Systems Map';
+  } else {
+    nextBtn.textContent = 'Next Category';
+  }
+
+  // Check if already answered
+  checkPhase2Completion(cat.id);
+
+  // Progress
+  var pct = 40 + Math.round((currentPhase2Index / total) * 50);
+  updateProgress(pct);
+}
+
+function answerPhase2(catId, qIdx, value, btn) {
+  // Ensure array has enough slots
+  while (phase2Answers[catId].length <= qIdx) { phase2Answers[catId].push(null); }
+  phase2Answers[catId][qIdx] = value;
+
+  // Toggle siblings
+  var siblings = btn.parentElement.querySelectorAll('.toggle-btn');
+  for (var i = 0; i < siblings.length; i++) {
+    siblings[i].classList.remove('selected-yes', 'selected-no');
+  }
+  if (value === 'yes') btn.classList.add('selected-yes');
+  else btn.classList.add('selected-no');
+
+  checkPhase2Completion(catId);
+}
+
+function checkPhase2Completion(catId) {
+  var answered = phase2Answers[catId].filter(function(a) { return a !== null; }).length;
+  var nextBtn = document.getElementById('phase2NextBtn');
+  nextBtn.disabled = answered < 3;
+}
+
+function phase2Next() {
+  var cat = activeCategories[currentPhase2Index];
+  var answered = phase2Answers[cat.id].filter(function(a) { return a !== null; }).length;
+  if (answered < 3) {
+    document.getElementById('phase2Validation').style.display = 'block';
+    return;
+  }
+
+  if (currentPhase2Index < activeCategories.length - 1) {
+    currentPhase2Index++;
+    renderPhase2Category();
+    window.scrollTo(0, 0);
+  } else {
+    renderResults();
+    showScreen('screen4');
+    updateProgress(100);
+  }
+}
+
+function phase2Back() {
+  if (currentPhase2Index > 0) {
+    currentPhase2Index--;
+    renderPhase2Category();
+    window.scrollTo(0, 0);
+  } else {
+    showScreen('screen2');
+    updateProgress(10);
+  }
+}
+
+
+// ============================================================
+// SCREEN 4 — RESULTS RENDERING
+// ============================================================
+
+function renderResults() {
+  var r = generateResults();
+
+  var html = '';
+
+  // Title block
+  html += '<div class="title-block">';
+  html += '<div class="title-block-sub">System Architecture Audit</div>';
+  html += '<div class="title-block-main">Your Architecture Map</div>';
+  html += '</div>';
+
+  // Section A — Architecture Score and Tier
+  html += '<div class="arch-score-block">';
+  html += '<div class="arch-score-number">' + r.overallScore + ' <span class="arch-score-max">/ 100</span></div>';
+  html += '<div class="arch-tier-label">' + esc(r.tier.label) + '</div>';
+  html += '<div class="arch-tier-desc">' + esc(r.tier.description) + '</div>';
+  html += '</div>';
+
+  // Section B — Total Cost Summary
+  if (r.gapCount > 0 || r.fragileCount > 0) {
+    html += '<div class="cost-summary-block">';
+    html += '<div class="cost-summary-label">' + esc(r.costTier.label) + '</div>';
+    html += '<div class="cost-summary-range">Estimated annual architecture drag: ' + formatCurrencyRange(r.costTier.annualLow, r.costTier.annualHigh) + '</div>';
+    html += '<div class="cost-summary-desc">Based on your architecture score and gap pattern, your business is carrying an estimated ' + formatCurrencyRange(r.costTier.weeklyLow, r.costTier.weeklyHigh) + ' per week in unrealized leverage capacity across the categories below.</div>';
+    html += '<div class="cost-summary-disclaimer">Estimate based on architecture score and gap pattern. Actual impact varies by revenue stage and business model.</div>';
+    html += '</div>';
+  }
+
+  // Section C — Flow Diagram
+  // Pipeline row: Marketing → CRM → Delivery (the revenue path)
+  // Infrastructure row: Team & Ops, Finance, Technology (the foundation)
+
+  function flowNode(catId) {
+    var cat = categoryData.find(function(c) { return c.id === catId; });
+    var status = r.statuses[catId];
+    var score = r.scores[catId];
+    var statusLower = status.toLowerCase();
+    var badgeClass = 'badge-' + statusLower;
+    var costBanner = getCategoryNodeCostBanner(catId, status);
+    var oneLiner = getCategoryOneLiner(catId, status);
+    var h = '';
+    h += '<div class="flow-node flow-node-' + statusLower + '">';
+    h += '<div class="flow-node-icon">' + cat.icon + '</div>';
+    h += '<div class="flow-node-label">' + esc(cat.label) + '</div>';
+    h += '<span class="status-badge ' + badgeClass + '">' + status + '</span>';
+    h += '<div class="flow-node-score">' + score + ' / 5</div>';
+    h += '<div class="flow-node-oneliner">' + esc(oneLiner) + '</div>';
+    if (costBanner) {
+      var costClass = status === 'GAP' ? 'flow-node-cost-gap' : 'flow-node-cost-fragile';
+      h += '<div class="flow-node-cost ' + costClass + '">' + formatCurrencyRange(costBanner.annualLow, costBanner.annualHigh) + '/yr</div>';
+    }
+    h += '</div>';
+    return h;
+  }
+
+  // Arrow SVG helpers — style based on the weaker of two connected statuses
+  function arrowWeight(catA, catB) {
+    var order = ['GAP', 'FRAGILE', 'FUNCTIONAL', 'OPTIMIZED'];
+    var sA = order.indexOf(r.statuses[catA]);
+    var sB = order.indexOf(r.statuses[catB]);
+    var weaker = Math.min(sA, sB);
+    return ['gap', 'fragile', 'functional', 'optimized'][weaker];
+  }
+
+  function hArrow(catA, catB) {
+    var w = arrowWeight(catA, catB);
+    var colors = { gap: '#ef5350', fragile: '#FF8A65', functional: '#FFB300', optimized: '#00BFA5' };
+    var col = colors[w];
+    var dash = w === 'gap' ? ' stroke-dasharray="4 4"' : (w === 'fragile' ? ' stroke-dasharray="8 4"' : '');
+    return '<div class="flow-arrow-h"><svg viewBox="0 0 40 24"><line x1="0" y1="12" x2="32" y2="12" stroke="' + col + '" stroke-width="2"' + dash + '/><polygon points="32,6 40,12 32,18" fill="' + col + '"/></svg></div>';
+  }
+
+  function vArrow(catTop, catBottom) {
+    var w = arrowWeight(catTop, catBottom);
+    var colors = { gap: '#ef5350', fragile: '#FF8A65', functional: '#FFB300', optimized: '#00BFA5' };
+    var col = colors[w];
+    var dash = w === 'gap' ? ' stroke-dasharray="4 4"' : (w === 'fragile' ? ' stroke-dasharray="8 4"' : '');
+    return '<div class="flow-arrow-v"><svg viewBox="0 0 24 32"><line x1="12" y1="0" x2="12" y2="24" stroke="' + col + '" stroke-width="2"' + dash + '/><polygon points="6,24 12,32 18,24" fill="' + col + '"/></svg></div>';
+  }
+
+  html += '<div class="flow-diagram">';
+
+  // Pipeline label + row
+  html += '<div class="flow-row-label">Revenue Pipeline</div>';
+  html += '<div class="flow-pipeline">';
+  html += flowNode('marketing');
+  html += hArrow('marketing', 'crm');
+  html += flowNode('crm');
+  html += hArrow('crm', 'delivery');
+  html += flowNode('delivery');
+  html += '</div>';
+
+  // Vertical connectors: Marketing↔Team, CRM↔Finance, Delivery↔Technology
+  html += '<div class="flow-verticals">';
+  html += vArrow('marketing', 'team');
+  html += vArrow('crm', 'finance');
+  html += vArrow('delivery', 'technology');
+  html += '</div>';
+
+  // Infrastructure label + row
+  html += '<div class="flow-row-label">Supporting Infrastructure</div>';
+  html += '<div class="flow-infra">';
+  html += flowNode('team');
+  html += flowNode('finance');
+  html += flowNode('technology');
+  html += '</div>';
+
+  html += '</div>';
+
+  // Section D — Summary Bar
+  html += '<div class="summary-bar">';
+  html += '<div class="summary-bar-item"><div class="summary-bar-count count-gap">' + r.gapCount + '</div><div class="summary-bar-label count-gap">Gaps</div></div>';
+  html += '<div class="summary-bar-item"><div class="summary-bar-count count-fragile">' + r.fragileCount + '</div><div class="summary-bar-label count-fragile">Fragile</div></div>';
+  html += '<div class="summary-bar-item"><div class="summary-bar-count count-functional">' + r.functionalCount + '</div><div class="summary-bar-label count-functional">Functional</div></div>';
+  html += '<div class="summary-bar-item"><div class="summary-bar-count count-optimized">' + r.optimizedCount + '</div><div class="summary-bar-label count-optimized">Optimized</div></div>';
+  html += '</div>';
+
+  // Section E — Gap Analysis Accordion (restructured: pain → cost → solution)
+  html += '<div style="margin-bottom:16px;"><div class="section-label">What Your Architecture Is Costing You</div></div>';
+
+  categoryData.forEach(function(cat) {
+    var status = r.statuses[cat.id];
+    var statusLower = status.toLowerCase();
+    var badgeClass = 'badge-' + statusLower;
+    var collapsed = (status !== 'GAP' && status !== 'FRAGILE') ? ' collapsed' : '';
+
+    html += '<div class="accordion-block' + collapsed + '" id="acc-' + cat.id + '">';
+    html += '<div class="accordion-toggle" onclick="toggleAccordion(\'' + cat.id + '\')">';
+    html += '<div class="accordion-toggle-left">';
+    html += '<span class="accordion-cat-name">' + esc(cat.label) + '</span>';
+    html += '<span class="status-badge ' + badgeClass + '">' + status + '</span>';
+    html += '</div>';
+    html += '<svg class="accordion-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
+    html += '</div>';
+
+    html += '<div class="accordion-content">';
+
+    if (status === 'GAP') {
+      // PAIN: what is broken and what it means
+      var gapCost = cat.costData.gap;
+      html += '<div class="pain-callout">';
+      html += '<p><strong>What this means:</strong> ' + esc(cat.recommendations.gap) + '</p>';
+      html += '</div>';
+
+      // COST: what it is costing
+      html += '<div class="acc-cost-block acc-cost-block-gap">';
+      html += '<div class="acc-cost-range">Estimated annual cost: ' + formatCurrencyRange(gapCost.annualLow, gapCost.annualHigh) + '</div>';
+      html += '<div class="acc-cost-note">' + esc(gapCost.note) + '</div>';
+      html += '</div>';
+
+      // SOLUTION: what to do about it
+      html += '<div class="solution-block">';
+      html += '<div class="solution-label">What needs to happen</div>';
+      html += '<p>This category requires a full system installation. The 3x3OS Technology pillar builds this from the ground up \u2014 CRM, automation, documented process, and reporting \u2014 designed around your specific business model and revenue stage.</p>';
+      html += '</div>';
+
+    } else if (status === 'FRAGILE' || status === 'FUNCTIONAL') {
+      var costKey = status === 'FRAGILE' ? 'fragile' : null;
+      var recKey = statusLower;
+
+      // Specific gaps for No answers
+      var noQuestions = [];
+      cat.phase2Questions.forEach(function(q, idx) {
+        if (phase2Answers[cat.id][idx] === 'no') noQuestions.push(q);
+      });
+
+      // PAIN: what is broken, with specific gaps leading
+      if (noQuestions.length > 0) {
+        var painClass = status === 'FRAGILE' ? 'pain-callout pain-callout-fragile' : 'pain-callout pain-callout-fragile';
+        html += '<div class="' + painClass + '">';
+        html += '<p><strong>What this means:</strong> ' + esc(cat.recommendations[recKey]) + '</p>';
+        html += '</div>';
+
+        html += '<div style="margin-top:16px;margin-bottom:8px;font-size:13px;font-weight:600;color:var(--fg-muted);text-transform:uppercase;letter-spacing:0.05em;">Specific gaps your answers revealed:</div>';
+        noQuestions.forEach(function(q) {
+          var costColorClass = status === 'FRAGILE' ? 'acc-gap-cost-fragile' : 'acc-gap-cost-gap';
+          html += '<div class="acc-gap-item">';
+          html += '<div class="acc-gap-implication">\u2014 ' + esc(q.noImplication) + '</div>';
+          html += '<div class="acc-gap-cost ' + costColorClass + '">\u21B3 ' + esc(q.costImplication) + '</div>';
+          html += '</div>';
+        });
+      } else {
+        html += '<div class="acc-recommendation">' + esc(cat.recommendations[recKey]) + '</div>';
+      }
+
+      // COST: what it is costing (FRAGILE only)
+      if (costKey && cat.costData[costKey]) {
+        var cd = cat.costData[costKey];
+        var costBlockClass = status === 'FRAGILE' ? 'acc-cost-block-fragile' : '';
+        html += '<div class="acc-cost-block ' + costBlockClass + '" style="margin-top:16px;">';
+        html += '<div class="acc-cost-range">Estimated annual cost: ' + formatCurrencyRange(cd.annualLow, cd.annualHigh) + '</div>';
+        html += '<div class="acc-cost-note">' + esc(cd.note) + '</div>';
+        html += '</div>';
+      }
+
+      // SOLUTION: what to do about it
+      html += '<div class="solution-block">';
+      html += '<div class="solution-label">What needs to happen</div>';
+      if (status === 'FRAGILE') {
+        html += '<p>The gaps above are creating measurable drag on your business every week they remain open. The 3x3OS engagement addresses each one with specific infrastructure installations \u2014 not advice, not training, but built and operational systems designed around your architecture map.</p>';
+      } else {
+        html += '<p>Your system is working but the remaining gaps are limiting what it can produce. These are closable without a platform replacement \u2014 typically through better use of existing tools and targeted automation. The 3x3OS engagement closes these gaps in 90 days.</p>';
+      }
+      html += '</div>';
+
+    } else {
+      // OPTIMIZED
+      html += '<div class="solution-block" style="border-left-color:var(--accent);">';
+      html += '<p>' + esc(cat.recommendations.optimized) + '</p>';
+      html += '</div>';
+      html += '<div class="acc-no-action" style="margin-top:12px;">No action required in this category.</div>';
+    }
+
+    html += '</div></div>';
+  });
+
+  // Section F — CTA Block with Apply Form (matches FEI pattern)
+  var urgentCount = r.gapCount + r.fragileCount;
+  var ctaHeadline, ctaBody;
+  if (urgentCount > 0) {
+    ctaHeadline = 'Get All of This Installed Inside Your Business in 90 Days.';
+    ctaBody = 'Your systems map shows ' + urgentCount + ' ' + (urgentCount === 1 ? 'category' : 'categories') + ' carrying an estimated ' + formatCurrencyRange(r.costTier.annualLow, r.costTier.annualHigh) + ' in annual architecture drag. The 3x3OS Technology pillar builds the infrastructure your audit revealed is missing or fragile \u2014 with implementation support, structural maps, and a 90-day installation plan built around your exact map. Application-only.';
+  } else {
+    ctaHeadline = 'Your Architecture Is Strong. Here Is How to Keep It That Way.';
+    ctaBody = 'The 3x3OS program maintains and optimizes what you have built, ensuring your architecture scales with your business rather than becoming a constraint. Application-only.';
+  }
+
+  html += '<div class="cta-block">';
+  html += '<h2>' + esc(ctaHeadline) + '</h2>';
+  html += '<p>' + esc(ctaBody) + '</p>';
+  html += '<button class="btn-primary" id="applyToggleBtn" onclick="openApplyForm()" style="max-width:360px; margin:0 auto 16px;">Apply for 3x3OS</button>';
+  html += '<div class="apply-form-wrap" id="applyFormWrap">';
+  html += '<div class="form-error" id="applyFormError">Please enter your phone number and business name.</div>';
+  html += '<div style="display:flex;align-items:center;gap:0;">';
+  html += '<select id="applyPhoneCode" style="padding:10px 4px 10px 8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-right:none;border-radius:8px 0 0 8px;font-size:0.85rem;color:rgba(255,255,255,0.85);cursor:pointer;"><option value="+1" selected>US +1</option><option value="+1">CA +1</option><option value="+44">UK +44</option><option value="+61">AU +61</option><option value="+33">FR +33</option><option value="+49">DE +49</option><option value="+39">IT +39</option><option value="+34">ES +34</option><option value="+31">NL +31</option><option value="+46">SE +46</option><option value="+41">CH +41</option><option value="+353">IE +353</option><option value="+91">IN +91</option><option value="+86">CN +86</option><option value="+81">JP +81</option><option value="+82">KR +82</option><option value="+65">SG +65</option><option value="+63">PH +63</option><option value="+64">NZ +64</option><option value="+55">BR +55</option><option value="+52">MX +52</option><option value="+57">CO +57</option><option value="+971">AE +971</option><option value="+972">IL +972</option><option value="+27">ZA +27</option><option value="+234">NG +234</option></select>';
+  html += '<input type="tel" class="form-input" id="applyPhone" placeholder="(555) 000-0000" autocomplete="tel" maxlength="20" style="border-radius:0 8px 8px 0;">';
+  html += '</div>';
+  html += '<input type="text" class="form-input" id="applyBusiness" placeholder="Business name" autocomplete="organization" maxlength="150">';
+  html += '<button class="btn-primary" onclick="submitApply()" style="max-width:360px; margin:0 auto 16px; width:100%;">Submit Application</button>';
+  html += '</div>';
+  html += '<div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">';
+  html += '<button class="cta-secondary-link" onclick="window.print()">Download your full results</button>';
+  html += '<button class="cta-secondary-link" onclick="location.reload()">Retake assessment</button>';
+  html += '</div>';
+  html += '<div class="cta-small-text">Results also sent to ' + esc(contactInfo.email) + '</div>';
+  html += '</div>';
+
+  // Print footer
+  html += '<div class="print-footer">Generated by the System Architecture Audit \u2014 Paradigm Consulting \u2014 paradigmconsulting.co</div>';
+
+  document.getElementById('resultsContainer').innerHTML = html;
+
+  // Fire GHL webhook
+  fireResultsWebhook(r);
+}
+
+function toggleAccordion(catId) {
+  var block = document.getElementById('acc-' + catId);
+  block.classList.toggle('collapsed');
+}
+
+// ============================================================
+// APPLY FORM + CONFETTI
+// ============================================================
+
+function openApplyForm() {
+  var btn = document.getElementById('applyToggleBtn');
+  var wrap = document.getElementById('applyFormWrap');
+  btn.classList.add('apply-btn-hide');
+  wrap.classList.add('open');
+  setTimeout(function() {
+    document.getElementById('applyPhone').focus();
+  }, 300);
+}
+
+var lastApplyTime = 0;
+
+function submitApply() {
+  var now = Date.now();
+  if (now - lastApplyTime < 2000) return;
+  lastApplyTime = now;
+
+  var phoneRaw = sanitize(document.getElementById('applyPhone').value, 20);
+  var business = sanitize(document.getElementById('applyBusiness').value, 150);
+  var errEl = document.getElementById('applyFormError');
+  var phoneRegex = /^[\d\s\-+().]{7,20}$/;
+
+  if (!phoneRaw || !business || !phoneRegex.test(phoneRaw)) {
+    errEl.classList.add('visible');
+    return;
+  }
+  errEl.classList.remove('visible');
+
+  // Prevent double-submit
+  var submitBtn = document.querySelector('#applyFormWrap .btn-primary');
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submitting\u2026'; }
+
+  // Fire apply webhook
+  try {
+    var r = generateResults();
+    var payload = {
+      first_name: contactInfo.firstName.substring(0, 100),
+      email: contactInfo.email.substring(0, 254),
+      phone: document.getElementById('applyPhoneCode').value + ' ' + phoneRaw,
+      business_name: business,
+      company_url: document.getElementById('honeyField').value,
+      overall_score: r.overallScore,
+      architecture_tier: r.tier.label,
+      gap_count: r.gapCount,
+      fragile_count: r.fragileCount,
+      functional_count: r.functionalCount,
+      optimized_count: r.optimizedCount,
+      estimated_annual_cost_low: r.costTier.annualLow,
+      estimated_annual_cost_high: r.costTier.annualHigh,
+      source: 'system-architecture-audit-apply',
+      lead_source: 'system-architecture-audit',
+      timestamp: new Date().toISOString()
+    };
+    fetch('/api/webhook', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(function() {});
+  } catch(e) {}
+
+  // Fire confetti
+  fireConfetti();
+
+  // Transition to thank you after confetti
+  setTimeout(function() {
+    showScreen('screen5');
+  }, 2200);
+}
+
+function fireConfetti() {
+  var duration = 2000;
+  var animationEnd = Date.now() + duration;
+  var defaults = {
+    startVelocity: 30,
+    spread: 360,
+    ticks: 60,
+    zIndex: 9999,
+    colors: ['#00BFA5', '#FFB300', '#00897B', '#ffffff']
+  };
+  function randomInRange(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+  var interval = setInterval(function() {
+    var timeLeft = animationEnd - Date.now();
+    if (timeLeft <= 0) { clearInterval(interval); return; }
+    confetti({
+      particleCount: 50,
+      origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+      startVelocity: defaults.startVelocity,
+      spread: defaults.spread,
+      ticks: defaults.ticks,
+      zIndex: defaults.zIndex,
+      colors: defaults.colors
+    });
+    confetti({
+      particleCount: 50,
+      origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+      startVelocity: defaults.startVelocity,
+      spread: defaults.spread,
+      ticks: defaults.ticks,
+      zIndex: defaults.zIndex,
+      colors: defaults.colors
+    });
+  }, 250);
+}
+
+
+// ============================================================
+// WEBHOOK
+// ============================================================
+
+function fireResultsWebhook(r) {
+  try {
+    var payload = {
+      first_name: contactInfo.firstName.substring(0, 100),
+      email: contactInfo.email.substring(0, 254),
+      overall_score: r.overallScore,
+      architecture_tier: r.tier.label,
+      crm_status: r.statuses.crm,
+      crm_score: r.scores.crm,
+      marketing_status: r.statuses.marketing,
+      marketing_score: r.scores.marketing,
+      delivery_status: r.statuses.delivery,
+      delivery_score: r.scores.delivery,
+      finance_status: r.statuses.finance,
+      finance_score: r.scores.finance,
+      team_status: r.statuses.team,
+      team_score: r.scores.team,
+      technology_status: r.statuses.technology,
+      technology_score: r.scores.technology,
+      gap_count: r.gapCount,
+      fragile_count: r.fragileCount,
+      functional_count: r.functionalCount,
+      optimized_count: r.optimizedCount,
+      estimated_annual_cost_low: r.costTier.annualLow,
+      estimated_annual_cost_high: r.costTier.annualHigh,
+      estimated_cost_low_quarterly: Math.round(r.costTier.annualLow / 4),
+      estimated_cost_high_quarterly: Math.round(r.costTier.annualHigh / 4),
+      company_url: document.getElementById('honeyField').value,
+      source: 'system-architecture-audit',
+      timestamp: new Date().toISOString()
+    };
+    fetch('/api/webhook', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(function() {});
+  } catch(e) {}
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>The Leverage Engine — Paradigm Consulting</title>
+<meta name="description" content="Enter 4 numbers about your business and find out exactly how many founder hours need to become systems, delegation, and technology to hit your revenue target.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="How Much Is Your Time Costing Your Business?">
+<meta property="og:description" content="Enter 4 numbers about your business and find out exactly how many founder hours need to become systems, delegation, and technology to hit your revenue target.">
+<meta property="og:image" content="https://paradigmconsulting.io/brand_assets/og-leverage-engine.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://paradigmconsulting.io/leverage-engine">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Paradigm Consulting">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How Much Is Your Time Costing Your Business?">
+<meta name="twitter:description" content="Enter 4 numbers about your business and find out exactly how many founder hours need to become systems, delegation, and technology to hit your revenue target.">
+<meta name="twitter:image" content="https://paradigmconsulting.io/brand_assets/og-leverage-engine.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Figtree:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/ranade" rel="stylesheet">
+<link rel="icon" href="brand_assets/favicon.ico">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F8F9FA;
+  --surface:#FFFFFF;
+  --surface-2:#F1F3F5;
+  --fg:#1A1A1A;
+  --fg-secondary:#4A5568;
+  --fg-muted:#9CA3AF;
+  --border:#E2E8F0;
+  --border-light:#EDF2F7;
+  --accent:#8B9BAF;
+  --accent-active:#6B7A8D;
+  --accent-light:#C8D0DA;
+  --accent-fill:rgba(139,155,175,0.08);
+  --red:#D32F2F;
+  --green:#34A853;
+  --radius:14px;
+  --radius-sm:10px;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Figtree',sans-serif;
+  font-size:15px;
+  line-height:1.7;
+  color:var(--fg);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* Top Bar */
+.top-bar{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  height:56px;
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  padding:0 24px;
+}
+.top-bar img{height:18px;opacity:0.85}
+
+/* Screens */
+.screen{display:none;min-height:100vh;padding:56px 0 0}
+.screen.active{display:block;animation:screenFadeIn 0.35s ease both}
+@keyframes screenFadeIn{from{opacity:0}to{opacity:1}}
+
+.screen-inner{
+  max-width:800px;margin:0 auto;
+  padding:40px clamp(20px,5vw,48px) 64px;
+  background:var(--surface);
+  border-radius:20px;
+  border:1px solid var(--border);
+  margin-top:clamp(24px,3vw,40px);
+  margin-bottom:40px;
+  box-shadow:0 1px 2px rgba(0,0,0,0.04),0 4px 16px rgba(0,0,0,0.03);
+}
+
+/* Screen 1 — Intro */
+.intro-page{
+  min-height:calc(100vh - 56px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  position:relative;padding:clamp(24px,3vw,40px) 0;
+}
+.intro-card-wrap{
+  max-width:960px;width:100%;
+  padding:0 clamp(16px,4vw,32px);
+  z-index:1;
+}
+.intro-card{
+  position:relative;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:clamp(28px,4vw,44px) clamp(24px,5vw,56px);
+  box-shadow:0 1px 2px rgba(0,0,0,0.04),0 4px 16px rgba(0,0,0,0.03);
+  text-align:center;
+}
+.intro-card::before{
+  content:'';position:absolute;top:0;left:24px;right:24px;
+  height:3px;border-radius:0 0 3px 3px;
+  background:linear-gradient(90deg,var(--accent-active),rgba(139,155,175,0.3));
+}
+
+/* Eyebrow Pill */
+.eyebrow-pill{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'Figtree',sans-serif;font-size:11px;font-weight:600;
+  text-transform:uppercase;letter-spacing:0.12em;
+  color:var(--accent-active);
+  background:rgba(139,155,175,0.08);
+  border:1px solid rgba(139,155,175,0.18);
+  border-radius:100px;padding:6px 16px;
+  margin-bottom:12px;
+}
+.pill-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--accent-active);flex-shrink:0;
+}
+.framework-tag{
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:'Space Mono',monospace;font-size:10px;font-weight:400;
+  text-transform:uppercase;letter-spacing:0.15em;
+  color:var(--fg-muted);margin-top:2px;
+}
+.tag-sep{
+  width:3px;height:3px;border-radius:50%;
+  background:var(--border);
+}
+
+/* Intro Title */
+.intro-card h1{
+  font-family:'Ranade',sans-serif;font-weight:600;
+  font-size:clamp(28px,5vw,40px);
+  line-height:1.1;letter-spacing:-0.02em;
+  color:var(--fg);text-align:center;
+  margin-bottom:14px;
+}
+.intro-card .description{
+  font-size:15px;line-height:1.7;
+  color:var(--fg-secondary);
+  max-width:640px;margin:0 auto 28px;
+  text-align:center;
+}
+
+/* Tabs */
+.tabs{
+  display:flex;gap:0;
+  background:var(--surface-2);
+  border:1px solid var(--border-light);
+  border-radius:12px;padding:4px;
+  margin:0 auto 24px;max-width:520px;
+}
+.tab-btn{
+  flex:1;font-family:'Figtree',sans-serif;font-size:14px;font-weight:500;
+  color:var(--fg-muted);background:transparent;
+  padding:10px 16px;border-radius:8px;border:none;
+  cursor:pointer;white-space:nowrap;
+  transition:color 0.2s,background 0.2s,font-weight 0.2s;
+}
+.tab-btn:hover{color:var(--fg-secondary)}
+.tab-btn.active{
+  color:var(--fg);font-weight:700;
+  background:var(--surface);
+  box-shadow:0 1px 3px rgba(0,0,0,0.06);
+}
+.tab-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+.tab-panel .lead{
+  font-size:15px;line-height:1.7;
+  color:var(--fg-muted);
+  margin-bottom:20px;text-align:center;
+}
+.tab-panel .lead strong{color:var(--fg);font-weight:600}
+
+/* Check List */
+.check-list{
+  list-style:none;display:flex;flex-direction:column;gap:10px;
+  margin:0 auto 20px;max-width:520px;
+}
+.check-list li{
+  display:flex;align-items:flex-start;gap:14px;
+  font-size:15px;line-height:1.6;color:var(--fg);
+  text-align:left;
+}
+.check-icon{
+  width:22px;height:22px;flex-shrink:0;margin-top:2px;
+  color:var(--accent-active);
+}
+
+/* Trust Bar */
+.trust-bar{
+  display:flex;justify-content:center;gap:0;
+  padding:16px 0;margin-top:24px;
+  border-top:1px solid var(--border-light);
+  border-bottom:1px solid var(--border-light);
+}
+.trust-item{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  gap:8px;font-size:13px;font-weight:500;
+  color:var(--fg-muted);text-align:center;
+  border-right:1px solid var(--border-light);
+}
+.trust-item:last-child{border-right:none}
+.trust-icon{
+  width:16px;height:16px;flex-shrink:0;
+  opacity:0.7;color:var(--accent-active);
+}
+
+/* Disclaimer */
+.disclaimer{
+  font-size:12px;line-height:1.5;
+  color:var(--fg-muted);
+  margin-top:20px;padding-top:20px;
+  border-top:1px solid var(--border-light);
+  text-align:center;max-width:520px;margin-left:auto;margin-right:auto;
+}
+
+/* Form CTA Area */
+.intro-cta-area{
+  text-align:center;padding-top:24px;margin-top:24px;
+}
+.intro-form{
+  display:flex;flex-direction:column;gap:12px;
+  max-width:480px;margin:0 auto 12px;
+}
+.form-input{
+  width:100%;font-family:'Figtree',sans-serif;font-size:15px;
+  height:50px;padding:0 18px;
+  background:var(--surface-2);
+  border:1px solid var(--border);
+  border-radius:12px;
+  color:var(--fg);outline:none;
+  transition:border-color 0.2s,box-shadow 0.2s;
+}
+.form-input::placeholder{color:var(--fg-muted)}
+.form-input:focus{
+  border-color:var(--accent-active);
+  box-shadow:0 0 0 3px rgba(139,155,175,0.12);
+}
+.form-error{
+  font-size:12px;color:var(--red);
+  text-align:center;display:none;
+}
+.btn-primary{
+  display:inline-flex;align-items:center;justify-content:center;
+  gap:8px;font-family:'Figtree',sans-serif;font-size:15px;font-weight:600;
+  color:#fff;background:var(--fg);
+  height:52px;padding:0 32px;border-radius:var(--radius);
+  cursor:pointer;border:none;
+  transition:background 0.2s,transform 0.1s,box-shadow 0.2s;
+  width:100%;max-width:480px;margin:0 auto;
+}
+.btn-primary:hover{
+  background:#222;
+  transform:translateY(-1px);
+}
+.btn-primary:focus-visible{
+  outline:2px solid var(--accent);outline-offset:2px;
+}
+.btn-primary:active{transform:scale(0.98)}
+.btn-primary:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+
+.intro-note{
+  font-size:12px;color:var(--fg-muted);
+  text-align:center;margin-top:12px;
+}
+
+/* Proof Bar */
+.proof-bar{
+  display:flex;align-items:center;justify-content:center;gap:0;
+  margin-top:24px;background:var(--surface-2);
+  border-radius:12px;border:1px solid var(--border-light);
+  overflow:hidden;
+}
+.proof-item{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:16px;text-align:center;
+  border-right:1px solid var(--border-light);
+}
+.proof-item:last-child{border-right:none}
+.proof-number{
+  font-family:'Ranade',sans-serif;font-weight:700;
+  font-size:28px;letter-spacing:-0.02em;
+  color:var(--fg);line-height:1;margin-bottom:4px;
+}
+.proof-label{
+  font-size:12px;color:var(--fg-muted);font-weight:500;
+}
+
+/* Screen 2 — Calculator Inputs */
+.calc-title{
+  font-family:'Ranade',sans-serif;font-weight:500;
+  font-size:clamp(24px,4vw,34px);
+  line-height:1.1;letter-spacing:-0.02em;
+  text-transform:uppercase;color:var(--fg);
+  margin-bottom:8px;
+}
+.calc-sub{
+  font-size:14px;color:var(--fg-secondary);
+  margin-bottom:clamp(28px,3vw,40px);
+}
+.input-group{margin-bottom:28px}
+.input-label{
+  display:block;font-size:13px;font-weight:600;
+  color:var(--fg);letter-spacing:0.01em;
+  margin-bottom:6px;
+}
+.input-field{
+  width:100%;font-family:'Figtree',sans-serif;font-size:18px;
+  font-weight:500;height:56px;padding:0 20px;
+  background:var(--surface-2);
+  border:1px solid #CBD5E0;
+  border-radius:var(--radius-sm);
+  color:var(--fg);outline:none;
+  transition:border-color 0.2s,box-shadow 0.2s;
+  font-variant-numeric:tabular-nums;
+}
+.input-field::placeholder{color:var(--fg-muted);font-weight:400}
+.input-field:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(139,155,175,0.15);
+}
+.input-note{
+  font-size:12px;color:var(--fg-muted);margin-top:4px;line-height:1.5;
+}
+.input-error{
+  font-size:12px;color:var(--red);margin-top:4px;display:none;
+}
+.calc-errors{
+  font-size:13px;color:var(--red);
+  margin-bottom:16px;display:none;
+}
+
+/* Screen 3 — Results */
+.results-header{
+  text-align:center;
+  margin-bottom:clamp(32px,4vw,48px);
+}
+.results-badge{
+  font-family:'Ranade',sans-serif;font-weight:500;
+  font-size:clamp(11px,1.4vw,13px);
+  text-transform:uppercase;letter-spacing:0.15em;
+  color:var(--accent-active);
+  margin-bottom:4px;
+}
+.results-title{
+  font-family:'Ranade',sans-serif;font-weight:500;
+  font-size:clamp(22px,3.5vw,30px);
+  line-height:1.1;letter-spacing:-0.02em;
+  text-transform:uppercase;color:var(--fg);
+}
+
+/* Section A — Leverage Headline */
+.section-leverage-headline{
+  text-align:center;
+  padding:clamp(32px,4vw,48px) 0;
+  border-bottom:1px solid var(--border);
+  margin-bottom:clamp(28px,3vw,40px);
+  background:linear-gradient(180deg,rgba(139,155,175,0.05) 0%,transparent 100%);
+  border-radius:12px;
+}
+.leverage-big-number{
+  font-family:'Space Mono',monospace;font-weight:700;
+  font-size:clamp(48px,8vw,72px);
+  line-height:1;letter-spacing:-0.03em;
+  color:var(--accent-active);
+  margin-bottom:4px;
+}
+.leverage-big-label{
+  font-family:'Ranade',sans-serif;font-weight:500;
+  font-size:clamp(16px,2.5vw,22px);
+  color:var(--fg);text-transform:uppercase;
+  letter-spacing:0.02em;margin-bottom:16px;
+}
+.leverage-context{
+  font-size:15px;line-height:1.7;color:var(--fg-secondary);
+  max-width:560px;margin:0 auto 12px;
+}
+.leverage-context-secondary{
+  font-size:14px;line-height:1.7;color:var(--fg-muted);
+  max-width:560px;margin:0 auto;
+}
+
+/* Section B — Leverage Score */
+.section-score{
+  padding:clamp(24px,3vw,36px) 0;
+  border-bottom:1px solid var(--border);
+  margin-bottom:clamp(28px,3vw,40px);
+}
+.score-title{
+  font-family:'Ranade',sans-serif;font-weight:500;
+  font-size:16px;text-transform:uppercase;
+  letter-spacing:0.05em;color:var(--fg);
+  margin-bottom:16px;text-align:center;
+}
+.score-gauge{
+  position:relative;
+  height:8px;background:var(--surface-2);
+  border-radius:4px;margin-bottom:12px;
+  overflow:visible;
+}
+.score-gauge-fill{
+  height:100%;border-radius:4px;
+  background:linear-gradient(90deg,var(--accent-light),var(--accent-active));
+  transition:width 1.5s cubic-bezier(0.22,1,0.36,1);
+  width:0;
+}
+.score-gauge-marker{
+  position:absolute;top:-8px;
+  width:24px;height:24px;border-radius:50%;
+  background:var(--accent-active);
+  border:3px solid var(--surface);
+  box-shadow:0 2px 8px rgba(107,122,141,0.3);
+  transform:translateX(-50%);
+  transition:left 1.5s cubic-bezier(0.22,1,0.36,1);
+  left:0;
+}
+.score-labels{
+  display:flex;justify-content:space-between;
+  font-size:11px;color:var(--fg-muted);
+  font-family:'Space Mono',monospace;
+  margin-bottom:16px;
+}
+.score-value{
+  text-align:center;
+  font-family:'Space Mono',monospace;font-weight:700;
+  font-size:clamp(20px,3vw,28px);
+  color:var(--fg);margin-bottom:12px;
+}
+.score-interpretation{
+  text-align:center;font-size:14px;line-height:1.7;
+  color:var(--fg-secondary);max-width:520px;margin:0 auto;
+}
+
+/* Section C — Before vs After */
+.section-comparison{
+  padding:clamp(24px,3vw,36px) 0;
+  border-bottom:1px solid var(--border);
+  margin-bottom:clamp(28px,3vw,40px);
+}
+.comparison-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+@media(max-width:640px){.comparison-grid{grid-template-columns:1fr}}
+.comparison-card{
+  padding:clamp(20px,3vw,28px);
+  border-radius:var(--radius);
+  border:1px solid var(--border);
+}
+.comparison-card.current{
+  background:var(--surface);
+  box-shadow:0 1px 3px rgba(0,0,0,0.04),0 4px 12px rgba(0,0,0,0.03);
+}
+.comparison-card.target{
+  background:linear-gradient(135deg,rgba(139,155,175,0.06),rgba(139,155,175,0.12));
+  border-color:var(--accent-light);
+  box-shadow:0 2px 8px rgba(107,122,141,0.1),0 8px 24px rgba(107,122,141,0.06);
+}
+.comparison-card-label{
+  font-family:'Ranade',sans-serif;font-weight:500;
+  font-size:11px;text-transform:uppercase;
+  letter-spacing:0.12em;color:var(--accent-active);
+  margin-bottom:16px;
+}
+.comparison-metric{
+  display:flex;justify-content:space-between;align-items:baseline;
+  padding:6px 0;
+  border-bottom:1px solid var(--border-light);
+}
+.comparison-metric:last-of-type{border-bottom:none}
+.comparison-metric-label{
+  font-size:12px;color:var(--fg-secondary);
+}
+.comparison-metric-value{
+  font-family:'Space Mono',monospace;font-weight:700;
+  font-size:14px;color:var(--fg);
+  font-variant-numeric:tabular-nums;
+}
+.comparison-desc{
+  font-size:13px;line-height:1.6;color:var(--fg-muted);
+  margin-top:12px;
+}
+
+/* Section D — Leverage Split */
+.section-split{
+  padding:clamp(24px,3vw,36px) 0;
+  border-bottom:1px solid var(--border);
+  margin-bottom:clamp(28px,3vw,40px);
+}
+.split-title{
+  font-family:'Ranade',sans-serif;font-weight:500;
+  font-size:16px;text-transform:uppercase;
+  letter-spacing:0.05em;color:var(--fg);
+  margin-bottom:20px;text-align:center;
+}
+.split-grid{
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+  gap:16px;
+}
+@media(max-width:640px){.split-grid{grid-template-columns:1fr}}
+.split-card{
+  padding:clamp(20px,2.5vw,24px);
+  border-radius:var(--radius);
+  border:1px solid var(--border);
+  background:var(--surface);
+  box-shadow:0 1px 3px rgba(0,0,0,0.04),0 4px 12px rgba(0,0,0,0.03);
+  transition:transform 0.2s,box-shadow 0.2s;
+}
+.split-card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 4px 12px rgba(0,0,0,0.06),0 8px 24px rgba(0,0,0,0.04);
+}
+.split-card-hours{
+  font-family:'Space Mono',monospace;font-weight:700;
+  font-size:clamp(24px,3vw,32px);
+  color:var(--accent-active);
+  line-height:1;margin-bottom:2px;
+  font-variant-numeric:tabular-nums;
+}
+.split-card-pct{
+  font-family:'Space Mono',monospace;
+  font-size:12px;color:var(--fg-muted);
+  margin-bottom:12px;
+}
+.split-card-title{
+  font-family:'Ranade',sans-serif;font-weight:500;
+  font-size:12px;text-transform:uppercase;
+  letter-spacing:0.08em;color:var(--fg);
+  margin-bottom:8px;
+}
+.split-card-desc{
+  font-size:12px;line-height:1.6;color:var(--fg-muted);
+}
+.split-card-bar{
+  height:4px;border-radius:2px;
+  background:var(--surface-2);
+  margin-top:12px;overflow:hidden;
+}
+.split-card-bar-fill{
+  height:100%;border-radius:2px;
+  background:linear-gradient(90deg,var(--accent-light),var(--accent-active));
+  transition:width 1.2s cubic-bezier(0.22,1,0.36,1);
+  width:0;
+}
+
+/* Section E — Action Plan */
+.section-plan{
+  padding:clamp(24px,3vw,36px) 0;
+  border-bottom:1px solid var(--border);
+  margin-bottom:clamp(28px,3vw,40px);
+}
+.plan-title{
+  font-family:'Ranade',sans-serif;font-weight:500;
+  font-size:16px;text-transform:uppercase;
+  letter-spacing:0.05em;color:var(--fg);
+  margin-bottom:20px;text-align:center;
+}
+.plan-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-left:5px solid var(--accent);
+  border-radius:var(--radius);
+  padding:clamp(20px,3vw,28px);
+  margin-bottom:16px;
+  box-shadow:0 1px 3px rgba(0,0,0,0.04),0 4px 12px rgba(0,0,0,0.03);
+}
+.plan-card:last-child{margin-bottom:0}
+.plan-badge{
+  font-family:'Ranade',sans-serif;font-weight:500;
+  font-size:14px;color:var(--fg);
+  margin-bottom:4px;
+}
+.plan-focus{
+  font-size:11px;text-transform:uppercase;
+  letter-spacing:0.1em;color:var(--accent-active);
+  font-weight:600;margin-bottom:8px;
+}
+.plan-hours{
+  font-family:'Space Mono',monospace;font-weight:700;
+  font-size:14px;color:var(--fg);
+  margin-bottom:16px;
+  font-variant-numeric:tabular-nums;
+}
+.plan-actions{
+  list-style:none;padding:0;margin:0 0 16px;
+}
+.plan-actions li{
+  position:relative;padding-left:16px;
+  font-size:13px;line-height:1.6;
+  color:var(--fg-secondary);
+  margin-bottom:8px;
+}
+.plan-actions li::before{
+  content:'';position:absolute;left:0;top:8px;
+  width:5px;height:5px;border-radius:50%;
+  background:var(--accent);
+}
+.plan-outcome{
+  font-size:13px;line-height:1.6;
+  color:var(--fg-muted);font-style:italic;
+}
+
+/* Section F — Cost of Inaction */
+.section-cost{
+  padding:clamp(28px,4vw,48px) 0;
+  border-bottom:1px solid var(--border);
+  margin-bottom:clamp(28px,3vw,40px);
+  text-align:center;
+}
+.cost-headline{
+  font-family:'Ranade',sans-serif;font-weight:500;
+  font-size:clamp(18px,3vw,24px);
+  line-height:1.3;letter-spacing:-0.02em;
+  color:var(--fg);
+  margin-bottom:16px;max-width:560px;margin-left:auto;margin-right:auto;
+}
+.cost-detail{
+  font-size:14px;line-height:1.7;
+  color:var(--fg-muted);
+  max-width:560px;margin:0 auto;
+}
+
+/* Section G — CTA Block (matches FEI) */
+.cta-block{
+  text-align:center;
+  padding:48px 0 32px;
+  border-top:1px solid var(--border);
+  margin-top:24px;
+}
+.cta-block h2{
+  font-family:'Ranade',sans-serif;font-weight:500;
+  text-transform:uppercase;letter-spacing:-0.02em;
+  font-size:clamp(22px,4vw,32px);
+  line-height:1.1;margin-bottom:16px;
+  color:var(--fg);
+}
+.cta-block p{
+  font-size:15px;line-height:1.7;
+  color:var(--fg-muted);
+  max-width:540px;margin:0 auto 32px;
+}
+.btn-accent{
+  background:var(--accent-active)!important;
+  color:#fff;
+  box-shadow:0 2px 8px rgba(107,122,141,0.25);
+}
+.btn-accent:hover{
+  background:var(--accent)!important;
+  box-shadow:0 4px 16px rgba(107,122,141,0.35);
+  transform:translateY(-1px);
+}
+.cta-secondary-link{
+  display:inline-block;
+  font-family:'Figtree',sans-serif;font-size:14px;
+  color:var(--accent-active);
+  background:none;border:none;cursor:pointer;
+  text-decoration:underline;text-underline-offset:3px;
+  transition:color 0.2s;
+}
+.cta-secondary-link:hover{color:var(--fg)}
+.cta-secondary-link:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.cta-small-text{
+  font-size:12px;color:var(--fg-muted);margin-top:16px;
+}
+.apply-form-wrap{
+  display:none;
+  flex-direction:column;gap:12px;
+  max-width:360px;margin:0 auto 16px;
+}
+.apply-form-wrap.open{display:flex}
+
+/* Thank You */
+.thankyou-wrap{
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  min-height:calc(100vh - 56px);
+  text-align:center;
+  padding:48px clamp(20px,5vw,48px);
+}
+.thankyou-wrap h1{
+  font-family:'Ranade',sans-serif;font-weight:500;
+  text-transform:uppercase;letter-spacing:-0.02em;
+  font-size:clamp(28px,5vw,42px);
+  line-height:1.05;margin-bottom:16px;
+  color:var(--fg);
+}
+.thankyou-wrap p{
+  font-size:15px;line-height:1.7;
+  color:var(--fg-secondary);margin-bottom:32px;
+  max-width:440px;
+}
+
+/* Print */
+@media print{
+  .top-bar,.screen:not(#screen3),
+  .section-cta,.btn-primary,.btn-secondary,
+  .cta-btn-wrap,.cta-small{display:none!important}
+  #screen3{display:block!important;padding:0!important}
+  .screen-inner{
+    border:none!important;box-shadow:none!important;
+    margin:0!important;padding:24px!important;
+    max-width:100%!important;border-radius:0!important;
+  }
+  body{background:#fff!important;color:#000!important;font-size:12px}
+  .leverage-big-number{font-size:36px!important;color:#333!important}
+  .score-gauge{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+  .score-gauge-fill,.split-card-bar-fill,.plan-card{
+    print-color-adjust:exact;-webkit-print-color-adjust:exact;
+  }
+  @page{margin:0.75in}
+  .print-footer{
+    display:block!important;
+    text-align:center;font-size:10px;color:#999;
+    margin-top:32px;padding-top:16px;
+    border-top:1px solid #eee;
+  }
+}
+.print-footer{display:none}
+
+/* Responsive */
+@media(max-width:640px){
+  .trust-bar{flex-direction:column;gap:0}
+  .trust-item{
+    border-right:none!important;
+    border-bottom:1px solid var(--border-light);
+    padding:10px 0;
+  }
+  .trust-item:last-child{border-bottom:none}
+  .proof-bar{flex-direction:column}
+  .proof-item{
+    border-right:none!important;
+    border-bottom:1px solid var(--border-light);
+  }
+  .proof-item:last-child{border-bottom:none}
+  .comparison-grid{grid-template-columns:1fr}
+  .split-grid{grid-template-columns:1fr}
+  .screen-inner{
+    margin-left:12px;margin-right:12px;
+    padding:28px 20px 48px;border-radius:16px;
+    margin-top:16px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.06),0 8px 24px rgba(0,0,0,0.04);
+    border-color:#D8DEE6;
+  }
+  .leverage-big-number{font-size:clamp(40px,12vw,56px)}
+  .cta-block h2{font-size:clamp(18px,5vw,24px)}
+  .cta-block p{font-size:14px}
+  .plan-card{padding:20px 16px}
+  .score-gauge-marker{width:20px;height:20px;top:-6px}
+}
+@media(max-width:480px){
+  .screen-inner{
+    padding:24px 16px 40px;
+  }
+  .intro-card{
+    padding:24px 16px;
+  }
+  .tabs{flex-direction:column}
+  .intro-card h1{font-size:clamp(22px,6vw,28px)}
+  .calc-title{font-size:clamp(20px,5vw,28px)}
+  .results-title{font-size:clamp(18px,5vw,24px)}
+  .top-bar img{height:15px}
+}
+</style>
+</head>
+<body>
+
+<!-- Top Bar -->
+<div class="top-bar">
+  <img src="brand_assets/Paradigm Logo Black.svg" alt="Paradigm Consulting">
+</div>
+
+<!-- Screen 1 — Intro / Gate -->
+<div class="screen active" id="screen1">
+  <div class="intro-page">
+    <div class="intro-card-wrap">
+      <div class="intro-card">
+
+        <div style="text-align:center;">
+          <span class="eyebrow-pill"><span class="pill-dot"></span>The Leverage Engine</span><br>
+          <span class="framework-tag" style="margin-top:8px;display:inline-flex;">3X3OS<span class="tag-sep"></span>Financial Leverage</span>
+        </div>
+
+        <h1>You Are the Most Expensive Person in Your Business. How Much Is That Costing You?</h1>
+
+        <p class="description">Enter four numbers about your business and find out exactly how many hours of your week need to become leverage — systems, delegation, and technology — to hit your revenue target without working more.</p>
+
+        <!-- Tabs -->
+        <div class="tabs">
+          <button class="tab-btn active" onclick="switchTab('for',event)">Who This Is For</button>
+          <button class="tab-btn" onclick="switchTab('what',event)">What It Calculates</button>
+        </div>
+
+        <div class="tab-panel active" id="tab-for">
+          <p class="lead">Built for <strong>founders and CEOs</strong> who are personally involved in generating revenue and want to know exactly what needs to change to scale without working more.</p>
+          <ul class="check-list">
+            <li>
+              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              You personally work 40+ hours per week in or on the business
+            </li>
+            <li>
+              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              You have a team of 2 to 50 people and revenue depends on your involvement
+            </li>
+            <li>
+              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              You want to grow revenue without proportionally increasing your hours
+            </li>
+          </ul>
+        </div>
+
+        <div class="tab-panel" id="tab-what">
+          <p class="lead">The Leverage Engine calculates your <strong>current leverage ratio</strong>, identifies how many founder hours need to become systems, and builds a 90-day action plan from your numbers.</p>
+          <ul class="check-list">
+            <li>
+              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              Revenue per founder hour and leverage ratio analysis
+            </li>
+            <li>
+              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              Hours split across systems, delegation, and technology levers
+            </li>
+            <li>
+              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              90-day action plan with month-by-month prescriptions
+            </li>
+          </ul>
+        </div>
+
+        <div class="disclaimer">This is a financial leverage calculator, not a diagnostic. There is no scoring. Your inputs produce a custom leverage model built from your actual numbers.</div>
+
+        <!-- Trust Bar -->
+        <div class="trust-bar">
+          <div class="trust-item">
+            <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            60 seconds
+          </div>
+          <div class="trust-item">
+            <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            4 inputs
+          </div>
+          <div class="trust-item">
+            <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            Immediate results
+          </div>
+        </div>
+
+        <!-- CTA Area -->
+        <div class="intro-cta-area">
+          <form class="intro-form" id="introForm" onsubmit="return false;">
+            <input type="text" class="form-input" id="firstName" placeholder="First name" autocomplete="given-name" maxlength="100" required>
+            <input type="email" class="form-input" id="email" placeholder="Email address" autocomplete="email" maxlength="254" required>
+            <input type="text" name="company_url" id="honeyField" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;pointer-events:none;" tabindex="-1" autocomplete="off">
+            <div class="form-error" id="formError">Please enter your name and a valid email address.</div>
+            <button type="button" class="btn-primary" id="introBtn" onclick="submitIntro()">Calculate My Leverage <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+          </form>
+          <p class="intro-note">No spam. Your results are sent immediately after calculation.</p>
+        </div>
+
+        <!-- Proof Bar -->
+        <div class="proof-bar">
+          <div class="proof-item">
+            <div class="proof-number">3</div>
+            <div class="proof-label">Leverage Levers</div>
+          </div>
+          <div class="proof-item">
+            <div class="proof-number">90</div>
+            <div class="proof-label">Day Action Plan</div>
+          </div>
+          <div class="proof-item">
+            <div class="proof-number">$0</div>
+            <div class="proof-label">Cost</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Screen 2 — Calculator Inputs -->
+<div class="screen" id="screen2">
+  <div class="screen-inner">
+    <h1 class="calc-title">Enter Your Numbers</h1>
+    <p class="calc-sub">Be precise. The more accurate your inputs, the more useful your leverage calculation.</p>
+
+    <div class="input-group">
+      <label class="input-label" for="currentRevenue">Current Annual Revenue</label>
+      <input type="text" class="input-field currency-input" id="currentRevenue" data-field="currentRevenue" placeholder="$0" inputmode="numeric">
+      <div class="input-note">Your total business revenue for the last 12 months.</div>
+      <div class="input-error" id="err-currentRevenue"></div>
+    </div>
+
+    <div class="input-group">
+      <label class="input-label" for="founderHours">Hours You Personally Work Per Week</label>
+      <input type="number" class="input-field" id="founderHours" data-field="founderHoursPerWeek" placeholder="0" inputmode="numeric" min="1" max="168">
+      <div class="input-note">Include all work — calls, deep work, admin, operations. Be honest.</div>
+      <div class="input-error" id="err-founderHours"></div>
+    </div>
+
+    <div class="input-group">
+      <label class="input-label" for="teamSize">Total Team Size</label>
+      <input type="number" class="input-field" id="teamSize" data-field="teamSize" placeholder="0" inputmode="numeric" min="1">
+      <div class="input-note">Everyone who works in or on the business including contractors, part-time, and the founder.</div>
+      <div class="input-error" id="err-teamSize"></div>
+    </div>
+
+    <div class="input-group">
+      <label class="input-label" for="targetRevenue">Target Annual Revenue (12 Months)</label>
+      <input type="text" class="input-field currency-input" id="targetRevenue" data-field="targetRevenue" placeholder="$0" inputmode="numeric">
+      <div class="input-note">What you want the business to generate in the next 12 months.</div>
+      <div class="input-error" id="err-targetRevenue"></div>
+    </div>
+
+    <div class="calc-errors" id="calcErrors"></div>
+    <div style="text-align:center">
+      <button type="button" class="btn-primary" id="calcBtn" onclick="onCalculate()">Calculate My Leverage</button>
+    </div>
+  </div>
+</div>
+
+<!-- Screen 3 — Results -->
+<div class="screen" id="screen3">
+  <div class="screen-inner">
+
+    <div class="results-header">
+      <div class="results-badge">The Leverage Engine</div>
+      <h1 class="results-title">Your Leverage Calculation</h1>
+    </div>
+
+    <!-- Section A — Leverage Headline -->
+    <div class="section-leverage-headline">
+      <div class="leverage-big-number" id="bigNumber">0</div>
+      <div class="leverage-big-label">hours per week</div>
+      <p class="leverage-context" id="leverageContext"></p>
+      <p class="leverage-context-secondary" id="leverageContextSecondary"></p>
+    </div>
+
+    <!-- Section B — Leverage Score -->
+    <div class="section-score">
+      <div class="score-title">Leverage Score</div>
+      <div class="score-value" id="scoreValue">0 / 100</div>
+      <div class="score-gauge">
+        <div class="score-gauge-fill" id="scoreFill"></div>
+        <div class="score-gauge-marker" id="scoreMarker"></div>
+      </div>
+      <div class="score-labels"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div>
+      <p class="score-interpretation" id="scoreInterp"></p>
+    </div>
+
+    <!-- Section C — Before vs After -->
+    <div class="section-comparison">
+      <div class="comparison-grid">
+        <div class="comparison-card current" id="cardCurrent"></div>
+        <div class="comparison-card target" id="cardTarget"></div>
+      </div>
+    </div>
+
+    <!-- Section D — Leverage Split -->
+    <div class="section-split">
+      <div class="split-title">The Leverage Split</div>
+      <div class="split-grid" id="splitGrid"></div>
+    </div>
+
+    <!-- Section E — 90-Day Action Plan -->
+    <div class="section-plan">
+      <div class="plan-title">90-Day Action Plan</div>
+      <div id="planCards"></div>
+    </div>
+
+    <!-- Section F — Cost of Inaction -->
+    <div class="section-cost">
+      <p class="cost-headline" id="costHeadline"></p>
+      <p class="cost-detail" id="costDetail"></p>
+    </div>
+
+    <!-- Section G — CTA -->
+    <div class="cta-block">
+      <h2>Want Your Leverage Architecture Built in 90 Days?</h2>
+      <p id="ctaSub"></p>
+      <button class="btn-primary btn-accent" id="applyToggleBtn" onclick="openApplyForm()" style="max-width:360px;margin:0 auto 16px;">Apply for 3x3OS</button>
+      <div class="apply-form-wrap" id="applyFormWrap">
+        <div class="form-error" id="applyFormError">Please enter your phone number and business name.</div>
+        <div style="display:flex;align-items:center;gap:0;">
+          <select id="applyPhoneCode" style="padding:10px 4px 10px 8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-right:none;border-radius:8px 0 0 8px;font-size:0.85rem;color:rgba(255,255,255,0.85);cursor:pointer;"><option value="+1" selected>US +1</option><option value="+1">CA +1</option><option value="+44">UK +44</option><option value="+61">AU +61</option><option value="+33">FR +33</option><option value="+49">DE +49</option><option value="+39">IT +39</option><option value="+34">ES +34</option><option value="+31">NL +31</option><option value="+46">SE +46</option><option value="+41">CH +41</option><option value="+353">IE +353</option><option value="+91">IN +91</option><option value="+86">CN +86</option><option value="+81">JP +81</option><option value="+82">KR +82</option><option value="+65">SG +65</option><option value="+63">PH +63</option><option value="+64">NZ +64</option><option value="+55">BR +55</option><option value="+52">MX +52</option><option value="+57">CO +57</option><option value="+971">AE +971</option><option value="+972">IL +972</option><option value="+27">ZA +27</option><option value="+234">NG +234</option></select>
+          <input type="tel" class="form-input" id="applyPhone" placeholder="(555) 000-0000" autocomplete="tel" maxlength="20" style="border-radius:0 8px 8px 0;">
+        </div>
+        <input type="text" class="form-input" id="applyBusiness" placeholder="Business name" autocomplete="organization" maxlength="150">
+        <input type="text" name="company_url" id="honeyFieldApply" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;pointer-events:none;" tabindex="-1" autocomplete="off">
+        <button class="btn-primary btn-accent" id="applyBtn" onclick="submitApply()" style="max-width:360px;margin:0 auto 16px;width:100%;">Submit Application</button>
+      </div>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <button class="cta-secondary-link" onclick="window.print()">Download your full results</button>
+      </div>
+      <div class="cta-small-text" id="ctaEmail"></div>
+    </div>
+
+    <div class="print-footer">Generated by the Leverage Engine — Paradigm Consulting — paradigmconsulting.co</div>
+  </div>
+</div>
+
+<!-- Screen 4 — Thank You -->
+<div class="screen" id="screen4">
+  <div class="thankyou-wrap">
+    <h1>Application Received.</h1>
+    <p>We review every application personally. Expect a response within 48 hours.</p>
+    <img src="brand_assets/Paradigm Logo Black.svg" alt="Paradigm Consulting" style="max-width:160px;opacity:0.6;margin-top:16px;">
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js" integrity="sha384-HAH79XdRvHr6axVGh4xQWVCp14kcd32bNk4Xu0sHDHtFQ42n6BAM8ykvB47dGz6D" crossorigin="anonymous"></script>
+<script>
+/* ===== STATE ===== */
+var contactInfo = { firstName: '', email: '' };
+var inputs = { currentRevenue: 0, founderHoursPerWeek: 0, teamSize: 0, targetRevenue: 0 };
+var results = null;
+var actionPlan = null;
+var beforeAfter = null;
+var lastSubmitTime = 0;
+
+/* ===== SANITIZE ===== */
+function sanitize(str, max) {
+  if (!str) return '';
+  return String(str).replace(/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/g, '').replace(/\s+/g, ' ').trim().substring(0, max || 200);
+}
+function esc(str) {
+  var d = document.createElement('div');
+  d.appendChild(document.createTextNode(str));
+  return d.innerHTML;
+}
+
+/* ===== TAB SWITCHING ===== */
+function switchTab(id, evt) {
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+  document.getElementById('tab-' + id).classList.add('active');
+  evt.currentTarget.classList.add('active');
+}
+
+/* ===== SCREEN NAV ===== */
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ===== INTRO SUBMIT ===== */
+function submitIntro() {
+  var now = Date.now();
+  if (now - lastSubmitTime < 2000) return;
+  lastSubmitTime = now;
+
+  if (document.getElementById('honeyField').value) return;
+
+  var name = sanitize(document.getElementById('firstName').value, 100);
+  var email = sanitize(document.getElementById('email').value, 254);
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+  if (!name || !emailRegex.test(email)) {
+    document.getElementById('formError').style.display = 'block';
+    return;
+  }
+
+  document.getElementById('formError').style.display = 'none';
+  contactInfo.firstName = name;
+  contactInfo.email = email;
+
+  var btn = document.getElementById('introBtn');
+  btn.disabled = true;
+  setTimeout(function() { btn.disabled = false; }, 2000);
+
+  showScreen('screen2');
+}
+
+/* ===== CURRENCY INPUT HANDLING ===== */
+document.querySelectorAll('.currency-input').forEach(function(el) {
+  el.addEventListener('focus', function() {
+    this.value = this.value.replace(/[$,]/g, '');
+  });
+  el.addEventListener('blur', function() {
+    var num = parseFloat(this.value.replace(/[$,]/g, ''));
+    if (!isNaN(num) && num > 0) {
+      inputs[this.dataset.field] = num;
+      this.value = '$' + num.toLocaleString('en-US');
+    }
+  });
+  el.addEventListener('input', function() {
+    this.value = this.value.replace(/[^0-9.]/g, '');
+  });
+});
+
+/* Number inputs sync */
+document.querySelectorAll('.input-field[type="number"]').forEach(function(el) {
+  el.addEventListener('blur', function() {
+    var num = parseInt(this.value);
+    if (!isNaN(num) && num > 0) {
+      inputs[this.dataset.field] = num;
+    }
+  });
+});
+
+/* ===== VALIDATION ===== */
+function validateInputs(inp) {
+  var errors = [];
+  if (!inp.currentRevenue || inp.currentRevenue < 1000) {
+    errors.push('Please enter your current annual revenue.');
+  }
+  if (!inp.founderHoursPerWeek || inp.founderHoursPerWeek < 1 || inp.founderHoursPerWeek > 168) {
+    errors.push('Please enter valid weekly hours between 1 and 168.');
+  }
+  if (!inp.teamSize || inp.teamSize < 1) {
+    errors.push('Please enter your team size.');
+  }
+  if (!inp.targetRevenue || inp.targetRevenue <= inp.currentRevenue) {
+    errors.push('Target revenue must be higher than current revenue.');
+  }
+  if (inp.targetRevenue > inp.currentRevenue * 100) {
+    errors.push('Target revenue cannot be more than 100x current revenue. Please check your inputs.');
+  }
+  return errors;
+}
+
+/* ===== CORE CALCULATIONS ===== */
+function calculateLeverage(inp) {
+  var founderHoursPerYear = inp.founderHoursPerWeek * 52;
+  var revenuePerFounderHour = inp.currentRevenue / founderHoursPerYear;
+  var currentLeverageRatio = inp.currentRevenue / inp.founderHoursPerWeek;
+  var targetLeverageRatio = inp.targetRevenue / inp.founderHoursPerWeek;
+  var leverageGap = targetLeverageRatio - currentLeverageRatio;
+  var leverageMultiplier = inp.targetRevenue / inp.currentRevenue;
+  var hoursToReplace = Math.max(
+    Math.round(inp.founderHoursPerWeek * (1 - 1 / leverageMultiplier)),
+    1
+  );
+  // Team hours = (teamSize - 1) * 40 for non-founder members + founder's actual hours
+  var totalTeamHoursPerWeek = ((inp.teamSize - 1) * 40) + inp.founderHoursPerWeek;
+  var founderDependencyPct = Math.min((inp.founderHoursPerWeek / totalTeamHoursPerWeek) * 100, 100);
+  var targetFounderDependencyPct = founderDependencyPct / leverageMultiplier;
+  var revenuePerTeamHour = inp.currentRevenue / (totalTeamHoursPerWeek * 52);
+  var leverageSplit = getLeverageSplit(hoursToReplace, inp.teamSize);
+  var leverageScore = Math.min(100, Math.round((currentLeverageRatio / targetLeverageRatio) * 100));
+  var weeklyRevenueLost = (inp.targetRevenue - inp.currentRevenue) / 52;
+
+  return {
+    revenuePerFounderHour: Math.round(revenuePerFounderHour),
+    currentLeverageRatio: Math.round(currentLeverageRatio),
+    targetLeverageRatio: Math.round(targetLeverageRatio),
+    leverageGap: Math.round(leverageGap),
+    leverageMultiplier: Math.round(leverageMultiplier * 10) / 10,
+    hoursToReplace: Math.round(hoursToReplace),
+    founderDependencyPct: Math.round(founderDependencyPct),
+    targetFounderDependencyPct: Math.round(targetFounderDependencyPct),
+    revenuePerTeamHour: Math.round(revenuePerTeamHour),
+    leverageSplit: leverageSplit,
+    leverageScore: leverageScore,
+    weeklyRevenueLost: Math.round(weeklyRevenueLost),
+    founderHoursPerYear: founderHoursPerYear
+  };
+}
+
+function getLeverageSplit(hoursToReplace, teamSize) {
+  var systemsPct, delegationPct, technologyPct;
+  if (teamSize <= 2) {
+    systemsPct = 0.45; delegationPct = 0.20; technologyPct = 0.35;
+  } else if (teamSize <= 7) {
+    systemsPct = 0.35; delegationPct = 0.40; technologyPct = 0.25;
+  } else if (teamSize <= 20) {
+    systemsPct = 0.25; delegationPct = 0.55; technologyPct = 0.20;
+  } else {
+    systemsPct = 0.20; delegationPct = 0.65; technologyPct = 0.15;
+  }
+  var systemsHours = Math.max(Math.round(hoursToReplace * systemsPct), 0);
+  var delegationHours = Math.max(Math.round(hoursToReplace * delegationPct), 0);
+  var technologyHours = Math.max(Math.round(hoursToReplace * technologyPct), 0);
+
+  var total = systemsHours + delegationHours + technologyHours;
+  var remainder = hoursToReplace - total;
+
+  return {
+    systems: systemsHours + (systemsPct >= delegationPct && systemsPct >= technologyPct ? remainder : 0),
+    delegation: delegationHours + (delegationPct > systemsPct && delegationPct >= technologyPct ? remainder : 0),
+    technology: technologyHours + (technologyPct > systemsPct && technologyPct > delegationPct ? remainder : 0),
+    systemsPct: Math.round(systemsPct * 100),
+    delegationPct: Math.round(delegationPct * 100),
+    technologyPct: Math.round(technologyPct * 100)
+  };
+}
+
+/* ===== ACTION PLAN ===== */
+function getActionPlan(res, inp) {
+  return {
+    month1: {
+      label: 'Month 1 \u2014 Install',
+      focus: 'Systems and Documentation',
+      hours: res.leverageSplit.systems,
+      actions: getSystemsActions(res.leverageSplit.systems, inp.teamSize),
+      outcome: 'Replace ' + res.leverageSplit.systems + ' founder hours per week through documented SOPs, decision authority frameworks, and process infrastructure.'
+    },
+    month2: {
+      label: 'Month 2 \u2014 Delegate',
+      focus: 'Delegation and Authority',
+      hours: res.leverageSplit.delegation,
+      actions: getDelegationActions(res.leverageSplit.delegation, inp.teamSize),
+      outcome: 'Replace ' + res.leverageSplit.delegation + ' founder hours per week through structured delegation, role clarity, and team accountability infrastructure.'
+    },
+    month3: {
+      label: 'Month 3 \u2014 Automate',
+      focus: 'Technology and Automation',
+      hours: res.leverageSplit.technology,
+      actions: getTechnologyActions(res.leverageSplit.technology, inp.teamSize),
+      outcome: 'Replace ' + res.leverageSplit.technology + ' founder hours per week through automation, tooling, and technology infrastructure that runs without founder involvement.'
+    }
+  };
+}
+
+function getSystemsActions(hours, teamSize) {
+  if (hours <= 3) {
+    return [
+      'Document the top 3 recurring processes that currently require your involvement to execute correctly',
+      'Write a decision authority document that maps what your team can decide without asking you',
+      'Create a weekly standup template that gives your team the context to move forward without a daily check-in'
+    ];
+  } else if (hours <= 8) {
+    return [
+      'Document every recurring process that runs through you \u2014 client onboarding, delivery, reporting, and approvals',
+      'Build a decision authority framework that covers every decision type at every tier from team to executive',
+      'Create a business context document your team can access without scheduling a meeting with you',
+      'Install a weekly review cadence with a fixed agenda so your team knows exactly what to prepare and report without being directed'
+    ];
+  } else {
+    return [
+      'Conduct a full process audit \u2014 identify every recurring task you own that someone else could own with the right documentation',
+      'Build a complete SOP library covering operations, delivery, client management, and financial controls',
+      'Create a decision authority framework and communicate it formally to every role in the business',
+      'Install a governance cadence \u2014 weekly, monthly, and quarterly rhythms that run without founder initiation',
+      'Build a business context library so institutional knowledge lives in a document, not in your head'
+    ];
+  }
+}
+
+function getDelegationActions(hours, teamSize) {
+  if (teamSize <= 2) {
+    return [
+      'Identify one contractor or part-time hire who can own the highest-volume founder task category',
+      'Write a role definition for that person that includes what they can decide without you',
+      'Set a 30-day handoff plan with a specific date when you stop being involved in that task category'
+    ];
+  } else if (teamSize <= 7) {
+    return [
+      'Map every recurring task you own to the team member who should own it based on role and capability',
+      'Write formal handoff documents for your top three highest-time tasks \u2014 context, criteria, and authority',
+      'Set a decision bounce-back rule: any Tier 1 or Tier 2 decision that reaches you gets routed back for 30 days',
+      'Identify the one person on your team who can become a sprint owner \u2014 the person who maintains the rhythm without you'
+    ];
+  } else {
+    return [
+      'Conduct a delegation audit \u2014 for every hour in your week, identify whether it should be handled at your level',
+      'Build formal handoff documents for every function you currently own that should be managed by a department head',
+      'Define escalation criteria explicitly \u2014 what conditions trigger a decision coming to you versus being resolved at a lower tier',
+      'Install a leadership accountability system \u2014 weekly reporting from every team lead that gives you visibility without involvement',
+      'Identify your next leadership hire \u2014 the role that would remove the most founder hours from your calendar'
+    ];
+  }
+}
+
+function getTechnologyActions(hours, teamSize) {
+  if (hours <= 2) {
+    return [
+      'Identify the one manual process in your week that takes the most time and has the clearest automation path',
+      'Implement one automation this month \u2014 CRM updates, email sequences, reporting, or scheduling',
+      'Measure time saved and document the process so the automation can be expanded'
+    ];
+  } else if (hours <= 6) {
+    return [
+      'Audit your current tech stack against your actual workflow \u2014 identify where you are doing manually what a tool could do automatically',
+      'Prioritize three automation projects by time saved per week and implement them in sequence',
+      'Install a CRM automation layer that handles follow-up, tagging, and pipeline movement without manual triggers',
+      'Build a reporting dashboard that gives you visibility into key metrics without requiring you to pull data'
+    ];
+  } else {
+    return [
+      'Conduct a full systems audit \u2014 map every tool, every manual process, and every place where founder time is spent on work that technology could handle',
+      'Build an automation roadmap prioritized by founder hours replaced per week',
+      'Implement a full CRM and marketing automation layer that handles lead nurturing, follow-up, and pipeline management without manual intervention',
+      'Replace manual reporting with automated dashboards across revenue, operations, and team performance',
+      'Identify and implement the three highest-leverage automations that reduce your direct involvement in operational decisions'
+    ];
+  }
+}
+
+/* ===== BEFORE/AFTER ===== */
+function getBeforeAfter(inp, res) {
+  var afterRevenuePerHour = Math.round(inp.targetRevenue / res.founderHoursPerYear);
+  return {
+    before: {
+      label: 'Current State',
+      revenue: inp.currentRevenue,
+      founderHours: inp.founderHoursPerWeek,
+      leverageRatio: res.currentLeverageRatio,
+      founderDependency: res.founderDependencyPct,
+      revenuePerHour: res.revenuePerFounderHour,
+      description: 'You are generating ' + formatCurrency(res.revenuePerFounderHour) + ' for every hour you personally work. Your business needs you in ' + res.founderDependencyPct + '% of all available team hours to operate at its current level.'
+    },
+    after: {
+      label: 'Target State',
+      revenue: inp.targetRevenue,
+      founderHours: inp.founderHoursPerWeek,
+      leverageRatio: res.targetLeverageRatio,
+      founderDependency: res.targetFounderDependencyPct,
+      revenuePerHour: afterRevenuePerHour,
+      description: 'At your target revenue, each hour you work generates ' + formatCurrency(afterRevenuePerHour) + '. Your business needs you in ' + res.targetFounderDependencyPct + '% of available team hours \u2014 the rest runs on systems, delegation, and technology.'
+    }
+  };
+}
+
+/* ===== FORMATTING ===== */
+function formatCurrency(n) {
+  if (n >= 1000000) return '$' + (n / 1000000).toFixed(1) + 'M';
+  if (n >= 1000) return '$' + Math.round(n / 1000) + 'K';
+  return '$' + n.toLocaleString('en-US');
+}
+
+function formatFullCurrency(n) {
+  return '$' + n.toLocaleString('en-US');
+}
+
+/* ===== ON CALCULATE ===== */
+function onCalculate() {
+  var now = Date.now();
+  if (now - lastSubmitTime < 2000) return;
+  lastSubmitTime = now;
+
+  // Sync currency inputs that may not have blurred
+  document.querySelectorAll('.currency-input').forEach(function(el) {
+    var num = parseFloat(el.value.replace(/[$,]/g, ''));
+    if (!isNaN(num) && num > 0) inputs[el.dataset.field] = num;
+  });
+  document.querySelectorAll('.input-field[type="number"]').forEach(function(el) {
+    var num = parseInt(el.value);
+    if (!isNaN(num) && num > 0) inputs[el.dataset.field] = num;
+  });
+
+  var errors = validateInputs(inputs);
+  // Clear previous errors
+  document.querySelectorAll('.input-error').forEach(function(e) { e.style.display = 'none'; });
+
+  if (errors.length > 0) {
+    var errEl = document.getElementById('calcErrors');
+    errEl.innerHTML = errors.map(function(e) { return esc(e); }).join('<br>');
+    errEl.style.display = 'block';
+    return;
+  }
+  document.getElementById('calcErrors').style.display = 'none';
+
+  var btn = document.getElementById('calcBtn');
+  btn.disabled = true;
+  setTimeout(function() { btn.disabled = false; }, 2000);
+
+  results = calculateLeverage(inputs);
+  actionPlan = getActionPlan(results, inputs);
+  beforeAfter = getBeforeAfter(inputs, results);
+
+  showScreen('screen3');
+  onResultsLoad();
+}
+
+/* ===== RENDER RESULTS ===== */
+function onResultsLoad() {
+  fireWebhook();
+  animateBigNumber();
+  renderLeverageScore();
+  renderBeforeAfter();
+  renderLeverageSplit();
+  renderActionPlan();
+  renderCostOfInaction();
+  renderCTA();
+}
+
+function animateBigNumber() {
+  var el = document.getElementById('bigNumber');
+  var target = results.hoursToReplace;
+  var duration = 1500;
+  var start = performance.now();
+  function tick(now) {
+    var t = Math.min((now - start) / duration, 1);
+    var ease = 1 - Math.pow(1 - t, 3);
+    el.textContent = Math.round(target * ease);
+    if (t < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+
+  var replacePct = Math.round((results.hoursToReplace / inputs.founderHoursPerWeek) * 100);
+  document.getElementById('leverageContext').textContent =
+    'Of the ' + inputs.founderHoursPerWeek + ' hours you work each week, ' +
+    results.hoursToReplace + ' of them \u2014 ' + replacePct +
+    '% of your current workload \u2014 need to stop requiring you personally to hit ' +
+    formatCurrency(inputs.targetRevenue) + '.';
+
+  var currentRPH = results.revenuePerFounderHour;
+  var targetRPH = Math.round(inputs.targetRevenue / results.founderHoursPerYear);
+  var rphMultiple = Math.round((targetRPH / currentRPH) * 10) / 10;
+  document.getElementById('leverageContextSecondary').textContent =
+    'You currently generate ' + formatCurrency(currentRPH) +
+    ' for every hour you personally work. To hit your target at the same hours, that number needs to become ' +
+    formatCurrency(targetRPH) + ' \u2014 a ' + rphMultiple + 'x increase in output per founder hour.';
+}
+
+function renderLeverageScore() {
+  var score = results.leverageScore;
+  document.getElementById('scoreValue').textContent = score + ' / 100';
+
+  setTimeout(function() {
+    document.getElementById('scoreFill').style.width = score + '%';
+    document.getElementById('scoreMarker').style.left = score + '%';
+  }, 100);
+
+  var interp = '';
+  if (score <= 25) {
+    interp = 'Your business is almost entirely founder-dependent. Every dollar of revenue requires you personally.';
+  } else if (score <= 50) {
+    interp = 'Your business has some leverage but the founder is still the primary revenue engine. Growth is capped at your personal capacity.';
+  } else if (score <= 75) {
+    interp = 'Your business has meaningful leverage in some areas. The gap to your target requires structured delegation and systems.';
+  } else {
+    interp = 'Your leverage ratio is strong. The remaining gap to your target is closable with targeted system and technology installation.';
+  }
+  document.getElementById('scoreInterp').textContent = interp;
+}
+
+function renderBeforeAfter() {
+  var b = beforeAfter.before;
+  var a = beforeAfter.after;
+
+  document.getElementById('cardCurrent').innerHTML =
+    '<div class="comparison-card-label">' + esc(b.label) + '</div>' +
+    metricRow('Annual Revenue', formatFullCurrency(b.revenue)) +
+    metricRow('Your Hours Per Week', b.founderHours) +
+    metricRow('Revenue Per Hour', formatCurrency(b.revenuePerHour)) +
+    metricRow('Leverage Ratio', formatCurrency(b.leverageRatio) + ' per weekly hour') +
+    metricRow('Founder Dependency', b.founderDependency + '%') +
+    '<div class="comparison-desc">' + esc(b.description) + '</div>';
+
+  document.getElementById('cardTarget').innerHTML =
+    '<div class="comparison-card-label">' + esc(a.label) + '</div>' +
+    metricRow('Annual Revenue', formatFullCurrency(a.revenue)) +
+    metricRow('Your Hours Per Week', a.founderHours) +
+    metricRow('Revenue Per Hour', formatCurrency(a.revenuePerHour)) +
+    metricRow('Leverage Ratio', formatCurrency(a.leverageRatio) + ' per weekly hour') +
+    metricRow('Founder Dependency', a.founderDependency + '%') +
+    '<div class="comparison-desc">' + esc(a.description) + '</div>';
+}
+
+function metricRow(label, value) {
+  return '<div class="comparison-metric"><span class="comparison-metric-label">' +
+    esc(label) + '</span><span class="comparison-metric-value">' + esc(String(value)) + '</span></div>';
+}
+
+function renderLeverageSplit() {
+  var s = results.leverageSplit;
+  var maxHours = Math.max(s.systems, s.delegation, s.technology, 1);
+
+  var cards = [
+    { hours: s.systems, pct: s.systemsPct, title: 'Systems & Documentation',
+      desc: 'SOPs, decision authority, process infrastructure, governance cadences, and institutional knowledge documentation that allows the business to operate consistently without founder involvement.' },
+    { hours: s.delegation, pct: s.delegationPct, title: 'Delegation & Authority',
+      desc: 'Role clarity, handoff documentation, decision tier frameworks, team accountability infrastructure, and leadership development that moves founder tasks to the right level permanently.' },
+    { hours: s.technology, pct: s.technologyPct, title: 'Technology & Automation',
+      desc: 'CRM automation, workflow automation, reporting dashboards, tool optimization, and digital infrastructure that replaces manual founder time with systems that run independently.' }
+  ];
+
+  var html = '';
+  cards.forEach(function(c) {
+    var barW = Math.round((c.hours / maxHours) * 100);
+    html += '<div class="split-card">' +
+      '<div class="split-card-hours">' + c.hours + ' <span style="font-size:14px;font-weight:400">hrs/week</span></div>' +
+      '<div class="split-card-pct">' + c.pct + '% of leverage gap</div>' +
+      '<div class="split-card-title">' + esc(c.title) + '</div>' +
+      '<div class="split-card-desc">' + esc(c.desc) + '</div>' +
+      '<div class="split-card-bar"><div class="split-card-bar-fill" data-width="' + barW + '"></div></div>' +
+      '</div>';
+  });
+  document.getElementById('splitGrid').innerHTML = html;
+
+  setTimeout(function() {
+    document.querySelectorAll('.split-card-bar-fill').forEach(function(el) {
+      el.style.width = el.dataset.width + '%';
+    });
+  }, 200);
+}
+
+function renderActionPlan() {
+  var months = [actionPlan.month1, actionPlan.month2, actionPlan.month3];
+  var html = '';
+  months.forEach(function(m) {
+    html += '<div class="plan-card">' +
+      '<div class="plan-badge">' + esc(m.label) + '</div>' +
+      '<div class="plan-focus">' + esc(m.focus) + '</div>' +
+      '<div class="plan-hours">' + m.hours + ' hours per week to replace this month</div>' +
+      '<ul class="plan-actions">';
+    m.actions.forEach(function(a) {
+      html += '<li>' + esc(a) + '</li>';
+    });
+    html += '</ul>' +
+      '<div class="plan-outcome">' + esc(m.outcome) + '</div>' +
+      '</div>';
+  });
+  document.getElementById('planCards').innerHTML = html;
+}
+
+function renderCostOfInaction() {
+  var wrl = results.weeklyRevenueLost;
+  document.getElementById('costHeadline').textContent =
+    'Every week this leverage gap stays open, your business generates ' +
+    formatFullCurrency(wrl) + ' less than it could.';
+
+  document.getElementById('costDetail').textContent =
+    'Over 12 months that is ' + formatFullCurrency(wrl * 52) +
+    ' in unrealized revenue \u2014 not from losing deals or missing opportunities, but from a structural capacity gap between what the business can produce with its current systems and what it could produce with a functioning leverage architecture.';
+}
+
+function renderCTA() {
+  document.getElementById('ctaSub').textContent =
+    'The 3x3OS engagement installs what your calculation revealed \u2014 the systems, delegation infrastructure, and technology layer that replaces ' +
+    results.hoursToReplace + ' founder hours per week with leverage. Application-only.';
+  document.getElementById('ctaEmail').textContent = 'Results also sent to ' + contactInfo.email;
+}
+
+/* ===== APPLY FORM ===== */
+function openApplyForm() {
+  var wrap = document.getElementById('applyFormWrap');
+  var btn = document.getElementById('applyToggleBtn');
+  wrap.classList.add('open');
+  btn.style.display = 'none';
+  document.getElementById('applyPhone').focus();
+}
+
+function submitApply() {
+  var now = Date.now();
+  if (now - lastSubmitTime < 2000) return;
+  lastSubmitTime = now;
+
+  if (document.getElementById('honeyFieldApply').value) return;
+
+  var phoneRaw = sanitize(document.getElementById('applyPhone').value, 20);
+  var business = sanitize(document.getElementById('applyBusiness').value, 150);
+  var phoneRegex = /^[\d\s\-+().]{7,20}$/;
+
+  if (!phoneRegex.test(phoneRaw) || !business) {
+    document.getElementById('applyFormError').style.display = 'block';
+    return;
+  }
+  document.getElementById('applyFormError').style.display = 'none';
+  document.getElementById('applyBtn').disabled = true;
+
+  try {
+    fetch('/api/webhook', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        first_name: contactInfo.firstName.slice(0, 100),
+        email: contactInfo.email.slice(0, 254),
+        phone: document.getElementById('applyPhoneCode').value + ' ' + phoneRaw,
+        business_name: business,
+        leverage_score: results.leverageScore,
+        hours_to_replace: results.hoursToReplace,
+        current_revenue: inputs.currentRevenue,
+        target_revenue: inputs.targetRevenue,
+        source: 'leverage-engine-apply',
+        timestamp: new Date().toISOString()
+      })
+    }).catch(function() {});
+  } catch(e) {}
+
+  fireConfetti();
+  setTimeout(function() { showScreen('screen4'); }, 2200);
+}
+
+function fireConfetti() {
+  var duration = 2000;
+  var animationEnd = Date.now() + duration;
+  var colors = ['#8B9BAF', '#6B7A8D', '#C8D0DA', '#ffffff'];
+  function randomInRange(min, max) { return Math.random() * (max - min) + min; }
+  var interval = setInterval(function() {
+    var timeLeft = animationEnd - Date.now();
+    if (timeLeft <= 0) { clearInterval(interval); return; }
+    confetti({ particleCount: 50, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }, startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999, colors: colors });
+    confetti({ particleCount: 50, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }, startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999, colors: colors });
+  }, 250);
+}
+
+/* ===== WEBHOOK ===== */
+function fireWebhook() {
+  try {
+    var payload = {
+      first_name: contactInfo.firstName.slice(0, 100),
+      email: contactInfo.email.slice(0, 254),
+      current_revenue: inputs.currentRevenue,
+      target_revenue: inputs.targetRevenue,
+      founder_hours_per_week: inputs.founderHoursPerWeek,
+      team_size: inputs.teamSize,
+      current_leverage_ratio: results.currentLeverageRatio,
+      target_leverage_ratio: results.targetLeverageRatio,
+      hours_to_replace: results.hoursToReplace,
+      leverage_multiplier: results.leverageMultiplier,
+      leverage_score: results.leverageScore,
+      founder_dependency_pct: results.founderDependencyPct,
+      revenue_per_founder_hour: results.revenuePerFounderHour,
+      systems_hours: results.leverageSplit.systems,
+      delegation_hours: results.leverageSplit.delegation,
+      technology_hours: results.leverageSplit.technology,
+      weekly_revenue_lost: results.weeklyRevenueLost,
+      source: 'leverage-engine',
+      timestamp: new Date().toISOString()
+    };
+    fetch('/api/webhook', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(function() {});
+  } catch(e) {}
+}
+</script>
+</body>
+</html>

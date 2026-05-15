@@ -52,6 +52,18 @@
 - The proxy function lives at `netlify/functions/webhook.js`
 - See `.env.example` for the required environment variables
 
+## Security Rules (MANDATORY for every page)
+- **Never trust user input.** Validate everything server-side, not just in the browser.
+- **All form submissions must go through `/api/webhook`** — never call external APIs directly from client-side code. No API keys, webhook URLs, or secrets in HTML/JS files.
+- **Client-side sanitization:** Every text input must be sanitized before display or submission. Use a `sanitize()` function that strips control characters and enforces max length. Use an `esc()` function that HTML-encodes output to prevent XSS.
+- **Client-side validation:** Validate email format, required fields, and phone format before submission. Disable submit buttons after first click to prevent double-submits.
+- **Honeypot bot protection:** Every form must include a hidden `company_url` field (CSS `display:none`). If filled, the submission is silently rejected.
+- **Server-side validation:** The webhook proxy (`netlify/functions/webhook.js`) enforces email regex, phone regex, required fields per source type, honeypot detection, payload size limits (10KB), and recursive payload sanitization. Do not bypass or duplicate this logic — rely on the proxy.
+- **Rate limiting:** Upstash Redis rate limiting is enforced server-side (5 req/min per IP+source, 20 req/min global per IP). Client-side should also debounce submissions (2s minimum between calls).
+- **CORS:** The proxy only accepts requests from `paradigmconsulting.io`. Do not add wildcard CORS headers.
+- **Source field:** Every webhook payload must include a `source` field matching a key in `WEBHOOK_MAP` in `webhook.js`. When creating a new page, add its source key to the map.
+- **No inline secrets:** Never hardcode API keys, webhook URLs, location IDs, or tokens in any HTML, JS, or committed file. All secrets live in `.env` (gitignored) and Netlify environment variables.
+
 ## Hard Rules
 - Do not add sections, features, or content not in the reference
 - Do not "improve" a reference design — match it

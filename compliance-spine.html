@@ -1,0 +1,2525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0d0d0d">
+  <title>The Compliance Spine | Paradigm Consulting</title>
+  <meta name="description" content="Identify the gaps in your business compliance before they become liabilities. Get a prioritized risk profile in 5 minutes — free.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Find Your Compliance Gaps Before They Find You">
+  <meta property="og:description" content="Identify the gaps in your business compliance before they become liabilities. Get a prioritized risk profile in 5 minutes — free.">
+  <meta property="og:image" content="https://paradigmconsulting.io/brand_assets/og-compliance-spine.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://paradigmconsulting.io/compliance-spine">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Paradigm Consulting">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Find Your Compliance Gaps Before They Find You">
+  <meta name="twitter:description" content="Identify the gaps in your business compliance before they become liabilities. Get a prioritized risk profile in 5 minutes — free.">
+  <meta name="twitter:image" content="https://paradigmconsulting.io/brand_assets/og-compliance-spine.png">
+
+  <link rel="icon" type="image/x-icon" href="brand_assets/favicon.ico">
+  <link rel="apple-touch-icon" href="brand_assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/ranade" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --surface: #18181b;
+      --surface-2: #27272a;
+      --surface-3: #3f3f46;
+      --fg: #fafafa;
+      --fg-muted: #d4d4d8;
+      --muted: #a1a1aa;
+      --border: #3f3f46;
+      --border-light: #52525b;
+      --accent: #7B8FA1;
+      --accent-hover: #8DA1B3;
+      --accent-dim: rgba(123,143,161,0.14);
+      --accent-border: rgba(123,143,161,0.30);
+      --red: #d32f2f;
+      --red-dim: rgba(211,47,47,0.08);
+      --red-border: rgba(211,47,47,0.25);
+      --amber: #c89200;
+      --amber-dim: rgba(200,146,0,0.08);
+      --amber-border: rgba(200,146,0,0.25);
+      --green: #6b8f71;
+      --muted-badge: #52525b;
+      --muted-badge-dim: rgba(82,82,91,0.15);
+    }
+
+    /* ─── RESET ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      background: var(--bg);
+      color: var(--fg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: 'Figtree', sans-serif;
+      background: var(--bg);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ─── TOP BAR ─── */
+    .top-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .top-bar::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0.4;
+    }
+    .top-bar img { height: 20px; }
+
+    /* ─── PROGRESS BAR ─── */
+    .progress-bar-fixed {
+      position: fixed;
+      top: 56px; left: 0; right: 0;
+      z-index: 99;
+      height: 3px;
+      background: var(--border);
+      overflow: hidden;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .progress-bar-fixed.visible { opacity: 1; }
+    .progress-bar-fixed .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+      transition: width 0.5s cubic-bezier(0.16,1,0.3,1);
+      box-shadow: 0 0 8px rgba(123,143,161,0.5);
+    }
+
+    /* ─── SCREENS ─── */
+    .screen {
+      display: none;
+      min-height: 100vh;
+      padding: 56px 0 0;
+    }
+    .screen.active { display: block; animation: screenFadeIn 0.35s ease both; }
+    @keyframes screenFadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .screen-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px clamp(20px, 5vw, 48px) 64px;
+      background: var(--surface);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      margin-top: clamp(24px, 3vw, 40px);
+      margin-bottom: 40px;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.4), 0 1px 0 rgba(255,255,255,0.03) inset;
+    }
+
+    /* ─── TITLE BLOCK ─── */
+    .title-block {
+      margin-bottom: 48px;
+      text-align: center;
+    }
+    .title-block-main {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      line-height: 0.92;
+      font-size: clamp(28px, 5vw, 42px);
+      color: var(--fg);
+      word-wrap: break-word;
+    }
+    .title-block-sub {
+      font-family: 'Figtree', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    /* ═══════════════════════════════════════════
+       SCREEN 1. INTRO
+       ═══════════════════════════════════════════ */
+    .intro-page {
+      min-height: calc(100vh - 56px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 56px 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .intro-page::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background:
+        radial-gradient(ellipse 600px 400px at 20% 30%, rgba(123,143,161,0.10) 0%, transparent 70%),
+        radial-gradient(ellipse 500px 500px at 80% 60%, rgba(123,143,161,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 400px 300px at 50% 80%, rgba(141,161,179,0.05) 0%, transparent 70%);
+      animation: meshDrift 20s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes meshDrift {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      33% { transform: translate(2%, -1%) rotate(0.5deg); }
+      66% { transform: translate(-1%, 2%) rotate(-0.3deg); }
+      100% { transform: translate(1%, -2%) rotate(0.2deg); }
+    }
+    .intro-card-wrap {
+      width: 100%;
+      max-width: 960px;
+      padding: clamp(24px, 3vw, 40px) clamp(16px, 4vw, 32px) 32px;
+      position: relative;
+      z-index: 1;
+    }
+    .intro-card {
+      background: rgba(24,24,27,0.82);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(123,143,161,0.18);
+      border-radius: 20px;
+      padding: clamp(28px, 4vw, 44px) clamp(24px, 5vw, 56px);
+      box-shadow: 0 4px 32px rgba(0,0,0,0.4), 0 0 80px rgba(123,143,161,0.05);
+      position: relative;
+      overflow: hidden;
+      animation: cardSlideIn 0.6s ease both;
+    }
+    .intro-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), rgba(123,143,161,0.2));
+    }
+    @keyframes cardSlideIn {
+      from { opacity: 0; transform: translateX(40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .intro-card h1 {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      font-size: clamp(28px, 5vw, 40px);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--fg);
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .intro-card .subtitle {
+      font-size: clamp(16px, 2.5vw, 20px);
+      line-height: 1.4;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+    .intro-card .description {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--fg-muted);
+      max-width: 660px;
+      margin-bottom: 28px;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Eyebrow pill */
+    .eyebrow-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Figtree', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
+      border-radius: 100px;
+      padding: 6px 16px;
+      margin-bottom: 16px;
+    }
+    .eyebrow-pill .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+    .framework-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .framework-tag .tag-sep {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--muted);
+      flex-shrink: 0;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 4px;
+      margin-bottom: 24px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .tab-btn {
+      flex: 1;
+      font-family: 'Figtree', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      background: transparent;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: color 0.2s, background 0.2s, font-weight 0.2s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--fg); }
+    .tab-btn.active {
+      color: var(--fg);
+      font-weight: 700;
+      background: var(--surface-3);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    .tab-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .tab-panel .lead {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--fg-muted);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .tab-panel .lead strong {
+      color: var(--fg);
+      font-weight: 600;
+    }
+
+    /* Check list */
+    .check-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .check-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--fg);
+    }
+    .check-icon {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      margin-top: 2px;
+    }
+
+    /* Disclaimer */
+    .disclaimer {
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--muted);
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Trust bar */
+    .trust-bar {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      padding: 16px 0;
+      margin-top: 24px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .trust-item {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--fg-muted);
+      text-align: center;
+    }
+    .trust-item:not(:last-child) {
+      border-right: 1px solid var(--border);
+    }
+    .trust-item svg {
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+      opacity: 0.7;
+      color: var(--accent);
+    }
+
+    /* Form */
+    .intro-cta-area {
+      text-align: center;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .intro-form {
+      display: flex;
+      gap: 10px;
+      max-width: 480px;
+      margin: 0 auto 12px;
+      flex-wrap: wrap;
+    }
+    .intro-form .form-input { flex: 1; min-width: 160px; }
+    .form-input {
+      font-family: 'Figtree', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      height: 50px;
+      padding: 0 18px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--fg);
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .form-input::placeholder { color: var(--muted); }
+    .form-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); }
+
+    .form-error {
+      font-size: 12px;
+      color: var(--red);
+      text-align: center;
+      display: none;
+      margin-bottom: 8px;
+    }
+
+    .intro-note {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    /* Proof bar */
+    .proof-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin-top: 24px;
+      padding: 0;
+      background: var(--surface-2);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .proof-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      text-align: center;
+    }
+    .proof-item:not(:last-child) {
+      border-right: 1px solid var(--border);
+    }
+    .proof-number {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .proof-label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* ─── BUTTONS ─── */
+    .btn-primary {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: 'Figtree', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      background: var(--accent);
+      height: 52px;
+      padding: 0 32px;
+      border-radius: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      border: none;
+      overflow: hidden;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+      width: 100%;
+      box-shadow: 0 2px 12px rgba(123,143,161,0.25);
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      box-shadow: 0 4px 20px rgba(123,143,161,0.35);
+      transform: translateY(-1px);
+    }
+    .btn-primary:active { transform: scale(0.98); }
+    .btn-primary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-family: 'Figtree', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--surface-2);
+      height: 44px;
+      padding: 0 20px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .btn-back:hover { color: var(--fg); border-color: var(--border-light); }
+    .btn-back:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    /* ─── SECTION HEADER ─── */
+    .section-header {
+      margin-bottom: 32px;
+    }
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .section-title {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      font-size: clamp(20px, 3.5vw, 28px);
+      line-height: 1.1;
+      color: var(--fg);
+    }
+
+    /* ─── QUESTION BLOCK ─── */
+    .question-block {
+      padding-bottom: 28px;
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+    }
+    .question-text {
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1.6;
+      color: var(--fg);
+      margin-bottom: 8px;
+    }
+    .question-context {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--muted);
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+
+    /* ─── SCENARIO BUTTONS (Option Cards — Phase 1) ─── */
+    .scenario-buttons { display: flex; flex-direction: column; gap: 8px; }
+    .scenario-btn {
+      display: flex; align-items: flex-start; gap: 14px; width: 100%;
+      padding: 14px 18px; background: var(--surface-2);
+      border: 1.5px solid var(--border); border-radius: 10px;
+      cursor: pointer; font-family: 'Figtree', sans-serif;
+      font-size: 14px; font-weight: 400; color: var(--fg-muted);
+      text-align: left; line-height: 1.55;
+      transition: border-color 0.15s, background 0.15s, transform 0.1s, box-shadow 0.15s;
+    }
+    .scenario-btn:hover { border-color: var(--accent); background: var(--accent-dim); }
+    .scenario-btn:active { transform: scale(0.99); }
+    .scenario-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .scenario-btn.selected {
+      background: var(--accent-dim); border-color: var(--accent);
+      border-left: 4px solid var(--accent); color: var(--fg);
+      box-shadow: 0 2px 10px rgba(123,143,161,0.2);
+    }
+    .scenario-btn-chip {
+      font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700;
+      letter-spacing: 0.05em; width: 24px; height: 22px; border-radius: 5px;
+      background: var(--surface-3); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; color: var(--muted); margin-top: 2px;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+    .scenario-btn.selected .scenario-btn-chip {
+      background: var(--accent); border-color: var(--accent); color: #fff;
+    }
+
+    /* ─── TOGGLE BUTTONS (Yes/No — Phase 2) ─── */
+    .toggle-row {
+      display: flex;
+      gap: 10px;
+    }
+    .toggle-btn {
+      flex: 1;
+      height: 52px;
+      border-radius: 12px;
+      border: 1.5px solid var(--border);
+      background: var(--surface-2);
+      color: var(--fg-muted);
+      font-family: 'Figtree', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: border-color 0.15s, background 0.15s, color 0.15s, transform 0.1s, box-shadow 0.15s;
+    }
+    .toggle-btn:hover {
+      border-color: var(--accent);
+      color: var(--fg);
+      background: var(--accent-dim);
+    }
+    .toggle-btn:active { transform: scale(0.98); }
+    .toggle-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .toggle-btn.selected {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      box-shadow: 0 2px 12px rgba(123,143,161,0.3);
+    }
+    .toggle-btn .toggle-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    /* ─── NAV BUTTONS ─── */
+    .nav-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    .validation-msg {
+      font-size: 12px;
+      color: var(--red);
+      margin-top: 12px;
+      display: none;
+      text-align: center;
+    }
+
+    /* ═══════════════════════════════════════════
+       PHASE TRANSITION SCREEN
+       ═══════════════════════════════════════════ */
+    .phase-transition {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      min-height: calc(100vh - 56px); text-align: center;
+      padding: 48px clamp(20px, 5vw, 48px);
+    }
+    .phase-transition h2 {
+      font-family: 'Ranade', sans-serif; font-weight: 500;
+      font-size: clamp(24px, 4vw, 36px); line-height: 1.2;
+      color: var(--accent); margin-bottom: 20px;
+    }
+    .phase-transition p {
+      font-size: 16px; line-height: 1.7; color: var(--fg-muted);
+      max-width: 480px; margin-bottom: 32px;
+    }
+    .transition-profile {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .transition-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
+      border-radius: 100px;
+      padding: 8px 18px;
+    }
+
+    /* ═══════════════════════════════════════════
+       CHECKLIST OUTPUT
+       ═══════════════════════════════════════════ */
+    .checklist-summary {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    .summary-stat {
+      flex: 1;
+      min-width: 120px;
+      padding: 16px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      text-align: center;
+    }
+    .summary-stat-number {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 700;
+      font-size: 32px;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+    .summary-stat-number.stat-gap { color: var(--red); }
+    .summary-stat-number.stat-review { color: var(--amber); }
+    .summary-stat-number.stat-inplace { color: var(--green); }
+    .summary-stat-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .total-exposure-banner {
+      padding: 16px 20px;
+      background: var(--red-dim);
+      border: 1px solid var(--red-border);
+      border-left: 4px solid var(--red);
+      border-radius: 4px 12px 12px 4px;
+      margin-bottom: 40px;
+    }
+    .total-exposure-banner p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--fg-muted);
+    }
+    .total-exposure-banner strong {
+      color: var(--fg);
+      font-weight: 600;
+    }
+
+    /* Staggered reveal */
+    .reveal-block {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .reveal-block.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Distribution donut */
+    .distribution-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+    .donut-container {
+      position: relative;
+      width: 160px;
+      height: 160px;
+      flex-shrink: 0;
+    }
+    .donut-svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+    .donut-segment {
+      fill: none;
+      stroke-width: 20;
+      transition: stroke-dasharray 1.2s cubic-bezier(0.16,1,0.3,1);
+    }
+    .donut-center {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+    .donut-center-number {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 700;
+      font-size: 36px;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: var(--red);
+    }
+    .donut-center-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .donut-legend {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .donut-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--fg-muted);
+    }
+    .donut-legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    .donut-legend-count {
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      font-size: 14px;
+      min-width: 20px;
+    }
+
+    /* Prominent exposure hero */
+    .exposure-hero {
+      text-align: center;
+      padding: 32px 20px;
+      background: linear-gradient(135deg, rgba(211,47,47,0.06) 0%, rgba(211,47,47,0.02) 100%);
+      border: 1px solid var(--red-border);
+      border-radius: 16px;
+      margin-bottom: 32px;
+    }
+    .exposure-hero-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .exposure-hero-amount {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 700;
+      font-size: clamp(28px, 5vw, 42px);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--red);
+      margin-bottom: 8px;
+    }
+    .exposure-hero-note {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* Output action bar */
+    .output-action-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 32px;
+      padding: 12px 16px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      flex-wrap: wrap;
+    }
+    .output-action-bar .output-timestamp {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+    }
+    .output-action-bar .btn-print {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Figtree', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
+      border-radius: 8px;
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .output-action-bar .btn-print:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+    .output-action-bar .btn-print svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Accordion category */
+    .category-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+    .category-toggle:hover .category-header { color: var(--fg); }
+    .category-toggle-left { flex: 1; }
+    .category-toggle-arrow {
+      width: 24px;
+      height: 24px;
+      color: var(--muted);
+      transition: transform 0.3s ease, color 0.2s;
+      flex-shrink: 0;
+    }
+    .category-block.collapsed .category-toggle-arrow {
+      transform: rotate(-90deg);
+    }
+    .category-block.collapsed .category-items {
+      display: none;
+    }
+    .category-items {
+      animation: accordionOpen 0.3s ease both;
+    }
+    @keyframes accordionOpen {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Category block */
+    .category-block {
+      margin-bottom: 40px;
+    }
+    .category-header {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      font-size: clamp(18px, 3vw, 24px);
+      line-height: 1.15;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .category-description {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    /* Category risk banner */
+    .category-risk-banner {
+      padding: 12px 16px;
+      background: var(--red-dim);
+      border-left: 4px solid var(--accent);
+      border-radius: 4px 10px 10px 4px;
+      margin-bottom: 16px;
+    }
+    .category-risk-banner p {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--fg-muted);
+    }
+    .category-risk-banner strong {
+      color: var(--fg);
+      font-weight: 600;
+    }
+
+    /* Category status summary */
+    .category-status-summary {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .cat-stat {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+    }
+    .cat-stat-count {
+      font-weight: 700;
+      margin-right: 4px;
+    }
+
+    /* Checklist item */
+    .checklist-item {
+      padding: 16px 20px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 4px 12px 12px 4px;
+      margin-bottom: 8px;
+    }
+    .checklist-item-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+    .checklist-item-label {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--fg);
+      flex: 1;
+    }
+    .checklist-item-desc {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    /* Status badges */
+    .status-badge {
+      flex-shrink: 0;
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 4px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
+      margin-top: 2px;
+    }
+    .badge-inplace {
+      background: rgba(107,143,113,0.12);
+      border: 1px solid rgba(107,143,113,0.25);
+      color: var(--green);
+    }
+    .badge-review {
+      background: var(--amber-dim);
+      border: 1px solid var(--amber-border);
+      color: var(--amber);
+    }
+    .badge-gap {
+      background: var(--red-dim);
+      border: 1px solid var(--red-border);
+      color: var(--red);
+    }
+    .badge-na {
+      background: var(--muted-badge-dim);
+      border: 1px solid rgba(82,82,91,0.3);
+      color: #71717a;
+    }
+
+    /* Left border color per status */
+    .checklist-item.item-inplace { border-left-color: var(--green); }
+    .checklist-item.item-review { border-left-color: var(--amber); }
+    .checklist-item.item-gap { border-left-color: var(--red); }
+    .checklist-item.item-na { border-left-color: #52525b; }
+
+    /* Risk note */
+    .risk-note {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background: rgba(211,47,47,0.05);
+      border-left: 3px solid rgba(211,47,47,0.3);
+      border-radius: 2px 6px 6px 2px;
+      font-size: 12px;
+      line-height: 1.55;
+      color: #e57373;
+    }
+
+    /* ─── CTA BLOCK ─── */
+    .cta-block {
+      text-align: center;
+      padding: 48px 0 32px;
+      border-top: 1px solid var(--border);
+      margin-top: 24px;
+    }
+    .cta-block h2 {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      font-size: clamp(22px, 4vw, 32px);
+      line-height: 1.1;
+      margin-bottom: 16px;
+      color: var(--fg);
+    }
+    .cta-block p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 540px;
+      margin: 0 auto 32px;
+    }
+    .cta-block .btn-primary {
+      max-width: 360px;
+      margin: 0 auto 16px;
+    }
+    .cta-secondary-link {
+      display: inline-block;
+      font-family: 'Figtree', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+      transition: color 0.2s;
+      background: none;
+      border: none;
+    }
+    .cta-secondary-link:hover { color: var(--fg); }
+
+    /* ═══════════════════════════════════════════
+       APPLICATION MODAL
+       ═══════════════════════════════════════════ */
+    .apply-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .apply-overlay.active { display: flex; }
+    .apply-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px clamp(20px, 4vw, 40px);
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.5);
+    }
+    .apply-card h3 {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      font-size: 24px;
+      line-height: 1.1;
+      margin-bottom: 8px;
+      color: var(--fg);
+    }
+    .apply-card .apply-sub {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+    .apply-field {
+      margin-bottom: 12px;
+    }
+    .apply-field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--fg-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+    }
+    .honeypot { position: absolute; left: -9999px; opacity: 0; height: 0; width: 0; overflow: hidden; }
+
+    /* ═══════════════════════════════════════════
+       SCREEN 5 — THANK YOU
+       ═══════════════════════════════════════════ */
+    .thankyou-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 56px);
+      text-align: center;
+      padding: 48px clamp(20px, 5vw, 48px);
+    }
+    .thankyou-wrap h1 {
+      font-family: 'Ranade', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      font-size: clamp(28px, 5vw, 42px);
+      line-height: 1.05;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+    .thankyou-wrap p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #a3a3a3;
+      margin-bottom: 32px;
+    }
+    .thankyou-wrap img { height: 24px; opacity: 0.5; }
+    .thankyou-next {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 480px;
+      width: 100%;
+      text-align: left;
+      margin-bottom: 8px;
+    }
+    .thankyou-next-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 16px 20px;
+    }
+    .thankyou-next-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Figtree', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+    .thankyou-next-item strong {
+      display: block;
+      font-family: 'Figtree', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .thankyou-next-item span {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #a3a3a3;
+    }
+
+    /* ═══════════════════════════════════════════
+       RESPONSIVE
+       ═══════════════════════════════════════════ */
+    @media (max-width: 640px) {
+      .screen-inner { padding: 24px 16px 40px; }
+      .intro-card { padding: 20px 14px 24px; }
+      .intro-page { padding: 12px 8px 40px; }
+      .intro-card .description { display: none; }
+      .intro-card h1 { margin-bottom: 6px; font-size: clamp(22px, 6.5vw, 32px); }
+      .intro-card .subtitle { font-size: 14px; margin-bottom: 16px; }
+      .disclaimer { font-size: 11px; margin-top: 12px; }
+      .scenario-btn { font-size: 13px; }
+      .trust-item { font-size: 11px; gap: 4px; }
+      .trust-item svg { width: 14px; height: 14px; }
+      .cta-block h2 { font-size: clamp(18px, 5vw, 24px); }
+      .cta-block p { font-size: 14px; }
+      .checklist-item { padding: 12px 14px; }
+      .checklist-item-header { flex-direction: column; gap: 6px; }
+      .status-badge { align-self: flex-start; }
+      .checklist-summary { gap: 8px; }
+      .summary-stat { min-width: 90px; padding: 12px; }
+      .summary-stat-number { font-size: 26px; }
+      .toggle-btn { height: 46px; font-size: 14px; }
+      .distribution-wrap { gap: 20px; }
+      .donut-container { width: 120px; height: 120px; }
+      .donut-center-number { font-size: 28px; }
+      .donut-legend-item { font-size: 12px; }
+      .exposure-hero { padding: 24px 16px; }
+      .exposure-hero-amount { font-size: clamp(22px, 6vw, 32px); }
+      .output-action-bar { flex-direction: column; align-items: stretch; text-align: center; gap: 8px; }
+    }
+
+    @media (max-width: 380px) {
+      .scenario-btn { font-size: 12px; padding: 12px 14px; }
+      .scenario-btn-chip { width: 20px; height: 20px; font-size: 9px; }
+      .proof-bar { flex-direction: column; }
+      .proof-item:not(:last-child) { border-right: none; border-bottom: 1px solid var(--border); }
+    }
+
+    /* ═══════════════════════════════════════════
+       PRINT STYLES
+       ═══════════════════════════════════════════ */
+    @media print {
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
+      body { background: #fff !important; color: #111 !important; font-size: 11pt; }
+      .top-bar, .progress-bar-fixed, .btn-primary, .btn-back, .cta-block, .nav-buttons,
+      .apply-overlay, .intro-page, .phase-transition, #screen-2, #screen-3,
+      .output-action-bar .btn-print, .distribution-wrap, .category-toggle-arrow { display: none !important; }
+      .category-block.collapsed .category-items { display: block !important; }
+      .reveal-block { opacity: 1 !important; transform: none !important; }
+
+      #screen-4 { display: block !important; }
+      #screen-4 .screen-inner {
+        background: #fff !important;
+        border: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+      }
+
+      .screen { min-height: auto !important; padding: 0 !important; }
+
+      .title-block-main { color: #111 !important; font-size: 22pt !important; }
+      .title-block-sub { color: #666 !important; }
+
+      .output-action-bar { background: none !important; border: none !important; padding: 0 !important; margin-bottom: 12px !important; }
+      .output-timestamp { color: #666 !important; }
+      .exposure-hero { background: #fff3f3 !important; border: 1px solid #e57373 !important; }
+      .exposure-hero-label { color: #666 !important; }
+      .exposure-hero-amount { color: #c62828 !important; }
+      .exposure-hero-note { color: #555 !important; }
+      .category-toggle { border-bottom: 1px solid #ccc !important; cursor: default !important; }
+      .category-header { color: #37474f !important; font-size: 14pt; }
+      .checklist-summary { margin-bottom: 24px; }
+      .summary-stat { border: 1px solid #ccc !important; background: #f9f9f9 !important; }
+      .summary-stat-number { font-size: 24pt; }
+      .summary-stat-number.stat-gap { color: #c62828 !important; }
+      .summary-stat-number.stat-review { color: #e65100 !important; }
+      .summary-stat-number.stat-inplace { color: #2e7d32 !important; }
+      .summary-stat-label { color: #666 !important; }
+
+      .total-exposure-banner {
+        background: #fff3f3 !important;
+        border: 1px solid #e57373 !important;
+        border-left: 4px solid #c62828 !important;
+        page-break-inside: avoid;
+      }
+      .total-exposure-banner p { color: #333 !important; }
+      .total-exposure-banner strong { color: #111 !important; }
+
+      .category-block { page-break-inside: avoid; margin-bottom: 24px; }
+      .category-description { color: #666 !important; }
+
+      .category-risk-banner {
+        background: #fff8f8 !important;
+        border-left: 4px solid #37474f !important;
+        page-break-inside: avoid;
+      }
+      .category-risk-banner p { color: #444 !important; }
+      .category-risk-banner strong { color: #111 !important; }
+
+      .checklist-item {
+        background: #fafafa !important;
+        border: 1px solid #ddd !important;
+        page-break-inside: avoid;
+        margin-bottom: 6px;
+      }
+      .checklist-item.item-inplace { border-left: 4px solid #2e7d32 !important; }
+      .checklist-item.item-review { border-left: 4px solid #e65100 !important; }
+      .checklist-item.item-gap { border-left: 4px solid #c62828 !important; }
+      .checklist-item.item-na { border-left: 4px solid #bdbdbd !important; }
+
+      .checklist-item-label { color: #111 !important; }
+      .checklist-item-desc { color: #555 !important; }
+
+      .status-badge { font-size: 8pt; }
+      .badge-inplace { background: #e8f5e9 !important; color: #2e7d32 !important; border: 1px solid #a5d6a7 !important; }
+      .badge-review { background: #fff3e0 !important; color: #e65100 !important; border: 1px solid #ffcc80 !important; }
+      .badge-gap { background: #ffebee !important; color: #c62828 !important; border: 1px solid #ef9a9a !important; }
+      .badge-na { background: #f5f5f5 !important; color: #9e9e9e !important; border: 1px solid #e0e0e0 !important; }
+
+      .risk-note {
+        background: #fff8f8 !important;
+        border-left: 3px solid #e57373 !important;
+        color: #c62828 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <img src="brand_assets/Paradigm Logo White.svg" alt="Paradigm Consulting">
+  </div>
+
+  <!-- PROGRESS BAR -->
+  <div class="progress-bar-fixed" id="progressBar">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SCREEN 1 — INTRO
+  ═══════════════════════════════════════ -->
+  <div id="screen-1" class="screen active">
+    <div class="intro-page">
+      <div class="intro-card-wrap">
+        <div class="intro-card">
+
+          <div style="text-align:center;">
+            <span class="eyebrow-pill">
+              <span class="pill-dot"></span>
+              The Compliance Spine
+            </span>
+            <br>
+            <span class="framework-tag" style="margin-top:8px; display:inline-flex;">
+              3X3OS
+              <span class="tag-sep"></span>
+              Compliance
+            </span>
+          </div>
+
+          <h1>Identify the gaps in your business compliance before they become liabilities.</h1>
+          <p class="description">Most founders do not know where their compliance exposure actually sits until a regulator, a payment processor, or a lawsuit forces the conversation. This tool generates a personalized compliance checklist based on your business type, revenue stage, and current operational infrastructure so you can see exactly what is in place, what needs review, and where the gaps are creating real financial risk.</p>
+
+          <!-- Tabs -->
+          <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab(0, this)">How It Works</button>
+            <button class="tab-btn" onclick="switchTab(1, this)">What You Get</button>
+          </div>
+
+          <div id="tab-0" class="tab-panel active">
+            <p class="lead"><strong>7 questions. 2 minutes.</strong> Your answers determine which compliance items are flagged as gaps, which need review, and which are already in place for your specific business.</p>
+            <ul class="check-list">
+              <li>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent)"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Identify your business type and revenue stage
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent)"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Confirm what compliance infrastructure you currently have
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent)"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Receive a generated 28-item compliance checklist with status badges and risk notes
+              </li>
+            </ul>
+          </div>
+
+          <div id="tab-1" class="tab-panel">
+            <p class="lead">A <strong>working compliance document</strong> you can print, share with your legal or operations team, and use as a starting point for closing your gaps.</p>
+            <ul class="check-list">
+              <li>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent)"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                28 items across 6 compliance categories
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent)"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Status badges: In Place, Review Needed, Gap Identified, Not Applicable
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent)"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Financial risk exposure estimates per category
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent)"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Print-ready formatted document
+              </li>
+            </ul>
+          </div>
+
+          <div class="disclaimer">This tool provides an educational compliance overview. It is not legal advice. Consult a qualified attorney for specific legal guidance.</div>
+
+          <div class="trust-bar">
+            <div class="trust-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              No data stored
+            </div>
+            <div class="trust-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              2 min
+            </div>
+            <div class="trust-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              Printable
+            </div>
+          </div>
+
+          <div class="intro-cta-area" style="margin-top:24px;">
+            <div id="introError" class="form-error">Please enter your name and a valid email address.</div>
+            <div class="intro-form">
+              <input type="text" id="firstName" class="form-input" placeholder="First name" maxlength="50" autocomplete="given-name">
+              <input type="email" id="emailInput" class="form-input" placeholder="Email address" maxlength="100" autocomplete="email">
+            </div>
+            <div class="honeypot" aria-hidden="true">
+              <label for="company_url">Company URL</label>
+              <input type="text" id="company_url" name="company_url" tabindex="-1" autocomplete="off">
+            </div>
+            <button class="btn-primary" style="max-width:480px;margin:0 auto;" onclick="submitIntro()">Generate My Compliance Spine</button>
+            <div class="intro-note">Your information is only used to deliver your results. We do not share or sell your data.</div>
+          </div>
+
+          <div class="proof-bar">
+            <div class="proof-item">
+              <div class="proof-number">200+</div>
+              <div class="proof-label">Founder Reviews</div>
+            </div>
+            <div class="proof-item">
+              <div class="proof-number">28</div>
+              <div class="proof-label">Checklist Items</div>
+            </div>
+            <div class="proof-item">
+              <div class="proof-number">$2M+</div>
+              <div class="proof-label">Max Exposure Mapped</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SCREEN 2 — PHASE 1: PROFILE
+  ═══════════════════════════════════════ -->
+  <div id="screen-2" class="screen">
+    <div class="screen-inner">
+
+      <div class="title-block">
+        <div class="title-block-main">The Compliance Spine</div>
+        <div class="title-block-sub">Phase 1: Business Profile</div>
+      </div>
+
+      <!-- P1 Q1 — Business Type -->
+      <div id="p1q1" class="panel active">
+        <div class="section-header">
+          <div class="section-label">Question 1 of 2</div>
+          <div class="section-title">Business Type</div>
+        </div>
+        <div class="question-block" style="border-bottom:none;">
+          <p class="question-text">Which best describes the primary model of your business?</p>
+          <div class="scenario-buttons">
+            <button class="scenario-btn" onclick="selectProfile('businessType','digital',this)"><span class="scenario-btn-chip">A</span>Digital products and programs. I sell courses, coaching, memberships, templates, or other digital offers primarily delivered online.</button>
+            <button class="scenario-btn" onclick="selectProfile('businessType','service',this)"><span class="scenario-btn-chip">B</span>Service-based business. I sell expertise, consulting, agency services, or professional services where time and knowledge are the primary deliverable.</button>
+            <button class="scenario-btn" onclick="selectProfile('businessType','ecommerce',this)"><span class="scenario-btn-chip">C</span>E-commerce and physical products. I sell physical goods through an online store, marketplace, or direct-to-consumer channels.</button>
+            <button class="scenario-btn" onclick="selectProfile('businessType','hybrid',this)"><span class="scenario-btn-chip">D</span>Hybrid business. I sell a combination of digital products, services, and potentially physical goods across multiple revenue streams.</button>
+            <button class="scenario-btn" onclick="selectProfile('businessType','brick',this)"><span class="scenario-btn-chip">E</span>Brick and mortar or local business. My primary revenue comes from in-person customers at a physical location or within a defined local market.</button>
+          </div>
+        </div>
+        <div class="nav-buttons">
+          <button class="btn-primary btn-next" onclick="nextP1(1)">Next</button>
+        </div>
+        <div id="val-p1q1" class="validation-msg">Please select an option before continuing.</div>
+      </div>
+
+      <!-- P1 Q2 — Revenue Stage -->
+      <div id="p1q2" class="panel" style="display:none;">
+        <div class="section-header">
+          <div class="section-label">Question 2 of 2</div>
+          <div class="section-title">Revenue Stage</div>
+        </div>
+        <div class="question-block" style="border-bottom:none;">
+          <p class="question-text">What is your current annual revenue or annual revenue run rate?</p>
+          <div class="scenario-buttons">
+            <button class="scenario-btn" onclick="selectProfile('revenueStage','under100k',this)"><span class="scenario-btn-chip">A</span>Under $100,000 per year. I am in the early stages of building revenue and most of the infrastructure is still being established.</button>
+            <button class="scenario-btn" onclick="selectProfile('revenueStage','100k-500k',this)"><span class="scenario-btn-chip">B</span>$100,000 to $500,000 per year. Revenue is growing but the team and systems are still relatively lean.</button>
+            <button class="scenario-btn" onclick="selectProfile('revenueStage','500k-2m',this)"><span class="scenario-btn-chip">C</span>$500,000 to $2 million per year. The business has traction and the operational complexity is increasing meaningfully.</button>
+            <button class="scenario-btn" onclick="selectProfile('revenueStage','2m-10m',this)"><span class="scenario-btn-chip">D</span>$2 million to $10 million per year. The business is operating at scale and the regulatory and financial governance requirements are significant.</button>
+            <button class="scenario-btn" onclick="selectProfile('revenueStage','over10m',this)"><span class="scenario-btn-chip">E</span>Over $10 million per year. The business is at institutional scale and compliance infrastructure is a material factor in valuation and risk management.</button>
+          </div>
+        </div>
+        <div class="nav-buttons">
+          <button class="btn-back" onclick="backP1()">Back</button>
+          <button class="btn-primary btn-next" style="flex:1;" onclick="finishPhase1()">Continue to Current State</button>
+        </div>
+        <div id="val-p1q2" class="validation-msg">Please select an option before continuing.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SCREEN 2.5 — PHASE TRANSITION
+  ═══════════════════════════════════════ -->
+  <div id="screen-transition" class="screen">
+    <div class="phase-transition">
+      <h2>Profile complete.</h2>
+      <div class="transition-profile" id="transitionProfile"></div>
+      <p>Now answer 5 quick yes or no questions about what you currently have in place. This determines the status of each item on your compliance checklist.</p>
+      <button class="btn-primary" style="max-width:360px;" onclick="startPhase2()">Continue</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SCREEN 3 — PHASE 2: CURRENT STATE
+  ═══════════════════════════════════════ -->
+  <div id="screen-3" class="screen">
+    <div class="screen-inner">
+
+      <div class="title-block">
+        <div class="title-block-main">The Compliance Spine</div>
+        <div class="title-block-sub">Phase 2: Current State</div>
+      </div>
+
+      <!-- P2 Q1 — Contracts -->
+      <div id="p2q1" class="panel active">
+        <div class="section-header">
+          <div class="section-label">Question 1 of 5</div>
+          <div class="section-title">Contract Infrastructure</div>
+        </div>
+        <div class="question-block" style="border-bottom:none;">
+          <p class="question-text">Do you currently have signed, legally reviewed contracts in place with your clients, vendors, and contractors?</p>
+          <p class="question-context">This determines whether your client agreements, vendor terms, IP assignments, and partnership agreements are flagged as protected or exposed.</p>
+          <div class="toggle-row">
+            <button class="toggle-btn" onclick="selectToggle('hasContracts','yes',this)">
+              <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Yes
+            </button>
+            <button class="toggle-btn" onclick="selectToggle('hasContracts','no',this)">
+              <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              No
+            </button>
+          </div>
+        </div>
+        <div class="nav-buttons">
+          <button class="btn-primary btn-next" onclick="nextP2(1)">Next</button>
+        </div>
+        <div id="val-p2q1" class="validation-msg">Please select Yes or No before continuing.</div>
+      </div>
+
+      <!-- P2 Q2 — Financial Controls -->
+      <div id="p2q2" class="panel" style="display:none;">
+        <div class="section-header">
+          <div class="section-label">Question 2 of 5</div>
+          <div class="section-title">Financial Controls</div>
+        </div>
+        <div class="question-block" style="border-bottom:none;">
+          <p class="question-text">Do you have documented financial controls in place including defined spending authority, separation of duties, and monthly reconciliation?</p>
+          <p class="question-context">This controls whether your spending authority, reconciliation, and chargeback monitoring items are flagged as gaps or marked in place.</p>
+          <div class="toggle-row">
+            <button class="toggle-btn" onclick="selectToggle('hasFinancialControls','yes',this)">
+              <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Yes
+            </button>
+            <button class="toggle-btn" onclick="selectToggle('hasFinancialControls','no',this)">
+              <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              No
+            </button>
+          </div>
+        </div>
+        <div class="nav-buttons">
+          <button class="btn-back" onclick="backP2(1)">Back</button>
+          <button class="btn-primary btn-next" style="flex:1;" onclick="nextP2(2)">Next</button>
+        </div>
+        <div id="val-p2q2" class="validation-msg">Please select Yes or No before continuing.</div>
+      </div>
+
+      <!-- P2 Q3 — Documented Processes -->
+      <div id="p2q3" class="panel" style="display:none;">
+        <div class="section-header">
+          <div class="section-label">Question 3 of 5</div>
+          <div class="section-title">Operational Documentation</div>
+        </div>
+        <div class="question-block" style="border-bottom:none;">
+          <p class="question-text">Do you have documented standard operating procedures, decision authority maps, and a business continuity plan that would allow the business to operate without you for 30 days?</p>
+          <p class="question-context">This determines whether your operational governance items — SOPs, decision authority, continuity planning, and system access — show as gaps or protected.</p>
+          <div class="toggle-row">
+            <button class="toggle-btn" onclick="selectToggle('hasDocumentedProcesses','yes',this)">
+              <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Yes
+            </button>
+            <button class="toggle-btn" onclick="selectToggle('hasDocumentedProcesses','no',this)">
+              <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              No
+            </button>
+          </div>
+        </div>
+        <div class="nav-buttons">
+          <button class="btn-back" onclick="backP2(2)">Back</button>
+          <button class="btn-primary btn-next" style="flex:1;" onclick="nextP2(3)">Next</button>
+        </div>
+        <div id="val-p2q3" class="validation-msg">Please select Yes or No before continuing.</div>
+      </div>
+
+      <!-- P2 Q4 — Privacy Policy -->
+      <div id="p2q4" class="panel" style="display:none;">
+        <div class="section-header">
+          <div class="section-label">Question 4 of 5</div>
+          <div class="section-title">Data and Privacy</div>
+        </div>
+        <div class="question-block" style="border-bottom:none;">
+          <p class="question-text">Do you have a published, legally reviewed privacy policy and documented data handling practices including email consent compliance and secure customer data storage?</p>
+          <p class="question-context">This controls your privacy policy, email compliance, data storage, and cookie disclosure status across the Data and Privacy category.</p>
+          <div class="toggle-row">
+            <button class="toggle-btn" onclick="selectToggle('hasPrivacyPolicy','yes',this)">
+              <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Yes
+            </button>
+            <button class="toggle-btn" onclick="selectToggle('hasPrivacyPolicy','no',this)">
+              <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              No
+            </button>
+          </div>
+        </div>
+        <div class="nav-buttons">
+          <button class="btn-back" onclick="backP2(3)">Back</button>
+          <button class="btn-primary btn-next" style="flex:1;" onclick="nextP2(4)">Next</button>
+        </div>
+        <div id="val-p2q4" class="validation-msg">Please select Yes or No before continuing.</div>
+      </div>
+
+      <!-- P2 Q5 — HR Documentation -->
+      <div id="p2q5" class="panel" style="display:none;">
+        <div class="section-header">
+          <div class="section-label">Question 5 of 5</div>
+          <div class="section-title">HR and Team Compliance</div>
+        </div>
+        <div class="question-block" style="border-bottom:none;">
+          <p class="question-text">Do you have signed NDAs with all team members, documented contractor classification reviews, and written compensation agreements with everyone on your team?</p>
+          <p class="question-context">This determines whether your contractor classification, NDA coverage, compensation agreements, and offboarding process are flagged as exposed or protected.</p>
+          <div class="toggle-row">
+            <button class="toggle-btn" onclick="selectToggle('hasHRDocumentation','yes',this)">
+              <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Yes
+            </button>
+            <button class="toggle-btn" onclick="selectToggle('hasHRDocumentation','no',this)">
+              <svg class="toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              No
+            </button>
+          </div>
+        </div>
+        <div class="nav-buttons">
+          <button class="btn-back" onclick="backP2(4)">Back</button>
+          <button class="btn-primary btn-next" style="flex:1;" onclick="generateChecklist()">Generate My Compliance Spine</button>
+        </div>
+        <div id="val-p2q5" class="validation-msg">Please select Yes or No before continuing.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SCREEN 4 — CHECKLIST OUTPUT
+  ═══════════════════════════════════════ -->
+  <div id="screen-4" class="screen">
+    <div class="screen-inner">
+
+      <div class="title-block">
+        <div class="title-block-main">The Compliance Spine</div>
+        <div class="title-block-sub" id="outputSubtitle">Your Compliance Checklist</div>
+      </div>
+
+      <!-- Action bar with timestamp + print -->
+      <div class="output-action-bar" id="outputActionBar">
+        <span class="output-timestamp" id="outputTimestamp"></span>
+        <button class="btn-print" onclick="fireConfetti(); window.print()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Print Checklist
+        </button>
+      </div>
+
+      <!-- Distribution donut + summary -->
+      <div class="distribution-wrap" id="distributionWrap"></div>
+
+      <!-- Exposure hero -->
+      <div class="exposure-hero" id="exposureHero" style="display:none;"></div>
+
+      <!-- Generated Checklist -->
+      <div id="checklistOutput"></div>
+
+      <!-- CTA -->
+      <div class="cta-block">
+        <h2>Close the Gaps Before They Close You</h2>
+        <p>Paradigm helps founders build the compliance, governance, and operational infrastructure that protects the business at every stage of growth. If your checklist revealed gaps, we can help you close them.</p>
+        <button class="btn-primary" onclick="openApplyModal()">Apply to Work With Paradigm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SCREEN 5 — THANK YOU
+  ═══════════════════════════════════════ -->
+  <div id="screen-5" class="screen">
+    <div class="thankyou-wrap">
+      <h1>Application Received.</h1>
+      <p>We review every application personally and only accept founders we can genuinely move the needle for. Expect a response within 48 hours.</p>
+      <div class="thankyou-next">
+        <div class="thankyou-next-item">
+          <div class="thankyou-next-num">1</div>
+          <div>
+            <strong>Print or save your checklist</strong>
+            <span>Use the print button on your results page to save a PDF copy of your compliance spine for your records.</span>
+          </div>
+        </div>
+        <div class="thankyou-next-item">
+          <div class="thankyou-next-num">2</div>
+          <div>
+            <strong>Review your gap items</strong>
+            <span>Note which categories have the most gaps. Those represent the highest-priority compliance exposure in your business right now.</span>
+          </div>
+        </div>
+        <div class="thankyou-next-item">
+          <div class="thankyou-next-num">3</div>
+          <div>
+            <strong>Expect our call</strong>
+            <span>If your profile is a fit, someone from the Paradigm team will reach out to discuss your results and what closing your compliance gaps looks like for your business specifically.</span>
+          </div>
+        </div>
+      </div>
+      <img src="brand_assets/Paradigm Logo White.svg" alt="Paradigm Consulting" style="max-width:160px;opacity:0.75;margin-top:32px;">
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       APPLICATION MODAL
+  ═══════════════════════════════════════ -->
+  <div class="apply-overlay" id="applyOverlay">
+    <div class="apply-card">
+      <h3>Apply to Work With Paradigm</h3>
+      <p class="apply-sub">We will review your compliance spine results and reach out within 48 hours if your business is a fit.</p>
+      <div class="apply-field">
+        <label>Phone Number</label>
+        <div style="display:flex;align-items:center;gap:0;">
+          <select id="applyPhoneCode" style="padding:10px 4px 10px 8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-right:none;border-radius:8px 0 0 8px;font-size:0.85rem;color:rgba(255,255,255,0.85);cursor:pointer;"><option value="+1" selected>US +1</option><option value="+1">CA +1</option><option value="+44">UK +44</option><option value="+61">AU +61</option><option value="+33">FR +33</option><option value="+49">DE +49</option><option value="+39">IT +39</option><option value="+34">ES +34</option><option value="+31">NL +31</option><option value="+46">SE +46</option><option value="+41">CH +41</option><option value="+353">IE +353</option><option value="+91">IN +91</option><option value="+86">CN +86</option><option value="+81">JP +81</option><option value="+82">KR +82</option><option value="+65">SG +65</option><option value="+63">PH +63</option><option value="+64">NZ +64</option><option value="+55">BR +55</option><option value="+52">MX +52</option><option value="+57">CO +57</option><option value="+971">AE +971</option><option value="+972">IL +972</option><option value="+27">ZA +27</option><option value="+234">NG +234</option></select>
+          <input type="tel" id="applyPhone" class="form-input" placeholder="(555) 000-0000" maxlength="20" autocomplete="tel" style="border-radius:0 8px 8px 0;">
+        </div>
+      </div>
+      <div class="apply-field">
+        <label>Business Name</label>
+        <input type="text" id="applyBusiness" class="form-input" placeholder="Your business name" maxlength="100" autocomplete="organization">
+      </div>
+      <div id="applyError" class="form-error">Please provide your phone number and business name.</div>
+      <button class="btn-primary" style="margin-top:16px;" onclick="submitApplication()">Submit Application</button>
+      <div style="text-align:center;margin-top:12px;">
+        <button class="cta-secondary-link" onclick="closeApplyModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js" integrity="sha384-Rv68Y7adOjMMJc1/xFMcdNvXre/HF51to4GZjBALmXr7ABnVl5V4UajJwBu7zbhN" crossorigin="anonymous"></script>
+<script>
+// ═══════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════
+var state = {
+  firstName: '',
+  email: '',
+  profileInputs: {
+    businessType: '',
+    revenueStage: ''
+  },
+  currentStateInputs: {
+    hasContracts: '',
+    hasFinancialControls: '',
+    hasDocumentedProcesses: '',
+    hasPrivacyPolicy: '',
+    hasHRDocumentation: ''
+  },
+  generatedChecklist: null,
+  gapSummary: null
+};
+
+// HTML-encode to prevent XSS
+function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+// Sanitize input
+function sanitize(val, maxLen) {
+  if (!val) return '';
+  return String(val)
+    .replace(/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .substring(0, maxLen || 200);
+}
+
+// ═══════════════════════════════════════════
+// TABS
+// ═══════════════════════════════════════════
+function switchTab(idx, btn) {
+  var panels = document.querySelectorAll('.tab-panel');
+  var btns = document.querySelectorAll('.tab-btn');
+  for (var i = 0; i < panels.length; i++) { panels[i].classList.remove('active'); }
+  for (var i = 0; i < btns.length; i++) { btns[i].classList.remove('active'); }
+  document.getElementById('tab-' + idx).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ═══════════════════════════════════════════
+// SCREEN NAVIGATION
+// ═══════════════════════════════════════════
+function showScreen(id) {
+  var screens = document.querySelectorAll('.screen');
+  for (var i = 0; i < screens.length; i++) { screens[i].classList.remove('active'); }
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function updateProgress(pct) {
+  var bar = document.getElementById('progressBar');
+  var fill = document.getElementById('progressFill');
+  if (pct > 0) { bar.classList.add('visible'); } else { bar.classList.remove('visible'); }
+  fill.style.width = pct + '%';
+}
+
+// ═══════════════════════════════════════════
+// INTRO FORM
+// ═══════════════════════════════════════════
+var lastSubmitTime = 0;
+function submitIntro() {
+  var now = Date.now();
+  if (now - lastSubmitTime < 2000) return;
+
+  var honeypot = document.getElementById('company_url');
+  if (honeypot && honeypot.value) return;
+
+  var name = sanitize(document.getElementById('firstName').value, 50);
+  var email = sanitize(document.getElementById('emailInput').value, 100);
+  var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+  if (!name || !emailRe.test(email)) {
+    document.getElementById('introError').style.display = 'block';
+    return;
+  }
+  document.getElementById('introError').style.display = 'none';
+  lastSubmitTime = now;
+
+  state.firstName = name;
+  state.email = email;
+
+  // Fire lead capture webhook
+  try {
+    fetch('/api/webhook', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        first_name: state.firstName,
+        email: state.email,
+        source: 'compliance-spine',
+        lead_source: 'compliance-spine',
+        timestamp: new Date().toISOString()
+      })
+    }).catch(function() {});
+  } catch(e) {}
+
+  showScreen('screen-2');
+  updateProgress(10);
+}
+
+// ═══════════════════════════════════════════
+// PHASE 1 — PROFILE
+// ═══════════════════════════════════════════
+function selectProfile(key, val, btn) {
+  state.profileInputs[key] = val;
+  var siblings = btn.parentElement.querySelectorAll('.scenario-btn');
+  for (var i = 0; i < siblings.length; i++) { siblings[i].classList.remove('selected'); }
+  btn.classList.add('selected');
+}
+
+function nextP1(q) {
+  if (q === 1 && !state.profileInputs.businessType) {
+    document.getElementById('val-p1q1').style.display = 'block';
+    return;
+  }
+  document.getElementById('val-p1q1').style.display = 'none';
+  document.getElementById('p1q1').style.display = 'none';
+  document.getElementById('p1q2').style.display = 'block';
+  updateProgress(20);
+}
+
+function backP1() {
+  document.getElementById('p1q2').style.display = 'none';
+  document.getElementById('p1q1').style.display = 'block';
+  updateProgress(10);
+}
+
+var businessTypeLabels = { digital: 'Digital Products', service: 'Service-Based', ecommerce: 'E-Commerce', hybrid: 'Hybrid Business', brick: 'Brick & Mortar' };
+
+function finishPhase1() {
+  if (!state.profileInputs.revenueStage) {
+    document.getElementById('val-p1q2').style.display = 'block';
+    return;
+  }
+  document.getElementById('val-p1q2').style.display = 'none';
+  updateProgress(30);
+
+  // Populate transition profile pills
+  var profileHTML = '<span class="transition-pill">' + esc(businessTypeLabels[state.profileInputs.businessType] || '') + '</span>';
+  profileHTML += '<span class="transition-pill">' + esc(getRevenueLabel(state.profileInputs.revenueStage)) + '</span>';
+  document.getElementById('transitionProfile').innerHTML = profileHTML;
+
+  showScreen('screen-transition');
+}
+
+function startPhase2() {
+  showScreen('screen-3');
+  updateProgress(35);
+}
+
+// ═══════════════════════════════════════════
+// PHASE 2 — CURRENT STATE
+// ═══════════════════════════════════════════
+function selectToggle(key, val, btn) {
+  state.currentStateInputs[key] = val;
+  var siblings = btn.parentElement.querySelectorAll('.toggle-btn');
+  for (var i = 0; i < siblings.length; i++) { siblings[i].classList.remove('selected'); }
+  btn.classList.add('selected');
+}
+
+var p2Keys = ['hasContracts', 'hasFinancialControls', 'hasDocumentedProcesses', 'hasPrivacyPolicy', 'hasHRDocumentation'];
+
+function nextP2(q) {
+  if (!state.currentStateInputs[p2Keys[q - 1]]) {
+    document.getElementById('val-p2q' + q).style.display = 'block';
+    return;
+  }
+  document.getElementById('val-p2q' + q).style.display = 'none';
+  document.getElementById('p2q' + q).style.display = 'none';
+  document.getElementById('p2q' + (q + 1)).style.display = 'block';
+  updateProgress(35 + q * 12);
+}
+
+function backP2(target) {
+  document.getElementById('p2q' + (target + 1)).style.display = 'none';
+  document.getElementById('p2q' + target).style.display = 'block';
+  updateProgress(35 + (target - 1) * 12);
+}
+
+// ═══════════════════════════════════════════
+// CHECKLIST DATA
+// ═══════════════════════════════════════════
+var checklistData = [
+  {
+    category: 'Legal and Regulatory',
+    categoryDescription: 'How your business represents itself, makes claims, and operates within the legal boundaries of your market.',
+    riskExposure: {
+      'under100k': { low: 10000, high: 75000, note: 'FTC violations, platform bans, and unenforceable refund terms are the primary risks at this stage.' },
+      '100k-500k': { low: 25000, high: 150000, note: 'Income claim violations and chargeback disputes become material at this revenue level.' },
+      '500k-2m': { low: 50000, high: 350000, note: 'Marketing compliance and platform term violations carry escalating penalties as ad spend increases.' },
+      '2m-10m': { low: 100000, high: 750000, note: 'Regulatory scrutiny increases significantly at this revenue stage. Legal exposure compounds across all marketing channels.' },
+      'over10m': { low: 250000, high: 2000000, note: 'At this scale, unaddressed legal and regulatory gaps represent material business risk and valuation discount.' }
+    },
+    items: [
+      { id: 'lr-01', label: 'Income and results claims are FTC compliant', description: 'All earnings claims, testimonials, and results statements include required disclosures and reflect typical results rather than outlier outcomes. The examples you are providing represent the results of the majority, not the minority.', controlledBy: 'hasContracts', baseStatus: { digital: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, service: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, ecommerce: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, hybrid: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, brick: { 'under100k': 'IN PLACE', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'REVIEW NEEDED', '2m-10m': 'REVIEW NEEDED', 'over10m': 'REVIEW NEEDED' } }, notApplicableTo: [], escalateAt: ['500k-2m', '2m-10m', 'over10m'], riskNote: 'FTC violations for non-compliant income claims carry civil penalties of up to $50,120 per violation. The FTC has issued multi-million dollar fines to digital businesses in the past five years.' },
+      { id: 'lr-02', label: 'Marketing materials reviewed for regulatory compliance', description: 'Ad copy, landing pages, email sequences, and social content have been reviewed against platform terms and relevant regulatory guidelines within the last 12 months.', controlledBy: null, baseStatus: { digital: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, service: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, ecommerce: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, hybrid: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, brick: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'REVIEW NEEDED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' } }, notApplicableTo: [], escalateAt: ['2m-10m', 'over10m'], riskNote: 'Non-compliant marketing materials on Meta and Google can result in account bans, clawback of ad spend, and platform-level deactivation with limited appeal options.' },
+      { id: 'lr-03', label: 'Platform terms compliance confirmed for all active channels', description: 'Meta, Google, email platforms, marketplace terms, and any other platforms used for distribution have been reviewed and the business is operating within their current terms of service.', controlledBy: null, baseStatus: { digital: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, service: { 'under100k': 'IN PLACE', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'REVIEW NEEDED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, ecommerce: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, hybrid: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, brick: { 'under100k': 'IN PLACE', '100k-500k': 'IN PLACE', '500k-2m': 'REVIEW NEEDED', '2m-10m': 'REVIEW NEEDED', 'over10m': 'REVIEW NEEDED' } }, notApplicableTo: [], escalateAt: ['2m-10m', 'over10m'], riskNote: 'Operating outside platform terms of service can result in immediate account termination, asset seizure, and permanent ban from the platform with no recourse.' },
+      { id: 'lr-04', label: 'Refund, cancellation, and dispute policy documented and disclosed', description: 'A clear, legally reviewed refund and cancellation policy exists, is accessible to customers before purchase, and is consistent with payment processor requirements.', controlledBy: 'hasContracts', baseStatus: { digital: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, service: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, ecommerce: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, hybrid: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, brick: { 'under100k': 'IN PLACE', '100k-500k': 'IN PLACE', '500k-2m': 'REVIEW NEEDED', '2m-10m': 'REVIEW NEEDED', 'over10m': 'REVIEW NEEDED' } }, notApplicableTo: [], escalateAt: [], riskNote: 'Missing or unenforceable refund policies are the single most common trigger for chargeback disputes. Chargeback rates above 1% can result in payment processor termination.' },
+      { id: 'lr-05', label: 'Business entity structure reviewed for liability protection', description: 'The legal structure of the business has been reviewed by a qualified attorney or CPA within the last 24 months to confirm it is appropriate for current revenue and risk exposure.', controlledBy: null, baseStatus: { digital: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, service: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, ecommerce: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, hybrid: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, brick: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' } }, notApplicableTo: [], escalateAt: ['500k-2m', '2m-10m', 'over10m'], riskNote: 'Operating as a sole proprietor or in an incorrect entity structure can create unlimited personal liability for business debts, lawsuits, and regulatory fines.' }
+    ]
+  },
+  {
+    category: 'Financial Governance',
+    categoryDescription: 'How money moves, who controls it, and whether the financial infrastructure protects the business from error, fraud, and regulatory exposure.',
+    riskExposure: {
+      'under100k': { low: 5000, high: 40000, note: 'Financial control gaps at this stage primarily create tax exposure and chargeback vulnerability.' },
+      '100k-500k': { low: 15000, high: 100000, note: 'Lack of spending authority documentation creates fraud exposure and IRS audit risk.' },
+      '500k-2m': { low: 40000, high: 250000, note: 'Missing financial controls at this revenue level create significant fraud, audit, and investor due diligence risk.' },
+      '2m-10m': { low: 100000, high: 500000, note: 'Financial governance gaps at this stage create material exposure in any M&A, fundraise, or regulatory review.' },
+      'over10m': { low: 300000, high: 1500000, note: 'At this scale, financial governance deficiencies suppress valuation and create direct liability for leadership.' }
+    },
+    items: [
+      { id: 'fg-01', label: 'Defined spending authority thresholds exist for each role', description: 'Every team member and manager knows exactly what dollar amount they can approve or spend without requiring founder or executive sign-off. These thresholds are documented and accessible.', controlledBy: 'hasFinancialControls', baseStatus: { digital: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, service: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, ecommerce: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, hybrid: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, brick: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' } }, notApplicableTo: [], escalateAt: ['100k-500k', '500k-2m', '2m-10m', 'over10m'], riskNote: 'Undefined spending authority is the leading cause of unauthorized spending and internal fraud in growing businesses. Average fraud loss for businesses under $1M is $150,000.' },
+      { id: 'fg-02', label: 'Separation of financial duties between at least two people', description: 'No single person has unilateral control over both initiating and approving financial transactions. At minimum, two people are involved in the financial control process.', controlledBy: 'hasFinancialControls', baseStatus: { digital: { 'under100k': 'NOT APPLICABLE', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, service: { 'under100k': 'NOT APPLICABLE', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, ecommerce: { 'under100k': 'NOT APPLICABLE', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, hybrid: { 'under100k': 'NOT APPLICABLE', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, brick: { 'under100k': 'NOT APPLICABLE', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' } }, notApplicableTo: [], escalateAt: ['500k-2m', '2m-10m', 'over10m'], riskNote: 'Single-person financial control is the highest-risk configuration for fraud and errors. The median loss in occupational fraud schemes where there is no separation of duties is $200,000.' },
+      { id: 'fg-03', label: 'Monthly financial reconciliation performed and documented', description: 'Bank statements, revenue records, and expense records are reconciled monthly by a qualified bookkeeper or accountant. Discrepancies are investigated and resolved within the same period.', controlledBy: 'hasFinancialControls', baseStatus: { digital: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, service: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, ecommerce: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, hybrid: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, brick: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'REVIEW NEEDED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' } }, notApplicableTo: [], escalateAt: ['500k-2m', '2m-10m', 'over10m'], riskNote: 'Without monthly reconciliation, financial discrepancies go undetected for an average of 16 months before discovery. Average undetected loss during that window is $120,000 per incident.' },
+      { id: 'fg-04', label: 'Chargeback and payment dispute rate monitored and managed', description: 'Chargeback rates are tracked monthly. A dispute response process exists. The business is aware of its current ratio and whether it is within acceptable processor thresholds.', controlledBy: 'hasFinancialControls', baseStatus: { digital: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, service: { 'under100k': 'IN PLACE', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'REVIEW NEEDED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, ecommerce: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, hybrid: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, brick: { 'under100k': 'IN PLACE', '100k-500k': 'IN PLACE', '500k-2m': 'REVIEW NEEDED', '2m-10m': 'REVIEW NEEDED', 'over10m': 'GAP IDENTIFIED' } }, notApplicableTo: [], escalateAt: ['2m-10m', 'over10m'], riskNote: 'Payment processors terminate accounts when chargeback ratios exceed 1%. Termination results in immediate revenue disruption and difficulty opening new merchant accounts for 12 to 24 months.' },
+      { id: 'fg-05', label: 'Tax obligations and quarterly estimates current', description: 'Federal, state, and local tax obligations are current. Quarterly estimated payments are being made. A qualified CPA reviews the tax position at least annually.', controlledBy: null, baseStatus: { digital: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, service: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, ecommerce: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, hybrid: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, brick: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'REVIEW NEEDED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' } }, notApplicableTo: [], escalateAt: ['500k-2m', '2m-10m', 'over10m'], riskNote: 'Unpaid or underpaid estimated taxes accrue penalties of 0.5% per month plus interest. At $1M in annual revenue, a year of missed estimates creates $15,000 to $40,000 in avoidable penalties.' }
+    ]
+  },
+  {
+    category: 'Operational Governance',
+    categoryDescription: 'Whether the business has the documented authority structures and process infrastructure to operate predictably without the founder as the single point of knowledge.',
+    riskExposure: {
+      'under100k': { low: 0, high: 25000, note: 'Operational gaps at this stage primarily create founder dependency risk and delivery inconsistency.' },
+      '100k-500k': { low: 10000, high: 75000, note: 'Undocumented processes create key-person risk and client delivery liability as the team grows.' },
+      '500k-2m': { low: 30000, high: 150000, note: 'Operational governance gaps become material when the business is in a growth phase or under transaction review.' },
+      '2m-10m': { low: 75000, high: 400000, note: 'Missing operational documentation creates significant valuation discount and post-acquisition integration risk.' },
+      'over10m': { low: 200000, high: 1000000, note: 'At this scale, undocumented operational governance is a material risk in any institutional review or transaction.' }
+    },
+    items: [
+      { id: 'og-01', label: 'Decision authority documented by role and tier', description: 'Every recurring decision type in the business is mapped to the appropriate tier and that mapping is documented and accessible to all relevant team members.', controlledBy: 'hasDocumentedProcesses', baseStatus: { digital: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, service: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, ecommerce: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, hybrid: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, brick: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' } }, notApplicableTo: [], escalateAt: ['100k-500k', '500k-2m', '2m-10m', 'over10m'], riskNote: 'Undocumented decision authority creates a founder dependency structure that suppresses valuation by an estimated 20 to 40% in any transaction or investment review.' },
+      { id: 'og-02', label: 'Core operational processes documented in accessible SOPs', description: 'Standard operating procedures exist for every recurring operational process. A new team member could follow them without asking the founder.', controlledBy: 'hasDocumentedProcesses', baseStatus: { digital: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, service: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, ecommerce: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, hybrid: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, brick: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' } }, notApplicableTo: [], escalateAt: ['100k-500k', '500k-2m', '2m-10m', 'over10m'], riskNote: 'Businesses without documented SOPs are valued at a 1 to 2x lower multiple than comparable businesses with documented processes due to key-person dependency risk.' },
+      { id: 'og-03', label: 'Business continuity plan exists for founder absence', description: 'A documented plan exists for how the business operates if the founder is unavailable for 30 days. Key contacts, access credentials, decision authorities, and escalation paths are documented.', controlledBy: 'hasDocumentedProcesses', baseStatus: { digital: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, service: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, ecommerce: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, hybrid: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, brick: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' } }, notApplicableTo: [], escalateAt: ['500k-2m', '2m-10m', 'over10m'], riskNote: 'Without a business continuity plan, founder incapacitation for 30 days results in an average revenue disruption of 15 to 25% and permanent client loss of 8 to 12%.' },
+      { id: 'og-04', label: 'Key system access and credentials documented and secured', description: 'Login credentials, API keys, and access information for all critical business systems are documented in a secure location accessible to at least one other person.', controlledBy: 'hasDocumentedProcesses', baseStatus: { digital: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, service: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, ecommerce: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, hybrid: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, brick: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'REVIEW NEEDED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' } }, notApplicableTo: [], escalateAt: ['500k-2m', '2m-10m', 'over10m'], riskNote: 'Single-point-of-access failure for critical systems results in an average of 3 to 7 days of operational disruption per incident. At $500K annual revenue that disruption costs $4,000 to $9,500 per day.' }
+    ]
+  },
+  {
+    category: 'Data and Privacy',
+    categoryDescription: 'How your business collects, stores, uses, and protects personal data and whether your practices comply with applicable privacy regulations.',
+    riskExposure: {
+      'under100k': { low: 5000, high: 50000, note: 'GDPR and CCPA violations carry per-record fines. A breach without a response plan compounds liability significantly.' },
+      '100k-500k': { low: 15000, high: 150000, note: 'Email marketing violations and data storage gaps create regulatory exposure as your list and customer base grows.' },
+      '500k-2m': { low: 50000, high: 350000, note: 'Data and privacy gaps at this stage create direct regulatory liability and reputational risk with a growing customer base.' },
+      '2m-10m': { low: 100000, high: 750000, note: 'At this revenue level, privacy violations attract regulatory attention. CCPA fines alone can reach $7,500 per intentional violation.' },
+      'over10m': { low: 250000, high: 2000000, note: 'Enterprise-level data exposure carries significant per-record regulatory fines and class action risk.' }
+    },
+    items: [
+      { id: 'dp-01', label: 'Privacy policy published and current', description: 'A legally reviewed privacy policy is published on the website, accessible from all data collection points, and accurately reflects current data collection and usage practices.', controlledBy: 'hasPrivacyPolicy', baseStatus: { digital: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, service: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, ecommerce: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, hybrid: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, brick: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'REVIEW NEEDED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' } }, notApplicableTo: [], escalateAt: ['100k-500k', '500k-2m', '2m-10m', 'over10m'], riskNote: 'Operating without a compliant privacy policy violates FTC regulations and state privacy laws. California CCPA fines reach $7,500 per intentional violation. GDPR fines can reach 4% of global annual revenue.' },
+      { id: 'dp-02', label: 'Email marketing consent and opt-out compliance', description: 'All email lists were built with explicit opt-in consent. Unsubscribe mechanisms function correctly. CAN-SPAM and applicable email marketing regulations are being followed.', controlledBy: 'hasPrivacyPolicy', baseStatus: { digital: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, service: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, ecommerce: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, hybrid: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, brick: { 'under100k': 'IN PLACE', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'REVIEW NEEDED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' } }, notApplicableTo: [], escalateAt: ['500k-2m', '2m-10m', 'over10m'], riskNote: 'CAN-SPAM violations carry fines of up to $50,120 per email. Email platforms that detect non-compliant lists suspend accounts, destroying deliverability built over years.' },
+      { id: 'dp-03', label: 'Customer data storage is secure and access-controlled', description: 'Customer personal data is stored securely with access limited to authorized personnel. A data breach response plan exists.', controlledBy: 'hasPrivacyPolicy', baseStatus: { digital: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, service: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, ecommerce: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, hybrid: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, brick: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'REVIEW NEEDED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' } }, notApplicableTo: [], escalateAt: ['500k-2m', '2m-10m', 'over10m'], riskNote: 'The average cost of a data breach for a small business is $200,000. 60% of small businesses that suffer a breach close within six months if they did not have a response plan.' },
+      { id: 'dp-04', label: 'Cookie policy and tracking disclosure current', description: 'Website cookie usage is disclosed. A cookie consent mechanism is in place where required. Tracking pixels, analytics tools, and retargeting infrastructure are disclosed in the privacy policy.', controlledBy: 'hasPrivacyPolicy', baseStatus: { digital: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, service: { 'under100k': 'IN PLACE', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'REVIEW NEEDED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, ecommerce: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, hybrid: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, brick: { 'under100k': 'NOT APPLICABLE', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'REVIEW NEEDED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' } }, notApplicableTo: [], escalateAt: ['2m-10m', 'over10m'], riskNote: 'Non-compliant cookie tracking creates GDPR liability of up to 4% of global annual revenue and CCPA fines of $7,500 per intentional violation per affected consumer.' }
+    ]
+  },
+  {
+    category: 'Contract Infrastructure',
+    categoryDescription: 'Whether the legal agreements that protect the business with clients, vendors, team members, and partners are in place and current.',
+    riskExposure: {
+      'under100k': { low: 5000, high: 50000, note: 'Unsigned client agreements and missing IP assignments are the primary risks at this stage.' },
+      '100k-500k': { low: 20000, high: 150000, note: 'Verbal vendor agreements and unsigned contractor IP assignments become material as the business scales.' },
+      '500k-2m': { low: 50000, high: 300000, note: 'Contract gaps at this revenue level create direct litigation exposure and IP ownership disputes.' },
+      '2m-10m': { low: 100000, high: 600000, note: 'Missing or informal contract infrastructure creates significant due diligence issues in any transaction or investment process.' },
+      'over10m': { low: 250000, high: 1500000, note: 'At this scale, contract infrastructure gaps represent material M&A and litigation risk across all business relationships.' }
+    },
+    items: [
+      { id: 'ci-01', label: 'Client service agreements signed before work begins', description: 'Every client engagement begins with a signed agreement that defines scope, deliverables, payment terms, IP ownership, and dispute resolution.', controlledBy: 'hasContracts', baseStatus: { digital: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, service: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, ecommerce: { 'under100k': 'NOT APPLICABLE', '100k-500k': 'NOT APPLICABLE', '500k-2m': 'REVIEW NEEDED', '2m-10m': 'REVIEW NEEDED', 'over10m': 'REVIEW NEEDED' }, hybrid: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, brick: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' } }, notApplicableTo: [], escalateAt: ['100k-500k', '500k-2m', '2m-10m', 'over10m'], riskNote: 'Verbal client agreements are unenforceable in most jurisdictions above $500. Disputes without written contracts result in an average of $15,000 to $80,000 in legal costs regardless of outcome.' },
+      { id: 'ci-02', label: 'Vendor and supplier agreements documented', description: 'Written agreements exist with all significant vendors and suppliers. Agreements define terms, deliverables, liability, termination conditions, and renewal terms.', controlledBy: 'hasContracts', baseStatus: { digital: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, service: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, ecommerce: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, hybrid: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, brick: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' } }, notApplicableTo: [], escalateAt: ['500k-2m', '2m-10m', 'over10m'], riskNote: 'Vendor relationships without written agreements expose the business to unilateral term changes, service disruption, and no recourse for non-performance or breach.' },
+      { id: 'ci-03', label: 'Intellectual property ownership documented', description: 'The business owns or has properly licensed all IP it uses. IP created by contractors is assigned to the business in writing.', controlledBy: 'hasContracts', baseStatus: { digital: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, service: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, ecommerce: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, hybrid: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, brick: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'REVIEW NEEDED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' } }, notApplicableTo: [], escalateAt: ['100k-500k', '500k-2m', '2m-10m', 'over10m'], riskNote: 'IP created by contractors without a written assignment agreement legally belongs to the contractor by default. Reclaiming unassigned IP requires litigation averaging $50,000 to $200,000.' },
+      { id: 'ci-04', label: 'Partnership and affiliate agreements in writing', description: 'All revenue-sharing, referral, co-marketing, and affiliate relationships are governed by written agreements.', controlledBy: 'hasContracts', baseStatus: { digital: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, service: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, ecommerce: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, hybrid: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, brick: { 'under100k': 'NOT APPLICABLE', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'REVIEW NEEDED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' } }, notApplicableTo: [], escalateAt: ['500k-2m', '2m-10m', 'over10m'], riskNote: 'Unwritten affiliate and partnership agreements are the most common source of commission disputes. Average litigation cost for partnership disputes is $25,000 to $150,000.' }
+    ]
+  },
+  {
+    category: 'HR and Team Compliance',
+    categoryDescription: 'Whether the relationships between the business and its people are legally structured, documented, and protected.',
+    riskExposure: {
+      'under100k': { low: 5000, high: 30000, note: 'Contractor misclassification is the primary risk at this stage. Retroactive payroll tax and penalties can reach $30,000 per worker.' },
+      '100k-500k': { low: 15000, high: 100000, note: 'NDA gaps and compensation documentation issues become material as the team grows and access to proprietary information expands.' },
+      '500k-2m': { low: 40000, high: 250000, note: 'HR compliance gaps at this stage create wage and hour liability, harassment claim exposure, and contractor misclassification penalties.' },
+      '2m-10m': { low: 100000, high: 500000, note: 'Missing HR documentation at this scale creates class action exposure and significant regulatory liability.' },
+      'over10m': { low: 250000, high: 1200000, note: 'At this revenue level, HR compliance deficiencies are a material risk in any institutional review, transaction, or regulatory investigation.' }
+    },
+    items: [
+      { id: 'hr-01', label: 'Contractor vs employee classification reviewed', description: 'All contractors and freelancers have been reviewed against IRS and state classification guidelines. Those who meet employee criteria have been reclassified.', controlledBy: 'hasHRDocumentation', baseStatus: { digital: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, service: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, ecommerce: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, hybrid: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, brick: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' } }, notApplicableTo: [], escalateAt: ['100k-500k', '500k-2m', '2m-10m', 'over10m'], riskNote: 'IRS contractor misclassification penalties include back payroll taxes, a 100% employee tax penalty, plus interest. Average liability per misclassified worker is $15,000 to $50,000 before legal costs.' },
+      { id: 'hr-02', label: 'Signed confidentiality and NDA agreements with all team members', description: 'Every person with access to proprietary information, client data, or business processes has signed a confidentiality agreement or NDA.', controlledBy: 'hasHRDocumentation', baseStatus: { digital: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, service: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, ecommerce: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, hybrid: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, brick: { 'under100k': 'IN PLACE', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'REVIEW NEEDED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' } }, notApplicableTo: [], escalateAt: ['500k-2m', '2m-10m', 'over10m'], riskNote: 'Without signed NDAs, departing team members can legally share client lists, pricing, processes, and proprietary frameworks with competitors. The average cost of trade secret litigation is $2M.' },
+      { id: 'hr-03', label: 'Written compensation agreements with all team members', description: 'Every employee and contractor has a signed written agreement that defines compensation, payment terms, bonus structures, and equity if applicable.', controlledBy: 'hasHRDocumentation', baseStatus: { digital: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, service: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, ecommerce: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, hybrid: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, brick: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'REVIEW NEEDED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' } }, notApplicableTo: [], escalateAt: ['500k-2m', '2m-10m', 'over10m'], riskNote: 'Verbal compensation agreements are the leading source of wage disputes. Average cost of a wage and hour lawsuit for businesses under 50 employees is $75,000 including legal fees and settlement.' },
+      { id: 'hr-04', label: 'Termination and offboarding process documented', description: 'A documented process exists for handling employee and contractor departures including final pay timeline, benefits continuation, equipment return, system access revocation, and exit interview.', controlledBy: 'hasHRDocumentation', baseStatus: { digital: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, service: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, ecommerce: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'REVIEW NEEDED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, hybrid: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'GAP IDENTIFIED', '500k-2m': 'GAP IDENTIFIED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' }, brick: { 'under100k': 'REVIEW NEEDED', '100k-500k': 'REVIEW NEEDED', '500k-2m': 'REVIEW NEEDED', '2m-10m': 'GAP IDENTIFIED', 'over10m': 'GAP IDENTIFIED' } }, notApplicableTo: [], escalateAt: ['500k-2m', '2m-10m', 'over10m'], riskNote: 'Missing offboarding processes are the primary cause of data breaches by former employees. 20% of businesses report a security incident related to a former employee within 12 months of departure.' }
+    ]
+  }
+];
+
+// ═══════════════════════════════════════════
+// CHECKLIST ENGINE
+// ═══════════════════════════════════════════
+function getItemStatus(item, profile, currentState) {
+  var status = (item.baseStatus[profile.businessType] || {})[profile.revenueStage] || 'REVIEW NEEDED';
+
+  if (item.controlledBy) {
+    var answer = currentState[item.controlledBy];
+    if (answer === 'yes') status = 'IN PLACE';
+    else if (answer === 'no') status = 'GAP IDENTIFIED';
+  }
+
+  if (item.notApplicableTo && item.notApplicableTo.indexOf(profile.businessType) !== -1) {
+    status = 'NOT APPLICABLE';
+  }
+
+  if (item.escalateAt && item.escalateAt.indexOf(profile.revenueStage) !== -1 && status === 'REVIEW NEEDED') {
+    status = 'GAP IDENTIFIED';
+  }
+
+  return status;
+}
+
+function formatDollar(n) {
+  if (n >= 1000000) return '$' + (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+  if (n >= 1000) return '$' + Math.round(n / 1000) + 'K';
+  return '$' + n;
+}
+
+function generateChecklist() {
+  if (!state.currentStateInputs.hasHRDocumentation) {
+    document.getElementById('val-p2q5').style.display = 'block';
+    return;
+  }
+  document.getElementById('val-p2q5').style.display = 'none';
+  updateProgress(100);
+
+  var profile = state.profileInputs;
+  var currentState = state.currentStateInputs;
+  var generated = [];
+  var totalGaps = 0, totalReview = 0, totalInPlace = 0, totalNA = 0;
+
+  checklistData.forEach(function(cat) {
+    var genCat = {
+      category: cat.category,
+      categoryDescription: cat.categoryDescription,
+      riskExposure: cat.riskExposure,
+      items: []
+    };
+    cat.items.forEach(function(item) {
+      var status = getItemStatus(item, profile, currentState);
+      genCat.items.push({
+        id: item.id,
+        label: item.label,
+        description: item.description,
+        status: status,
+        riskNote: item.riskNote
+      });
+      if (status === 'GAP IDENTIFIED') totalGaps++;
+      else if (status === 'REVIEW NEEDED') totalReview++;
+      else if (status === 'IN PLACE') totalInPlace++;
+      else totalNA++;
+    });
+    generated.push(genCat);
+  });
+
+  state.generatedChecklist = generated;
+  state.gapSummary = { gaps: totalGaps, reviewNeeded: totalReview, inPlace: totalInPlace, na: totalNA };
+
+  renderChecklist(generated, profile.revenueStage, totalGaps, totalReview, totalInPlace, totalNA);
+
+  // Fire results webhook
+  try {
+    fetch('/api/webhook', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        first_name: state.firstName,
+        email: state.email,
+        business_type: profile.businessType,
+        revenue_stage: profile.revenueStage,
+        has_contracts: currentState.hasContracts,
+        has_financial_controls: currentState.hasFinancialControls,
+        has_documented_processes: currentState.hasDocumentedProcesses,
+        has_privacy_policy: currentState.hasPrivacyPolicy,
+        has_hr_documentation: currentState.hasHRDocumentation,
+        gaps_identified: totalGaps,
+        review_needed: totalReview,
+        in_place: totalInPlace,
+        source: 'compliance-spine',
+        lead_source: 'compliance-spine',
+        timestamp: new Date().toISOString()
+      })
+    }).catch(function() {});
+  } catch(e) {}
+
+  showScreen('screen-4');
+}
+
+function renderChecklist(generated, revenueStage, totalGaps, totalReview, totalInPlace, totalNA) {
+  // Timestamp
+  var now = new Date();
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  document.getElementById('outputTimestamp').textContent = 'Generated ' + months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+
+  // Subtitle
+  document.getElementById('outputSubtitle').textContent = state.firstName + '\u2019s Compliance Checklist';
+
+  // Distribution donut
+  var total = totalGaps + totalReview + totalInPlace + (totalNA || 0);
+  var circumference = 2 * Math.PI * 60; // r=60
+  var gapPct = totalGaps / total;
+  var reviewPct = totalReview / total;
+  var inPlacePct = totalInPlace / total;
+  var naPct = (totalNA || 0) / total;
+
+  var gapDash = gapPct * circumference;
+  var reviewDash = reviewPct * circumference;
+  var inPlaceDash = inPlacePct * circumference;
+  var naDash = naPct * circumference;
+
+  var gapOffset = 0;
+  var reviewOffset = gapDash;
+  var inPlaceOffset = gapDash + reviewDash;
+  var naOffset = gapDash + reviewDash + inPlaceDash;
+
+  var donutHTML = '<div class="donut-container">';
+  donutHTML += '<svg class="donut-svg" viewBox="0 0 160 160">';
+  donutHTML += '<circle cx="80" cy="80" r="60" fill="none" stroke="var(--surface-3)" stroke-width="20"/>';
+  if (totalGaps > 0) donutHTML += '<circle class="donut-segment" cx="80" cy="80" r="60" stroke="var(--red)" stroke-dasharray="' + gapDash + ' ' + (circumference - gapDash) + '" stroke-dashoffset="-' + gapOffset + '"/>';
+  if (totalReview > 0) donutHTML += '<circle class="donut-segment" cx="80" cy="80" r="60" stroke="var(--amber)" stroke-dasharray="' + reviewDash + ' ' + (circumference - reviewDash) + '" stroke-dashoffset="-' + reviewOffset + '"/>';
+  if (totalInPlace > 0) donutHTML += '<circle class="donut-segment" cx="80" cy="80" r="60" stroke="var(--green)" stroke-dasharray="' + inPlaceDash + ' ' + (circumference - inPlaceDash) + '" stroke-dashoffset="-' + inPlaceOffset + '"/>';
+  if ((totalNA || 0) > 0) donutHTML += '<circle class="donut-segment" cx="80" cy="80" r="60" stroke="#52525b" stroke-dasharray="' + naDash + ' ' + (circumference - naDash) + '" stroke-dashoffset="-' + naOffset + '"/>';
+  donutHTML += '</svg>';
+  donutHTML += '<div class="donut-center"><div class="donut-center-number">' + totalGaps + '</div><div class="donut-center-label">Gaps</div></div>';
+  donutHTML += '</div>';
+
+  donutHTML += '<div class="donut-legend">';
+  donutHTML += '<div class="donut-legend-item"><span class="donut-legend-dot" style="background:var(--red)"></span><span class="donut-legend-count" style="color:var(--red)">' + totalGaps + '</span> Gaps Identified</div>';
+  donutHTML += '<div class="donut-legend-item"><span class="donut-legend-dot" style="background:var(--amber)"></span><span class="donut-legend-count" style="color:var(--amber)">' + totalReview + '</span> Review Needed</div>';
+  donutHTML += '<div class="donut-legend-item"><span class="donut-legend-dot" style="background:var(--green)"></span><span class="donut-legend-count" style="color:var(--green)">' + totalInPlace + '</span> In Place</div>';
+  if ((totalNA || 0) > 0) donutHTML += '<div class="donut-legend-item"><span class="donut-legend-dot" style="background:#52525b"></span><span class="donut-legend-count" style="color:#71717a">' + (totalNA || 0) + '</span> Not Applicable</div>';
+  donutHTML += '</div>';
+
+  document.getElementById('distributionWrap').innerHTML = donutHTML;
+
+  // Total exposure hero
+  var totalLow = 0, totalHigh = 0;
+  generated.forEach(function(cat) {
+    var hasGap = cat.items.some(function(i) { return i.status === 'GAP IDENTIFIED'; });
+    if (hasGap) {
+      var exp = cat.riskExposure[revenueStage];
+      totalLow += exp.low;
+      totalHigh += exp.high;
+    }
+  });
+
+  var heroEl = document.getElementById('exposureHero');
+  if (totalGaps > 0) {
+    heroEl.style.display = 'block';
+    heroEl.innerHTML = '<div class="exposure-hero-label">Estimated Total Financial Exposure</div>' +
+      '<div class="exposure-hero-amount">' + formatDollar(totalLow) + ' \u2013 ' + formatDollar(totalHigh) + '</div>' +
+      '<div class="exposure-hero-note">Based on ' + totalGaps + ' compliance gap' + (totalGaps !== 1 ? 's' : '') + ' identified across categories at the ' + esc(getRevenueLabel(revenueStage)) + ' revenue stage.</div>';
+  } else {
+    heroEl.style.display = 'none';
+  }
+
+  // Category blocks with accordion
+  var html = '';
+  generated.forEach(function(cat, catIdx) {
+    var catGaps = cat.items.filter(function(i) { return i.status === 'GAP IDENTIFIED'; }).length;
+    var catReview = cat.items.filter(function(i) { return i.status === 'REVIEW NEEDED'; }).length;
+    var catInPlace = cat.items.filter(function(i) { return i.status === 'IN PLACE'; }).length;
+    var catNA = cat.items.filter(function(i) { return i.status === 'NOT APPLICABLE'; }).length;
+
+    html += '<div class="category-block reveal-block" data-reveal-delay="' + (catIdx * 100) + '">';
+
+    // Accordion toggle header
+    html += '<div class="category-toggle" onclick="toggleCategory(this)">';
+    html += '<div class="category-toggle-left">';
+    html += '<div class="category-header">' + esc(cat.category) + '</div>';
+    html += '<div class="category-description">' + esc(cat.categoryDescription) + '</div>';
+
+    // Inline status summary
+    html += '<div class="category-status-summary" style="margin-bottom:0;">';
+    if (catGaps > 0) html += '<span class="cat-stat"><span class="cat-stat-count" style="color:var(--red)">' + catGaps + '</span>Gap' + (catGaps !== 1 ? 's' : '') + '</span>';
+    if (catReview > 0) html += '<span class="cat-stat"><span class="cat-stat-count" style="color:var(--amber)">' + catReview + '</span>Review</span>';
+    if (catInPlace > 0) html += '<span class="cat-stat"><span class="cat-stat-count" style="color:var(--green)">' + catInPlace + '</span>In Place</span>';
+    if (catNA > 0) html += '<span class="cat-stat"><span class="cat-stat-count" style="color:#71717a">' + catNA + '</span>N/A</span>';
+    html += '</div>';
+    html += '</div>';
+
+    html += '<svg class="category-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
+    html += '</div>';
+
+    // Collapsible items area
+    html += '<div class="category-items">';
+
+    // Category risk banner
+    if (catGaps > 0) {
+      var exp = cat.riskExposure[revenueStage];
+      html += '<div class="category-risk-banner"><p><strong>' + catGaps + ' gap' + (catGaps !== 1 ? 's' : '') + ' identified</strong> in this category. Estimated exposure: ' + formatDollar(exp.low) + ' to ' + formatDollar(exp.high) + '. ' + esc(exp.note) + '</p></div>';
+    }
+
+    // Items
+    cat.items.forEach(function(item) {
+      var statusClass = '';
+      var badgeClass = '';
+      var badgeText = '';
+      if (item.status === 'IN PLACE') { statusClass = 'item-inplace'; badgeClass = 'badge-inplace'; badgeText = 'In Place'; }
+      else if (item.status === 'REVIEW NEEDED') { statusClass = 'item-review'; badgeClass = 'badge-review'; badgeText = 'Review Needed'; }
+      else if (item.status === 'GAP IDENTIFIED') { statusClass = 'item-gap'; badgeClass = 'badge-gap'; badgeText = 'Gap Identified'; }
+      else { statusClass = 'item-na'; badgeClass = 'badge-na'; badgeText = 'Not Applicable'; }
+
+      html += '<div class="checklist-item ' + statusClass + '">';
+      html += '<div class="checklist-item-header"><div class="checklist-item-label">' + esc(item.label) + '</div><span class="status-badge ' + badgeClass + '">' + badgeText + '</span></div>';
+      html += '<div class="checklist-item-desc">' + esc(item.description) + '</div>';
+      if (item.status === 'GAP IDENTIFIED' && item.riskNote) {
+        html += '<div class="risk-note">' + esc(item.riskNote) + '</div>';
+      }
+      html += '</div>';
+    });
+
+    html += '</div>'; // .category-items
+    html += '</div>'; // .category-block
+  });
+
+  document.getElementById('checklistOutput').innerHTML = html;
+
+  // Trigger staggered reveal on scroll
+  setTimeout(initScrollReveal, 100);
+}
+
+// Accordion toggle
+function toggleCategory(el) {
+  var block = el.parentElement;
+  block.classList.toggle('collapsed');
+}
+
+// Confetti
+function fireConfetti() {
+  if (typeof confetti !== 'function') return;
+  var duration = 2500;
+  var end = Date.now() + duration;
+  var colors = ['#7B8FA1', '#8DA1B3', '#ffffff', '#6b8f71'];
+
+  (function frame() {
+    confetti({
+      particleCount: 3,
+      angle: 60,
+      spread: 55,
+      origin: { x: 0, y: 0.7 },
+      colors: colors,
+      zIndex: 9999
+    });
+    confetti({
+      particleCount: 3,
+      angle: 120,
+      spread: 55,
+      origin: { x: 1, y: 0.7 },
+      colors: colors,
+      zIndex: 9999
+    });
+    if (Date.now() < end) requestAnimationFrame(frame);
+  })();
+}
+
+// Scroll reveal
+function initScrollReveal() {
+  var blocks = document.querySelectorAll('.reveal-block');
+  if (!('IntersectionObserver' in window)) {
+    // Fallback: show everything
+    for (var i = 0; i < blocks.length; i++) blocks[i].classList.add('revealed');
+    return;
+  }
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var delay = parseInt(entry.target.getAttribute('data-reveal-delay') || '0', 10);
+        setTimeout(function() { entry.target.classList.add('revealed'); }, delay);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  for (var i = 0; i < blocks.length; i++) { observer.observe(blocks[i]); }
+}
+
+function getRevenueLabel(stage) {
+  var labels = {
+    'under100k': 'Under $100K',
+    '100k-500k': '$100K\u2013$500K',
+    '500k-2m': '$500K\u2013$2M',
+    '2m-10m': '$2M\u2013$10M',
+    'over10m': 'Over $10M'
+  };
+  return labels[stage] || stage;
+}
+
+// ═══════════════════════════════════════════
+// APPLICATION MODAL
+// ═══════════════════════════════════════════
+function openApplyModal() {
+  document.getElementById('applyOverlay').classList.add('active');
+}
+function closeApplyModal() {
+  document.getElementById('applyOverlay').classList.remove('active');
+}
+
+var lastApplyTime = 0;
+function submitApplication() {
+  var now = Date.now();
+  if (now - lastApplyTime < 2000) return;
+
+  var phoneRaw = sanitize(document.getElementById('applyPhone').value, 20);
+  var business = sanitize(document.getElementById('applyBusiness').value, 100);
+  var phoneRe = /^[\d\s\-+().]{7,20}$/;
+
+  if (!phoneRe.test(phoneRaw) || !business) {
+    document.getElementById('applyError').style.display = 'block';
+    return;
+  }
+  document.getElementById('applyError').style.display = 'none';
+  lastApplyTime = now;
+
+  // Fire application webhook
+  try {
+    fetch('/api/webhook', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        first_name: state.firstName,
+        email: state.email,
+        phone: document.getElementById('applyPhoneCode').value + ' ' + phoneRaw,
+        business_name: business,
+        business_type: state.profileInputs.businessType,
+        revenue_stage: state.profileInputs.revenueStage,
+        gaps_identified: state.gapSummary ? state.gapSummary.gaps : 0,
+        review_needed: state.gapSummary ? state.gapSummary.reviewNeeded : 0,
+        in_place: state.gapSummary ? state.gapSummary.inPlace : 0,
+        source: 'compliance-spine-apply',
+        lead_source: 'compliance-spine',
+        timestamp: new Date().toISOString()
+      })
+    }).catch(function() {});
+  } catch(e) {}
+
+  closeApplyModal();
+  showScreen('screen-5');
+}
+</script>
+
+</body>
+</html>

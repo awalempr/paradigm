@@ -38,10 +38,28 @@
   status = 301
   force = true
 
+# Pretty URL: strip .html extension for SAA
+[[redirects]]
+  from = "/system-architecture-audit"
+  to = "/system-architecture-audit.html"
+  status = 200
+
+[[redirects]]
+  from = "/system-architecture-audit.html"
+  to = "/system-architecture-audit"
+  status = 301
+  force = true
+
 # Serverless webhook proxy
 [[redirects]]
   from = "/api/webhook"
   to = "/.netlify/functions/webhook"
+  status = 200
+
+# Waitlist count endpoint
+[[redirects]]
+  from = "/api/waitlist-count"
+  to = "/.netlify/functions/waitlist-count"
   status = 200
 
 [[headers]]
@@ -50,6 +68,9 @@
     X-Frame-Options = "SAMEORIGIN"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://www.googletagmanager.com https://player.vimeo.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.cdnfonts.com; font-src 'self' https://fonts.gstatic.com https://fonts.cdnfonts.com data:; img-src 'self' https://placehold.co data: blob:; connect-src 'self' https://www.google-analytics.com; frame-src https://player.vimeo.com https://www.youtube.com"
 
 [[headers]]
   for = "*.jpg"
