@@ -285,21 +285,44 @@
     /* Stat band */
     .stat-band {
       border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-      padding: 32px 0;
+      padding: 64px 0;
       background: var(--surface);
+      position: relative; overflow: hidden;
     }
-    .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
-    .stat-item { text-align: center; }
-    .stat-num { font-family: 'Ranade', sans-serif; font-weight: 500; font-size: clamp(28px, 4vw, 42px); color: var(--accent); letter-spacing: -0.02em; line-height: 1.1; }
-    .stat-label { font-size: 13px; color: var(--muted); margin-top: 6px; }
-    @media (max-width: 720px) { .stat-grid { grid-template-columns: 1fr; gap: 18px; } }
+    .stat-band::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(800px 240px at 50% 0%, rgba(12,140,233,0.08), transparent 70%);
+    }
+    .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; position: relative; }
+    .stat-item { text-align: center; padding: 0 24px; position: relative; }
+    .stat-item:not(:last-child)::after {
+      content: ""; position: absolute; right: 0; top: 12%; bottom: 12%;
+      width: 1px; background: var(--border-light);
+    }
+    .stat-num {
+      font-family: 'Ranade', sans-serif; font-weight: 500;
+      font-size: clamp(42px, 6vw, 68px);
+      color: var(--accent); letter-spacing: -0.03em; line-height: 1;
+      margin-bottom: 14px;
+    }
+    .stat-label { font-size: 13px; color: var(--muted); line-height: 1.55; max-width: 280px; margin: 0 auto; }
+    @media (max-width: 720px) {
+      .stat-band { padding: 48px 0; }
+      .stat-grid { grid-template-columns: 1fr; gap: 36px; }
+      .stat-item:not(:last-child)::after { display: none; }
+      .stat-item:not(:last-child) { padding-bottom: 36px; border-bottom: 1px solid var(--border-light); }
+    }
 
     /* Sections */
-    section.content { padding: 96px 0; border-bottom: 1px solid var(--border); }
+    section.content { padding: 112px 0; border-bottom: 1px solid var(--border); }
     .eyebrow {
-      display: inline-block;
+      display: inline-flex; align-items: center; gap: 12px;
       font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--accent); margin-bottom: 16px;
+      color: var(--accent); margin-bottom: 24px;
+    }
+    .eyebrow::before {
+      content: ""; width: 28px; height: 1px;
+      background: var(--accent); opacity: 0.55;
     }
     h2 {
       font-family: 'Ranade', sans-serif; font-weight: 500;
@@ -339,27 +362,47 @@
     .pain-card h3 { margin-top: 0; margin-bottom: 10px; font-size: 20px; }
     .pain-card p { font-size: 14px; line-height: 1.65; margin-bottom: 0; }
 
-    /* Framework table */
+    /* Framework matrix (3x3 with labeled axes) */
     .framework-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
-      margin-top: 40px;
-      border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+      display: grid; grid-template-columns: 140px repeat(3, 1fr); gap: 0;
+      margin-top: 48px;
+      border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
+      background: var(--surface);
     }
+    .fg-corner { background: var(--surface-2); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .fg-col-header, .fg-row-header {
+      font-family: 'Ranade', sans-serif; font-weight: 500;
+      font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--accent);
+      background: var(--surface-2);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .fg-col-header { padding: 18px 12px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); text-align: center; }
+    .fg-col-header:last-child { border-right: none; }
+    .fg-row-header { padding: 24px 12px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); text-align: center; }
+    .fg-row-header.is-last { border-bottom: none; }
     .fg-cell {
       padding: 24px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
-      background: var(--surface);
       transition: background 0.25s;
     }
     .fg-cell:hover { background: var(--surface-2); }
-    .fg-cell:nth-child(3n) { border-right: none; }
-    .fg-cell:nth-child(n+7) { border-bottom: none; }
-    .fg-cell-tag { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+    .fg-cell.is-last-col { border-right: none; }
+    .fg-cell.is-last-row { border-bottom: none; }
     .fg-cell h4 { font-family: 'Ranade', sans-serif; font-weight: 500; font-size: 17px; color: var(--fg); margin-bottom: 8px; letter-spacing: -0.01em; }
     .fg-cell p { font-size: 13px; line-height: 1.55; margin-bottom: 0; color: var(--muted); }
     @media (max-width: 920px) {
       .framework-grid { grid-template-columns: 1fr; }
+      .fg-corner, .fg-col-header { display: none; }
+      .fg-row-header {
+        background: var(--accent-dim); color: var(--accent);
+        border-right: none;
+        border-top: 1px solid var(--border);
+        padding: 14px 24px;
+        justify-content: flex-start;
+        letter-spacing: 0.14em;
+      }
       .fg-cell { border-right: none; }
-      .fg-cell:last-child { border-bottom: none; }
+      .fg-cell.is-last-col { border-right: none; }
     }
 
     /* FAQ */
@@ -439,13 +482,43 @@
 
     /* Final CTA */
     .final-cta {
-      padding: 120px 0; text-align: center;
-      background:
-        radial-gradient(800px 400px at 50% 0%, rgba(12,140,233,0.12), transparent 70%),
-        var(--bg);
+      padding: 140px 0 120px;
+      text-align: center;
+      position: relative; overflow: hidden;
+      background: var(--bg);
     }
-    .final-cta h2 { max-width: 720px; margin: 0 auto 20px; }
-    .final-cta p { max-width: 600px; margin: 0 auto 32px; color: var(--muted); }
+    .final-cta::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(900px 500px at 50% 0%, rgba(12,140,233,0.18), transparent 60%),
+        radial-gradient(600px 400px at 30% 100%, rgba(12,140,233,0.06), transparent 70%);
+    }
+    .final-cta::after {
+      content: ""; position: absolute; left: 50%; top: 0;
+      transform: translateX(-50%);
+      width: 220px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0.6;
+    }
+    .final-cta-eyebrow {
+      display: inline-block;
+      font-size: 12px; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+      position: relative;
+    }
+    .final-cta h2 {
+      max-width: 760px; margin: 0 auto 24px;
+      font-size: clamp(34px, 5vw, 52px);
+      position: relative;
+    }
+    .final-cta p {
+      max-width: 600px; margin: 0 auto 40px;
+      color: var(--muted); font-size: 17px; line-height: 1.65;
+      position: relative;
+    }
+    .final-cta .btn-primary { margin: 0 auto; position: relative; }
 
     /* Footer */
     footer {
@@ -547,48 +620,49 @@
     <p>The Compliance Spine is the first pillar of Paradigm's 3×3 OS. Where traditional compliance is reactive (audit triggered → respond), the Spine is structural: a 3×3 matrix that maps your obligations across three layers (Federal, State, Operational) and three risk surfaces (Reps, Revenue, Records). You install it once. It works automatically as you scale.</p>
 
     <div class="framework-grid">
+      <div class="fg-corner"></div>
+      <div class="fg-col-header">Reps</div>
+      <div class="fg-col-header">Revenue</div>
+      <div class="fg-col-header">Records</div>
+
+      <div class="fg-row-header">Federal</div>
       <div class="fg-cell">
-        <div class="fg-cell-tag">Federal · Reps</div>
         <h4>IRS Worker Classification</h4>
         <p>20-factor test, Form SS-8, retroactive reclassification exposure. Sets the floor for every state test on top.</p>
       </div>
       <div class="fg-cell">
-        <div class="fg-cell-tag">Federal · Revenue</div>
         <h4>ROSCA / FTC Act §5</h4>
         <p>Disclosure, affirmative consent, easy cancellation. Applies to any recurring service charge.</p>
       </div>
-      <div class="fg-cell">
-        <div class="fg-cell-tag">Federal · Records</div>
+      <div class="fg-cell is-last-col">
         <h4>DOL Recordkeeping</h4>
         <p>FLSA hours, wage statements, retention periods. Foundation for any wage-and-hour defense.</p>
       </div>
+
+      <div class="fg-row-header">State</div>
       <div class="fg-cell">
-        <div class="fg-cell-tag">State · Reps</div>
         <h4>State Classification Tests</h4>
         <p>California ABC (AB5), Massachusetts ABC, New Jersey ABC, IRS-based states. State-by-state matrix required.</p>
       </div>
       <div class="fg-cell">
-        <div class="fg-cell-tag">State · Revenue</div>
         <h4>State Licensing &amp; Registration</h4>
         <p>Foreign entity registration, industry license, individual rep license. Sequenced for each expansion state.</p>
       </div>
-      <div class="fg-cell">
-        <div class="fg-cell-tag">State · Records</div>
+      <div class="fg-cell is-last-col">
         <h4>State Privacy &amp; Disclosure</h4>
         <p>CCPA, CPRA, state-specific disclosure forms, telemarketing rules. Vary by state, change yearly.</p>
       </div>
-      <div class="fg-cell">
-        <div class="fg-cell-tag">Operational · Reps</div>
+
+      <div class="fg-row-header is-last">Operational</div>
+      <div class="fg-cell is-last-row">
         <h4>Onboarding &amp; Training</h4>
         <p>Contractor agreements, training documentation, scripts, manager controls. Defense against control claims.</p>
       </div>
-      <div class="fg-cell">
-        <div class="fg-cell-tag">Operational · Revenue</div>
+      <div class="fg-cell is-last-row">
         <h4>Disclosure Protocols</h4>
         <p>Pre-sale terms, recurring-billing notices, refund policies, financing disclosures. Front-line ROSCA defense.</p>
       </div>
-      <div class="fg-cell">
-        <div class="fg-cell-tag">Operational · Records</div>
+      <div class="fg-cell is-last-row is-last-col">
         <h4>Audit-Ready Documentation</h4>
         <p>Centralized contracts, signed disclosures, training logs, time records. Every artifact a regulator may request.</p>
       </div>
@@ -762,7 +836,8 @@
 <!-- Final CTA -->
 <section class="final-cta">
   <div class="container-narrow">
-    <h2>You'll know in 5 minutes whether you have the system or just the lawyer.</h2>
+    <span class="final-cta-eyebrow">5-minute diagnostic</span>
+    <h2>Know whether you have the system — or just the lawyer.</h2>
     <p>The Compliance Spine Assessment maps your business against the 9-category framework above and returns a prioritized risk profile. No pitch. No commitment.</p>
     <a href="/compliance-spine" class="btn-primary">
       <span class="btn-label">Take the Compliance Spine</span>
