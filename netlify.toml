@@ -72,6 +72,44 @@
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
     Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://www.googletagmanager.com https://player.vimeo.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.cdnfonts.com; font-src 'self' https://fonts.gstatic.com https://fonts.cdnfonts.com data:; img-src 'self' https://placehold.co data: blob:; connect-src 'self' https://www.google-analytics.com; frame-src https://player.vimeo.com https://www.youtube.com"
 
+# X-Robots-Tag for assessment pages: defense in depth on top of the
+# in-page <meta name="robots"> tag. Tells every search/AI crawler that
+# even fetches the URL directly to skip indexing, archiving, snippets.
+[[headers]]
+  for = "/12-month-culture-calendar*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive, nosnippet, noimageindex"
+
+[[headers]]
+  for = "/compliance-spine*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive, nosnippet, noimageindex"
+
+[[headers]]
+  for = "/culture-maturity-audit*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive, nosnippet, noimageindex"
+
+[[headers]]
+  for = "/founder-bottleneck-eliminator*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive, nosnippet, noimageindex"
+
+[[headers]]
+  for = "/founder-exposure-index*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive, nosnippet, noimageindex"
+
+[[headers]]
+  for = "/leverage-engine*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive, nosnippet, noimageindex"
+
+[[headers]]
+  for = "/system-architecture-audit*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive, nosnippet, noimageindex"
+
 [[headers]]
   for = "*.jpg"
   [headers.values]
