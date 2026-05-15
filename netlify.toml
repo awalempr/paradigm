@@ -50,6 +50,40 @@
   status = 301
   force = true
 
+# Pretty URLs for pillar pages (Compliance / Culture / Technology)
+[[redirects]]
+  from = "/compliance-systems"
+  to = "/compliance-systems.html"
+  status = 200
+
+[[redirects]]
+  from = "/compliance-systems.html"
+  to = "/compliance-systems"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/culture-systems"
+  to = "/culture-systems.html"
+  status = 200
+
+[[redirects]]
+  from = "/culture-systems.html"
+  to = "/culture-systems"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/technology-systems"
+  to = "/technology-systems.html"
+  status = 200
+
+[[redirects]]
+  from = "/technology-systems.html"
+  to = "/technology-systems"
+  status = 301
+  force = true
+
 # Serverless webhook proxy
 [[redirects]]
   from = "/api/webhook"

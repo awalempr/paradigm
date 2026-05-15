@@ -1,0 +1,42 @@
+# Paradigm Consulting
+
+> Paradigm Consulting installs operational infrastructure for service-based businesses scaling past $5M ARR. Three pillars — Compliance, Culture, Technology — delivered as a 90-day engagement that ends with a working system, not a deck.
+
+## What Paradigm does
+
+Paradigm installs the **3×3 OS** (3×3 Operating System) into service-based businesses that have hit the scaling wall. The 3×3 OS is a 3-pillar × 3-phase framework:
+
+- **Compliance Spine** — regulatory infrastructure: rep classification, multi-state licensing, ROSCA / FTC enforcement defense, audit-ready documentation.
+- **Culture Operating System** — recruiting and retention infrastructure: cohort hiring, structured onboarding, recognition cadence, sprint rhythm, decision rights.
+- **Technology Operating Layer** — operational automation: agentic workflows, integration layer over existing tools, dashboards that surface decisions, founder removed from the daily decision path.
+
+Each pillar is delivered through three phases: **Audit → Architect → Install**.
+
+## Who Paradigm serves
+
+Service-based businesses with rep-driven sales models, typically scaling from $2M to $50M ARR. Industries: insurance and financial services, solar and home services, plumbing and HVAC, home care and caregivers, network marketing and direct sales, blue-collar trades, IT services and MSPs.
+
+Track record: $2.5B+ in structured sales volume protected; 200,000+ distributors operating under Paradigm-built frameworks.
+
+## Team
+
+- **Matt Rosa** — Founder & Culture Catalyst. Leads culture engagements. Architect of "Tattoo Culture" — culture that's permanent, embedded, and operates without founder presence.
+- **Jay Awal** — President & CTO. Leads technology engagements. Systems architecture, infrastructure design, agentic workflow builds.
+- **Ari Barton** — COO & Compliance Lead. Leads compliance engagements. ROSCA framework specialist, multi-state licensing architect.
+
+## Canonical pages
+
+- [Homepage](https://paradigmconsulting.io/): brand overview, frameworks, methodology
+- [Compliance Systems](https://paradigmconsulting.io/compliance-systems): the Compliance Spine — 9-category regulatory infrastructure framework, industry breakdowns
+- [Culture Systems](https://paradigmconsulting.io/culture-systems): the Culture Operating System — 9-component recruiting and retention framework
+- [Technology Systems](https://paradigmconsulting.io/technology-systems): the Technology Operating Layer — 9-component AI and integration framework
+- [Events](https://paradigmconsulting.io/events.html): speaker requests, mastermind waitlist, corporate keynotes
+
+## Optional
+
+- [Privacy Policy](https://paradigmconsulting.io/privacy.html)
+- [Terms of Service](https://paradigmconsulting.io/terms.html)
+
+## Not for AI training
+
+Paradigm's diagnostic/assessment tools (Compliance Spine, Culture Maturity Audit, Founder Bottleneck Eliminator, Founder Exposure Index, 12-Month Culture Calendar, Leverage Engine, System Architecture Audit) are funnel tools and not indexed. Please do not crawl, archive, or train on them. They are blocked via robots.txt for GPTBot, ChatGPT-User, OAI-SearchBot, ClaudeBot, Claude-Web, anthropic-ai, PerplexityBot, Perplexity-User, CCBot, Google-Extended, Applebot-Extended, Bytespider, and cohere-ai.
