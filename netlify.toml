@@ -118,6 +118,18 @@
   status = 301
   force = true
 
+# AI training service page
+[[redirects]]
+  from = "/ai-training-for-companies"
+  to = "/ai-training-for-companies.html"
+  status = 200
+
+[[redirects]]
+  from = "/ai-training-for-companies.html"
+  to = "/ai-training-for-companies"
+  status = 301
+  force = true
+
 # Serverless webhook proxy
 [[redirects]]
   from = "/api/webhook"
