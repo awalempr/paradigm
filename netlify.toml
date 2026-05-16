@@ -164,6 +164,74 @@
   status = 301
   force = true
 
+# Network marketing industry pages
+[[redirects]]
+  from = "/compliance-systems-for-network-marketing"
+  to = "/compliance-systems-for-network-marketing.html"
+  status = 200
+
+[[redirects]]
+  from = "/compliance-systems-for-network-marketing.html"
+  to = "/compliance-systems-for-network-marketing"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/culture-systems-for-network-marketing"
+  to = "/culture-systems-for-network-marketing.html"
+  status = 200
+
+[[redirects]]
+  from = "/culture-systems-for-network-marketing.html"
+  to = "/culture-systems-for-network-marketing"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/technology-systems-for-network-marketing"
+  to = "/technology-systems-for-network-marketing.html"
+  status = 200
+
+[[redirects]]
+  from = "/technology-systems-for-network-marketing.html"
+  to = "/technology-systems-for-network-marketing"
+  status = 301
+  force = true
+
+# HVAC / trades industry pages
+[[redirects]]
+  from = "/compliance-systems-for-hvac"
+  to = "/compliance-systems-for-hvac.html"
+  status = 200
+
+[[redirects]]
+  from = "/compliance-systems-for-hvac.html"
+  to = "/compliance-systems-for-hvac"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/culture-systems-for-hvac"
+  to = "/culture-systems-for-hvac.html"
+  status = 200
+
+[[redirects]]
+  from = "/culture-systems-for-hvac.html"
+  to = "/culture-systems-for-hvac"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/technology-systems-for-hvac"
+  to = "/technology-systems-for-hvac.html"
+  status = 200
+
+[[redirects]]
+  from = "/technology-systems-for-hvac.html"
+  to = "/technology-systems-for-hvac"
+  status = 301
+  force = true
+
 # Serverless webhook proxy
 [[redirects]]
   from = "/api/webhook"
