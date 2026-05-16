@@ -130,6 +130,40 @@
   status = 301
   force = true
 
+# Insurance industry pages
+[[redirects]]
+  from = "/compliance-systems-for-insurance"
+  to = "/compliance-systems-for-insurance.html"
+  status = 200
+
+[[redirects]]
+  from = "/compliance-systems-for-insurance.html"
+  to = "/compliance-systems-for-insurance"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/culture-systems-for-insurance"
+  to = "/culture-systems-for-insurance.html"
+  status = 200
+
+[[redirects]]
+  from = "/culture-systems-for-insurance.html"
+  to = "/culture-systems-for-insurance"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/technology-systems-for-insurance"
+  to = "/technology-systems-for-insurance.html"
+  status = 200
+
+[[redirects]]
+  from = "/technology-systems-for-insurance.html"
+  to = "/technology-systems-for-insurance"
+  status = 301
+  force = true
+
 # Serverless webhook proxy
 [[redirects]]
   from = "/api/webhook"
