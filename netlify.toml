@@ -118,6 +118,18 @@
   status = 301
   force = true
 
+# Team page
+[[redirects]]
+  from = "/team"
+  to = "/team.html"
+  status = 200
+
+[[redirects]]
+  from = "/team.html"
+  to = "/team"
+  status = 301
+  force = true
+
 # AI training service page
 [[redirects]]
   from = "/ai-training-for-companies"
