@@ -130,6 +130,18 @@
   status = 301
   force = true
 
+# Compliance Spine Risk Map (paid productized offer)
+[[redirects]]
+  from = "/compliance-spine-risk-map"
+  to = "/compliance-spine-risk-map.html"
+  status = 200
+
+[[redirects]]
+  from = "/compliance-spine-risk-map.html"
+  to = "/compliance-spine-risk-map"
+  status = 301
+  force = true
+
 # AI training service page
 [[redirects]]
   from = "/ai-training-for-companies"

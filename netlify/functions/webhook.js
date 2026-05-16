@@ -15,6 +15,7 @@ const WEBHOOK_MAP = {
   'founder-bottleneck-eliminator-apply':   process.env.WEBHOOK_FOUNDER_BOTTLENECK_ELIMINATOR,
   'compliance-spine':                      process.env.WEBHOOK_COMPLIANCE_SPINE,
   'compliance-spine-apply':                process.env.WEBHOOK_COMPLIANCE_SPINE,
+  'compliance-spine-risk-map':             process.env.WEBHOOK_COMPLIANCE_SPINE,
   'leverage-engine':                       process.env.WEBHOOK_LEVERAGE_ENGINE,
   'leverage-engine-apply':                 process.env.WEBHOOK_LEVERAGE_ENGINE,
   'system-architecture-audit':             process.env.WEBHOOK_SYSTEM_ARCHITECTURE_AUDIT,
@@ -127,7 +128,8 @@ function validateFields(source, data) {
   const needsName = ['homepage-contact', 'events-speaker-request',
     '12-month-culture-calendar-apply', 'culture-maturity-audit-application',
     'founder-exposure-index-apply', 'founder-bottleneck-eliminator-apply',
-    'leverage-engine-apply', 'system-architecture-audit-apply'];
+    'leverage-engine-apply', 'system-architecture-audit-apply',
+    'compliance-spine-risk-map'];
   if (needsName.includes(source)) {
     if (!data.name && !data.firstName && !data.first_name) {
       errors.push('Name is required');
