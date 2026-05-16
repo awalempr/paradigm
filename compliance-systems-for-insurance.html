@@ -197,6 +197,24 @@
     .pain-card h3 { margin-top: 0; margin-bottom: 10px; font-size: 20px; }
     .pain-card p { font-size: 14px; line-height: 1.65; margin-bottom: 0; }
 
+    /* Approach flow (numbered timeline) */
+    .approach-flow { position: relative; margin: 40px 0 56px; padding-left: 44px; }
+    .approach-flow::before { content: ""; position: absolute; left: 13px; top: 14px; bottom: 14px; width: 2px; background: linear-gradient(to bottom, var(--accent) 0%, rgba(12,140,233,0.4) 70%, transparent 100%); }
+    .approach-step { position: relative; margin-bottom: 28px; }
+    .approach-step:last-child { margin-bottom: 0; }
+    .approach-step::before { content: ""; position: absolute; left: -44px; top: 2px; width: 28px; height: 28px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); box-shadow: 0 0 0 4px rgba(12,140,233,0.08); }
+    .approach-step::after { content: attr(data-num); position: absolute; left: -44px; top: 2px; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-family: 'Ranade', sans-serif; font-size: 11px; font-weight: 500; color: var(--accent); }
+    .approach-step h4 { font-family: 'Ranade', sans-serif; font-weight: 500; font-size: 19px; color: var(--fg); margin: 0 0 8px; letter-spacing: -0.01em; }
+    .approach-step p { font-size: 14px; line-height: 1.65; color: var(--muted); margin: 0; max-width: 720px; }
+
+    /* Differentiation grid */
+    .differ-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 32px 0 40px; }
+    @media (max-width: 820px) { .differ-grid { grid-template-columns: 1fr; } }
+    .differ-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; border-top: 3px solid var(--accent); transition: border-color 0.25s, transform 0.25s; }
+    .differ-card:hover { transform: translateY(-2px); }
+    .differ-card h4 { font-family: 'Ranade', sans-serif; font-weight: 500; font-size: 16px; color: var(--fg); margin: 0 0 10px; letter-spacing: -0.01em; }
+    .differ-card p { font-size: 13px; line-height: 1.6; color: var(--muted); margin: 0; }
+
     .faq-list { margin-top: 32px; max-width: 820px; }
     .faq-item { border-bottom: 1px solid var(--border); padding: 20px 0; }
     .faq-q { font-family: 'Ranade', sans-serif; font-weight: 500; font-size: 19px; letter-spacing: -0.01em; color: var(--fg); cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
@@ -316,21 +334,48 @@
     <p>The Compliance Spine maps obligations across three layers (Federal, State, Operational) and three risk surfaces (Reps, Revenue, Records). For insurance, the state layer dominates: 50 separate insurance departments, each with its own producer licensing rules, anti-rebating thresholds, and disclosure requirements. The federal layer adds AML and KYC (Treasury and FINRA) plus SEC where variable products are involved.</p>
 
     <h3>What gets sequenced first in an insurance engagement</h3>
-    <ol>
-      <li><strong>Producer license and CE tracker.</strong> Centralized on NIPR data with renewal alerts, non-resident license queueing, and CE gap reporting per producer per state.</li>
-      <li><strong>Carrier appointment management.</strong> Appointment status, lines of authority per carrier, contract terms, and termination handling tracked in one operational layer.</li>
-      <li><strong>AML and KYC capture in the sales workflow.</strong> Customer identification and ongoing monitoring built into the producer's sales process rather than handled as a separate compliance task.</li>
-      <li><strong>Anti-rebating screen for marketing programs.</strong> Marketing campaigns, referral programs, and producer incentive structures pre-validated against state-by-state thresholds before launch.</li>
-      <li><strong>Audit-ready producer file system.</strong> Replacement disclosures, suitability documentation, supervisory reviews, and E&O records centralized and indexed for fast retrieval.</li>
-    </ol>
+    <div class="approach-flow">
+      <div class="approach-step" data-num="01">
+        <h4>Producer license and CE tracker</h4>
+        <p>Centralized on NIPR data with renewal alerts, non-resident license queueing, and CE gap reporting per producer per state.</p>
+      </div>
+      <div class="approach-step" data-num="02">
+        <h4>Carrier appointment management</h4>
+        <p>Appointment status, lines of authority per carrier, contract terms, and termination handling tracked in one operational layer.</p>
+      </div>
+      <div class="approach-step" data-num="03">
+        <h4>AML and KYC capture in the sales workflow</h4>
+        <p>Customer identification and ongoing monitoring built into the producer's sales process rather than handled as a separate compliance task.</p>
+      </div>
+      <div class="approach-step" data-num="04">
+        <h4>Anti-rebating screen for marketing programs</h4>
+        <p>Marketing campaigns, referral programs, and producer incentive structures pre-validated against state-by-state thresholds before launch.</p>
+      </div>
+      <div class="approach-step" data-num="05">
+        <h4>Audit-ready producer file system</h4>
+        <p>Replacement disclosures, suitability documentation, supervisory reviews, and E&amp;O records centralized and indexed for fast retrieval.</p>
+      </div>
+    </div>
 
     <h3>Where insurance-specific compliance differs from the base framework</h3>
-    <ul>
-      <li><strong>State layer dominates.</strong> Each state insurance department is an independent regulator with its own rules; multi-state expansion is a sequencing problem, not just a paperwork problem.</li>
-      <li><strong>Producer-level individual licensing.</strong> Unlike most service businesses, every individual producer holds personal licenses in each state of sale, which makes onboarding a multi-step compliance process per producer.</li>
-      <li><strong>FINRA overlay where variable products are sold.</strong> Series 6 or 7 producers and the agencies that supervise them inherit additional documentation, supervisor approval, and CE obligations.</li>
-      <li><strong>IMO and FMO downline complexity.</strong> Insurance Marketing Organizations and Field Marketing Organizations that distribute through downline producers carry supervisory responsibility for an extended network of individuals.</li>
-    </ul>
+    <div class="differ-grid">
+      <div class="differ-card">
+        <h4>State layer dominates</h4>
+        <p>Each state insurance department is an independent regulator with its own rules. Multi-state expansion is a sequencing problem, not just a paperwork problem.</p>
+      </div>
+      <div class="differ-card">
+        <h4>Producer-level individual licensing</h4>
+        <p>Unlike most service businesses, every individual producer holds personal licenses in each state of sale, which makes onboarding a multi-step compliance process per producer.</p>
+      </div>
+      <div class="differ-card">
+        <h4>FINRA overlay on variable products</h4>
+        <p>Series 6 or 7 producers and the agencies that supervise them inherit additional documentation, supervisor approval, and CE obligations.</p>
+      </div>
+      <div class="differ-card">
+        <h4>IMO and FMO downline complexity</h4>
+        <p>Insurance Marketing Organizations and Field Marketing Organizations distributing through downline producers carry supervisory responsibility for an extended network.</p>
+      </div>
+    </div>
 
     <p>For the full 9-category framework and how each cell applies across industries, see the <a href="/compliance-systems">Compliance Systems pillar page</a>.</p>
   </div>

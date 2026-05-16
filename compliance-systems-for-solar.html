@@ -203,6 +203,24 @@
     .pain-card h3 { margin-top: 0; margin-bottom: 10px; font-size: 20px; }
     .pain-card p { font-size: 14px; line-height: 1.65; margin-bottom: 0; }
 
+    /* Approach flow (numbered timeline) */
+    .approach-flow { position: relative; margin: 40px 0 56px; padding-left: 44px; }
+    .approach-flow::before { content: ""; position: absolute; left: 13px; top: 14px; bottom: 14px; width: 2px; background: linear-gradient(to bottom, var(--accent) 0%, rgba(12,140,233,0.4) 70%, transparent 100%); }
+    .approach-step { position: relative; margin-bottom: 28px; }
+    .approach-step:last-child { margin-bottom: 0; }
+    .approach-step::before { content: ""; position: absolute; left: -44px; top: 2px; width: 28px; height: 28px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); box-shadow: 0 0 0 4px rgba(12,140,233,0.08); }
+    .approach-step::after { content: attr(data-num); position: absolute; left: -44px; top: 2px; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-family: 'Ranade', sans-serif; font-size: 11px; font-weight: 500; color: var(--accent); }
+    .approach-step h4 { font-family: 'Ranade', sans-serif; font-weight: 500; font-size: 19px; color: var(--fg); margin: 0 0 8px; letter-spacing: -0.01em; }
+    .approach-step p { font-size: 14px; line-height: 1.65; color: var(--muted); margin: 0; max-width: 720px; }
+
+    /* Differentiation grid */
+    .differ-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 32px 0 40px; }
+    @media (max-width: 820px) { .differ-grid { grid-template-columns: 1fr; } }
+    .differ-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; border-top: 3px solid var(--accent); transition: border-color 0.25s, transform 0.25s; }
+    .differ-card:hover { transform: translateY(-2px); }
+    .differ-card h4 { font-family: 'Ranade', sans-serif; font-weight: 500; font-size: 16px; color: var(--fg); margin: 0 0 10px; letter-spacing: -0.01em; }
+    .differ-card p { font-size: 13px; line-height: 1.6; color: var(--muted); margin: 0; }
+
     .faq-list { margin-top: 32px; max-width: 820px; }
     .faq-item { border-bottom: 1px solid var(--border); padding: 20px 0; }
     .faq-q { font-family: 'Ranade', sans-serif; font-weight: 500; font-size: 19px; letter-spacing: -0.01em; color: var(--fg); cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
@@ -322,19 +340,40 @@
     <p>The Compliance Spine maps obligations across three layers (Federal, State, Operational) and three risk surfaces (Reps, Revenue, Records). For solar, the layers stay the same; what shifts is which cells are highest-priority and which protocols get installed first.</p>
 
     <h3>What gets sequenced first in a solar engagement</h3>
-    <ol>
-      <li><strong>FTC-aligned disclosure protocol</strong>, embedded in the sales workflow so disclosures are captured at the point of sale, not retroactively. This is the highest-velocity risk surface in solar today.</li>
-      <li><strong>State-by-state rep classification matrix</strong>, every state you operate in mapped against its classification test, your rep operating model, and the appropriate worker status.</li>
-      <li><strong>Multi-state contractor licensing tracker</strong>, solar contractor licenses, electrical specialty licenses, home improvement salesperson registrations. Renewal dates monitored automatically.</li>
-      <li><strong>Sales claim audit trail</strong>, what reps said, what the contract reflects, what the homeowner acknowledged. Reconciled, documented, archived.</li>
-    </ol>
+    <div class="approach-flow">
+      <div class="approach-step" data-num="01">
+        <h4>FTC-aligned disclosure protocol</h4>
+        <p>Embedded in the sales workflow so disclosures are captured at the point of sale, not retroactively. The highest-velocity risk surface in solar today.</p>
+      </div>
+      <div class="approach-step" data-num="02">
+        <h4>State-by-state rep classification matrix</h4>
+        <p>Every state you operate in mapped against its classification test, your rep operating model, and the appropriate worker status.</p>
+      </div>
+      <div class="approach-step" data-num="03">
+        <h4>Multi-state contractor licensing tracker</h4>
+        <p>Solar contractor licenses, electrical specialty licenses, home improvement salesperson registrations. Renewal dates monitored automatically.</p>
+      </div>
+      <div class="approach-step" data-num="04">
+        <h4>Sales claim audit trail</h4>
+        <p>What reps said, what the contract reflects, what the homeowner acknowledged. Reconciled, documented, archived.</p>
+      </div>
+    </div>
 
     <h3>Where solar-specific compliance differs from the base framework</h3>
-    <ul>
-      <li><strong>Federal layer dominates.</strong> Unlike most service businesses where state regulators drive most exposure, solar's federal layer (FTC, FTC Act §5, Truth in Lending) is currently the highest enforcement priority.</li>
-      <li><strong>Door-to-door rules add a state-by-state overlay.</strong> Some states (CA, NY, FL) require door-to-door specific registrations on top of contractor licensing.</li>
-      <li><strong>Financing disclosures are non-negotiable.</strong> TPO/lease/PPA disclosures have to be standardized across every rep, every market, every product variant. The Compliance Spine installation builds these into the rep workflow itself.</li>
-    </ul>
+    <div class="differ-grid">
+      <div class="differ-card">
+        <h4>Federal layer dominates</h4>
+        <p>Unlike most service businesses where state regulators drive most exposure, solar's federal layer (FTC, FTC Act §5, Truth in Lending) is currently the highest enforcement priority.</p>
+      </div>
+      <div class="differ-card">
+        <h4>Door-to-door rules add a state overlay</h4>
+        <p>Some states (CA, NY, FL) require door-to-door specific registrations on top of contractor licensing, layered onto an already complex stack.</p>
+      </div>
+      <div class="differ-card">
+        <h4>Financing disclosures are non-negotiable</h4>
+        <p>TPO, lease, and PPA disclosures must be standardized across every rep, every market, every product variant. The Compliance Spine builds these into the rep workflow itself.</p>
+      </div>
+    </div>
 
     <p>For the full 9-category framework and how each cell applies across industries, see the <a href="/compliance-systems">Compliance Systems pillar page</a>.</p>
   </div>

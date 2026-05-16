@@ -185,6 +185,24 @@
     .pain-card-num { font-family: 'Ranade', sans-serif; font-weight: 500; font-size: 13px; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 12px; }
     .pain-card h3 { margin-top: 0; margin-bottom: 10px; font-size: 20px; }
     .pain-card p { font-size: 14px; line-height: 1.65; margin-bottom: 0; }
+    /* Approach flow (numbered timeline) */
+    .approach-flow { position: relative; margin: 40px 0 56px; padding-left: 44px; }
+    .approach-flow::before { content: ""; position: absolute; left: 13px; top: 14px; bottom: 14px; width: 2px; background: linear-gradient(to bottom, var(--accent) 0%, rgba(12,140,233,0.4) 70%, transparent 100%); }
+    .approach-step { position: relative; margin-bottom: 28px; }
+    .approach-step:last-child { margin-bottom: 0; }
+    .approach-step::before { content: ""; position: absolute; left: -44px; top: 2px; width: 28px; height: 28px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); box-shadow: 0 0 0 4px rgba(12,140,233,0.08); }
+    .approach-step::after { content: attr(data-num); position: absolute; left: -44px; top: 2px; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-family: 'Ranade', sans-serif; font-size: 11px; font-weight: 500; color: var(--accent); }
+    .approach-step h4 { font-family: 'Ranade', sans-serif; font-weight: 500; font-size: 19px; color: var(--fg); margin: 0 0 8px; letter-spacing: -0.01em; }
+    .approach-step p { font-size: 14px; line-height: 1.65; color: var(--muted); margin: 0; max-width: 720px; }
+
+    /* Differentiation grid */
+    .differ-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 32px 0 40px; }
+    @media (max-width: 820px) { .differ-grid { grid-template-columns: 1fr; } }
+    .differ-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; border-top: 3px solid var(--accent); transition: border-color 0.25s, transform 0.25s; }
+    .differ-card:hover { transform: translateY(-2px); }
+    .differ-card h4 { font-family: 'Ranade', sans-serif; font-weight: 500; font-size: 16px; color: var(--fg); margin: 0 0 10px; letter-spacing: -0.01em; }
+    .differ-card p { font-size: 13px; line-height: 1.6; color: var(--muted); margin: 0; }
+
     .faq-list { margin-top: 32px; max-width: 820px; }
     .faq-item { border-bottom: 1px solid var(--border); padding: 20px 0; }
     .faq-q { font-family: 'Ranade', sans-serif; font-weight: 500; font-size: 19px; letter-spacing: -0.01em; color: var(--fg); cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
@@ -296,21 +314,48 @@
     <p>The Culture Operating System maps 9 components across three lifecycle stages (Hiring, Operating, Leaving) and three dimensions (Mission, Mechanics, Memory). For insurance, the order of installation is built around the three attrition windows above. Onboarding mechanics and recognition cadence ship first because they are what blocks the highest losses.</p>
 
     <h3>What gets sequenced first in an insurance engagement</h3>
-    <ol>
-      <li><strong>Cohort recruiting and study-period programming.</strong> Hire producers in cohorts of 3 to 5 with synchronized study start dates. Daily check-ins, mock exams, and recognition for study milestones keep candidates engaged before they have license numbers.</li>
-      <li><strong>Parallelized carrier appointment paperwork.</strong> Carrier appointment applications and AML and KYC training run during the pre-license window so the gap between license issuance and first writeable business is days, not weeks.</li>
-      <li><strong>Activity-based recognition cadence.</strong> Recognition fires on leading indicators (appointments booked, fact-finders completed, applications submitted) on a fixed weekly cadence, not on closes alone.</li>
-      <li><strong>Mentor pairing through the first 30 days writing business.</strong> Every new producer is paired with a senior producer for ride-along appointments. Defined, scheduled, not ad hoc.</li>
-      <li><strong>Income-bridge comp structure.</strong> Hybrid base plus commission for the first 90 to 180 days, then transition to commission-heavy structure once production stabilizes.</li>
-    </ol>
+    <div class="approach-flow">
+      <div class="approach-step" data-num="01">
+        <h4>Cohort recruiting and study-period programming</h4>
+        <p>Hire producers in cohorts of 3 to 5 with synchronized study start dates. Daily check-ins, mock exams, and recognition for study milestones keep candidates engaged before they have license numbers.</p>
+      </div>
+      <div class="approach-step" data-num="02">
+        <h4>Parallelized carrier appointment paperwork</h4>
+        <p>Carrier appointment applications and AML plus KYC training run during the pre-license window so the gap between license issuance and first writeable business is days, not weeks.</p>
+      </div>
+      <div class="approach-step" data-num="03">
+        <h4>Activity-based recognition cadence</h4>
+        <p>Recognition fires on leading indicators (appointments booked, fact-finders completed, applications submitted) on a fixed weekly cadence, not on closes alone.</p>
+      </div>
+      <div class="approach-step" data-num="04">
+        <h4>Mentor pairing through the first 30 days</h4>
+        <p>Every new producer is paired with a senior producer for ride-along appointments. Defined, scheduled, not ad hoc.</p>
+      </div>
+      <div class="approach-step" data-num="05">
+        <h4>Income-bridge comp structure</h4>
+        <p>Hybrid base plus commission for the first 90 to 180 days, then transition to commission-heavy structure once production stabilizes.</p>
+      </div>
+    </div>
 
     <h3>Weekly signals that tell you the culture is working</h3>
-    <ul>
-      <li><strong>Cohort retention curves.</strong> Percent of each producer cohort still active at 30, 60, 90, 180, and 365 days.</li>
-      <li><strong>Time-to-first-policy.</strong> Median days from license issuance to first written business, per cohort.</li>
-      <li><strong>Activity-cadence adherence.</strong> Percent of producers hitting agreed appointment and fact-finder cadence.</li>
-      <li><strong>Recognition density.</strong> Percent of producers recognized in writing per week.</li>
-    </ul>
+    <div class="differ-grid">
+      <div class="differ-card">
+        <h4>Cohort retention curves</h4>
+        <p>Percent of each producer cohort still active at 30, 60, 90, 180, and 365 days. Read per cohort, not blended.</p>
+      </div>
+      <div class="differ-card">
+        <h4>Time-to-first-policy</h4>
+        <p>Median days from license issuance to first written business, per cohort. The single best leading indicator of retention through year one.</p>
+      </div>
+      <div class="differ-card">
+        <h4>Activity-cadence adherence</h4>
+        <p>Percent of producers hitting the agreed appointment and fact-finder cadence. Predicts production 30 to 60 days out.</p>
+      </div>
+      <div class="differ-card">
+        <h4>Recognition density</h4>
+        <p>Percent of producers recognized in writing per week. A dip below baseline is the early warning signal for retention drop.</p>
+      </div>
+    </div>
 
     <p>For the full 9-component framework and how culture works across other service industries, see the <a href="/culture-systems">Culture Systems pillar page</a>.</p>
   </div>
