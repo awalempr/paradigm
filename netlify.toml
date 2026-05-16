@@ -84,6 +84,40 @@
   status = 301
   force = true
 
+# Industry pages: [pillar]-systems-for-[industry]
+[[redirects]]
+  from = "/compliance-systems-for-solar"
+  to = "/compliance-systems-for-solar.html"
+  status = 200
+
+[[redirects]]
+  from = "/compliance-systems-for-solar.html"
+  to = "/compliance-systems-for-solar"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/culture-systems-for-solar"
+  to = "/culture-systems-for-solar.html"
+  status = 200
+
+[[redirects]]
+  from = "/culture-systems-for-solar.html"
+  to = "/culture-systems-for-solar"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/technology-systems-for-solar"
+  to = "/technology-systems-for-solar.html"
+  status = 200
+
+[[redirects]]
+  from = "/technology-systems-for-solar.html"
+  to = "/technology-systems-for-solar"
+  status = 301
+  force = true
+
 # Serverless webhook proxy
 [[redirects]]
   from = "/api/webhook"
