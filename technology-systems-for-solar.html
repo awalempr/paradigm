@@ -41,7 +41,7 @@
         "name": "What technology stack does a solar sales operation actually need?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Five integrated layers, not five disconnected tools. (1) A CRM as single source of truth for leads, reps, and pipeline (HubSpot, Salesforce, or solar-specific like Sighten/Aurora-attached). (2) A design and proposal tool (Aurora, Helioscope) tied directly to the CRM. (3) A field service / install management layer (Scoop, Solar Sales Tracker, or generalist like ServiceTitan). (4) A permitting and interconnection workflow tracker (most operations run this in spreadsheets — that's the easy ROI target). (5) An agentic layer connecting all four so a sale automatically triggers proposal lock, install scheduling check, permit submission, and rep commission visibility. Paradigm installs the integration layer over whatever tools you already use — the custom work isn't the tools, it's the operating logic on top."
+          "text": "Five integrated layers, not five disconnected tools. (1) A CRM as single source of truth for leads, reps, and pipeline (HubSpot, Salesforce, or solar-specific like Sighten/Aurora-attached). (2) A design and proposal tool (Aurora, Helioscope) tied directly to the CRM. (3) A field service / install management layer (Scoop, Solar Sales Tracker, or generalist like ServiceTitan). (4) A permitting and interconnection workflow tracker (most operations run this in spreadsheets, that's the easy ROI target). (5) An agentic layer connecting all four so a sale automatically triggers proposal lock, install scheduling check, permit submission, and rep commission visibility. Paradigm installs the integration layer over whatever tools you already use, the custom work isn't the tools, it's the operating logic on top."
         }
       },
       {
@@ -49,7 +49,7 @@
         "name": "How do you route solar leads to reps efficiently?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Three rules of routing logic. (1) Geographic primary: route by service territory using ZIP code or address-distance from the closest qualified rep. (2) Capacity weighting: never route to a rep above their handling limit, even if they're closest. (3) Source-aware: door-knock-generated leads route back to the canvasser; inbound web leads route by territory + capacity; referrals route to the rep who closed the referring deal. The agentic layer also handles re-routing if a rep doesn't respond within a defined window (typically 15 minutes for inbound, 24 hours for canvass). Paradigm's lead routing agent typically replaces 0.5-1 FTE of manual dispatching and increases speed-to-first-contact by 4-5x."
+          "text": "Three rules of routing logic. (1) Geographic primary: route by service territory using ZIP code or address-distance from the closest qualified rep. (2) Capacity weighting: never route to a rep above their handling limit, even if they are closest. (3) Source-aware: door-knock-generated leads route back to the canvasser; inbound web leads route by territory + capacity; referrals route to the rep who closed the referring deal. The agentic layer also handles re-routing if a rep doesn't respond within a defined window (often 15 minutes for inbound, 24 hours for canvass). Lead routing agents installed in solar engagements have generally absorbed the manual dispatching workload and meaningfully reduced speed-to-first-contact."
         }
       },
       {
@@ -57,7 +57,7 @@
         "name": "What is install scheduling automation for solar?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Install scheduling is the operational bottleneck most solar operations hit between $5M and $20M ARR. The variables: crew availability, crew skill (electrical class, roof type experience), homeowner availability, permit status, HOA approval, interconnection agreement, supplier delivery windows. Running this in spreadsheets fails at scale because a single change cascades. An install scheduling agent watches all variables, surfaces conflicts before they happen, and reschedules around blockers automatically. Typical outcome: 20-30% reduction in sale-to-install cycle time, plus the elimination of the dedicated scheduler role."
+          "text": "Install scheduling is an operational bottleneck most solar operations hit between roughly $5M and $20M ARR. The variables: crew availability, crew skill (electrical class, roof type experience), homeowner availability, permit status, HOA approval, interconnection agreement, supplier delivery windows. Running this in spreadsheets tends to fail at scale because a single change cascades. An install scheduling agent watches all variables, surfaces conflicts before they happen, and reschedules around blockers automatically. Engagements that have installed this approach have generally reported meaningful reductions in sale-to-install cycle time. Specific outcomes vary by crew structure, permitting jurisdictions, and supply chain."
         }
       },
       {
@@ -65,7 +65,7 @@
         "name": "How do you handle solar permitting across multiple jurisdictions?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Permitting is the single most variable workflow in solar — every AHJ (Authority Having Jurisdiction) has different forms, different review timelines, different inspection requirements. The wrong answer is hiring a permitting team and giving them spreadsheets. The right answer is a permitting workflow tracker that: (1) pre-populates the right forms by AHJ when a sale closes, (2) tracks submission status and surfaces stuck applications automatically, (3) flags review-time anomalies (this jurisdiction usually takes 14 days; this submission is at 28 days), (4) maintains an institutional knowledge base of each AHJ's quirks. Paradigm builds this either on top of a generalist tool (Notion, Airtable) or via a custom agentic workflow depending on volume."
+          "text": "Permitting is the single most variable workflow in solar, every AHJ (Authority Having Jurisdiction) has different forms, different review timelines, different inspection requirements. The wrong answer is hiring a permitting team and giving them spreadsheets. The right answer is a permitting workflow tracker that: (1) pre-populates the right forms by AHJ when a sale closes, (2) tracks submission status and surfaces stuck applications automatically, (3) flags review-time anomalies (this jurisdiction usually takes 14 days; this submission is at 28 days), (4) maintains an institutional knowledge base of each AHJ's quirks. Paradigm builds this either on top of a generalist tool (Notion, Airtable) or via a custom agentic workflow depending on volume."
         }
       },
       {
@@ -81,7 +81,7 @@
         "name": "What's the ROI on installing technology systems in a solar operation?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "On a $10M ARR solar operation, the typical Paradigm tech engagement returns: 2-3 FTEs of coordination work replaced (lead routing, install scheduling, permitting follow-up), founder/COO time recovered (10-15 hours/week), sale-to-install cycle compressed by 20-30%, rep visibility into pipeline and commissions in real time. Payback period is usually 3-5 months. The non-obvious ROI is reduced operational fragility — the business no longer breaks when one operations coordinator is out, and compliance disclosures get captured systematically (which protects against FTC exposure)."
+          "text": "At a mid-market solar operation, engagements have generally produced a multi-FTE reduction in routine coordination work (lead routing, install scheduling, permitting follow-up), recovered meaningful founder and COO time per week, and meaningfully compressed sale-to-install cycle time. Real-time visibility into pipeline and commission status is a standard deliverable. Reported payback periods have generally fallen within a single fiscal cycle. The less-obvious return is reduced operational fragility: the business no longer breaks when one coordinator is out, and compliance disclosures get captured systematically, which supports the broader FTC compliance posture. Specific results vary by starting stack and operating model."
         }
       },
       {
@@ -253,7 +253,7 @@
     </nav>
     <span class="hero-eyebrow">Industry · Solar Sales Operations</span>
     <h1>Technology Systems for <em>Solar Operations</em> That Cut the Sale-to-Install Cycle in Half.</h1>
-    <p class="hero-sub">Lead routing, install scheduling, permitting workflows, and crew coordination. The agentic operating layer over your CRM and field service stack — built so a sale becomes a commission-eligible install in days, not weeks.</p>
+    <p class="hero-sub">Lead routing, install scheduling, permitting workflows, and crew coordination. The agentic operating layer over your CRM and field service stack, built so a sale becomes a commission-eligible install in days, not weeks.</p>
     <div class="hero-cta-row">
       <a href="/system-architecture-audit" class="btn-primary">
         <span class="btn-label">Take the Architecture Audit</span>
@@ -268,16 +268,16 @@
   <div class="container">
     <div class="stat-grid">
       <div class="stat-item">
-        <div class="stat-num">20-30%</div>
-        <div class="stat-label">reduction in sale-to-install cycle time after Paradigm tech installation</div>
+        <div class="stat-num">60-90</div>
+        <div class="stat-label">days a typical solar sale takes from contract to install, the cycle the tech layer is built around</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num">2-3</div>
-        <div class="stat-label">FTEs of coordination work replaced per solar tech engagement</div>
+        <div class="stat-num">5</div>
+        <div class="stat-label">integrated layers in a working solar tech stack: CRM, design, field service, permitting, agentic layer</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num">4-5×</div>
-        <div class="stat-label">faster speed-to-first-contact after lead routing agent installation</div>
+        <div class="stat-num">90</div>
+        <div class="stat-label">days from audit to a working operating layer your team adopts</div>
       </div>
     </div>
   </div>
@@ -286,8 +286,8 @@
 <section class="content">
   <div class="container">
     <span class="eyebrow">The Problem</span>
-    <h2>Solar's operational complexity is structural — and the typical tech stack isn't built for it.</h2>
-    <p>A solar sale isn't done at the close. It triggers a 60-90 day coordination cycle across crews, permits, inspections, interconnection, supplier delivery, and homeowner availability. Every operation we've audited has the tools to manage each piece — and zero of them have a working operating layer that connects all the pieces.</p>
+    <h2>Solar's operational complexity is structural, and the typical tech stack isn't built for it.</h2>
+    <p>A solar sale isn't done at the close. It triggers a 60-90 day coordination cycle across crews, permits, inspections, interconnection, supplier delivery, and homeowner availability. Every operation we've audited has the tools to manage each piece, and zero of them have a working operating layer that connects all the pieces.</p>
 
     <div class="pain-grid">
       <div class="pain-card">
@@ -298,12 +298,12 @@
       <div class="pain-card">
         <div class="pain-card-num">02 · Cycle Time</div>
         <h3>Sale-to-Install Drags</h3>
-        <p>The average solar sale takes 60-90 days from contract to install. Every extra week is rep frustration, homeowner anxiety, and cancellation risk. The bottleneck is almost always scheduling + permits, not capacity. Agentic scheduling cuts 20-30% off the cycle.</p>
+        <p>The average solar sale takes 60-90 days from contract to install. Every extra week is rep frustration, homeowner anxiety, and cancellation risk. The bottleneck is almost always scheduling and permitting, not crew capacity. Engagements that install agentic scheduling have generally reported meaningful reductions in cycle time.</p>
       </div>
       <div class="pain-card">
         <div class="pain-card-num">03 · Coordination</div>
         <h3>Coordinators Eat the Margin</h3>
-        <p>Scaling solar operations hire 1 coordinator per 5 reps just to keep the calendar moving. That math gets worse, not better, at scale. Agentic workflows replace 2-3 FTEs of coordination work per engagement and free the operations leader to manage exceptions, not routines.</p>
+        <p>Scaling solar operations often hire one coordinator for every few reps just to keep the calendar moving, and the ratio rarely improves at scale. Engagements that have installed an agentic workflow layer have generally absorbed multi-FTE coordination workloads and freed operations leaders to manage exceptions, not routines.</p>
       </div>
     </div>
   </div>
@@ -313,24 +313,24 @@
   <div class="container">
     <span class="eyebrow">The Approach</span>
     <h2>What the Technology Operating Layer installs first in a solar engagement.</h2>
-    <p>The Technology Operating Layer maps 9 components across three properties (Visibility, Velocity, Verification) and three surfaces (Reps, Operations, Customers). For solar, the highest-ROI installation isn't the dashboard — it's the agentic workflows that handle the coordination work that scales linearly with volume in every other operation.</p>
+    <p>The Technology Operating Layer maps 9 components across three properties (Visibility, Velocity, Verification) and three surfaces (Reps, Operations, Customers). For solar, the highest-ROI installation isn't the dashboard, it's the agentic workflows that handle the coordination work that scales linearly with volume in every other operation.</p>
 
     <h3>What gets sequenced first in a solar engagement</h3>
     <ol>
-      <li><strong>Lead triage and routing agent</strong> — scores inbound + canvass leads, routes by territory + capacity + source rules, escalates non-responses in 15 minutes. Replaces 0.5-1 FTE.</li>
-      <li><strong>Install scheduling agent</strong> — coordinates crew + permit + homeowner + interconnection availability, surfaces conflicts before they happen. Replaces 1-1.5 FTEs.</li>
-      <li><strong>Permitting workflow tracker</strong> — pre-populates AHJ-specific forms, monitors submission status, flags anomalies. Replaces 0.5-1 FTE plus reduces permit cycle time.</li>
-      <li><strong>Real-time pipeline dashboard</strong> — pipeline value, stage velocity, cancellation risk signals. Per-rep visibility into their own pipeline plus org-wide rollup for leadership.</li>
-      <li><strong>Compliance disclosure agent</strong> — generates state-specific FTC-aligned disclosure packets at sale close (ties directly into the <a href="/compliance-systems-for-solar">Compliance Spine for solar</a>).</li>
+      <li><strong>Lead triage and routing agent.</strong> Scores inbound and canvass leads, routes by territory + capacity + source rules, escalates non-responses in 15 minutes. Generally absorbs a meaningful share of manual dispatching work.</li>
+      <li><strong>Install scheduling agent.</strong> Coordinates crew + permit + homeowner + interconnection availability and surfaces conflicts before they happen. The single highest-leverage workflow in most solar engagements.</li>
+      <li><strong>Permitting workflow tracker.</strong> Pre-populates AHJ-specific forms, monitors submission status, and flags anomalies. Generally absorbs a meaningful share of permit coordination work and reduces stuck applications.</li>
+      <li><strong>Real-time pipeline dashboard</strong>, pipeline value, stage velocity, cancellation risk signals. Per-rep visibility into their own pipeline plus org-wide rollup for leadership.</li>
+      <li><strong>Compliance disclosure agent</strong>, generates state-specific FTC-aligned disclosure packets at sale close (ties directly into the <a href="/compliance-systems-for-solar">Compliance Spine for solar</a>).</li>
     </ol>
 
     <h3>The stack pattern Paradigm typically lands on for solar</h3>
     <ul>
-      <li><strong>CRM (source of truth):</strong> HubSpot or Salesforce — kept clean and authoritative.</li>
+      <li><strong>CRM (source of truth):</strong> HubSpot or Salesforce, kept clean and authoritative.</li>
       <li><strong>Design + proposal:</strong> Aurora (or equivalent) integrated bidirectionally with the CRM.</li>
       <li><strong>Field service / install:</strong> Scoop, Solar Sales Tracker, or a generalist like ServiceTitan depending on operational scope.</li>
       <li><strong>Comms:</strong> Slack with channel hygiene + structured update bots.</li>
-      <li><strong>Agentic layer:</strong> Custom — this is where the operating logic lives, connecting all four above.</li>
+      <li><strong>Agentic layer:</strong> Custom, this is where the operating logic lives, connecting all four above.</li>
     </ul>
 
     <p>For the full 9-component framework and how technology systems apply across other service industries, see the <a href="/technology-systems">Technology Systems pillar page</a>.</p>
@@ -345,22 +345,22 @@
     <div class="faq-list">
       <details class="faq-item">
         <summary class="faq-q">What technology stack does a solar sales operation actually need?</summary>
-        <div class="faq-a"><p>Five integrated layers, not five disconnected tools. <strong>(1) A CRM as single source of truth</strong> for leads, reps, and pipeline (HubSpot, Salesforce, or solar-specific). <strong>(2) A design and proposal tool</strong> (Aurora, Helioscope) tied directly to the CRM. <strong>(3) A field service / install management layer</strong>. <strong>(4) A permitting and interconnection workflow tracker</strong> — most operations run this in spreadsheets, which is the easy ROI target. <strong>(5) An agentic layer</strong> connecting all four so a sale automatically triggers proposal lock, install scheduling check, permit submission, and rep commission visibility.</p></div>
+        <div class="faq-a"><p>Five integrated layers, not five disconnected tools. <strong>(1) A CRM as single source of truth</strong> for leads, reps, and pipeline (HubSpot, Salesforce, or solar-specific). <strong>(2) A design and proposal tool</strong> (Aurora, Helioscope) tied directly to the CRM. <strong>(3) A field service / install management layer</strong>. <strong>(4) A permitting and interconnection workflow tracker</strong>, most operations run this in spreadsheets, which is the easy ROI target. <strong>(5) An agentic layer</strong> connecting all four so a sale automatically triggers proposal lock, install scheduling check, permit submission, and rep commission visibility.</p></div>
       </details>
 
       <details class="faq-item">
         <summary class="faq-q">How do you route solar leads to reps efficiently?</summary>
-        <div class="faq-a"><p>Three rules of routing logic. <strong>(1) Geographic primary</strong>: route by service territory using ZIP code or address-distance from the closest qualified rep. <strong>(2) Capacity weighting</strong>: never route to a rep above their handling limit, even if they're closest. <strong>(3) Source-aware</strong>: door-knock leads route back to the canvasser; inbound web leads route by territory + capacity; referrals route to the rep who closed the referring deal. Paradigm's lead routing agent typically replaces 0.5-1 FTE of manual dispatching and increases speed-to-first-contact by 4-5×.</p></div>
+        <div class="faq-a"><p>Three rules of routing logic. <strong>(1) Geographic primary</strong>: route by service territory using ZIP code or address-distance from the closest qualified rep. <strong>(2) Capacity weighting</strong>: never route to a rep above their handling limit, even if they are closest. <strong>(3) Source-aware</strong>: door-knock leads route back to the canvasser; inbound web leads route by territory + capacity; referrals route to the rep who closed the referring deal. <strong>Lead routing agents installed in solar engagements have generally absorbed the manual dispatching workload</strong> and meaningfully reduced speed-to-first-contact.</p></div>
       </details>
 
       <details class="faq-item">
         <summary class="faq-q">What is install scheduling automation for solar?</summary>
-        <div class="faq-a"><p>Install scheduling is the operational bottleneck most solar operations hit between $5M and $20M ARR. The variables: <strong>crew availability, crew skill, homeowner availability, permit status, HOA approval, interconnection agreement, supplier delivery windows</strong>. Running this in spreadsheets fails at scale because a single change cascades. An install scheduling agent watches all variables, surfaces conflicts before they happen, and reschedules around blockers automatically. Typical outcome: <strong>20-30% reduction in sale-to-install cycle time</strong>, plus the elimination of the dedicated scheduler role.</p></div>
+        <div class="faq-a"><p>Install scheduling is an operational bottleneck most solar operations hit between roughly $5M and $20M ARR. The variables: <strong>crew availability, crew skill, homeowner availability, permit status, HOA approval, interconnection agreement, supplier delivery windows</strong>. Running this in spreadsheets tends to fail at scale because a single change cascades. An install scheduling agent watches all variables, surfaces conflicts before they happen, and reschedules around blockers automatically. <strong>Engagements that have installed this approach have generally reported meaningful reductions in sale-to-install cycle time.</strong> Specific outcomes vary by crew structure, permitting jurisdictions, and supply chain.</p></div>
       </details>
 
       <details class="faq-item">
         <summary class="faq-q">How do you handle solar permitting across multiple jurisdictions?</summary>
-        <div class="faq-a"><p>Permitting is the single most variable workflow in solar — every AHJ has different forms, different review timelines, different inspection requirements. The right answer is a permitting workflow tracker that: <strong>(1) pre-populates the right forms by AHJ</strong> when a sale closes, <strong>(2) tracks submission status</strong> and surfaces stuck applications automatically, <strong>(3) flags review-time anomalies</strong>, <strong>(4) maintains an institutional knowledge base</strong> of each AHJ's quirks.</p></div>
+        <div class="faq-a"><p>Permitting is the single most variable workflow in solar, every AHJ has different forms, different review timelines, different inspection requirements. The right answer is a permitting workflow tracker that: <strong>(1) pre-populates the right forms by AHJ</strong> when a sale closes, <strong>(2) tracks submission status</strong> and surfaces stuck applications automatically, <strong>(3) flags review-time anomalies</strong>, <strong>(4) maintains an institutional knowledge base</strong> of each AHJ's quirks.</p></div>
       </details>
 
       <details class="faq-item">
@@ -370,7 +370,7 @@
 
       <details class="faq-item">
         <summary class="faq-q">What's the ROI on installing technology systems in a solar operation?</summary>
-        <div class="faq-a"><p>On a $10M ARR solar operation, the typical Paradigm tech engagement returns: <strong>2-3 FTEs of coordination work replaced</strong>, <strong>founder/COO time recovered (10-15 hours/week)</strong>, sale-to-install cycle compressed by 20-30%, real-time pipeline visibility. Payback period is usually <strong>3-5 months</strong>. The non-obvious ROI is reduced operational fragility — the business no longer breaks when one operations coordinator is out, and compliance disclosures get captured systematically.</p></div>
+        <div class="faq-a"><p>At a mid-market solar operation, engagements have generally produced a <strong>multi-FTE reduction in routine coordination work</strong>, recovered meaningful founder and COO time per week, and meaningfully compressed sale-to-install cycle time. Real-time visibility into pipeline and commission status is a standard deliverable. <strong>Reported payback periods have generally fallen within a single fiscal cycle.</strong> The less-obvious return is reduced operational fragility: the business no longer breaks when one coordinator is out, and compliance disclosures get captured systematically. Specific results vary by starting stack and operating model.</p></div>
       </details>
 
       <details class="faq-item">
@@ -384,8 +384,8 @@
 <section class="content">
   <div class="container">
     <span class="eyebrow">Related Systems for Solar</span>
-    <h2>The other two pillars of 3×3 OS — applied to solar operations.</h2>
-    <p>Technology is one pillar of the operating system. The other two — Compliance (the regulatory infrastructure) and Culture (the retention infrastructure) — solve the failures that show up alongside operational tech gaps in scaling solar businesses.</p>
+    <h2>The other two pillars of 3×3 OS, applied to solar operations.</h2>
+    <p>Technology is one pillar of the operating system. The other two. Compliance (the regulatory infrastructure) and Culture (the retention infrastructure), solve the failures that show up alongside operational tech gaps in scaling solar businesses.</p>
 
     <div class="cluster-links">
       <a href="/compliance-systems-for-solar" class="cluster-card">
@@ -413,7 +413,7 @@
 <section class="final-cta">
   <div class="container-narrow">
     <span class="final-cta-eyebrow">5-minute diagnostic</span>
-    <h2>See whether your solar operation's tech runs the business — or just runs in the background.</h2>
+    <h2>See whether your solar operation's tech runs the business, or just runs in the background.</h2>
     <p>The System Architecture Audit maps your operations across 6 critical system categories and shows where infrastructure gaps are quietly costing leverage.</p>
     <a href="/system-architecture-audit" class="btn-primary">
       <span class="btn-label">Take the Architecture Audit</span>
