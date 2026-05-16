@@ -45,13 +45,15 @@
     },
     "description": "Founder of Paradigm Consulting and the architect of Tattoo Culture, a framework for culture that is permanent, embedded, and operates without founder presence. Leads Paradigm's culture engagements across compliance-bound and rep-driven service businesses.",
     "knowsAbout": [
-      "Leadership Development",
       "Tattoo Culture",
-      "Organizational Alignment",
-      "Sales Culture",
-      "Distributed Team Operations",
+      "Culture Calendar",
+      "Sales Training",
+      "Culture Keynotes",
       "Cohort Onboarding",
       "Recognition Cadence Design",
+      "Leadership Development",
+      "Organizational Alignment",
+      "Distributed Team Operations",
       "Rank Advancement Systems"
     ],
     "image": "https://paradigmconsulting.io/brand_assets/optimized/matt-512.jpg",
@@ -100,13 +102,14 @@
     "description": "President and Chief Technology Officer at Paradigm Consulting. Systems architecture specialist, infrastructure designer, and the engineer behind every agentic workflow Paradigm has shipped. Builds the operating layer over the tools service businesses already pay for.",
     "knowsAbout": [
       "Systems Architecture",
-      "Infrastructure Design",
-      "Automation",
       "Agentic Workflows",
+      "Back End Automation",
+      "Lead Generation Systems",
       "AI for Business Operations",
       "Integration Layer Design",
       "Field Service Management Integration",
-      "Commission Engine Architecture"
+      "Commission Engine Architecture",
+      "Infrastructure Design"
     ],
     "image": "https://paradigmconsulting.io/brand_assets/optimized/jay-512.jpg",
     "url": "https://paradigmconsulting.io/team#jay-awal"
@@ -189,9 +192,25 @@
     .stat-label { font-size: 13px; color: var(--muted); line-height: 1.55; max-width: 280px; margin: 0 auto; }
     @media (max-width: 720px) { .stat-band { padding: 40px 0; } .stat-grid { grid-template-columns: 1fr; gap: 36px; } .stat-item:not(:last-child)::after { display: none; } .stat-item:not(:last-child) { padding-bottom: 36px; border-bottom: 1px solid var(--border-light); } }
 
-    .founder-section { padding: 112px 0; border-bottom: 1px solid var(--border); position: relative; scroll-margin-top: 100px; }
+    .founder-section { padding: 112px 0; border-bottom: 1px solid var(--border); position: relative; scroll-margin-top: 100px; overflow: hidden; }
     .founder-section:nth-child(even) { background: var(--surface); }
-    .founder-inner { display: grid; grid-template-columns: 280px 1fr; gap: 56px; align-items: start; }
+    .founder-section[data-num]::before {
+      content: attr(data-num);
+      position: absolute;
+      top: 40px; right: -60px;
+      font-family: 'Ranade', sans-serif; font-weight: 500;
+      font-size: clamp(220px, 30vw, 380px);
+      color: rgba(12,140,233,0.05);
+      letter-spacing: -0.08em;
+      line-height: 0.8;
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+    }
+    @media (max-width: 920px) {
+      .founder-section[data-num]::before { top: 20px; right: -30px; font-size: clamp(140px, 35vw, 220px); }
+    }
+    .founder-inner { display: grid; grid-template-columns: 280px 1fr; gap: 56px; align-items: start; position: relative; z-index: 1; }
     @media (max-width: 920px) { .founder-inner { grid-template-columns: 1fr; gap: 32px; } }
     .founder-photo-wrap { position: sticky; top: 100px; }
     @media (max-width: 920px) { .founder-photo-wrap { position: static; } }
@@ -213,15 +232,42 @@
     .founder-bio p strong { color: var(--fg); font-weight: 600; }
     .founder-bio p:last-of-type { margin-bottom: 28px; }
 
+    .bio-quote {
+      margin: 32px 0 36px;
+      padding: 8px 0 8px 24px;
+      border-left: 3px solid var(--accent);
+      font-family: 'Ranade', sans-serif; font-weight: 400;
+      font-size: clamp(20px, 2.2vw, 26px);
+      line-height: 1.3;
+      letter-spacing: -0.015em;
+      color: var(--fg);
+      max-width: 640px;
+    }
+
+    .expertise-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--muted-dim);
+      margin-bottom: 14px;
+    }
     .expertise-list { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
     .expertise-tag {
+      display: inline-flex; align-items: center; gap: 8px;
       font-family: 'Figtree', sans-serif; font-size: 12px; font-weight: 500;
-      color: var(--muted); background: var(--surface-2);
-      padding: 7px 14px; border-radius: 100px;
+      color: var(--fg); background: var(--surface-2);
+      padding: 7px 14px 7px 12px; border-radius: 100px;
       border: 1px solid var(--border-light);
       letter-spacing: 0.02em;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .expertise-tag:hover { border-color: var(--accent); background: var(--surface); }
+    .expertise-tag::before {
+      content: ""; display: inline-block;
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
     }
     .founder-section:nth-child(even) .expertise-tag { background: var(--bg); }
+    .founder-section:nth-child(even) .expertise-tag:hover { background: var(--surface-2); }
 
     .pillar-link {
       display: inline-flex; align-items: center; gap: 8px;
@@ -295,7 +341,7 @@
 </div>
 
 <!-- Matt Rosa -->
-<section class="founder-section" id="matt-rosa">
+<section class="founder-section" id="matt-rosa" data-num="02">
   <div class="container">
     <div class="founder-inner">
       <div class="founder-photo-wrap">
@@ -318,12 +364,16 @@
           <p>The work is operator-to-operator. Matt has built culture systems alongside founders running $5M-to-$50M sales operations and has structured frameworks for more than 200,000 distributors and reps. His engagements end with a culture operating layer running inside the business, not a deck on a shelf.</p>
         </div>
 
+        <blockquote class="bio-quote">"Culture is not vibes. It's operational infrastructure. Built right, it stays after every original employee has left."</blockquote>
+
+        <div class="expertise-label">What Matt does</div>
         <div class="expertise-list">
           <span class="expertise-tag">Tattoo Culture</span>
+          <span class="expertise-tag">Culture Calendar</span>
+          <span class="expertise-tag">Sales Training</span>
+          <span class="expertise-tag">Culture Keynotes</span>
           <span class="expertise-tag">Cohort Onboarding</span>
           <span class="expertise-tag">Recognition Cadence</span>
-          <span class="expertise-tag">Sales Culture</span>
-          <span class="expertise-tag">Distributed Team Ops</span>
           <span class="expertise-tag">Leadership Development</span>
         </div>
 
@@ -334,7 +384,7 @@
 </section>
 
 <!-- Ari Barton -->
-<section class="founder-section" id="ari-barton">
+<section class="founder-section" id="ari-barton" data-num="01">
   <div class="container">
     <div class="founder-inner">
       <div class="founder-photo-wrap">
@@ -357,6 +407,9 @@
           <p>Combined, Ari's compliance work covers over $2.5 billion in structured sales volume. Her engagements are application-only and built for operators scaling between $5M and $50M ARR who are large enough to be on a regulator's radar and small enough that the founder still cares what gets installed.</p>
         </div>
 
+        <blockquote class="bio-quote">"A lawyer responds to incidents. A compliance system prevents them. The math runs in one direction."</blockquote>
+
+        <div class="expertise-label">What Ari does</div>
         <div class="expertise-list">
           <span class="expertise-tag">ROSCA Frameworks</span>
           <span class="expertise-tag">FTC Enforcement</span>
@@ -373,7 +426,7 @@
 </section>
 
 <!-- Jay Awal -->
-<section class="founder-section" id="jay-awal">
+<section class="founder-section" id="jay-awal" data-num="03">
   <div class="container">
     <div class="founder-inner">
       <div class="founder-photo-wrap">
@@ -396,11 +449,16 @@
           <p>Engagements that Jay leads typically replace multiple FTEs of routine coordination work with agentic workflows and integration layers, recover meaningful founder and operations-lead time per week, and meaningfully reduce operational fragility. Specific results vary by starting stack and operating model. The constant is that the business no longer breaks when one person is out.</p>
         </div>
 
+        <blockquote class="bio-quote">"Buy the tools. Build the operating logic. The custom work isn't the stack underneath, it's the agentic layer on top."</blockquote>
+
+        <div class="expertise-label">What Jay does</div>
         <div class="expertise-list">
           <span class="expertise-tag">Systems Architecture</span>
           <span class="expertise-tag">Agentic Workflows</span>
-          <span class="expertise-tag">AI for Operations</span>
+          <span class="expertise-tag">Back End Automation</span>
+          <span class="expertise-tag">Lead Generation</span>
           <span class="expertise-tag">Integration Design</span>
+          <span class="expertise-tag">AI for Operations</span>
           <span class="expertise-tag">FSM Integration</span>
           <span class="expertise-tag">Commission Engines</span>
         </div>
