@@ -1466,11 +1466,34 @@
 
           <!-- Tabs -->
           <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab(0, this)">How It Works</button>
-            <button class="tab-btn" onclick="switchTab(1, this)">What You Get</button>
+            <button class="tab-btn active" onclick="switchTab(0, this)">Who It's For</button>
+            <button class="tab-btn" onclick="switchTab(1, this)">How It Works</button>
+            <button class="tab-btn" onclick="switchTab(2, this)">What You Get</button>
           </div>
 
           <div id="tab-0" class="tab-panel active">
+            <p class="lead">This compliance assessment is built for <strong>founders and operators</strong> of service-based businesses who:</p>
+            <ul class="check-list">
+              <li>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent)"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Operate in compliance-bound categories &mdash; insurance, direct sales, solar, HVAC, professional services, or any recurring-revenue model.
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent)"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Run a business between $1M and $50M in revenue and have outgrown founder-instinct compliance.
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent)"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Suspect there are gaps in contracts, licensing, recordkeeping, or rep oversight &mdash; but haven't mapped them.
+              </li>
+              <li>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent)"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                Are preparing for diligence, an audit, a financing round, or an acquisition where compliance posture matters.
+              </li>
+            </ul>
+          </div>
+
+          <div id="tab-1" class="tab-panel">
             <p class="lead"><strong>7 questions. 2 minutes.</strong> Your answers determine which compliance items are flagged as gaps, which need review, and which are already in place for your specific business.</p>
             <ul class="check-list">
               <li>
@@ -1488,7 +1511,7 @@
             </ul>
           </div>
 
-          <div id="tab-1" class="tab-panel">
+          <div id="tab-2" class="tab-panel">
             <p class="lead">A <strong>working compliance document</strong> you can print, share with your legal or operations team, and use as a starting point for closing your gaps.</p>
             <ul class="check-list">
               <li>
@@ -1537,8 +1560,11 @@
               <label for="company_url">Company URL</label>
               <input type="text" id="company_url" name="company_url" tabindex="-1" autocomplete="off">
             </div>
-            <button class="btn-primary" style="max-width:480px;margin:0 auto;" onclick="submitIntro()">Generate My Compliance Spine</button>
-            <div class="intro-note">Your information is only used to deliver your results. We do not share or sell your data.</div>
+            <button class="btn-primary" style="max-width:480px;margin:0 auto;" onclick="submitIntro()">
+              Generate My Compliance Spine
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="margin-left:8px;vertical-align:middle;"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="intro-note">Your compliance checklist generates immediately on the next screen. A copy is emailed to your inbox so you can share it with your operations or legal team.</div>
           </div>
 
           <div class="proof-bar">
