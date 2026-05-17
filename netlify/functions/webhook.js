@@ -8,7 +8,7 @@ const WEBHOOK_MAP = {
   '12-month-culture-calendar':             process.env.WEBHOOK_CULTURE_CALENDAR,
   '12-month-culture-calendar-apply':       process.env.WEBHOOK_CULTURE_CALENDAR,
   'culture-maturity-audit':                process.env.WEBHOOK_CULTURE_MATURITY_AUDIT,
-  'culture-maturity-audit-application':    process.env.WEBHOOK_CULTURE_MATURITY_AUDIT,
+  'culture-maturity-audit-apply':          process.env.WEBHOOK_CULTURE_MATURITY_AUDIT,
   'founder-exposure-index':                process.env.WEBHOOK_FOUNDER_EXPOSURE_INDEX,
   'founder-exposure-index-apply':          process.env.WEBHOOK_FOUNDER_EXPOSURE_INDEX,
   'founder-bottleneck-eliminator':         process.env.WEBHOOK_FOUNDER_BOTTLENECK_ELIMINATOR,
@@ -126,7 +126,7 @@ function validateFields(source, data) {
 
   // Name required for application/contact sources
   const needsName = ['homepage-contact', 'events-speaker-request',
-    '12-month-culture-calendar-apply', 'culture-maturity-audit-application',
+    '12-month-culture-calendar-apply', 'culture-maturity-audit-apply',
     'founder-exposure-index-apply', 'founder-bottleneck-eliminator-apply',
     'leverage-engine-apply', 'system-architecture-audit-apply',
     'compliance-spine-risk-map'];

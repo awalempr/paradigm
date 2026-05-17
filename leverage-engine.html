@@ -1629,6 +1629,7 @@ function fireWebhook() {
       delegation_hours: results.leverageSplit.delegation,
       technology_hours: results.leverageSplit.technology,
       weekly_revenue_lost: results.weeklyRevenueLost,
+      annual_revenue_lost: results.weeklyRevenueLost * 52,
       source: 'leverage-engine',
       timestamp: new Date().toISOString()
     };
