@@ -198,20 +198,27 @@ function getClientIp(event) {
 async function checkRateLimit(ip, source) {
   // Upstash rate limiting (persistent, distributed)
   if (globalLimiter && sourceLimiter) {
-    const [globalResult, sourceResult] = await Promise.all([
-      globalLimiter.limit(ip),
-      sourceLimiter.limit(ip + ':' + source),
-    ]);
+    try {
+      const [globalResult, sourceResult] = await Promise.all([
+        globalLimiter.limit(ip),
+        sourceLimiter.limit(ip + ':' + source),
+      ]);
 
-    if (!globalResult.success || !sourceResult.success) {
-      const retryAfter = Math.max(
-        globalResult.reset - Date.now(),
-        sourceResult.reset - Date.now(),
-        0
-      );
-      return { limited: true, retryAfter: Math.ceil(retryAfter / 1000) };
+      if (!globalResult.success || !sourceResult.success) {
+        const retryAfter = Math.max(
+          globalResult.reset - Date.now(),
+          sourceResult.reset - Date.now(),
+          0
+        );
+        return { limited: true, retryAfter: Math.ceil(retryAfter / 1000) };
+      }
+      return { limited: false };
+    } catch (err) {
+      // Upstash unreachable (DNS failure, auth error, network issue).
+      // Don't fail the whole submission — fall through to in-memory rate
+      // limiting so forms keep working while Upstash is investigated.
+      console.error('Upstash rate limit check failed, falling back to in-memory:', err && err.message);
     }
-    return { limited: false };
   }
 
   // Fallback: in-memory rate limiting
