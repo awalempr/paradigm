@@ -187,7 +187,7 @@ Map webhook payload → contact fields:
 
 #### Step 3 — Internal notification (Ari is the lead delivery person)
 
-**To:** `ari@paradigmconsulting.co`, `jay@paradigmconsulting.co`
+**To:** `ari@paradigmconsulting.io`, `jay@paradigmconsulting.io`
 **Subject:** `New Risk Map request — {{contact.first_name}} at {{contact.rm_company}} — $4,995`
 
 **Body:**
@@ -215,7 +215,7 @@ compliance-spine-risk-map-booked at that point.
 
 #### Step 4 — Confirmation email to buyer (send immediately)
 
-**From:** `Ari Barton | Paradigm Consulting <ari@paradigmconsulting.co>`
+**From:** `Ari Barton | Paradigm Consulting <ari@paradigmconsulting.io>`
 **Subject:** `We received your Risk Map request, {{contact.first_name}}`
 **Preview:** `Two 90-min call options coming in the next business day. Here's what to expect.`
 
@@ -251,7 +251,7 @@ Looking forward to digging in.
 
 Ari Barton
 COO & Compliance Lead, Paradigm Consulting
-ari@paradigmconsulting.co
+ari@paradigmconsulting.io
 ```
 
 #### Step 5 — Safety net: 1-business-day SLA reminder
@@ -272,7 +272,7 @@ ari@paradigmconsulting.co
 
 #### Step 1 — Send follow-up email from Ari
 
-**From:** `Ari Barton | Paradigm Consulting <ari@paradigmconsulting.co>`
+**From:** `Ari Barton | Paradigm Consulting <ari@paradigmconsulting.io>`
 **Subject:** `Still want to run the Risk Map, {{contact.first_name}}?`
 **Preview:** `Two options below. Reply with whichever is easier.`
 
@@ -390,7 +390,7 @@ After all three workflows are published:
 - [ ] Confirm tag `compliance-spine-risk-map-lead` is applied.
 - [ ] Confirm pipeline stage is `Risk Map Requested`.
 - [ ] Confirm Ari + Jay receive the internal notification email with merge fields populated.
-- [ ] Confirm the buyer-facing confirmation email arrives from `ari@paradigmconsulting.co` with the right preview text and signature.
+- [ ] Confirm the buyer-facing confirmation email arrives from `ari@paradigmconsulting.io` with the right preview text and signature.
 - [ ] Wait 1 business day with no manual action → confirm SLA reminder fires.
 - [ ] Manually advance test contact to `Risk Map Discovery Booked` and add tag `compliance-spine-risk-map-booked` → confirm the no-response follow-up workflow does NOT fire (because tag now exists).
 - [ ] Manually add tag `compliance-spine-risk-map-delivered` → confirm conversion-window workflow starts.

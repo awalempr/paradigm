@@ -1,5 +1,7 @@
 # Compliance Spine — GHL Build Guide
 
+> **Conforms to:** [paradigm-ghl-workflow-pattern.md](paradigm-ghl-workflow-pattern.md) (v 2026-05-17). All deviations from that pattern must be approved as named exceptions in the pattern doc first.
+
 **Generated:** March 29, 2026
 **Location:** Paradigm Consulting (toKhUkB5BEHB9Jn52ktG)
 
@@ -26,12 +28,13 @@
 | CS Gap Track | contact.cs_gap_track | NUMBER | 8PCvVxJ3rF0z5nbnlbM4 |
 | CS Source | contact.cs_source | TEXT | hc6dvdIgTgGl9hCUexpY |
 | CS Submitted At | contact.cs_submitted_at | DATE | qyljsh5UfsBQ4eK4ahbG |
+| CS Business Name | contact.cs_business_name | TEXT | (create — per-source mirror of standard Company field, see §4) |
 
 ### Tags (10/10 Created)
 
 | Tag | ID |
 |---|---|
-| compliance-spine-lead | b21dCDyfvmz6vJMqQGCm |
+| cs-lead (renamed from `compliance-spine-lead` per pattern §2) | b21dCDyfvmz6vJMqQGCm |
 | cs-high-urgency | C6nRKpRc8CgAeCYkfsZk |
 | cs-moderate-urgency | cdH4lHH5My1wbFRYA18K |
 | cs-low-urgency | dSP2BpHnsitkbGYKrgB2 |
@@ -46,9 +49,11 @@
 
 | Tag | ID |
 |---|---|
-| applied-3x3os | aiZSuOijokIIPEarUmVe |
+| applied-3x3os (DEPRECATED — replaced by per-source `cs-application` per pattern §2; legacy tag retained for historical contacts only) | aiZSuOijokIIPEarUmVe |
+| cs-application (new — apply this tag instead of `applied-3x3os` going forward) | (create) |
 | email-sequence-active | tvajBiyQzWpiwRn2QNIY |
 | sequence-completed | GZs1T0JnJ8lLkPF348qh |
+| paradigm-welcomed (new — see pattern §5 welcome suppression) | (create) |
 
 ### Pipeline: Paradigm Leads (mgAoodSdPPjT4sxBokR2)
 
@@ -87,8 +92,11 @@
 #### Step 1 — Create or Update Contact
 
 Map from webhook payload:
-- first_name → First Name
-- email → Email
+- first_name → First Name (only if currently empty — see Duplicate-handling rule)
+- email → Email (dedupe key)
+- phone → Phone (only if currently empty — if present on payload)
+- business_name → `contact.cs_business_name` (always, unconditional)
+- business_name → Company (ONLY if Company currently empty — first-write-wins per pattern §4)
 - business_type → CS Business Type
 - revenue_stage → CS Revenue Stage
 - has_contracts → CS Has Contracts
@@ -102,17 +110,18 @@ Map from webhook payload:
 - source → CS Source
 - timestamp → CS Submitted At
 
-Duplicate rule: Update existing contact if email matches.
+**Duplicate-handling rule:**
+- Match on `email`
+- If contact exists: update assessment custom fields, but **do not overwrite First Name or Phone if either is already populated.** Preserves earlier-touch identity.
+- For the standard `Company` field: write only if currently empty (first-write-wins). Always write to `cs_business_name` regardless.
 
 #### Step 2 — Add to Pipeline
 
-- Pipeline: Paradigm Leads
-- Stage: Assessment Submitted
-- Only if contact is NOT already at a higher stage (position > 1)
+> **REMOVED per pattern §7.** Lead-magnet intakes (non-`*-apply` sources) do not get pipeline assignment. Tags + custom fields only. Pipeline promotion happens later in the shared "Application Hot Lead" workflow when a `cs-application` tag is added. ~~Pipeline: Paradigm Leads · Stage: Assessment Submitted · Only if contact is NOT already at a higher stage (position > 1)~~
 
 #### Step 3 — Add Tag
 
-- Tag: compliance-spine-lead
+- Tag: cs-lead
 
 #### Step 4 — Business Type Tagging (If/Else Branches)
 
@@ -149,13 +158,13 @@ Duplicate rule: Update existing contact if email matches.
 
 After enrollment (all branches):
 - Add tag: email-sequence-active
-- Move pipeline stage to: Email Sequence Active (only if currently at Assessment Submitted)
+- ~~Move pipeline stage to: Email Sequence Active (only if currently at Assessment Submitted)~~ — REMOVED per pattern §7 (no pipeline for lead-magnet intake)
 
 #### Step 7 — Internal Notification Email
 
-**To:** jay@paradigmconsulting.co
+**To:** ari@paradigmconsulting.io, jay@paradigmconsulting.io
 
-**Subject:** New Compliance Spine Lead — {{contact.first_name}} — {{contact.cs_gaps_identified}} Gaps — ${{contact.cs_total_exposure_low}} to ${{contact.cs_total_exposure_high}} Exposure
+**Subject:** New CS Lead — {{contact.first_name}} — {{contact.cs_gaps_identified}} Gaps — ${{contact.cs_total_exposure_low}} to ${{contact.cs_total_exposure_high}} Exposure
 
 **Body:**
 ```
@@ -188,10 +197,16 @@ Check contact record for assessment suite data if applicable
 
 **Goal Step:** Contact clicks tracked link tagged "Apply-3x3OS-Link"
 When goal fires:
-- Add tag: applied-3x3os
+- Add tag: cs-application
 - Remove tag: email-sequence-active
-- Move pipeline stage to: Application Link Clicked
+- ~~Move pipeline stage to: Application Link Clicked~~ — pipeline assignment is handled by the shared "Application Hot Lead" workflow (pattern §8) on detection of the `cs-application` tag
 - Stop all further steps immediately
+
+**Suppression check (REQUIRED — see [paradigm-ghl-workflow-pattern.md §5](paradigm-ghl-workflow-pattern.md)):**
+
+Before sending Email 1 below, check the contact for the `paradigm-welcomed` tag:
+- IF contact does NOT have tag `paradigm-welcomed` → send the warm-welcome variant (the Email 1 body that follows) AND apply tag `paradigm-welcomed`
+- ELSE → send the result-only variant: the same email with the "intro to Paradigm" / "over the next two weeks I want to walk you through" paragraph(s) removed, jumping straight to results. Treat the exact paragraph cuts as a build-time decision.
 
 #### Email 1 — Send immediately
 
@@ -351,7 +366,7 @@ P.S. Your highest exposure category is where the engagement starts. That is the 
 #### Wait 1 day
 #### Remove tag: email-sequence-active
 #### Add tag: sequence-completed
-#### If contact is still at pipeline stage "Email Sequence Active" → move to: Nurture - Long Term
+#### ~~If contact is still at pipeline stage "Email Sequence Active" → move to: Nurture - Long Term~~ — pipeline-stage move removed per pattern §7 (no pipeline for lead-magnet intake)
 
 ---
 
@@ -361,7 +376,13 @@ P.S. Your highest exposure category is where the engagement starts. That is the 
 **Status:** Publish when complete
 **Trigger:** Enrolled from Compliance Spine intake workflow
 
-**Goal Step:** Same as Track 1 (Apply-3x3OS-Link click → tag, untag, move stage, stop)
+**Goal Step:** Same as Track 1 (Apply-3x3OS-Link click → add `cs-application`, remove `email-sequence-active`, stop — pipeline stage handled by shared Application Hot Lead workflow per pattern §8)
+
+**Suppression check (REQUIRED — see [paradigm-ghl-workflow-pattern.md §5](paradigm-ghl-workflow-pattern.md)):**
+
+Before sending Email 1 below, check the contact for the `paradigm-welcomed` tag:
+- IF contact does NOT have tag `paradigm-welcomed` → send the warm-welcome variant (the Email 1 body that follows) AND apply tag `paradigm-welcomed`
+- ELSE → send the result-only variant: same email with the intro/orientation paragraphs removed, jumping straight to results. Build-time decision on exact paragraph cuts.
 
 #### Email 1 — Send immediately
 
@@ -515,7 +536,7 @@ Founder, Paradigm Consulting
 #### Wait 1 day
 #### Remove tag: email-sequence-active
 #### Add tag: sequence-completed
-#### If contact is still at pipeline stage "Email Sequence Active" → move to: Nurture - Long Term
+#### ~~If contact is still at pipeline stage "Email Sequence Active" → move to: Nurture - Long Term~~ — pipeline-stage move removed per pattern §7 (no pipeline for lead-magnet intake)
 
 ---
 
@@ -525,7 +546,13 @@ Founder, Paradigm Consulting
 **Status:** Publish when complete
 **Trigger:** Enrolled from Compliance Spine intake workflow
 
-**Goal Step:** Same as Track 1 (Apply-3x3OS-Link click → tag, untag, move stage, stop)
+**Goal Step:** Same as Track 1 (Apply-3x3OS-Link click → add `cs-application`, remove `email-sequence-active`, stop — pipeline stage handled by shared Application Hot Lead workflow per pattern §8)
+
+**Suppression check (REQUIRED — see [paradigm-ghl-workflow-pattern.md §5](paradigm-ghl-workflow-pattern.md)):**
+
+Before sending Email 1 below, check the contact for the `paradigm-welcomed` tag:
+- IF contact does NOT have tag `paradigm-welcomed` → send the warm-welcome variant (the Email 1 body that follows) AND apply tag `paradigm-welcomed`
+- ELSE → send the result-only variant: same email with intro paragraphs removed, jumping straight to results. Build-time decision on exact paragraph cuts.
 
 #### Email 1 — Send immediately
 
@@ -667,7 +694,7 @@ P.S. At your position the engagement is scoped specifically to your remaining ga
 #### Wait 1 day
 #### Remove tag: email-sequence-active
 #### Add tag: sequence-completed
-#### If contact is still at pipeline stage "Email Sequence Active" → move to: Nurture - Long Term
+#### ~~If contact is still at pipeline stage "Email Sequence Active" → move to: Nurture - Long Term~~ — pipeline-stage move removed per pattern §7 (no pipeline for lead-magnet intake)
 
 ---
 
@@ -677,7 +704,13 @@ P.S. At your position the engagement is scoped specifically to your remaining ga
 **Status:** Publish when complete
 **Trigger:** Enrolled from Compliance Spine intake workflow
 
-**Goal Step:** Same as Track 1 (Apply-3x3OS-Link click → tag, untag, move stage, stop)
+**Goal Step:** Same as Track 1 (Apply-3x3OS-Link click → add `cs-application`, remove `email-sequence-active`, stop — pipeline stage handled by shared Application Hot Lead workflow per pattern §8)
+
+**Suppression check (REQUIRED — see [paradigm-ghl-workflow-pattern.md §5](paradigm-ghl-workflow-pattern.md)):**
+
+Before sending Email 1 below, check the contact for the `paradigm-welcomed` tag:
+- IF contact does NOT have tag `paradigm-welcomed` → send the warm-welcome variant (the Email 1 body that follows) AND apply tag `paradigm-welcomed`
+- ELSE → send the result-only variant: same email with intro paragraphs removed, jumping straight to results. Build-time decision on exact paragraph cuts.
 
 #### Email 1 — Send immediately
 
@@ -831,64 +864,57 @@ P.S. At your position the engagement is focused entirely on protection and maint
 #### Wait 1 day
 #### Remove tag: email-sequence-active
 #### Add tag: sequence-completed
-#### If contact is still at pipeline stage "Email Sequence Active" → move to: Nurture - Long Term
+#### ~~If contact is still at pipeline stage "Email Sequence Active" → move to: Nurture - Long Term~~ — pipeline-stage move removed per pattern §7 (no pipeline for lead-magnet intake)
 
 ---
 
 ### WORKFLOW 3 — CS Application Link Clicked
 
-**Name:** CS — Application Link Clicked
-**Status:** Publish when complete
-**Trigger:** Contact clicks tracked link tagged "Apply-3x3OS-Link" AND tag compliance-spine-lead exists
+**DEPRECATED** — Application handling is now performed by the shared "Application Hot Lead" workflow defined in [paradigm-ghl-workflow-pattern.md §8](paradigm-ghl-workflow-pattern.md). Do not build this per-source workflow.
 
-> **NOTE:** Check whether the existing FEI/CMA/FBE/12MCC Application Link Clicked workflows already handle this globally. If so, skip this workflow.
+The shared workflow triggers on any `*-application` tag (including `cs-application`) and handles: hot-lead tagging, sequence pause, pipeline promotion (Compliance Spine pipeline → Application Received), internal alert to ari@ + jay@paradigmconsulting.io, and 1-business-day SLA reminder.
 
-#### Step 1 — Check for tag applied-3x3os. If exists, stop workflow.
-#### Step 2 — Add tag: applied-3x3os
-#### Step 3 — Move pipeline stage to: Application Link Clicked
-#### Step 4 — Remove tag: email-sequence-active
-#### Step 5 — Remove contact from all active CS email sequence workflows
-#### Step 6 — Wait 10 minutes
+~~**Name:** CS — Application Link Clicked~~
+~~**Status:** Publish when complete~~
+~~**Trigger:** Contact clicks tracked link tagged "Apply-3x3OS-Link" AND tag compliance-spine-lead exists~~
 
-#### Step 7 — Internal notification to jay@paradigmconsulting.co
+~~> **NOTE:** Check whether the existing FEI/CMA/FBE/12MCC Application Link Clicked workflows already handle this globally. If so, skip this workflow.~~
 
-**Subject:** Apply Link Clicked — {{contact.first_name}} — {{contact.email}} — Compliance Spine Lead
+~~#### Step 1 — Check for tag applied-3x3os. If exists, stop workflow.~~
+~~#### Step 2 — Add tag: applied-3x3os~~
+~~#### Step 3 — Move pipeline stage to: Application Link Clicked~~
+~~#### Step 4 — Remove tag: email-sequence-active~~
+~~#### Step 5 — Remove contact from all active CS email sequence workflows~~
+~~#### Step 6 — Wait 10 minutes~~
 
-**Body:**
-```
-Name: {{contact.first_name}}
-Email: {{contact.email}}
-Gaps Identified: {{contact.cs_gaps_identified}}
-Gap Track: {{contact.cs_gap_track}}
-Total Exposure: ${{contact.cs_total_exposure_low}} to ${{contact.cs_total_exposure_high}}
-Business Type: {{contact.cs_business_type}}
-Revenue Stage: {{contact.cs_revenue_stage}}
-Check contact record for assessment suite data if applicable
-Submitted: {{contact.cs_submitted_at}}
-```
+~~#### Step 7 — Internal notification to jay@paradigmconsulting.io~~
 
-#### Step 8 — Send contact email
+~~**Subject:** Apply Link Clicked — {{contact.first_name}} — {{contact.email}} — Compliance Spine Lead~~
 
-**Subject:** We received your interest, {{contact.first_name}}
-**Preview:** Someone will be in touch within 48 hours.
-**From:** Matt | Founder, Paradigm Consulting
+~~**Body:**~~
+~~```~~
+~~Name: {{contact.first_name}}~~
+~~Email: {{contact.email}}~~
+~~Gaps Identified: {{contact.cs_gaps_identified}}~~
+~~Gap Track: {{contact.cs_gap_track}}~~
+~~Total Exposure: ${{contact.cs_total_exposure_low}} to ${{contact.cs_total_exposure_high}}~~
+~~Business Type: {{contact.cs_business_type}}~~
+~~Revenue Stage: {{contact.cs_revenue_stage}}~~
+~~Check contact record for assessment suite data if applicable~~
+~~Submitted: {{contact.cs_submitted_at}}~~
+~~```~~
 
-**Body:**
+~~#### Step 8 — Send contact email~~
 
-{{contact.first_name}},
+~~**Subject:** We received your interest, {{contact.first_name}}~~
+~~**Preview:** Someone will be in touch within 48 hours.~~
+~~**From:** Matt | Founder, Paradigm Consulting~~
 
-We saw that you clicked through to the 3x3OS application.
+~~Body removed — confirmation email is now sent by the shared Application Hot Lead workflow. If a CS-specific variant is wanted later, the original copy lives in git history.~~
 
-If you submitted the application, we will review it personally and be in touch within 48 hours.
+<!-- TODO: confirm this still applies given pattern v 2026-05-17 — if a CS-specific "we received your interest" auto-reply is desired in addition to the internal alert, it should be added to the shared Application Hot Lead workflow as a templated send, not rebuilt here. -->
 
-If you clicked through but did not complete it, the link is below. It takes five minutes and gives us everything we need to determine whether the 3x3OS engagement is the right fit for where your business is right now.
-
-We do not accept every application. Not because of exclusivity, but because we only work with founders where we are confident the engagement is the right next step. The application is how we make that determination.
-
-Matt
-Founder, Paradigm Consulting
-
-**[CTA Button: Complete My Application — link to application page]**
+**Confirmation-email suppression note:** If/when the confirmation auto-reply is added to the shared Application Hot Lead workflow, it must use the same `paradigm-welcomed` suppression check defined in pattern §5.
 
 ---
 
@@ -896,7 +922,9 @@ Founder, Paradigm Consulting
 
 **Name:** CS — Re-Engagement 30 Day
 **Status:** Publish when complete
-**Trigger:** Tag = compliance-spine-lead AND pipeline stage = Assessment Submitted OR Email Sequence Active AND last activity > 30 days ago AND tag applied-3x3os does NOT exist
+**Trigger:** Tag = `cs-lead` AND tag `cs-application` does NOT exist AND last activity > 30 days ago
+
+> Pipeline-stage criteria removed (no pipeline for lead-magnet intake per pattern §7). Tag-based filtering is now the source of truth.
 
 #### Step 1 — Send Email
 
@@ -926,7 +954,7 @@ Founder, Paradigm Consulting
 #### Step 3 — If no response and no apply click:
 - Remove tag: email-sequence-active
 - Add tag: sequence-completed
-- Move pipeline to: Nurture - Long Term
+- ~~Move pipeline to: Nurture - Long Term~~ — pipeline assignment removed per pattern §7 (lead-magnet intake; no pipeline)
 
 ---
 
@@ -936,17 +964,17 @@ Build these in GHL > Contacts > Smart Lists:
 
 | List Name | Filters |
 |---|---|
-| CS — All Leads | Tag = compliance-spine-lead |
+| CS — All Leads | Tag = cs-lead |
 | CS — High Urgency (8+ Gaps) | Tag = cs-high-urgency |
 | CS — Moderate Urgency (4-7 Gaps) | Tag = cs-moderate-urgency |
-| CS — Active Sequences | Tag = email-sequence-active AND Tag = compliance-spine-lead |
-| CS — Sequence Completed Not Applied | Tag = sequence-completed AND Tag = compliance-spine-lead AND Tag applied-3x3os does NOT exist |
-| CS — High Exposure Leads | Tag = compliance-spine-lead AND cs_total_exposure_high > 200000 |
-| CS — Digital Business Leads | Tag = compliance-spine-lead AND Tag = cs-digital |
-| CS — Service Business Leads | Tag = compliance-spine-lead AND Tag = cs-service |
-| CS — Revenue Stage 500K to 2M | Tag = compliance-spine-lead AND cs_revenue_stage = "500k-2m" |
-| CS — Revenue Stage 2M Plus | Tag = compliance-spine-lead AND (cs_revenue_stage = "2m-10m" OR cs_revenue_stage = "over10m") |
-| CS — Also In Assessment Suite | Tag = compliance-spine-lead AND (Tag = fei-lead OR Tag = cma-lead OR Tag = fbe-lead OR Tag = 12mcc-lead) |
+| CS — Active Sequences | Tag = email-sequence-active AND Tag = cs-lead |
+| CS — Sequence Completed Not Applied | Tag = sequence-completed AND Tag = cs-lead AND Tag cs-application does NOT exist |
+| CS — High Exposure Leads | Tag = cs-lead AND cs_total_exposure_high > 200000 |
+| CS — Digital Business Leads | Tag = cs-lead AND Tag = cs-digital |
+| CS — Service Business Leads | Tag = cs-lead AND Tag = cs-service |
+| CS — Revenue Stage 500K to 2M | Tag = cs-lead AND cs_revenue_stage = "500k-2m" |
+| CS — Revenue Stage 2M Plus | Tag = cs-lead AND (cs_revenue_stage = "2m-10m" OR cs_revenue_stage = "over10m") |
+| CS — Also In Assessment Suite | Tag = cs-lead AND (Tag = fei-lead OR Tag = cma-lead OR Tag = fbe-lead OR Tag = csc-lead) |
 | CS — High Urgency High Revenue (Priority) | Tag = cs-high-urgency AND (cs_revenue_stage = "500k-2m" OR cs_revenue_stage = "2m-10m" OR cs_revenue_stage = "over10m") |
 
 ---
@@ -961,11 +989,15 @@ After all workflows are built and published:
 - [ ] Submit test lead with 10 gaps — confirm Track 1, tag cs-high-urgency, gap_track = 1
 - [ ] Confirm all custom fields populate correctly on contact record
 - [ ] Confirm business type tags apply correctly (cs-digital, cs-service, etc.)
-- [ ] Confirm pipeline stage moves to Assessment Submitted then Email Sequence Active
-- [ ] Confirm internal notification email delivers to jay@paradigmconsulting.co with all merge fields
+- [ ] Confirm NO pipeline stage assignment occurs for lead-magnet intake (pattern §7)
+- [ ] Confirm internal notification email delivers to BOTH ari@paradigmconsulting.io AND jay@paradigmconsulting.io with all merge fields
 - [ ] Confirm Day 0 emails send from "Matt | Founder, Paradigm Consulting"
 - [ ] Confirm Apply-3x3OS-Link tracked links work in all email CTAs
-- [ ] Confirm goal step fires on link click (tag applied-3x3os, remove email-sequence-active, move stage)
+- [ ] Confirm goal step fires on link click (tag cs-application added, email-sequence-active removed)
+- [ ] Confirm shared Application Hot Lead workflow (pattern §8) fires on `cs-application` tag and pipeline-promotes there
+- [ ] Confirm `paradigm-welcomed` suppression: 2nd assessment from same contact sends result-only variant, not warm welcome
+- [ ] Confirm First Name and Phone are NOT overwritten on update if already populated
+- [ ] Confirm standard Company is written only if empty; cs_business_name is always written
 - [ ] Confirm contacts with existing assessment data update on same record (no duplicate)
 - [ ] Confirm CS High Urgency High Revenue smart list surfaces correctly
 - [ ] Verify print checklist button on compliance-spine.html triggers confetti and print dialog

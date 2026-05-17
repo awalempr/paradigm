@@ -3,6 +3,10 @@
 **Generated:** April 3, 2026
 **Location:** Paradigm Consulting (toKhUkB5BEHB9Jn52ktG)
 
+> **Conforms to:** [paradigm-ghl-workflow-pattern.md](paradigm-ghl-workflow-pattern.md) (v 2026-05-17). All deviations must be approved as named exceptions in the pattern doc first.
+
+Short key: `csc` (per pattern doc §1). All custom fields, tags, smart lists, and workflow references previously prefixed with `cc_` / `cc-` / `12mcc-` have been standardized to `csc_` / `csc-`. <!-- TODO: rename existing GHL custom fields and tags from `cc_*`/`cc-*` to `csc_*`/`csc-*` -->
+
 ---
 
 ## STEP 1 — CREATE CUSTOM FIELDS
@@ -11,19 +15,22 @@ Create these custom fields in GHL under Settings > Custom Fields > Contact:
 
 | Field | Key | Type |
 |---|---|---|
-| CC Diagnostic Score | contact.cc_diagnostic_score | NUMBER |
-| CC Tier | contact.cc_tier | TEXT |
-| CC Section A Meeting Rhythm | contact.cc_section_a_meeting_rhythm | NUMBER |
-| CC Section B Team Drivers | contact.cc_section_b_team_drivers | NUMBER |
-| CC Section C Sprint Architecture | contact.cc_section_c_sprint_architecture | NUMBER |
-| CC Section D Culture Energy | contact.cc_section_d_culture_energy | NUMBER |
-| CC Team Size | contact.cc_team_size | TEXT |
-| CC Primary Goal | contact.cc_primary_goal | TEXT |
-| CC Team Celebrates | contact.cc_team_celebrates | TEXT |
-| CC Start Quarter | contact.cc_start_quarter | TEXT |
-| CC Culture Vision | contact.cc_culture_vision | TEXT |
-| CC Source | contact.cc_source | TEXT |
-| CC Submitted At | contact.cc_submitted_at | DATE |
+| CSC Diagnostic Score | contact.csc_diagnostic_score | NUMBER |
+| CSC Tier | contact.csc_tier | TEXT |
+| CSC Section A Meeting Rhythm | contact.csc_section_a_meeting_rhythm | NUMBER |
+| CSC Section B Team Drivers | contact.csc_section_b_team_drivers | NUMBER |
+| CSC Section C Sprint Architecture | contact.csc_section_c_sprint_architecture | NUMBER |
+| CSC Section D Culture Energy | contact.csc_section_d_culture_energy | NUMBER |
+| CSC Team Size | contact.csc_team_size | TEXT |
+| CSC Primary Goal | contact.csc_primary_goal | TEXT |
+| CSC Team Celebrates | contact.csc_team_celebrates | TEXT |
+| CSC Start Quarter | contact.csc_start_quarter | TEXT |
+| CSC Culture Vision | contact.csc_culture_vision | TEXT |
+| CSC Business Name | contact.csc_business_name | TEXT |
+| CSC Source | contact.csc_source | TEXT |
+| CSC Submitted At | contact.csc_submitted_at | DATE |
+
+> **Field type rule:** all numeric fields use `NUMBER` — pattern doc §3.
 
 ---
 
@@ -31,26 +38,38 @@ Create these custom fields in GHL under Settings > Custom Fields > Contact:
 
 | Tag |
 |---|
-| cc-lead |
-| cc-no-rhythm (score 0-35) |
-| cc-early-stage (score 36-55) |
-| cc-developing (score 56-75) |
-| cc-calendar-ready (score 76-100) |
-| cc-solo (team size solo) |
-| cc-small-team (team size small) |
-| cc-medium-team (team size medium) |
-| cc-large-team (team size large) |
+| csc-lead |
+| csc-no-rhythm (score 0-35) |
+| csc-early-stage (score 36-55) |
+| csc-developing (score 56-75) |
+| csc-calendar-ready (score 76-100) |
+| csc-solo (team size solo) |
+| csc-small-team (team size small) |
+| csc-medium-team (team size medium) |
+| csc-large-team (team size large) |
+
+Lifecycle tags (per pattern doc §2):
+
+| Tag | When applied |
+|---|---|
+| `csc-lead` | On webhook intake (already used above) |
+| `csc-completed` | Reserved (CSC has no completion-distinct event yet) |
+| `csc-application` | When the `12-month-culture-calendar-apply` webhook fires (replaces legacy `applied-3x3os`) |
+| `csc-converted` | When the contact pays for the related engagement |
 
 Pre-existing tags (already in system):
-- applied-3x3os
-- email-sequence-active
-- sequence-completed
+- `paradigm-welcomed` (welcome-suppression gate — pattern doc §5)
+- `email-sequence-active`
+- `sequence-completed`
+- ~~`applied-3x3os`~~ (LEGACY — replaced by per-source `csc-application`)
 
 ---
 
-## STEP 3 — PIPELINE (USE EXISTING)
+## STEP 3 — PIPELINE
 
-Pipeline: **Paradigm Leads** — `mgAoodSdPPjT4sxBokR2`
+> **Pipeline note (pattern doc §7):** CSC is a lead magnet. **Lead-magnet intake does NOT get a pipeline assignment.** Remove the Paradigm Leads pipeline move from the CSC intake workflow (Workflow 1, Step 2). Pipeline references below are kept for the `12-month-culture-calendar-apply` workflow, which now defers to the shared Application Hot Lead workflow (pattern doc §8).
+
+Pipeline (kept for reference for `-apply` only): **Paradigm Leads** — `mgAoodSdPPjT4sxBokR2`
 
 | Stage | Position | ID |
 |---|---|---|
@@ -161,150 +180,106 @@ Fires when founder clicks "Apply for 3x3OS" and submits phone + business name.
 ### Step 1 — Create or Update Contact
 
 Map from webhook payload:
-- first_name → First Name
-- email → Email
-- diagnostic_score → CC Diagnostic Score
-- tier → CC Tier
-- section_a_meeting_rhythm → CC Section A Meeting Rhythm
-- section_b_team_drivers → CC Section B Team Drivers
-- section_c_sprint_architecture → CC Section C Sprint Architecture
-- section_d_culture_energy → CC Section D Culture Energy
-- team_size → CC Team Size
-- primary_goal → CC Primary Goal
-- team_celebrates → CC Team Celebrates
-- start_quarter → CC Start Quarter
-- culture_vision → CC Culture Vision
-- source → CC Source
-- timestamp → CC Submitted At
+- first_name → First Name (see duplicate-handling rule)
+- email → Email (dedupe key)
+- phone (if present in apply payload) → Phone (see duplicate-handling rule)
+- business_name (if present in apply payload) → CSC Business Name + standard `Company` (see Company-field strategy below)
+- diagnostic_score → CSC Diagnostic Score
+- tier → CSC Tier
+- section_a_meeting_rhythm → CSC Section A Meeting Rhythm
+- section_b_team_drivers → CSC Section B Team Drivers
+- section_c_sprint_architecture → CSC Section C Sprint Architecture
+- section_d_culture_energy → CSC Section D Culture Energy
+- team_size → CSC Team Size
+- primary_goal → CSC Primary Goal
+- team_celebrates → CSC Team Celebrates
+- start_quarter → CSC Start Quarter
+- culture_vision → CSC Culture Vision
+- source → CSC Source
+- timestamp → CSC Submitted At
 
-Duplicate rule: Update existing contact if email matches.
+**Duplicate-handling rule:**
+- Match on `email`
+- If contact exists: update assessment custom fields, but **do not overwrite First Name or Phone if either is already populated.** Preserves earlier-touch identity.
+- For the standard `Company` field: write only if currently empty (first-write-wins). Always write to `csc_business_name` regardless.
 
 ### Step 2 — Add to Pipeline
 
-- Pipeline: Paradigm Leads
-- Stage: Assessment Submitted
-- Only if contact is NOT already at a higher stage (position > 1)
+> **Removed.** Per pattern doc §7, CSC is a lead magnet and intake does NOT get a pipeline assignment. Skip this step. (Pipeline references are kept for the `-apply` flow only — handled by the shared Application Hot Lead workflow per pattern doc §8.)
 
 ### Step 3 — Add Tag
 
-- Tag: cc-lead
+- Tag: `csc-lead`
 
 ### Step 4 — Team Size Tagging (If/Else Branches)
 
-- IF cc_team_size = "solo" → Add tag: cc-solo
-- ELSE IF cc_team_size = "small" → Add tag: cc-small-team
-- ELSE IF cc_team_size = "medium" → Add tag: cc-medium-team
-- ELSE → Add tag: cc-large-team
+- IF csc_team_size = "solo" → Add tag: csc-solo
+- ELSE IF csc_team_size = "small" → Add tag: csc-small-team
+- ELSE IF csc_team_size = "medium" → Add tag: csc-medium-team
+- ELSE → Add tag: csc-large-team
 
 ### Step 5 — Tier Routing (If/Else Branches)
 
-**Branch A** — IF cc_diagnostic_score <= 35:
-- Add tag: cc-no-rhythm
+**Branch A** — IF csc_diagnostic_score <= 35:
+- Add tag: csc-no-rhythm
 
-**Branch B** — ELSE IF cc_diagnostic_score <= 55:
-- Add tag: cc-early-stage
+**Branch B** — ELSE IF csc_diagnostic_score <= 55:
+- Add tag: csc-early-stage
 
-**Branch C** — ELSE IF cc_diagnostic_score <= 75:
-- Add tag: cc-developing
+**Branch C** — ELSE IF csc_diagnostic_score <= 75:
+- Add tag: csc-developing
 
-**Branch D** — ELSE (cc_diagnostic_score 76-100):
-- Add tag: cc-calendar-ready
+**Branch D** — ELSE (csc_diagnostic_score 76-100):
+- Add tag: csc-calendar-ready
 
 ### Step 6 — Route to Email Sequence (If/Else Branches)
 
-- IF cc_diagnostic_score <= 35 → Enroll in workflow "CC — Track 1 No Rhythm"
-- ELSE IF cc_diagnostic_score <= 55 → Enroll in workflow "CC — Track 2 Early Stage"
-- ELSE IF cc_diagnostic_score <= 75 → Enroll in workflow "CC — Track 3 Developing"
-- ELSE → Enroll in workflow "CC — Track 4 Calendar Ready"
+- IF csc_diagnostic_score <= 35 → Enroll in workflow "CSC — Track 1 No Rhythm"
+- ELSE IF csc_diagnostic_score <= 55 → Enroll in workflow "CSC — Track 2 Early Stage"
+- ELSE IF csc_diagnostic_score <= 75 → Enroll in workflow "CSC — Track 3 Developing"
+- ELSE → Enroll in workflow "CSC — Track 4 Calendar Ready"
 
 After enrollment (all branches):
 - Add tag: email-sequence-active
-- Move pipeline stage to: Email Sequence Active (only if currently at Assessment Submitted)
+- (Pipeline stage move removed — intake no longer assigned to Paradigm Leads pipeline. See Step 2 note.)
 
 ### Step 7 — Internal Notification Email
 
-**To:** jay@paradigmconsulting.co
+**To:** ari@paradigmconsulting.io, jay@paradigmconsulting.io
 
-**Subject:** New Culture Calendar Lead — {{contact.first_name}} — Score {{contact.cc_diagnostic_score}} — {{contact.cc_tier}}
+**Subject:** New CSC Lead — {{contact.first_name}}
 
 **Body:**
 ```
 Name: {{contact.first_name}}
 Email: {{contact.email}}
-Diagnostic Score: {{contact.cc_diagnostic_score}} / 100
-Tier: {{contact.cc_tier}}
-Section A (Meeting Rhythm): {{contact.cc_section_a_meeting_rhythm}}
-Section B (Team Drivers): {{contact.cc_section_b_team_drivers}}
-Section C (Sprint Architecture): {{contact.cc_section_c_sprint_architecture}}
-Section D (Culture Energy): {{contact.cc_section_d_culture_energy}}
-Team Size: {{contact.cc_team_size}}
-Primary Goal: {{contact.cc_primary_goal}}
-Team Celebrates: {{contact.cc_team_celebrates}}
-Start Quarter: {{contact.cc_start_quarter}}
-Culture Vision: {{contact.cc_culture_vision}}
-Submitted: {{contact.cc_submitted_at}}
+Diagnostic Score: {{contact.csc_diagnostic_score}} / 100
+Tier: {{contact.csc_tier}}
+Section A (Meeting Rhythm): {{contact.csc_section_a_meeting_rhythm}}
+Section B (Team Drivers): {{contact.csc_section_b_team_drivers}}
+Section C (Sprint Architecture): {{contact.csc_section_c_sprint_architecture}}
+Section D (Culture Energy): {{contact.csc_section_d_culture_energy}}
+Team Size: {{contact.csc_team_size}}
+Primary Goal: {{contact.csc_primary_goal}}
+Team Celebrates: {{contact.csc_team_celebrates}}
+Start Quarter: {{contact.csc_start_quarter}}
+Culture Vision: {{contact.csc_culture_vision}}
+Submitted: {{contact.csc_submitted_at}}
 ```
 
 ---
 
 ## WORKFLOW 2 — Culture Calendar Application Handler
 
-**Name:** 12-Month Culture Calendar — Application
-**Status:** Publish when complete
-**Trigger:** Inbound Webhook (same trigger ID — route by source field)
+**DEPRECATED** — Application handling is now performed by the shared "Application Hot Lead" workflow defined in [paradigm-ghl-workflow-pattern.md §8](paradigm-ghl-workflow-pattern.md).
 
-**Alternative:** Add an If/Else branch at the top of Workflow 1 that checks if `source` = `12-month-culture-calendar-apply`, then routes to the application steps below instead of the intake steps above.
+The per-source CSC application workflow only needs to:
 
-### Step 1 — Update Contact
+1. Update contact from the `12-month-culture-calendar-apply` webhook payload (apply duplicate-handling rule from Workflow 1 Step 1 — preserve First Name and Phone if populated; write to standard `Company` only if empty; always write to `csc_business_name`)
+2. Apply tag `csc-application` (THIS is what triggers the shared Application Hot Lead workflow)
+3. Remove tag `email-sequence-active`
 
-Map from webhook payload:
-- phone → Phone
-- business_name → Company (or a custom field)
-- total_score → CC Diagnostic Score (update if changed)
-- tier → CC Tier (update if changed)
-- section_a_meeting_rhythm → CC Section A Meeting Rhythm
-- section_b_team_drivers → CC Section B Team Drivers
-- section_c_sprint_architecture → CC Section C Sprint Architecture
-- section_d_culture_energy → CC Section D Culture Energy
-- source → CC Source (update to "12-month-culture-calendar-apply")
-
-### Step 2 — Add Tag
-
-- Tag: applied-3x3os
-
-### Step 3 — Move Pipeline Stage
-
-- Pipeline: Paradigm Leads
-- Stage: Application Link Clicked
-
-### Step 4 — Remove Tag
-
-- Remove: email-sequence-active
-
-### Step 5 — Internal Notification Email
-
-**To:** jay@paradigmconsulting.co
-
-**Subject:** 3x3OS APPLICATION — {{contact.first_name}} — Culture Calendar — Score {{contact.cc_diagnostic_score}}
-
-**Body:**
-```
-APPLICATION RECEIVED
-
-Name: {{contact.first_name}}
-Email: {{contact.email}}
-Phone: {{contact.phone}}
-Business: (from webhook business_name)
-Diagnostic Score: {{contact.cc_diagnostic_score}} / 100
-Tier: {{contact.cc_tier}}
-Section A (Meeting Rhythm): {{contact.cc_section_a_meeting_rhythm}}
-Section B (Team Drivers): {{contact.cc_section_b_team_drivers}}
-Section C (Sprint Architecture): {{contact.cc_section_c_sprint_architecture}}
-Section D (Culture Energy): {{contact.cc_section_d_culture_energy}}
-
-This lead applied through the 12-Month Culture Calendar diagnostic.
-Review contact record for full assessment data.
-```
+~~Per-source pipeline moves, internal HOT LEAD notifications, and SLA logic previously documented here have been deleted. They are now centralized in the shared Application Hot Lead workflow which sends to ari@ + jay@paradigmconsulting.io and routes into the appropriate pipeline.~~
 
 ---
 
@@ -312,9 +287,9 @@ Review contact record for full assessment data.
 
 ---
 
-### CC — Track 1 No Rhythm (Score 0-35)
+### CSC — Track 1 No Rhythm (Score 0-35)
 
-**Name:** CC — Track 1 No Rhythm
+**Name:** CSC — Track 1 No Rhythm
 **Status:** Publish when complete
 **Trigger:** Enrolled from 12-Month Culture Calendar intake workflow
 
@@ -322,15 +297,22 @@ Framing: The business has no culture infrastructure. Team alignment is accidenta
 
 **Goal Step:** Contact clicks tracked link tagged "Apply-3x3OS-Link"
 When goal fires:
-- Add tag: applied-3x3os
+- Add tag: `csc-application` (triggers shared Application Hot Lead workflow — pattern doc §8)
 - Remove tag: email-sequence-active
-- Move pipeline stage to: Application Link Clicked
 - Stop all further steps immediately
+
+(Pipeline stage move handled by shared Application Hot Lead workflow.)
 
 #### Email 1 — Send immediately
 
+**Suppression check (REQUIRED — see [paradigm-ghl-workflow-pattern.md §5](paradigm-ghl-workflow-pattern.md)):**
+
+Before sending this email, check the contact for the `paradigm-welcomed` tag:
+- IF contact does NOT have tag `paradigm-welcomed` → send the warm-welcome variant below AND apply tag `paradigm-welcomed`
+- ELSE → send the result-only variant (a shortened version without the "intro to Paradigm" paragraphs)
+
 **Subject:** Your culture diagnostic, {{contact.first_name}}
-**Preview:** A score of {{contact.cc_diagnostic_score}} out of 100 means something specific. Here is what it tells you.
+**Preview:** A score of {{contact.csc_diagnostic_score}} out of 100 means something specific. Here is what it tells you.
 **From:** Matt | Founder, Paradigm Consulting
 
 **Body:**
@@ -339,11 +321,11 @@ When goal fires:
 
 You just completed the 12-Month Culture Calendar diagnostic on the Paradigm Consulting site.
 
-Your score was {{contact.cc_diagnostic_score}} out of 100. That places your business in the NO RHYTHM tier — which means the culture operating in your business right now is not being shaped by you. It is happening to you.
+Your score was {{contact.csc_diagnostic_score}} out of 100. That places your business in the NO RHYTHM tier — which means the culture operating in your business right now is not being shaped by you. It is happening to you.
 
 That is not a criticism. It is where most founder-led businesses start. Culture forms whether you design it or not. The question is whether the culture that formed is the one you would have chosen.
 
-Your diagnostic broke into four areas. Meeting Rhythm: {{contact.cc_section_a_meeting_rhythm}}. Team Drivers: {{contact.cc_section_b_team_drivers}}. Sprint Architecture: {{contact.cc_section_c_sprint_architecture}}. Culture Energy: {{contact.cc_section_d_culture_energy}}.
+Your diagnostic broke into four areas. Meeting Rhythm: {{contact.csc_section_a_meeting_rhythm}}. Team Drivers: {{contact.csc_section_b_team_drivers}}. Sprint Architecture: {{contact.csc_section_c_sprint_architecture}}. Culture Energy: {{contact.csc_section_d_culture_energy}}.
 
 The lowest of those scores is where the drift is most visible. It is where your team is most likely operating without structure — where decisions happen by default instead of by design.
 
@@ -368,7 +350,7 @@ Founder, Paradigm Consulting
 
 {{contact.first_name}},
 
-Two days ago your Culture Calendar diagnostic scored {{contact.cc_diagnostic_score}} out of 100.
+Two days ago your Culture Calendar diagnostic scored {{contact.csc_diagnostic_score}} out of 100.
 
 I want to talk about what a NO RHYTHM score actually looks like inside a business, because most founders experience the symptoms without connecting them to the cause.
 
@@ -376,7 +358,7 @@ The symptoms look like this: team members working on different priorities withou
 
 The cause is always the same. There is no operating rhythm. No meeting cadence that creates shared context. No sprint structure that translates priorities into weekly commitments. No recognition system that reinforces the behaviors the business actually needs.
 
-Your Meeting Rhythm score was {{contact.cc_section_a_meeting_rhythm}} out of 25. That is the foundation everything else is built on. Without a meeting rhythm, every other culture initiative — team recognition, sprint planning, energy management — is disconnected from the operating reality of the business.
+Your Meeting Rhythm score was {{contact.csc_section_a_meeting_rhythm}} out of 25. That is the foundation everything else is built on. Without a meeting rhythm, every other culture initiative — team recognition, sprint planning, energy management — is disconnected from the operating reality of the business.
 
 The 3x3OS Culture pillar starts with meeting rhythm. Not because it is the most exciting. Because it is the infrastructure that makes everything else work.
 
@@ -396,7 +378,7 @@ Matt
 
 {{contact.first_name}},
 
-Your Culture Calendar diagnostic showed a NO RHYTHM result — {{contact.cc_diagnostic_score}} out of 100.
+Your Culture Calendar diagnostic showed a NO RHYTHM result — {{contact.csc_diagnostic_score}} out of 100.
 
 I want to name something that founders in your position rarely think about directly.
 
@@ -404,7 +386,7 @@ Your team already has a culture. It was not designed. It was not documented. It 
 
 That default culture is operating right now. It determines how your team responds to pressure. Whether problems get raised or buried. Whether initiative gets rewarded or goes unnoticed. Whether people stay because they are building something or because they have not found something better yet.
 
-A score of {{contact.cc_diagnostic_score}} means there is no system overriding those defaults. No meeting structure creating shared context. No sprint cadence translating priorities into action. No recognition rhythm reinforcing the behaviors you actually want.
+A score of {{contact.csc_diagnostic_score}} means there is no system overriding those defaults. No meeting structure creating shared context. No sprint cadence translating priorities into action. No recognition rhythm reinforcing the behaviors you actually want.
 
 The 3x3OS engagement installs a 12-month culture operating system in 90 days. Not a workshop. Not a set of values on a wall. A working infrastructure — meeting cadences, sprint architecture, team driver systems, and culture energy practices — that runs on its own after installation.
 
@@ -432,13 +414,13 @@ Week 1: We audit the current meeting cadence — what exists, what is missing, w
 
 Week 2: We install the meeting rhythm — the specific cadence of daily standups, weekly planning sessions, and monthly retrospectives that creates shared context across the team. Each meeting has a defined purpose, a time limit, and a decision output. No status updates disguised as meetings.
 
-Week 3: We build the sprint architecture — the quarterly planning structure that translates business priorities into weekly team commitments. Your Sprint Architecture score was {{contact.cc_section_c_sprint_architecture}} out of 25. This is where the gap between what the founder wants and what the team produces gets closed.
+Week 3: We build the sprint architecture — the quarterly planning structure that translates business priorities into weekly team commitments. Your Sprint Architecture score was {{contact.csc_section_c_sprint_architecture}} out of 25. This is where the gap between what the founder wants and what the team produces gets closed.
 
-Week 4: We install the first team driver system — the recognition and accountability structure that reinforces the behaviors the business needs. Your Team Drivers score was {{contact.cc_section_b_team_drivers}} out of 25. This is where culture stops being a concept and becomes an operating system.
+Week 4: We install the first team driver system — the recognition and accountability structure that reinforces the behaviors the business needs. Your Team Drivers score was {{contact.csc_section_b_team_drivers}} out of 25. This is where culture stops being a concept and becomes an operating system.
 
 That is Month 1. Months 2 and 3 layer on the culture energy practices, the calendar of quarterly initiatives, and the self-sustaining rhythms that run without the founder managing them.
 
-I have room for one more engagement starting {{contact.cc_start_quarter}}. If the timing aligns, the application is below.
+I have room for one more engagement starting {{contact.csc_start_quarter}}. If the timing aligns, the application is below.
 
 Matt
 
@@ -458,7 +440,7 @@ Matt
 
 This is my last email about your Culture Calendar results.
 
-Your score was {{contact.cc_diagnostic_score}} out of 100. Your business has no culture rhythm — no meeting infrastructure, no sprint architecture, no recognition system, no designed cadence that shapes how your team operates.
+Your score was {{contact.csc_diagnostic_score}} out of 100. Your business has no culture rhythm — no meeting infrastructure, no sprint architecture, no recognition system, no designed cadence that shapes how your team operates.
 
 That will not change by itself. Hiring better people does not fix it. Working harder does not fix it. Another offsite does not fix it. Culture infrastructure is installed or it is absent. There is no middle state where it organically appears.
 
@@ -478,9 +460,9 @@ After Email 5:
 
 ---
 
-### CC — Track 2 Early Stage (Score 36-55)
+### CSC — Track 2 Early Stage (Score 36-55)
 
-**Name:** CC — Track 2 Early Stage
+**Name:** CSC — Track 2 Early Stage
 **Status:** Publish when complete
 **Trigger:** Enrolled from 12-Month Culture Calendar intake workflow
 
@@ -488,15 +470,22 @@ Framing: The business has fragments of culture infrastructure — some meetings 
 
 **Goal Step:** Contact clicks tracked link tagged "Apply-3x3OS-Link"
 When goal fires:
-- Add tag: applied-3x3os
+- Add tag: `csc-application` (triggers shared Application Hot Lead workflow — pattern doc §8)
 - Remove tag: email-sequence-active
-- Move pipeline stage to: Application Link Clicked
 - Stop all further steps immediately
+
+(Pipeline stage move handled by shared Application Hot Lead workflow.)
 
 #### Email 1 — Send immediately
 
+**Suppression check (REQUIRED — see [paradigm-ghl-workflow-pattern.md §5](paradigm-ghl-workflow-pattern.md)):**
+
+Before sending this email, check the contact for the `paradigm-welcomed` tag:
+- IF contact does NOT have tag `paradigm-welcomed` → send the warm-welcome variant below AND apply tag `paradigm-welcomed`
+- ELSE → send the result-only variant (a shortened version without the "intro to Paradigm" paragraphs)
+
 **Subject:** Your culture diagnostic, {{contact.first_name}}
-**Preview:** A score of {{contact.cc_diagnostic_score}} tells a specific story. Here is what the sections reveal.
+**Preview:** A score of {{contact.csc_diagnostic_score}} tells a specific story. Here is what the sections reveal.
 **From:** Matt | Founder, Paradigm Consulting
 
 **Body:**
@@ -505,13 +494,13 @@ When goal fires:
 
 You just completed the 12-Month Culture Calendar diagnostic on the Paradigm Consulting site.
 
-Your score was {{contact.cc_diagnostic_score}} out of 100. That places your business in the EARLY STAGE tier. Here is what that means in practice.
+Your score was {{contact.csc_diagnostic_score}} out of 100. That places your business in the EARLY STAGE tier. Here is what that means in practice.
 
 You have pieces. Some meetings exist. Some recognition happens. Some planning structure is in place. The team has moments where everything clicks — where people are aligned and producing work that feels coordinated and purposeful.
 
 But those moments do not sustain. The rhythm breaks down. Meetings drift. Priorities shift without the team fully recalibrating. Recognition happens when the founder remembers, not when a system triggers it. The culture operates on the founder's energy rather than its own infrastructure.
 
-Your section scores tell the story. Meeting Rhythm: {{contact.cc_section_a_meeting_rhythm}} out of 25. Team Drivers: {{contact.cc_section_b_team_drivers}} out of 25. Sprint Architecture: {{contact.cc_section_c_sprint_architecture}} out of 25. Culture Energy: {{contact.cc_section_d_culture_energy}} out of 25.
+Your section scores tell the story. Meeting Rhythm: {{contact.csc_section_a_meeting_rhythm}} out of 25. Team Drivers: {{contact.csc_section_b_team_drivers}} out of 25. Sprint Architecture: {{contact.csc_section_c_sprint_architecture}} out of 25. Culture Energy: {{contact.csc_section_d_culture_energy}} out of 25.
 
 The section with the lowest score is where the system breaks down first. The section with the highest score is what you have been compensating with.
 
@@ -536,7 +525,7 @@ Founder, Paradigm Consulting
 
 {{contact.first_name}},
 
-Two days ago your Culture Calendar diagnostic scored {{contact.cc_diagnostic_score}} out of 100 — EARLY STAGE.
+Two days ago your Culture Calendar diagnostic scored {{contact.csc_diagnostic_score}} out of 100 — EARLY STAGE.
 
 I want to name the specific pattern that defines this tier because it is the most frustrating position a founder can be in.
 
@@ -546,7 +535,7 @@ The problem is that the good weeks are not reproducible. They happen when circum
 
 That is not a people problem. It is an infrastructure problem. The meeting cadence is not strong enough to maintain alignment when the founder is not actively driving it. The sprint structure is not clear enough to keep priorities visible across weeks. The recognition system is not systematic enough to reinforce the right behaviors consistently.
 
-Your score of {{contact.cc_diagnostic_score}} means the pieces exist but they are not connected into a system. The 3x3OS Culture pillar connects them — and fills the gaps that cause the rhythm to break every time the founder looks away.
+Your score of {{contact.csc_diagnostic_score}} means the pieces exist but they are not connected into a system. The 3x3OS Culture pillar connects them — and fills the gaps that cause the rhythm to break every time the founder looks away.
 
 Matt
 
@@ -564,7 +553,7 @@ Matt
 
 {{contact.first_name}},
 
-Your Culture Calendar diagnostic scored {{contact.cc_diagnostic_score}} out of 100.
+Your Culture Calendar diagnostic scored {{contact.csc_diagnostic_score}} out of 100.
 
 I want to draw a line between two modes of operating that look similar from the outside but produce very different results over 12 months.
 
@@ -572,7 +561,7 @@ Founder-driven culture: the founder sets the tone every morning. The founder dec
 
 System-driven culture: the meeting cadence creates shared context automatically. The sprint architecture translates priorities into weekly commitments without the founder translating them. The recognition system fires on triggers, not on the founder's memory. The culture operates on infrastructure, not on one person's capacity.
 
-Your diagnostic tells me you are in the first mode. Your Culture Energy score of {{contact.cc_section_d_culture_energy}} out of 25 is the clearest signal — that section measures whether the culture generates energy on its own or requires the founder to supply it.
+Your diagnostic tells me you are in the first mode. Your Culture Energy score of {{contact.csc_section_d_culture_energy}} out of 25 is the clearest signal — that section measures whether the culture generates energy on its own or requires the founder to supply it.
 
 The 3x3OS engagement moves a business from mode one to mode two in 90 days. Not by replacing the founder's influence. By building the infrastructure that carries the culture the founder designed, without requiring the founder to run it manually every day.
 
@@ -592,7 +581,7 @@ Matt
 
 {{contact.first_name}},
 
-A week ago you completed the Culture Calendar diagnostic. Your section scores were: Meeting Rhythm {{contact.cc_section_a_meeting_rhythm}}, Team Drivers {{contact.cc_section_b_team_drivers}}, Sprint Architecture {{contact.cc_section_c_sprint_architecture}}, Culture Energy {{contact.cc_section_d_culture_energy}}.
+A week ago you completed the Culture Calendar diagnostic. Your section scores were: Meeting Rhythm {{contact.csc_section_a_meeting_rhythm}}, Team Drivers {{contact.csc_section_b_team_drivers}}, Sprint Architecture {{contact.csc_section_c_sprint_architecture}}, Culture Energy {{contact.csc_section_d_culture_energy}}.
 
 I want to talk about what the lowest of those numbers means in practice.
 
@@ -626,7 +615,7 @@ Matt
 
 This is my last email about your Culture Calendar results.
 
-Your score was {{contact.cc_diagnostic_score}} out of 100. You have pieces of a culture system in place but they are not connected. The good weeks happen when you drive them. The bad weeks happen when you do not.
+Your score was {{contact.csc_diagnostic_score}} out of 100. You have pieces of a culture system in place but they are not connected. The good weeks happen when you drive them. The bad weeks happen when you do not.
 
 That pattern will not resolve with more effort. It resolves with infrastructure — a meeting cadence that maintains alignment, a sprint architecture that keeps priorities visible, a recognition system that reinforces the right behaviors, and a culture energy practice that generates momentum without requiring the founder to supply it.
 
@@ -646,9 +635,9 @@ After Email 5:
 
 ---
 
-### CC — Track 3 Developing (Score 56-75)
+### CSC — Track 3 Developing (Score 56-75)
 
-**Name:** CC — Track 3 Developing
+**Name:** CSC — Track 3 Developing
 **Status:** Publish when complete
 **Trigger:** Enrolled from 12-Month Culture Calendar intake workflow
 
@@ -656,15 +645,22 @@ Framing: The business has a working culture system with real infrastructure. Mee
 
 **Goal Step:** Contact clicks tracked link tagged "Apply-3x3OS-Link"
 When goal fires:
-- Add tag: applied-3x3os
+- Add tag: `csc-application` (triggers shared Application Hot Lead workflow — pattern doc §8)
 - Remove tag: email-sequence-active
-- Move pipeline stage to: Application Link Clicked
 - Stop all further steps immediately
+
+(Pipeline stage move handled by shared Application Hot Lead workflow.)
 
 #### Email 1 — Send immediately
 
+**Suppression check (REQUIRED — see [paradigm-ghl-workflow-pattern.md §5](paradigm-ghl-workflow-pattern.md)):**
+
+Before sending this email, check the contact for the `paradigm-welcomed` tag:
+- IF contact does NOT have tag `paradigm-welcomed` → send the warm-welcome variant below AND apply tag `paradigm-welcomed`
+- ELSE → send the result-only variant (a shortened version without the "intro to Paradigm" paragraphs)
+
 **Subject:** Your culture diagnostic, {{contact.first_name}}
-**Preview:** A score of {{contact.cc_diagnostic_score}} means you have built something real. Here is what the remaining gap looks like.
+**Preview:** A score of {{contact.csc_diagnostic_score}} means you have built something real. Here is what the remaining gap looks like.
 **From:** Matt | Founder, Paradigm Consulting
 
 **Body:**
@@ -673,11 +669,11 @@ When goal fires:
 
 You just completed the 12-Month Culture Calendar diagnostic on the Paradigm Consulting site.
 
-Your score was {{contact.cc_diagnostic_score}} out of 100. That places your business in the DEVELOPING tier — and that label understates what you have built.
+Your score was {{contact.csc_diagnostic_score}} out of 100. That places your business in the DEVELOPING tier — and that label understates what you have built.
 
 A score in this range means your business has real culture infrastructure. Meetings happen with purpose. Sprints exist in some form. Team recognition is not entirely accidental. You have built a system that most founder-led businesses never achieve.
 
-The gap that remains is specific. Your section scores tell you exactly where it is. Meeting Rhythm: {{contact.cc_section_a_meeting_rhythm}} out of 25. Team Drivers: {{contact.cc_section_b_team_drivers}} out of 25. Sprint Architecture: {{contact.cc_section_c_sprint_architecture}} out of 25. Culture Energy: {{contact.cc_section_d_culture_energy}} out of 25.
+The gap that remains is specific. Your section scores tell you exactly where it is. Meeting Rhythm: {{contact.csc_section_a_meeting_rhythm}} out of 25. Team Drivers: {{contact.csc_section_b_team_drivers}} out of 25. Sprint Architecture: {{contact.csc_section_c_sprint_architecture}} out of 25. Culture Energy: {{contact.csc_section_d_culture_energy}} out of 25.
 
 The section with the lowest score is where the system is most vulnerable. It is the area that reverts to default when the quarter gets busy, when a team member leaves, or when the founder's attention shifts to another part of the business.
 
@@ -702,7 +698,7 @@ Founder, Paradigm Consulting
 
 {{contact.first_name}},
 
-Two days ago your Culture Calendar diagnostic scored {{contact.cc_diagnostic_score}} out of 100 — DEVELOPING.
+Two days ago your Culture Calendar diagnostic scored {{contact.csc_diagnostic_score}} out of 100 — DEVELOPING.
 
 I want to name the specific challenge at your stage because it is different from what businesses at lower scores face.
 
@@ -728,7 +724,7 @@ Matt
 
 {{contact.first_name}},
 
-Your Culture Calendar diagnostic scored {{contact.cc_diagnostic_score}} out of 100. At your level, I want to be specific about what the 12-month culture calendar actually installs — because it is not what most founders picture when they hear the word culture.
+Your Culture Calendar diagnostic scored {{contact.csc_diagnostic_score}} out of 100. At your level, I want to be specific about what the 12-month culture calendar actually installs — because it is not what most founders picture when they hear the word culture.
 
 It is not a schedule of team lunches and birthday celebrations. It is the operating calendar that structures how your team aligns, executes, reflects, and recharges across every quarter.
 
@@ -740,7 +736,7 @@ Q3: Culture energy practices and momentum building. The specific practices — s
 
 Q4: Annual retrospective and next-year planning. The structured review that captures what worked, what did not, and what changes for the next cycle. The planning cadence that ensures January 1 starts with clarity rather than scramble.
 
-You said your preferred start quarter is {{contact.cc_start_quarter}}. The calendar is built to start at any point in the cycle. The engagement installs it in 90 days regardless of when it begins.
+You said your preferred start quarter is {{contact.csc_start_quarter}}. The calendar is built to start at any point in the cycle. The engagement installs it in 90 days regardless of when it begins.
 
 Matt
 
@@ -758,7 +754,7 @@ Matt
 
 {{contact.first_name}},
 
-A week ago you completed the Culture Calendar diagnostic. Your score of {{contact.cc_diagnostic_score}} puts you in a position that creates a specific kind of tension.
+A week ago you completed the Culture Calendar diagnostic. Your score of {{contact.csc_diagnostic_score}} puts you in a position that creates a specific kind of tension.
 
 Your team has experienced what a working culture feels like. The good weeks are good enough that people know the difference. They have been in meetings that were productive. They have experienced sprints where priorities were clear. They have felt the energy when the culture is operating well.
 
@@ -786,7 +782,7 @@ Matt
 
 This is my last email about your Culture Calendar results.
 
-Your score was {{contact.cc_diagnostic_score}} out of 100. You have built real culture infrastructure — more than most founder-led businesses ever achieve. The gap that remains is specific, closable, and worth closing before the next quarter begins.
+Your score was {{contact.csc_diagnostic_score}} out of 100. You have built real culture infrastructure — more than most founder-led businesses ever achieve. The gap that remains is specific, closable, and worth closing before the next quarter begins.
 
 The 3x3OS Culture pillar does not rebuild what you have built. It completes the system — closing the section gaps your diagnostic revealed and installing the 12-month calendar that makes the whole infrastructure self-sustaining through every quarter.
 
@@ -806,9 +802,9 @@ After Email 5:
 
 ---
 
-### CC — Track 4 Calendar Ready (Score 76-100)
+### CSC — Track 4 Calendar Ready (Score 76-100)
 
-**Name:** CC — Track 4 Calendar Ready
+**Name:** CSC — Track 4 Calendar Ready
 **Status:** Publish when complete
 **Trigger:** Enrolled from 12-Month Culture Calendar intake workflow
 
@@ -816,15 +812,22 @@ Framing: The business has strong culture infrastructure across most or all secti
 
 **Goal Step:** Contact clicks tracked link tagged "Apply-3x3OS-Link"
 When goal fires:
-- Add tag: applied-3x3os
+- Add tag: `csc-application` (triggers shared Application Hot Lead workflow — pattern doc §8)
 - Remove tag: email-sequence-active
-- Move pipeline stage to: Application Link Clicked
 - Stop all further steps immediately
+
+(Pipeline stage move handled by shared Application Hot Lead workflow.)
 
 #### Email 1 — Send immediately
 
+**Suppression check (REQUIRED — see [paradigm-ghl-workflow-pattern.md §5](paradigm-ghl-workflow-pattern.md)):**
+
+Before sending this email, check the contact for the `paradigm-welcomed` tag:
+- IF contact does NOT have tag `paradigm-welcomed` → send the warm-welcome variant below AND apply tag `paradigm-welcomed`
+- ELSE → send the result-only variant (a shortened version without the "intro to Paradigm" paragraphs)
+
 **Subject:** Your culture diagnostic, {{contact.first_name}}
-**Preview:** A score of {{contact.cc_diagnostic_score}} puts your business in rare company. Here is what protecting it requires.
+**Preview:** A score of {{contact.csc_diagnostic_score}} puts your business in rare company. Here is what protecting it requires.
 **From:** Matt | Founder, Paradigm Consulting
 
 **Body:**
@@ -833,9 +836,9 @@ When goal fires:
 
 You just completed the 12-Month Culture Calendar diagnostic on the Paradigm Consulting site.
 
-Your score was {{contact.cc_diagnostic_score}} out of 100. That places your business in the CALENDAR READY tier. That is a strong result — and it reflects real, intentional work you have done on your team's operating culture.
+Your score was {{contact.csc_diagnostic_score}} out of 100. That places your business in the CALENDAR READY tier. That is a strong result — and it reflects real, intentional work you have done on your team's operating culture.
 
-Your section scores confirm the strength is broad. Meeting Rhythm: {{contact.cc_section_a_meeting_rhythm}} out of 25. Team Drivers: {{contact.cc_section_b_team_drivers}} out of 25. Sprint Architecture: {{contact.cc_section_c_sprint_architecture}} out of 25. Culture Energy: {{contact.cc_section_d_culture_energy}} out of 25.
+Your section scores confirm the strength is broad. Meeting Rhythm: {{contact.csc_section_a_meeting_rhythm}} out of 25. Team Drivers: {{contact.csc_section_b_team_drivers}} out of 25. Sprint Architecture: {{contact.csc_section_c_sprint_architecture}} out of 25. Culture Energy: {{contact.csc_section_d_culture_energy}} out of 25.
 
 I want to be direct about what this score means and what it does not.
 
@@ -862,7 +865,7 @@ Founder, Paradigm Consulting
 
 {{contact.first_name}},
 
-Three days ago your Culture Calendar diagnostic scored {{contact.cc_diagnostic_score}} out of 100 — CALENDAR READY.
+Three days ago your Culture Calendar diagnostic scored {{contact.csc_diagnostic_score}} out of 100 — CALENDAR READY.
 
 I want to name the specific risk that exists even when culture is strong.
 
@@ -872,7 +875,7 @@ Both conditions are more likely at your score level than at any other. Your cult
 
 The 3x3OS Culture pillar at your position is not a rebuild. It is a formalization — taking the culture system you have built, documenting it into a 12-month operating calendar, and installing the maintenance rhythm that adapts it proactively as the business enters its next growth stage.
 
-You said your culture vision is {{contact.cc_culture_vision}}. The calendar is built around that vision — making it the operating default rather than an aspiration.
+You said your culture vision is {{contact.csc_culture_vision}}. The calendar is built around that vision — making it the operating default rather than an aspiration.
 
 Application-only. Reviewed personally.
 
@@ -892,7 +895,7 @@ Matt
 
 {{contact.first_name}},
 
-Your Culture Calendar diagnostic scored {{contact.cc_diagnostic_score}} out of 100. Your culture system is working.
+Your Culture Calendar diagnostic scored {{contact.csc_diagnostic_score}} out of 100. Your culture system is working.
 
 The question I want to pose is specific to your stage: is the system documented well enough that someone other than you could maintain it?
 
@@ -918,7 +921,7 @@ Matt
 
 {{contact.first_name}},
 
-Your Culture Calendar diagnostic scored {{contact.cc_diagnostic_score}} out of 100.
+Your Culture Calendar diagnostic scored {{contact.csc_diagnostic_score}} out of 100.
 
 I want to close this sequence with something direct.
 
@@ -948,7 +951,7 @@ Matt
 
 This is my last email about your Culture Calendar results.
 
-Your score was {{contact.cc_diagnostic_score}} out of 100. You are in the top tier of culture readiness for founder-led businesses. The system is working. The team is operating with rhythm.
+Your score was {{contact.csc_diagnostic_score}} out of 100. You are in the top tier of culture readiness for founder-led businesses. The system is working. The team is operating with rhythm.
 
 The only question is whether the system is formalized into a structure that survives the next growth phase — or whether it remains dependent on the founder's presence and energy to maintain.
 
@@ -970,72 +973,43 @@ After Email 5:
 
 ---
 
-## WORKFLOW 3 — CC Application Link Clicked
+## WORKFLOW 3 — CSC Application Link Clicked
 
-**Name:** CC — Application Link Clicked
-**Status:** Publish when complete
-**Trigger:** Contact clicks tracked link tagged "Apply-3x3OS-Link" AND tag cc-lead exists
+**DEPRECATED** — Application handling is now performed by the shared "Application Hot Lead" workflow defined in [paradigm-ghl-workflow-pattern.md §8](paradigm-ghl-workflow-pattern.md). The CSC Email Sequence goal step (in each Track 1–4 workflow) applies `csc-application`, which triggers the shared workflow. No CSC-specific apply-link workflow is needed.
 
-> **NOTE:** Check whether existing application link workflows already handle this globally. If so, skip this workflow.
+~~Original spec retained for reference (struck through):~~
 
-### Step 1 — Check for tag applied-3x3os. If exists, stop workflow.
-### Step 2 — Add tag: applied-3x3os
-### Step 3 — Move pipeline stage to: Application Link Clicked
-### Step 4 — Remove tag: email-sequence-active
-### Step 5 — Remove contact from all active CC email sequence workflows
-### Step 6 — Wait 10 minutes
+~~**Name:** CSC — Application Link Clicked~~
+~~**Trigger:** Contact clicks tracked link tagged "Apply-3x3OS-Link" AND tag csc-lead exists~~
 
-### Step 7 — Internal notification to jay@paradigmconsulting.co
+~~Step 1 — Check for tag applied-3x3os. If exists, stop workflow.~~
+~~Step 2 — Add tag: applied-3x3os~~
+~~Step 3 — Move pipeline stage to: Application Link Clicked~~
+~~Step 4 — Remove tag: email-sequence-active~~
+~~Step 5 — Remove contact from all active CSC email sequence workflows~~
+~~Step 6 — Wait 10 minutes~~
+~~Step 7 — Internal notification to ari@ + jay@paradigmconsulting.io with full body~~
+~~Step 8 — Send contact email "We received your interest" with subject, preview, body, and CTA — application acknowledgement is now handled by the shared Application Hot Lead workflow (pattern doc §8).~~
 
-**Subject:** Apply Link Clicked — {{contact.first_name}} — {{contact.email}} — Culture Calendar Lead
+The original "We received your interest" acknowledgement copy is preserved below in case it should be reused as the contact-facing email inside the shared Application Hot Lead workflow:
 
-**Body:**
-```
-Name: {{contact.first_name}}
-Email: {{contact.email}}
-Diagnostic Score: {{contact.cc_diagnostic_score}} / 100
-Tier: {{contact.cc_tier}}
-Section A (Meeting Rhythm): {{contact.cc_section_a_meeting_rhythm}}
-Section B (Team Drivers): {{contact.cc_section_b_team_drivers}}
-Section C (Sprint Architecture): {{contact.cc_section_c_sprint_architecture}}
-Section D (Culture Energy): {{contact.cc_section_d_culture_energy}}
-Team Size: {{contact.cc_team_size}}
-Primary Goal: {{contact.cc_primary_goal}}
-Culture Vision: {{contact.cc_culture_vision}}
-Submitted: {{contact.cc_submitted_at}}
-Check contact record for assessment suite data if applicable
-```
-
-### Step 8 — Send contact email
-
-**Subject:** We received your interest, {{contact.first_name}}
-**Preview:** Someone will be in touch within 48 hours.
-**From:** Matt | Founder, Paradigm Consulting
-
-**Body:**
-
-{{contact.first_name}},
-
-We saw that you clicked through to the 3x3OS application.
-
-If you submitted the application, we will review it personally and be in touch within 48 hours.
-
-If you clicked through but did not complete it, the link is below. It takes five minutes and gives us everything we need to determine whether the 3x3OS engagement is the right fit for where your business is right now.
-
-We do not accept every application. Not because of exclusivity, but because we only work with founders where we are confident the engagement is the right next step. The application is how we make that determination.
-
-Matt
-Founder, Paradigm Consulting
-
-**[CTA Button: Complete My Application — link to application page]**
+> Subject: We received your interest, {{contact.first_name}}
+> Preview: Someone will be in touch within 48 hours.
+> From: Matt | Founder, Paradigm Consulting
+>
+> {{contact.first_name}},
+> We saw that you clicked through to the 3x3OS application. If you submitted the application, we will review it personally and be in touch within 48 hours. If you clicked through but did not complete it, the link is below. It takes five minutes and gives us everything we need to determine whether the 3x3OS engagement is the right fit for where your business is right now. We do not accept every application. Not because of exclusivity, but because we only work with founders where we are confident the engagement is the right next step. The application is how we make that determination.
+> Matt — Founder, Paradigm Consulting
+> [CTA Button: Complete My Application — link to application page]
 
 ---
 
-## WORKFLOW 4 — CC Re-Engagement 30 Day
+## WORKFLOW 4 — CSC Re-Engagement 30 Day
 
-**Name:** CC — Re-Engagement 30 Day
+**Name:** CSC — Re-Engagement 30 Day
 **Status:** Publish when complete
-**Trigger:** Tag = cc-lead AND pipeline stage = Assessment Submitted OR Email Sequence Active AND last activity > 30 days ago AND tag applied-3x3os does NOT exist
+**Trigger:** Tag = `csc-lead` AND last activity > 30 days ago AND tag `csc-application` does NOT exist
+> (Removed pipeline-stage trigger conditions since CSC intake no longer assigns to a pipeline.)
 
 ### Step 1 — Send Email
 
@@ -1047,7 +1021,7 @@ Founder, Paradigm Consulting
 
 {{contact.first_name}},
 
-A few weeks ago you completed the 12-Month Culture Calendar diagnostic and scored {{contact.cc_diagnostic_score}} out of 100 — {{contact.cc_tier}}.
+A few weeks ago you completed the 12-Month Culture Calendar diagnostic and scored {{contact.csc_diagnostic_score}} out of 100 — {{contact.csc_tier}}.
 
 The culture gaps your diagnostic revealed have not changed. The meeting rhythm is the same. The sprint architecture is the same. The team driver systems and culture energy practices are operating at the same level they were when you took the diagnostic.
 
@@ -1067,7 +1041,7 @@ Founder, Paradigm Consulting
 ### Step 3 — If no response and no apply click:
 - Remove tag: email-sequence-active
 - Add tag: sequence-completed
-- Move pipeline to: Nurture - Long Term
+- (Pipeline move removed — intake no longer in Paradigm Leads pipeline.)
 
 ---
 
@@ -1077,30 +1051,30 @@ Build these in GHL > Contacts > Smart Lists:
 
 | List Name | Filters |
 |---|---|
-| CC — All Leads | Tag = cc-lead |
-| CC — No Rhythm (0-35) | Tag = cc-no-rhythm |
-| CC — Early Stage (36-55) | Tag = cc-early-stage |
-| CC — Developing (56-75) | Tag = cc-developing |
-| CC — Calendar Ready (76-100) | Tag = cc-calendar-ready |
-| CC — Active Sequences | Tag = email-sequence-active AND Tag = cc-lead |
-| CC — Sequence Completed Not Applied | Tag = sequence-completed AND Tag = cc-lead AND Tag applied-3x3os does NOT exist |
-| CC — Solo Founders | Tag = cc-lead AND Tag = cc-solo |
-| CC — Large Teams | Tag = cc-lead AND Tag = cc-large-team |
-| CC — Goal: Exit | Tag = cc-lead AND cc_primary_goal = "exit" |
-| CC — Goal: Revenue | Tag = cc-lead AND cc_primary_goal = "revenue" |
-| CC — Low Meeting Rhythm | Tag = cc-lead AND cc_section_a_meeting_rhythm <= 10 |
-| CC — Low Culture Energy | Tag = cc-lead AND cc_section_d_culture_energy <= 10 |
-| CC — High Value (No Rhythm + Medium/Large Team) | Tag = cc-no-rhythm AND (Tag = cc-medium-team OR Tag = cc-large-team) |
-| CC — Also In Assessment Suite | Tag = cc-lead AND (Tag = fei-lead OR Tag = cma-lead OR Tag = fbe-lead OR Tag = compliance-spine-lead OR Tag = leverage-engine-lead OR Tag = system-architecture-lead) |
+| `csc-all-leads` | Tag = `csc-lead` |
+| `csc-no-rhythm` | Tag = `csc-no-rhythm` |
+| `csc-early-stage` | Tag = `csc-early-stage` |
+| `csc-developing` | Tag = `csc-developing` |
+| `csc-calendar-ready` | Tag = `csc-calendar-ready` |
+| `csc-active-sequences` | Tag = `email-sequence-active` AND Tag = `csc-lead` |
+| `csc-sequence-completed-no-application` | Tag = `sequence-completed` AND Tag = `csc-lead` AND Tag `csc-application` does NOT exist |
+| `csc-solo-founders` | Tag = `csc-lead` AND Tag = `csc-solo` |
+| `csc-large-teams` | Tag = `csc-lead` AND Tag = `csc-large-team` |
+| `csc-goal-exit` | Tag = `csc-lead` AND `csc_primary_goal` = "exit" |
+| `csc-goal-revenue` | Tag = `csc-lead` AND `csc_primary_goal` = "revenue" |
+| `csc-low-meeting-rhythm` | Tag = `csc-lead` AND `csc_section_a_meeting_rhythm` <= 10 |
+| `csc-low-culture-energy` | Tag = `csc-lead` AND `csc_section_d_culture_energy` <= 10 |
+| `csc-high-value` | Tag = `csc-no-rhythm` AND (Tag = `csc-medium-team` OR Tag = `csc-large-team`) |
+| `csc-multi-assessment` | Tag = `csc-lead` AND (Tag = `fei-lead` OR Tag = `cma-lead` OR Tag = `fbe-lead` OR Tag = `cs-lead` OR Tag = `le-lead` OR Tag = `saa-lead`) |
 
 ---
 
 ## MULTI-ASSESSMENT PRIORITY ROUTER UPDATE
 
 Open existing **Multi-Assessment Priority Router** workflow. Add:
-- `cc_diagnostic_score` and tier mapping to the worst-score comparison logic
+- `csc_diagnostic_score` and tier mapping to the worst-score comparison logic
 - Tier priority mapping: NO RHYTHM = 1, EARLY STAGE = 2, DEVELOPING = 3, CALENDAR READY = 4
-- When `worst_assessment_tool` = CC → enroll in the appropriate **CC — Track N** workflow based on tier
+- When `worst_assessment_tool` = CSC → enroll in the appropriate **CSC — Track N** workflow based on tier
 
 ---
 
@@ -1108,21 +1082,24 @@ Open existing **Multi-Assessment Priority Router** workflow. Add:
 
 After all workflows are built and published:
 
-- [ ] Submit test lead with score 20 → confirm Track 1 (No Rhythm), tag cc-no-rhythm
-- [ ] Submit test lead with score 45 → confirm Track 2 (Early Stage), tag cc-early-stage
-- [ ] Submit test lead with score 65 → confirm Track 3 (Developing), tag cc-developing
-- [ ] Submit test lead with score 85 → confirm Track 4 (Calendar Ready), tag cc-calendar-ready
+- [ ] Submit test lead with score 20 → confirm Track 1 (No Rhythm), tag csc-no-rhythm
+- [ ] Submit test lead with score 45 → confirm Track 2 (Early Stage), tag csc-early-stage
+- [ ] Submit test lead with score 65 → confirm Track 3 (Developing), tag csc-developing
+- [ ] Submit test lead with score 85 → confirm Track 4 (Calendar Ready), tag csc-calendar-ready
 - [ ] Confirm all 13 custom fields populate correctly on contact record
-- [ ] Confirm team size tags apply correctly (cc-solo, cc-small-team, cc-medium-team, cc-large-team)
-- [ ] Confirm pipeline stage moves to Assessment Submitted then Email Sequence Active
-- [ ] Confirm internal notification email delivers to jay@paradigmconsulting.co with all merge fields
+- [ ] Confirm team size tags apply correctly (csc-solo, csc-small-team, csc-medium-team, csc-large-team)
+- [ ] Confirm intake does NOT add to Paradigm Leads pipeline (CSC is a lead magnet — pattern doc §7)
+- [ ] Confirm internal notification email delivers to ari@paradigmconsulting.io + jay@paradigmconsulting.io with all merge fields
+- [ ] Confirm internal notification subject is `New CSC Lead — {{contact.first_name}}` (pattern doc §11 — Internal notification subject standardization)
+- [ ] Confirm Email 1 of each track checks `paradigm-welcomed` tag (pattern doc §5 suppression)
 - [ ] Confirm Email 1 sends from "Matt | Founder, Paradigm Consulting" for each track
 - [ ] Confirm Apply-3x3OS-Link tracked links work in all email CTAs
-- [ ] Confirm goal step fires on link click (tag applied-3x3os, remove email-sequence-active, move stage)
-- [ ] Submit application payload → confirm phone and business_name map, tag applied-3x3os applied, pipeline moves to Application Link Clicked
-- [ ] Confirm contacts with existing assessment data update on same record (no duplicate)
+- [ ] Confirm goal step fires on link click (apply tag `csc-application`, remove `email-sequence-active`)
+- [ ] Confirm shared Application Hot Lead workflow (pattern doc §8) fires on `csc-application` tag — sends HOT LEAD alert, moves into pipeline, runs SLA reminder
+- [ ] Submit application payload → confirm phone preserved if previously populated; standard `Company` written only if empty; `csc_business_name` always populated
+- [ ] Confirm contacts with existing assessment data update on same record (no duplicate), without overwriting First Name / Phone
 - [ ] Submit same email through a second assessment → confirm Multi-Assessment Priority Router fires
 - [ ] Confirm re-engagement workflow fires after 30 days of inactivity
-- [ ] Confirm re-engagement stops for contacts where applied-3x3os tag exists
-- [ ] Verify all 4 email sequences complete correctly (sequence-completed tag, email-sequence-active removed, pipeline moves to Nurture - Long Term)
-- [ ] Confirm CC High Value smart list surfaces No Rhythm + Medium/Large Team leads correctly
+- [ ] Confirm re-engagement stops for contacts where `csc-application` tag exists
+- [ ] Verify all 4 email sequences complete correctly (`sequence-completed` tag added, `email-sequence-active` removed)
+- [ ] Confirm `csc-high-value` smart list surfaces No Rhythm + Medium/Large Team leads correctly

@@ -3,6 +3,10 @@
 **Generated:** March 30, 2026
 **Location:** Paradigm Consulting (toKhUkB5BEHB9Jn52ktG)
 
+> **Conforms to:** [paradigm-ghl-workflow-pattern.md](paradigm-ghl-workflow-pattern.md) (v 2026-05-17). All deviations must be approved as named exceptions in the pattern doc first.
+
+Short key: `le` (per pattern doc §1).
+
 ---
 
 ## STEP 1 — CREATE CUSTOM FIELDS
@@ -26,16 +30,32 @@ Create these custom fields in GHL under Settings > Custom Fields > Contact:
 | LE Delegation Hours | contact.le_delegation_hours | NUMBER |
 | LE Technology Hours | contact.le_technology_hours | NUMBER |
 | LE Weekly Revenue Lost | contact.le_weekly_revenue_lost | NUMBER |
+| LE Annual Revenue Lost | contact.le_annual_revenue_lost | NUMBER |
+| LE Business Name | contact.le_business_name | TEXT |
 | LE Source | contact.le_source | TEXT |
 | LE Submitted At | contact.le_submitted_at | DATE |
+
+> **NOTE — `le_annual_revenue_lost`:** GHL merge tags don't support inline arithmetic. `leverage-engine.html` must compute this field client-side as `weekly_revenue_lost * 52` and include it in the webhook payload. See pattern doc §11. <!-- TODO: confirm leverage-engine.html sends `annual_revenue_lost` in payload -->
+
+> **Field type rule:** all numeric fields use `NUMBER` (not `NUMERICAL`) — pattern doc §3.
 
 ---
 
 ## STEP 2 — CREATE TAGS
 
+Lifecycle tags (per pattern doc §2):
+
+| Tag | When applied |
+|---|---|
+| `le-lead` | On webhook intake (replaces legacy `leverage-engine-lead`) |
+| `le-completed` | Reserved (LE has no completion-distinct event yet) |
+| `le-application` | When the `leverage-engine-apply` webhook fires (replaces legacy `applied-3x3os`) |
+| `le-converted` | When the contact pays for the related engagement |
+
+Score-bucket tags:
+
 | Tag |
 |---|
-| leverage-engine-lead |
 | le-low-leverage (score 0-25) |
 | le-moderate-leverage (score 26-50) |
 | le-good-leverage (score 51-75) |
@@ -46,9 +66,9 @@ Create these custom fields in GHL under Settings > Custom Fields > Contact:
 | le-large-team (team size 21+) |
 
 Pre-existing tags (already in system):
-- applied-3x3os
-- email-sequence-active
-- sequence-completed
+- `paradigm-welcomed` (per pattern doc §5 — suppression gate)
+- `email-sequence-active`
+- `sequence-completed`
 
 ---
 
@@ -124,8 +144,10 @@ Fires when founder clicks "Apply for 3x3OS" and submits phone + business name.
 ### Step 1 — Create or Update Contact
 
 Map from webhook payload:
-- first_name → First Name
-- email → Email
+- first_name → First Name (see duplicate-handling rule)
+- email → Email (dedupe key)
+- phone → Phone (see duplicate-handling rule)
+- business_name → LE Business Name + standard `Company` (see Company-field strategy below)
 - current_revenue → LE Current Revenue
 - target_revenue → LE Target Revenue
 - founder_hours_per_week → LE Founder Hours Per Week
@@ -141,20 +163,24 @@ Map from webhook payload:
 - delegation_hours → LE Delegation Hours
 - technology_hours → LE Technology Hours
 - weekly_revenue_lost → LE Weekly Revenue Lost
+- annual_revenue_lost → LE Annual Revenue Lost (computed client-side as `weekly_revenue_lost * 52`)
 - source → LE Source
 - timestamp → LE Submitted At
 
-Duplicate rule: Update existing contact if email matches.
+**Duplicate-handling rule:**
+- Match on `email`
+- If contact exists: update assessment custom fields, but **do not overwrite First Name or Phone if either is already populated.** Preserves earlier-touch identity.
+- For the standard `Company` field: write only if currently empty (first-write-wins). Always write to `le_business_name` regardless.
 
 ### Step 2 — Add to Pipeline
 
-- Pipeline: Paradigm Leads
-- Stage: Assessment Submitted
-- Only if contact is NOT already at a higher stage (position > 1)
+> **Pipeline note (pattern doc §7):** Leverage Engine is a paid offer and should have its own dedicated pipeline ("Leverage Engine"). Do NOT reuse Paradigm Leads for LE intake going forward. The intake (free calculator) does NOT get a pipeline assignment — it lives as tags + custom fields only. Only the `leverage-engine-apply` source promotes the contact into the Leverage Engine pipeline at the "Application Received" stage. <!-- TODO: confirm Leverage Engine pipeline exists in GHL; if not, build it before this workflow goes live -->
+
+For lead-magnet intake (this workflow): **no pipeline assignment.** Leave Step 2 blank or remove it. The pattern doc lists `le` (intake) under "Lead-magnet sources do NOT get pipelines."
 
 ### Step 3 — Add Tag
 
-- Tag: leverage-engine-lead
+- Tag: `le-lead`
 
 ### Step 4 — Team Size Tagging (If/Else Branches)
 
@@ -186,13 +212,13 @@ Duplicate rule: Update existing contact if email matches.
 
 After enrollment (all branches):
 - Add tag: email-sequence-active
-- Move pipeline stage to: Email Sequence Active (only if currently at Assessment Submitted)
+- (Pipeline stage move removed — intake is no longer assigned to Paradigm Leads pipeline. See Step 2 note.)
 
 ### Step 7 — Internal Notification Email
 
-**To:** jay@paradigmconsulting.co
+**To:** ari@paradigmconsulting.io, jay@paradigmconsulting.io
 
-**Subject:** New Leverage Engine Lead — {{contact.first_name}} — Score {{contact.le_leverage_score}} — {{contact.le_hours_to_replace}} hrs to replace
+**Subject:** New LE Lead — {{contact.first_name}}
 
 **Body:**
 ```
@@ -218,54 +244,22 @@ Submitted: {{contact.le_submitted_at}}
 
 ## WORKFLOW 2 — Leverage Engine Application Handler
 
-**Name:** Leverage Engine — Application
-**Status:** Publish when complete
-**Trigger:** Inbound Webhook (same trigger ID — route by source field)
+**DEPRECATED** — Application handling is now performed by the shared "Application Hot Lead" workflow defined in [paradigm-ghl-workflow-pattern.md §8](paradigm-ghl-workflow-pattern.md).
 
-**Alternative:** Add an If/Else branch at the top of Workflow 1 that checks if `source` = `leverage-engine-apply`, then routes to the application steps below instead of the intake steps above.
+The shared workflow triggers on any `*-application` tag (including `le-application`). It pauses nurture sequences, moves the contact into the appropriate paid pipeline (here: Leverage Engine, "Application Received" stage), sends a HOT LEAD internal alert to ari@ + jay@paradigmconsulting.io, and runs the 1-business-day SLA reminder.
 
-### Step 1 — Update Contact
+### Per-source responsibility (LE webhook → application tag)
 
-Map from webhook payload:
-- phone → Phone
-- business_name → Company (or a custom field)
-- source → LE Source (update to "leverage-engine-apply")
+When the `leverage-engine-apply` webhook fires, the LE-specific workflow only needs to:
 
-### Step 2 — Add Tag
+1. Update contact (apply duplicate-handling rule from Workflow 1 Step 1)
+   - phone → Phone (preserve if populated)
+   - business_name → standard `Company` (only if empty) AND `le_business_name` (always)
+   - source → LE Source (update to "leverage-engine-apply")
+2. Apply tag `le-application` (THIS is what triggers the shared Application Hot Lead workflow)
+3. Remove tag `email-sequence-active`
 
-- Tag: applied-3x3os
-
-### Step 3 — Move Pipeline Stage
-
-- Pipeline: Paradigm Leads
-- Stage: Application Link Clicked
-
-### Step 4 — Remove Tag
-
-- Remove: email-sequence-active
-
-### Step 5 — Internal Notification Email
-
-**To:** jay@paradigmconsulting.co
-
-**Subject:** 3x3OS APPLICATION — {{contact.first_name}} — Leverage Engine — Score {{contact.le_leverage_score}}
-
-**Body:**
-```
-APPLICATION RECEIVED
-
-Name: {{contact.first_name}}
-Email: {{contact.email}}
-Phone: {{contact.phone}}
-Business: (from webhook business_name)
-Current Revenue: ${{contact.le_current_revenue}}
-Target Revenue: ${{contact.le_target_revenue}}
-Leverage Score: {{contact.le_leverage_score}} / 100
-Hours to Replace: {{contact.le_hours_to_replace}}
-
-This lead applied through the Leverage Engine calculator.
-Review contact record for full leverage data.
-```
+~~Per-source pipeline moves, internal notifications, and SLA logic previously documented here have been deleted. They are now centralized in the shared Application Hot Lead workflow.~~
 
 ---
 
@@ -277,12 +271,19 @@ Framing: The founder IS the business. Every dollar requires their personal invol
 
 **Goal Step:** Contact clicks tracked link tagged "Apply-3x3OS-Link"
 When goal fires:
-- Add tag: applied-3x3os
+- Add tag: `le-application` (triggers shared Application Hot Lead workflow — pattern doc §8)
 - Remove tag: email-sequence-active
-- Move pipeline stage to: Application Link Clicked
 - Stop all further steps immediately
 
+(Pipeline stage move handled by shared Application Hot Lead workflow.)
+
 #### Email 1 — Send immediately
+
+**Suppression check (REQUIRED — see [paradigm-ghl-workflow-pattern.md §5](paradigm-ghl-workflow-pattern.md)):**
+
+Before sending this email, check the contact for the `paradigm-welcomed` tag:
+- IF contact does NOT have tag `paradigm-welcomed` → send the warm-welcome variant below AND apply tag `paradigm-welcomed`
+- ELSE → send the result-only variant (a shortened version without the "intro to Paradigm" paragraphs)
 
 **Subject:** Your leverage calculation, {{contact.first_name}}
 **Preview:** {{contact.le_hours_to_replace}} hours of your week need to change. Here is the breakdown.
@@ -359,7 +360,10 @@ Your Leverage Engine calculation included a number that most founders glance pas
 
 That is the gap between what your business generates now and what it could generate at your target revenue — divided into weekly increments so you can see the real cost of waiting.
 
-Over 12 months, that gap compounds to ${{contact.le_weekly_revenue_lost * 52}} in unrealized revenue.
+Over 12 months, that gap compounds to ${{contact.le_annual_revenue_lost}} in unrealized revenue.
+
+<!-- TODO: leverage-engine.html must compute `annual_revenue_lost = weekly_revenue_lost * 52` client-side and include it in the webhook payload (GHL merge tags do not support inline arithmetic). See pattern doc §11. -->
+
 
 That revenue is not being lost to competitors or bad marketing or a weak product. It is being lost to a structural constraint: the business cannot produce more than what the founder can personally touch.
 
@@ -410,7 +414,7 @@ After Email 4:
 
 Same structure as Track 1 with adjusted framing: The founder has some leverage but is still the primary revenue engine. Focus on the specific lever split (systems vs delegation vs technology) and which one closes the gap fastest.
 
-Use the same email cadence (immediate, +2d, +5d, +9d) with the same goal step and tag management. Adjust the copy to acknowledge existing infrastructure while emphasizing the gap.
+Use the same email cadence (immediate, +2d, +5d, +9d) with the same goal step (apply `le-application` tag → triggers shared Application Hot Lead workflow) and the same Email 1 `paradigm-welcomed` suppression check (pattern doc §5). Adjust the copy to acknowledge existing infrastructure while emphasizing the gap.
 
 ---
 
@@ -418,7 +422,7 @@ Use the same email cadence (immediate, +2d, +5d, +9d) with the same goal step an
 
 Framing: The founder has meaningful leverage in some areas. The message shifts from "you need leverage" to "you need to close the remaining gap with targeted installation." Shorter sequence — 3 emails instead of 4.
 
-Same goal step and tag management pattern.
+Same goal step (apply `le-application`) and Email 1 `paradigm-welcomed` suppression check as Track 1.
 
 ---
 
@@ -426,7 +430,7 @@ Same goal step and tag management pattern.
 
 Framing: The leverage ratio is strong. The remaining gap is closable with targeted moves. Position 3x3OS as refinement rather than rescue. 2 emails only — one with results, one with application.
 
-Same goal step and tag management pattern.
+Same goal step (apply `le-application`) and Email 1 `paradigm-welcomed` suppression check as Track 1.
 
 ---
 
@@ -436,9 +440,9 @@ Create these saved filters in GHL for ongoing lead management:
 
 | List Name | Filter |
 |---|---|
-| LE — High Value Leads | le_leverage_score <= 25 AND le_current_revenue >= 500000 |
-| LE — Quick Wins | le_leverage_score >= 51 AND le_hours_to_replace <= 20 |
-| LE — Large Gap | le_hours_to_replace >= 30 AND NOT tagged applied-3x3os |
-| LE — Applied | tagged applied-3x3os AND le_source contains "leverage-engine" |
-| LE — High Revenue Lost | le_weekly_revenue_lost >= 10000 |
-| LE — Solo Founders | tagged le-solo-founder AND le_current_revenue >= 200000 |
+| `le-high-value-leads` | le_leverage_score <= 25 AND le_current_revenue >= 500000 |
+| `le-quick-wins` | le_leverage_score >= 51 AND le_hours_to_replace <= 20 |
+| `le-large-gap` | le_hours_to_replace >= 30 AND NOT tagged `le-application` |
+| `le-applied` | tagged `le-application` AND le_source contains "leverage-engine" |
+| `le-high-revenue-lost` | le_weekly_revenue_lost >= 10000 |
+| `le-solo-founders` | tagged `le-solo-founder` AND le_current_revenue >= 200000 |

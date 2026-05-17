@@ -2,43 +2,68 @@
 
 **Generated:** April 3, 2026
 
+> **Conforms to:** [paradigm-ghl-workflow-pattern.md](paradigm-ghl-workflow-pattern.md) (v 2026-05-17). All deviations must be approved as named exceptions in the pattern doc first.
+
 ---
 
 ## Overview
 
 The 3×3 Mastermind Waitlist collects name, email, phone, and location from the events page modal. The goal is to reach 100 waitlist members before opening the mastermind. Submissions go through the Netlify serverless proxy (`/api/webhook`) with source `mastermind-waitlist`.
 
+Short key: `mwl` (per pattern doc §1).
+
+> **Intake decision:** This doc treats the waitlist signup itself as a lead-stage event (applies `mwl-lead`). Apply `mwl-application` only if a separate "join the cohort" form is added later that captures qualifying info beyond the waitlist intake. <!-- TODO: confirm given pattern v 2026-05-17 -->
+
 ---
 
-## STEP 1: Create Custom Field
+## STEP 1: Create Custom Fields
 
-Create one custom field to store the location data:
+Create these custom fields to store waitlist data:
 
-| Field Name | Object | Type |
-|---|---|---|
-| Mastermind Location | Contact | Single Line Text |
+| Field Name | Key | Object | Type |
+|---|---|---|---|
+| MWL Location | `contact.mwl_location` | Contact | Single Line Text |
+| MWL Business Name | `contact.mwl_business_name` | Contact | Single Line Text |
+| MWL Submitted At | `contact.mwl_submitted_at` | Contact | DATE |
 
 **Path:** Settings → Custom Fields → Contact → Add Field
 
+> **Field rename:** the prior `mastermind_location` field is renamed to `mwl_location` to conform to the short-key custom field convention (pattern doc §3). Migrate any existing data in `mastermind_location` into `mwl_location`, then archive the old field.
+
 ---
 
-## STEP 2: Create Tag
+## STEP 2: Create Tags
 
-| Tag |
-|---|
-| `mastermind-waitlist` |
+Standardized to the per-source lifecycle tag pattern (pattern doc §2):
+
+| Tag | When applied |
+|---|---|
+| `mwl-lead` | On waitlist signup (intake) |
+| `mwl-completed` | (Reserved — no current completion-distinct event) |
+| `mwl-application` | Only if a separate "join the cohort" / qualifying form fires |
+| `mwl-converted` | When the contact pays / joins the cohort |
 
 **Path:** Settings → Tags → Create Tag
 
+> **Tag rename:** the prior `mastermind-waitlist` tag is renamed to `mwl-lead`. Find-and-replace any existing automations and smart lists.
+
 ---
 
-## STEP 3: Create Pipeline (Optional — for tracking count toward 100)
+## STEP 3: Create Pipeline (REQUIRED)
 
-| Pipeline Name | Stage |
+Per pattern doc §7, the Mastermind pipeline is a **required** paid-product pipeline (previously marked optional — upgraded by pattern v 2026-05-17).
+
+| Pipeline Name | Stages (in order) |
 |---|---|
-| Mastermind Waitlist | Waitlisted |
+| Mastermind | Waitlisted → Invited → Joined → Declined |
 
 **Path:** Opportunities → Pipelines → Create Pipeline
+
+Stage semantics:
+- **Waitlisted** — `mwl-lead` applied; contact is queued
+- **Invited** — Cohort invitation sent; awaiting response
+- **Joined** — Contact accepted and paid (apply `mwl-converted`)
+- **Declined** — Contact declined or did not respond
 
 ---
 
@@ -60,18 +85,32 @@ Map the incoming webhook fields:
 | `full_name` | Contact Name |
 | `email` | Email |
 | `phone` | Phone |
-| `location` | Mastermind Location (custom field) |
+| `location` | MWL Location (`contact.mwl_location`) |
+| `business_name` (if present) | MWL Business Name + standard `Company` (per company-field strategy below) |
+| `timestamp` | MWL Submitted At |
+
+**Duplicate-handling rule:**
+- Match on `email`
+- If contact exists: update assessment custom fields, but **do not overwrite First Name or Phone if either is already populated.** Preserves earlier-touch identity.
+- For the standard `Company` field: write only if currently empty (first-write-wins). Always write to `mwl_business_name` regardless.
 
 #### 2. Add Tag
-- Tag: `mastermind-waitlist`
+- Tag: `mwl-lead`
 
-#### 3. Add to Pipeline (optional)
-- Pipeline: Mastermind Waitlist
+#### 3. Add to Pipeline (REQUIRED)
+- Pipeline: Mastermind
 - Stage: Waitlisted
 
-#### 4. Send Confirmation Email (recommended)
+#### 4. Send Confirmation Email
+
+**Suppression check (REQUIRED — see [paradigm-ghl-workflow-pattern.md §5](paradigm-ghl-workflow-pattern.md)):**
+
+Before sending this email, check the contact for the `paradigm-welcomed` tag:
+- IF contact does NOT have tag `paradigm-welcomed` → send the warm-welcome variant below AND apply tag `paradigm-welcomed`
+- ELSE → send the result-only variant (a shortened version without the "intro to Paradigm" paragraphs)
+
 - Subject: `You're on the 3×3 Mastermind waitlist`
-- Body:
+- Body (warm-welcome variant):
 
 ```
 Hi {{contact.first_name}},
@@ -85,9 +124,20 @@ In the meantime — if you haven't already, take the free 3×3 diagnostic on our
 — The Paradigm Team
 ```
 
-#### 5. Internal Notification (recommended)
-- Send an internal email or Slack notification so you can track signups in real time
-- Include: `{{contact.full_name}}`, `{{contact.email}}`, `{{contact.phone}}`, `{{custom_field.mastermind_location}}`
+Body (result-only variant — for contacts already `paradigm-welcomed`):
+
+```
+Hi {{contact.first_name}},
+
+You're on the 3×3 Mastermind waitlist. We open the room at 100 members and you'll be the first to know when we hit that number.
+
+— The Paradigm Team
+```
+
+#### 5. Internal Notification (REQUIRED)
+- **To:** `ari@paradigmconsulting.io`, `jay@paradigmconsulting.io`
+- **Subject:** `New MWL Lead — {{contact.first_name}}`
+- **Body — include:** `{{contact.full_name}}`, `{{contact.email}}`, `{{contact.phone}}`, `{{contact.mwl_location}}`, `{{contact.mwl_business_name}}`
 
 ---
 
@@ -112,15 +162,23 @@ WEBHOOK_MASTERMIND_WAITLIST=your_webhook_trigger_id
 
 ---
 
+## WORKFLOW 2 — MWL Application Handler (deferred)
+
+**DEPRECATED** — Application handling is now performed by the shared "Application Hot Lead" workflow defined in [paradigm-ghl-workflow-pattern.md §8](paradigm-ghl-workflow-pattern.md). The shared workflow triggers on any `*-application` tag (including `mwl-application`).
+
+~~Per-source application handler steps used to live here.~~ If/when a separate "join the cohort" form is added that fires a distinct webhook, that workflow should apply `mwl-application` to the contact — the shared Application Hot Lead workflow then takes over (sends alert to ari@ + jay@paradigmconsulting.io, moves contact in the Mastermind pipeline to "Invited", etc.).
+
+---
+
 ## STEP 6: Create Smart List for Waitlist Count
 
 **Path:** Contacts → Smart Lists → Create
 
 | Filter | Value |
 |---|---|
-| Tag | is `mastermind-waitlist` |
+| Tag | is `mwl-lead` |
 
-Name it **"Mastermind Waitlist"** — the contact count on this list is your live progress toward 100.
+Name it **`mwl-leads-this-week`** (or `mwl-waitlist-all` for the cumulative count) — the contact count on this list is your live progress toward 100. See pattern doc §10 for smart-list naming convention.
 
 ---
 

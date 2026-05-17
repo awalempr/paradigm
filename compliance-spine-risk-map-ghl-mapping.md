@@ -95,5 +95,5 @@ After Workflow 1 is published, send a real test from https://paradigmconsulting.
 - [ ] All 5 `rm_*` custom fields populated correctly
 - [ ] Tag `compliance-spine-risk-map-lead` applied
 - [ ] Opportunity created in pipeline **Compliance Spine Risk Map**, stage **Requested**
-- [ ] Internal alert email arrives at `ari@paradigmconsulting.co` and `jay@paradigmconsulting.co`
-- [ ] Confirmation email arrives at the test buyer's email from `ari@paradigmconsulting.co`
+- [ ] Internal alert email arrives at `ari@paradigmconsulting.io` and `jay@paradigmconsulting.io`
+- [ ] Confirmation email arrives at the test buyer's email from `ari@paradigmconsulting.io`

@@ -1,5 +1,7 @@
 # Founder Exposure Index — GHL Build Guide
 
+> **Conforms to:** [paradigm-ghl-workflow-pattern.md](paradigm-ghl-workflow-pattern.md) (v 2026-05-17). All deviations from that pattern must be approved as named exceptions in the pattern doc first.
+
 **Generated:** April 2, 2026
 **Location:** Paradigm Consulting (toKhUkB5BEHB9Jn52ktG)
 
@@ -22,6 +24,7 @@ Create these custom fields in GHL under Settings > Custom Fields > Contact:
 | FEI Partial Score | contact.fei_partial_score | NUMBER |
 | FEI Source | contact.fei_source | TEXT |
 | FEI Submitted At | contact.fei_submitted_at | DATE |
+| FEI Business Name | contact.fei_business_name | TEXT |
 
 ---
 
@@ -35,10 +38,14 @@ Create these custom fields in GHL under Settings > Custom Fields > Contact:
 | fei-scalable-foundation (score 181-210) |
 | fei-institution-level (score 211-240) |
 
+Per-source application tag (replaces shared `applied-3x3os` per pattern §2):
+- fei-application
+
 Pre-existing tags (already in system):
-- applied-3x3os
+- applied-3x3os (DEPRECATED — replaced by `fei-application`; retained for historical contacts only)
 - email-sequence-active
 - sequence-completed
+- paradigm-welcomed (new — see pattern §5 welcome suppression)
 
 ---
 
@@ -158,9 +165,9 @@ Fires when the founder clicks "Apply for 3x3OS" and submits phone + business nam
 ### Step 1 — Branch on Event Type
 
 **Branch A** — IF event = "started":
-- Create or Update Contact (first_name, email only)
+- Create or Update Contact (first_name, email only) — apply Duplicate-handling rule (see Step 3)
 - Add tag: fei-lead
-- Add to Pipeline: Paradigm Leads → New Lead (only if not already in pipeline)
+- ~~Add to Pipeline: Paradigm Leads → New Lead (only if not already in pipeline)~~ — REMOVED per pattern §7 (lead-magnet intake; no pipeline)
 - Stop workflow
 
 **Branch B** — IF event contains "section_" AND event contains "_complete":
@@ -175,7 +182,7 @@ Fires when the founder clicks "Apply for 3x3OS" and submits phone + business nam
 - Stop workflow
 
 **Branch C** — IF event is NOT present (final results payload — no event field) OR source = "founder-exposure-index-apply":
-- Continue to Step 2
+- Continue to Step 2 (apply Duplicate-handling rule from Step 3 on all create/update actions)
 
 ### Step 2 — Branch on Source
 
@@ -188,8 +195,8 @@ Fires when the founder clicks "Apply for 3x3OS" and submits phone + business nam
 ### Step 3 — Create or Update Contact (Final Results)
 
 Map from webhook payload:
-- first_name → First Name
-- email → Email
+- first_name → First Name (only if currently empty — see Duplicate-handling rule)
+- email → Email (dedupe key)
 - total_score → FEI Total Score
 - tier → FEI Tier
 - section_a_legal → FEI Section A Legal
@@ -200,13 +207,14 @@ Map from webhook payload:
 - source → FEI Source
 - timestamp → FEI Submitted At
 
-Duplicate rule: Update existing contact if email matches.
+**Duplicate-handling rule:**
+- Match on `email`
+- If contact exists: update assessment custom fields, but **do not overwrite First Name or Phone if either is already populated.** Preserves earlier-touch identity.
+- For the standard `Company` field: write only if currently empty (first-write-wins). Always write to `fei_business_name` regardless.
 
 ### Step 4 — Add to Pipeline
 
-- Pipeline: Paradigm Leads
-- Stage: Assessment Submitted
-- Only if contact is NOT already at a higher stage (position > 1)
+> **REMOVED per pattern §7.** Lead-magnet intake (non-`*-apply` source) does not get pipeline assignment. ~~Pipeline: Paradigm Leads · Stage: Assessment Submitted · Only if contact is NOT already at a higher stage (position > 1)~~
 
 ### Step 5 — Add Tag
 
@@ -232,13 +240,13 @@ Duplicate rule: Update existing contact if email matches.
 
 After enrollment (all branches):
 - Add tag: email-sequence-active
-- Move pipeline stage to: Email Sequence Active (only if currently at Assessment Submitted)
+- ~~Move pipeline stage to: Email Sequence Active (only if currently at Assessment Submitted)~~ — REMOVED per pattern §7 (no pipeline for lead-magnet intake)
 
 ### Step 7 — Internal Notification Email
 
-**To:** jay@paradigmconsulting.co
+**To:** ari@paradigmconsulting.io, jay@paradigmconsulting.io
 
-**Subject:** New Founder Exposure Index Lead — {{contact.first_name}} — Score {{contact.fei_total_score}}/240 — {{contact.fei_tier}}
+**Subject:** New FEI Lead — {{contact.first_name}} — Score {{contact.fei_total_score}}/240 — {{contact.fei_tier}}
 
 **Body:**
 ```
@@ -259,63 +267,33 @@ Check contact record for assessment suite data if applicable
 
 ## WORKFLOW 2 — Founder Exposure Index Application Handler
 
-**Name:** Founder Exposure Index — Application
-**Status:** Publish when complete
-**Trigger:** Inbound Webhook (same trigger ID — route by source field)
+**DEPRECATED** — Application handling is now performed by the shared "Application Hot Lead" workflow defined in [paradigm-ghl-workflow-pattern.md §8](paradigm-ghl-workflow-pattern.md). Do not build this per-source workflow.
 
-**Alternative:** Add an If/Else branch at the top of Workflow 1 that checks if `source` = `founder-exposure-index-apply`, then routes to the application steps below instead of the intake steps above.
+**Per-source intake responsibility (what THIS doc still owns):** when the `founder-exposure-index-apply` webhook fires, this intake workflow must still create-or-update the contact (using the same dedupe + company rules above), map `phone`, `business_name` → `fei_business_name` (always) and standard Company (only if empty), and add the `fei-application` tag. The shared Application Hot Lead workflow takes over from there.
 
-### Step 1 — Update Contact
+~~**Name:** Founder Exposure Index — Application~~
+~~**Status:** Publish when complete~~
+~~**Trigger:** Inbound Webhook (same trigger ID — route by source field)~~
 
-Map from webhook payload:
-- phone → Phone
-- business_name → Company (or a custom field)
-- total_score → FEI Total Score (update if changed)
-- tier → FEI Tier (update if changed)
-- section_a_legal → FEI Section A Legal
-- section_b_financial → FEI Section B Financial
-- section_c_data_security → FEI Section C Data Security
-- section_d_governance → FEI Section D Governance
-- source → FEI Source (update to "founder-exposure-index-apply")
+~~**Alternative:** Add an If/Else branch at the top of Workflow 1 that checks if `source` = `founder-exposure-index-apply`, then routes to the application steps below instead of the intake steps above.~~
 
-### Step 2 — Add Tag
+~~### Step 1 — Update Contact~~
 
-- Tag: applied-3x3os
+~~Map from webhook payload:~~
+~~- phone → Phone~~
+~~- business_name → Company (or a custom field)~~
+~~- total_score → FEI Total Score (update if changed)~~
+~~- tier → FEI Tier (update if changed)~~
+~~- section_a_legal → FEI Section A Legal~~
+~~- section_b_financial → FEI Section B Financial~~
+~~- section_c_data_security → FEI Section C Data Security~~
+~~- section_d_governance → FEI Section D Governance~~
+~~- source → FEI Source (update to "founder-exposure-index-apply")~~
 
-### Step 3 — Move Pipeline Stage
-
-- Pipeline: Paradigm Leads
-- Stage: Application Link Clicked
-
-### Step 4 — Remove Tag
-
-- Remove: email-sequence-active
-
-### Step 5 — Internal Notification Email
-
-**To:** jay@paradigmconsulting.co
-
-**Subject:** 3x3OS APPLICATION — {{contact.first_name}} — Founder Exposure Index — Score {{contact.fei_total_score}}/240 — {{contact.fei_tier}}
-
-**Body:**
-```
-APPLICATION RECEIVED
-
-Name: {{contact.first_name}}
-Email: {{contact.email}}
-Phone: {{contact.phone}}
-Business: (from webhook business_name)
-Total Score: {{contact.fei_total_score}} / 240
-Tier: {{contact.fei_tier}}
-Section A (Legal Structure): {{contact.fei_section_a_legal}} / 60
-Section B (Financial Controls): {{contact.fei_section_b_financial}} / 60
-Section C (Data & Security): {{contact.fei_section_c_data_security}} / 60
-Section D (Operational Governance): {{contact.fei_section_d_governance}} / 60
-Weakest Section: {{contact.fei_weakest_section}}
-
-This lead applied through the Founder Exposure Index assessment.
-Review contact record for full assessment data.
-```
+~~### Step 2 — Add Tag — applied-3x3os~~
+~~### Step 3 — Move Pipeline Stage — Paradigm Leads · Application Link Clicked~~
+~~### Step 4 — Remove Tag — email-sequence-active~~
+~~### Step 5 — Internal Notification Email to jay@paradigmconsulting.io — replaced by shared workflow's ari@ + jay@ alert template~~
 
 ---
 
@@ -333,10 +311,16 @@ Framing: The founder's business has significant structural exposure across legal
 
 **Goal Step:** Contact clicks tracked link tagged "Apply-3x3OS-Link"
 When goal fires:
-- Add tag: applied-3x3os
+- Add tag: fei-application
 - Remove tag: email-sequence-active
-- Move pipeline stage to: Application Link Clicked
+- ~~Move pipeline stage to: Application Link Clicked~~ — pipeline assignment handled by shared Application Hot Lead workflow (pattern §8)
 - Stop all further steps immediately
+
+**Suppression check (REQUIRED — see [paradigm-ghl-workflow-pattern.md §5](paradigm-ghl-workflow-pattern.md)):**
+
+Before sending Email 1 below, check the contact for the `paradigm-welcomed` tag:
+- IF contact does NOT have tag `paradigm-welcomed` → send the warm-welcome variant (the Email 1 body that follows) AND apply tag `paradigm-welcomed`
+- ELSE → send the result-only variant: same email with intro paragraphs removed, jumping straight to results. Build-time decision.
 
 #### Email 1 — Send immediately
 
@@ -485,7 +469,7 @@ After Email 5:
 - Wait 3 days
 - Add tag: sequence-completed
 - Remove tag: email-sequence-active
-- If contact is still at pipeline stage "Email Sequence Active" → move to: Nurture - Long Term
+- ~~If contact is still at pipeline stage "Email Sequence Active" → move to: Nurture - Long Term~~ — pipeline-stage move removed per pattern §7 (no pipeline for lead-magnet intake)
 
 ---
 
@@ -499,10 +483,16 @@ Framing: The founder has built some governance infrastructure but critical gaps 
 
 **Goal Step:** Contact clicks tracked link tagged "Apply-3x3OS-Link"
 When goal fires:
-- Add tag: applied-3x3os
+- Add tag: fei-application
 - Remove tag: email-sequence-active
-- Move pipeline stage to: Application Link Clicked
+- ~~Move pipeline stage to: Application Link Clicked~~ — pipeline assignment handled by shared Application Hot Lead workflow (pattern §8)
 - Stop all further steps immediately
+
+**Suppression check (REQUIRED — see [paradigm-ghl-workflow-pattern.md §5](paradigm-ghl-workflow-pattern.md)):**
+
+Before sending Email 1 below, check the contact for the `paradigm-welcomed` tag:
+- IF contact does NOT have tag `paradigm-welcomed` → send the warm-welcome variant (the Email 1 body that follows) AND apply tag `paradigm-welcomed`
+- ELSE → send the result-only variant: same email with intro paragraphs removed. Build-time decision.
 
 #### Email 1 — Send immediately
 
@@ -653,7 +643,7 @@ After Email 5:
 - Wait 3 days
 - Add tag: sequence-completed
 - Remove tag: email-sequence-active
-- If contact is still at pipeline stage "Email Sequence Active" → move to: Nurture - Long Term
+- ~~If contact is still at pipeline stage "Email Sequence Active" → move to: Nurture - Long Term~~ — pipeline-stage move removed per pattern §7 (no pipeline for lead-magnet intake)
 
 ---
 
@@ -667,10 +657,16 @@ Framing: The founder has strong governance infrastructure with minor gaps remain
 
 **Goal Step:** Contact clicks tracked link tagged "Apply-3x3OS-Link"
 When goal fires:
-- Add tag: applied-3x3os
+- Add tag: fei-application
 - Remove tag: email-sequence-active
-- Move pipeline stage to: Application Link Clicked
+- ~~Move pipeline stage to: Application Link Clicked~~ — pipeline assignment handled by shared Application Hot Lead workflow (pattern §8)
 - Stop all further steps immediately
+
+**Suppression check (REQUIRED — see [paradigm-ghl-workflow-pattern.md §5](paradigm-ghl-workflow-pattern.md)):**
+
+Before sending Email 1 below, check the contact for the `paradigm-welcomed` tag:
+- IF contact does NOT have tag `paradigm-welcomed` → send the warm-welcome variant (the Email 1 body that follows) AND apply tag `paradigm-welcomed`
+- ELSE → send the result-only variant: same email with intro paragraphs removed. Build-time decision.
 
 #### Email 1 — Send immediately
 
@@ -817,7 +813,7 @@ After Email 5:
 - Wait 3 days
 - Add tag: sequence-completed
 - Remove tag: email-sequence-active
-- If contact is still at pipeline stage "Email Sequence Active" → move to: Nurture - Long Term
+- ~~If contact is still at pipeline stage "Email Sequence Active" → move to: Nurture - Long Term~~ — pipeline-stage move removed per pattern §7 (no pipeline for lead-magnet intake)
 
 ---
 
@@ -831,10 +827,16 @@ Framing: The founder has exceptional governance infrastructure. The message is a
 
 **Goal Step:** Contact clicks tracked link tagged "Apply-3x3OS-Link"
 When goal fires:
-- Add tag: applied-3x3os
+- Add tag: fei-application
 - Remove tag: email-sequence-active
-- Move pipeline stage to: Application Link Clicked
+- ~~Move pipeline stage to: Application Link Clicked~~ — pipeline assignment handled by shared Application Hot Lead workflow (pattern §8)
 - Stop all further steps immediately
+
+**Suppression check (REQUIRED — see [paradigm-ghl-workflow-pattern.md §5](paradigm-ghl-workflow-pattern.md)):**
+
+Before sending Email 1 below, check the contact for the `paradigm-welcomed` tag:
+- IF contact does NOT have tag `paradigm-welcomed` → send the warm-welcome variant (the Email 1 body that follows) AND apply tag `paradigm-welcomed`
+- ELSE → send the result-only variant: same email with intro paragraphs removed. Build-time decision.
 
 #### Email 1 — Send immediately
 
@@ -985,66 +987,20 @@ After Email 5:
 - Wait 3 days
 - Add tag: sequence-completed
 - Remove tag: email-sequence-active
-- If contact is still at pipeline stage "Email Sequence Active" → move to: Nurture - Long Term
+- ~~If contact is still at pipeline stage "Email Sequence Active" → move to: Nurture - Long Term~~ — pipeline-stage move removed per pattern §7 (no pipeline for lead-magnet intake)
 
 ---
 
 ## WORKFLOW 3 — FEI Application Link Clicked
 
-**Name:** FEI — Application Link Clicked
-**Status:** Publish when complete
-**Trigger:** Contact clicks tracked link tagged "Apply-3x3OS-Link" AND tag fei-lead exists
+**DEPRECATED** — Application handling is now performed by the shared "Application Hot Lead" workflow defined in [paradigm-ghl-workflow-pattern.md §8](paradigm-ghl-workflow-pattern.md). Do not build this per-source workflow.
 
-> **NOTE:** Check whether existing Application Link Clicked workflows already handle this globally. If so, skip this workflow.
+If an FEI-specific confirmation auto-reply is desired, it must be templated inside the shared workflow with the `paradigm-welcomed` suppression check (pattern §5).
 
-#### Step 1 — Check for tag applied-3x3os. If exists, stop workflow.
-#### Step 2 — Add tag: applied-3x3os
-#### Step 3 — Move pipeline stage to: Application Link Clicked
-#### Step 4 — Remove tag: email-sequence-active
-#### Step 5 — Remove contact from all active FEI email sequence workflows
-#### Step 6 — Wait 10 minutes
-
-#### Step 7 — Internal notification to jay@paradigmconsulting.co
-
-**Subject:** Apply Link Clicked — {{contact.first_name}} — {{contact.email}} — Founder Exposure Index Lead
-
-**Body:**
-```
-Name: {{contact.first_name}}
-Email: {{contact.email}}
-Total Score: {{contact.fei_total_score}} / 240
-Tier: {{contact.fei_tier}}
-Section A (Legal): {{contact.fei_section_a_legal}} / 60
-Section B (Financial): {{contact.fei_section_b_financial}} / 60
-Section C (Data & Security): {{contact.fei_section_c_data_security}} / 60
-Section D (Governance): {{contact.fei_section_d_governance}} / 60
-Weakest Section: {{contact.fei_weakest_section}}
-Check contact record for assessment suite data if applicable
-Submitted: {{contact.fei_submitted_at}}
-```
-
-#### Step 8 — Send contact email
-
-**Subject:** We received your interest, {{contact.first_name}}
-**Preview:** Someone will be in touch within 48 hours.
-**From:** Matt | Founder, Paradigm Consulting
-
-**Body:**
-
-{{contact.first_name}},
-
-We saw that you clicked through to the 3x3OS application.
-
-If you submitted the application, we will review it personally and be in touch within 48 hours.
-
-If you clicked through but did not complete it, the link is below. It takes five minutes and gives us everything we need to determine whether the 3x3OS engagement is the right fit for where your business is right now.
-
-We do not accept every application. Not because of exclusivity, but because we only work with founders where we are confident the engagement is the right next step. The application is how we make that determination.
-
-Matt
-Founder, Paradigm Consulting
-
-**[CTA Button: Complete My Application — link to application page]**
+~~**Name:** FEI — Application Link Clicked~~
+~~**Status:** Publish when complete~~
+~~**Trigger:** Contact clicks tracked link tagged "Apply-3x3OS-Link" AND tag fei-lead exists~~
+~~#### Step 1-8 — entire workflow replaced by shared Application Hot Lead workflow on `fei-application` tag~~
 
 ---
 
@@ -1052,7 +1008,9 @@ Founder, Paradigm Consulting
 
 **Name:** FEI — Re-Engagement 30 Day
 **Status:** Publish when complete
-**Trigger:** Tag = fei-lead AND pipeline stage = Assessment Submitted OR Email Sequence Active AND last activity > 30 days ago AND tag applied-3x3os does NOT exist
+**Trigger:** Tag = `fei-lead` AND tag `fei-application` does NOT exist AND last activity > 30 days ago
+
+> Pipeline-stage criteria removed (no pipeline for lead-magnet intake per pattern §7). Tag-based filtering is the source of truth.
 
 #### Step 1 — Send Email
 
@@ -1082,7 +1040,7 @@ Founder, Paradigm Consulting
 #### Step 3 — If no response and no apply click:
 - Remove tag: email-sequence-active
 - Add tag: sequence-completed
-- Move pipeline to: Nurture - Long Term
+- ~~Move pipeline to: Nurture - Long Term~~ — pipeline assignment removed per pattern §7
 
 ---
 
@@ -1098,14 +1056,14 @@ Build these in GHL > Contacts > Smart Lists:
 | FEI — Scalable Foundation | Tag = fei-scalable-foundation |
 | FEI — Institution-Level | Tag = fei-institution-level |
 | FEI — Active Sequences | Tag = email-sequence-active AND Tag = fei-lead |
-| FEI — Sequence Completed Not Applied | Tag = sequence-completed AND Tag = fei-lead AND Tag applied-3x3os does NOT exist |
-| FEI — High Exposure Priority | Tag = fei-high-founder-exposure AND NOT tagged applied-3x3os |
+| FEI — Sequence Completed Not Applied | Tag = sequence-completed AND Tag = fei-lead AND Tag fei-application does NOT exist |
+| FEI — High Exposure Priority | Tag = fei-high-founder-exposure AND NOT tagged fei-application |
 | FEI — Weak Legal | Tag = fei-lead AND fei_weakest_section = "Legal Structure" |
 | FEI — Weak Financial | Tag = fei-lead AND fei_weakest_section = "Financial Controls" |
 | FEI — Weak Data Security | Tag = fei-lead AND fei_weakest_section = "Data & Security" |
 | FEI — Weak Governance | Tag = fei-lead AND fei_weakest_section = "Operational Governance" |
-| FEI — Applied | Tagged applied-3x3os AND fei_source contains "founder-exposure-index" |
-| FEI — Also In Assessment Suite | Tag = fei-lead AND (Tag = cs-lead OR Tag = le-lead OR Tag = saa-lead OR Tag = cma-lead OR Tag = fbe-lead OR Tag = 12mcc-lead) |
+| FEI — Applied | Tagged fei-application |
+| FEI — Also In Assessment Suite | Tag = fei-lead AND (Tag = cs-lead OR Tag = le-lead OR Tag = saa-lead OR Tag = cma-lead OR Tag = fbe-lead OR Tag = csc-lead) |
 
 ---
 
@@ -1121,13 +1079,17 @@ After all workflows are built and published:
 - [ ] Confirm "started" event creates contact and adds fei-lead tag without triggering email sequence
 - [ ] Confirm section_complete events update partial_score and sections_completed fields
 - [ ] Confirm final results payload triggers tier tagging and email sequence enrollment
-- [ ] Confirm pipeline stage moves to Assessment Submitted then Email Sequence Active
-- [ ] Confirm internal notification email delivers to jay@paradigmconsulting.co with all merge fields
+- [ ] Confirm NO pipeline stage assignment for intake (pattern §7)
+- [ ] Confirm internal notification email delivers to BOTH ari@paradigmconsulting.io AND jay@paradigmconsulting.io with all merge fields
 - [ ] Confirm weakest_section field populates correctly
 - [ ] Confirm Day 0 emails send from "Matt | Founder, Paradigm Consulting"
 - [ ] Confirm Apply-3x3OS-Link tracked links work in all email CTAs
-- [ ] Confirm goal step fires on link click (tag applied-3x3os, remove email-sequence-active, move stage)
-- [ ] Submit application payload — confirm phone, business_name, applied-3x3os tag, pipeline move
+- [ ] Confirm goal step fires on link click (tag fei-application added, email-sequence-active removed)
+- [ ] Confirm shared Application Hot Lead workflow (pattern §8) fires on `fei-application` tag and pipeline-promotes there
+- [ ] Confirm `paradigm-welcomed` suppression: 2nd assessment from same contact sends result-only variant, not warm welcome
+- [ ] Confirm First Name and Phone are NOT overwritten on update if already populated
+- [ ] Confirm standard Company is written only if empty; fei_business_name is always written
+- [ ] Submit application payload — confirm phone, business_name, `fei-application` tag added
 - [ ] Confirm contacts with existing assessment data update on same record (no duplicate)
 - [ ] Confirm FEI High Exposure Priority smart list surfaces correctly
 - [ ] Test same email through a second assessment — confirm multi-assessment routing if applicable

@@ -1,7 +1,13 @@
 # Homepage Contact (Friction-Point Quiz) — GHL Build Guide
 
+> **Conforms to:** [paradigm-ghl-workflow-pattern.md](paradigm-ghl-workflow-pattern.md) (v 2026-05-17). All deviations must be approved as named exceptions in the pattern doc first.
+
 **Generated:** April 2, 2026
+**Updated:** 2026-05-17 (conformed to canonical pattern)
 **Location:** Paradigm Consulting (toKhUkB5BEHB9Jn52ktG)
+**Short key:** `hp`
+
+> **Gap:** Homepage CTAs send leads to apply pages but no application-handler workflow is defined in this doc. Application handling is now performed by the shared "Application Hot Lead" workflow per pattern doc §8 — confirm CTA links route to a page that triggers the appropriate `-application` tag (in this case `hp-application`). <!-- TODO: confirm given pattern v 2026-05-17 -->
 
 ---
 
@@ -12,8 +18,8 @@ Create these custom fields in GHL under Settings > Custom Fields > Contact:
 | Field | Key | Type |
 |---|---|---|
 | HP Paradigm Score | contact.hp_paradigm_score | NUMBER |
-| HP Assigned Tier | contact.hp_assigned_tier | TEXT |
-| HP Primary Pillar | contact.hp_primary_pillar | TEXT |
+| HP Assigned Tier | contact.hp_assigned_tier | NUMBER |
+| HP Primary Pillar | contact.hp_primary_pillar | NUMBER |
 | HP Compliance Risk | contact.hp_compliance_risk | TEXT |
 | HP Marketing Risk | contact.hp_marketing_risk | TEXT |
 | HP Business Stage | contact.hp_business_stage | TEXT |
@@ -24,27 +30,36 @@ Create these custom fields in GHL under Settings > Custom Fields > Contact:
 | HP UTM Medium | contact.hp_utm_medium | TEXT |
 | HP UTM Campaign | contact.hp_utm_campaign | TEXT |
 | HP Submitted At | contact.hp_submitted_at | DATE |
+| HP Business Name | contact.hp_business_name | TEXT |
 
 **Notes:**
-- `hp_assigned_tier` stores "1", "2", or "3" as text. Tier 1 = Compliance-focused, Tier 2 = Culture-focused, Tier 3 = Technology/Systems-focused.
-- `hp_primary_pillar` stores "1", "2", "3", or "null". 1 = Compliance, 2 = Culture, 3 = Technology.
+- `hp_assigned_tier` stores 1, 2, or 3 as a NUMBER. Tier 1 = Compliance-focused, Tier 2 = Culture-focused, Tier 3 = Technology/Systems-focused.
+- `hp_primary_pillar` stores 1, 2, 3, or null as a NUMBER. 1 = Compliance, 2 = Culture, 3 = Technology.
 - Boolean fields (`hp_compliance_risk`, `hp_marketing_risk`, `hp_hard_tier3`, `hp_subscriptions`) store "true" or "false" as text.
+- `hp_business_name` is the prefixed mirror of company name (per pattern doc §4). The standard GHL `Company` field gets first-write-wins treatment; `hp_business_name` is written unconditionally on every submission.
+- Field types standardize on `NUMBER` (not `NUMERICAL`) per pattern doc §3.
 
 ---
 
 ## STEP 2 — CREATE TAGS
 
-| Tag |
-|---|
-| homepage-lead |
-| tier-1-compliance |
-| tier-2-culture |
-| tier-3-technology |
+| Tag | Purpose |
+|---|---|
+| hp-lead | Applied on every form submission |
+| hp-completed | (Reserved — homepage quiz currently has no distinct "completed" event separate from intake; tag exists for future symmetry with pattern doc §2) |
+| hp-application | Applied when contact clicks an "Apply for 3x3OS" CTA in any email (or when the apply landing page fires a webhook). Triggers shared "Application Hot Lead" workflow (pattern doc §8). |
+| hp-converted | Applied when the contact pays for an engagement |
+| tier-1-compliance |  |
+| tier-2-culture |  |
+| tier-3-technology |  |
 
-Pre-existing tags (already in system):
-- applied-3x3os
-- email-sequence-active
-- sequence-completed
+Per pattern doc §2: replaces legacy `applied-3x3os` shared tag with the per-source `hp-application` tag.
+
+Shared pre-existing tags:
+- `paradigm-welcomed` — welcome-email suppression gate (see pattern doc §5)
+- `email-sequence-active`
+- `sequence-completed`
+- `hot-lead` — applied by shared Application Hot Lead workflow (pattern doc §8)
 
 ---
 
@@ -71,8 +86,8 @@ The site sends one webhook payload through `/api/webhook` with source `homepage-
   "company_name": "Acme Corp",
   "company_url": "(honeypot — if filled, submission is silently rejected)",
   "paradigm_score": 67,
-  "assigned_tier": "2",
-  "primary_pillar": "3",
+  "assigned_tier": 2,
+  "primary_pillar": 3,
   "compliance_risk": true,
   "marketing_risk": false,
   "hard_tier3": false,
@@ -91,8 +106,8 @@ The site sends one webhook payload through `/api/webhook` with source `homepage-
 | Field | Values | Meaning |
 |---|---|---|
 | paradigm_score | 0-100 (number) | Overall friction-point quiz score |
-| assigned_tier | "1", "2", "3" | 1 = Compliance, 2 = Culture, 3 = Technology |
-| primary_pillar | "1", "2", "3", or null | Dominant pillar from quiz answers |
+| assigned_tier | 1, 2, 3 (number) | 1 = Compliance, 2 = Culture, 3 = Technology |
+| primary_pillar | 1, 2, 3, or null (number) | Dominant pillar from quiz answers |
 | compliance_risk | true / false | Quiz flagged compliance exposure |
 | marketing_risk | true / false | Quiz flagged marketing exposure |
 | hard_tier3 | true / false | Strong technology/systems signal — hard-routed to Tier 3 |
@@ -110,11 +125,11 @@ The site sends one webhook payload through `/api/webhook` with source `homepage-
 ### Step 1 — Create or Update Contact
 
 Map from webhook payload:
-- first_name → First Name
+- first_name → First Name **(see duplicate-handling rule below)**
 - last_name → Last Name
-- email → Email
-- phone → Phone
-- company_name → Company Name
+- email → Email **(dedupe key)**
+- phone → Phone **(see duplicate-handling rule)**
+- company_name → standard `Company` (first-write-wins) AND `contact.hp_business_name` (always)
 - paradigm_score → HP Paradigm Score
 - assigned_tier → HP Assigned Tier
 - primary_pillar → HP Primary Pillar
@@ -129,33 +144,37 @@ Map from webhook payload:
 - utm_campaign → HP UTM Campaign
 - (set HP Submitted At to current date/time)
 
-Duplicate rule: Update existing contact if email matches.
+**Duplicate-handling rule (per pattern doc §4):**
+- Match on `email`
+- If contact exists: update assessment custom fields, but **do not overwrite First Name or Phone if either is already populated.** Preserves earlier-touch identity.
+- For the standard `Company` field: write only if currently empty (first-write-wins). Always write to `hp_business_name` regardless.
 
 ### Step 2 — Add to Pipeline
 
-- Pipeline: Paradigm Leads
+- Pipeline: Paradigm Leads (per pattern doc §7 — homepage contact is a lead-magnet source and does NOT get its own pipeline)
 - Stage: New Lead
 - Only if contact is NOT already at a higher stage (position > 0)
+- Do not move through later stages (e.g. "Application Link Clicked", "Discovery Call", "Proposal Sent") from this workflow — those are managed by the shared "Application Hot Lead" workflow (pattern doc §8) or by manual sales-rep stage moves.
 
 ### Step 3 — Add Tag
 
-- Tag: homepage-lead
+- Tag: `hp-lead`
 
 ### Step 4 — Tier Tagging (If/Else Branches)
 
-**Branch A** — IF hp_assigned_tier = "1":
+**Branch A** — IF hp_assigned_tier = 1:
 - Add tag: tier-1-compliance
 
-**Branch B** — ELSE IF hp_assigned_tier = "2":
+**Branch B** — ELSE IF hp_assigned_tier = 2:
 - Add tag: tier-2-culture
 
-**Branch C** — ELSE (hp_assigned_tier = "3"):
+**Branch C** — ELSE (hp_assigned_tier = 3):
 - Add tag: tier-3-technology
 
 ### Step 5 — Route to Email Sequence (If/Else Branches)
 
-- IF hp_assigned_tier = "1" → Enroll in workflow "HP — Tier 1 Compliance Sequence"
-- ELSE IF hp_assigned_tier = "2" → Enroll in workflow "HP — Tier 2 Culture Sequence"
+- IF hp_assigned_tier = 1 → Enroll in workflow "HP — Tier 1 Compliance Sequence"
+- ELSE IF hp_assigned_tier = 2 → Enroll in workflow "HP — Tier 2 Culture Sequence"
 - ELSE → Enroll in workflow "HP — Tier 3 Technology Sequence"
 
 After enrollment (all branches):
@@ -163,9 +182,9 @@ After enrollment (all branches):
 
 ### Step 6 — Internal Notification Email
 
-**To:** jay@paradigmconsulting.co
+**To:** `ari@paradigmconsulting.io`, `jay@paradigmconsulting.io`
 
-**Subject:** New Homepage Lead — {{contact.first_name}} {{contact.last_name}} — Tier {{contact.hp_assigned_tier}} — Score {{contact.hp_paradigm_score}}
+**Subject:** `New HP Lead — {{contact.first_name}}`
 
 **Body:**
 ```
@@ -174,7 +193,7 @@ HOMEPAGE CONTACT — FRICTION-POINT QUIZ
 Name: {{contact.first_name}} {{contact.last_name}}
 Email: {{contact.email}}
 Phone: {{contact.phone}}
-Company: {{contact.company_name}}
+Company: {{contact.hp_business_name}}
 
 Paradigm Score: {{contact.hp_paradigm_score}} / 100
 Assigned Tier: {{contact.hp_assigned_tier}}
@@ -197,13 +216,29 @@ Submitted: {{contact.hp_submitted_at}}
 
 ---
 
+## APPLICATION HANDLING
+
+**DEPRECATED** — Application handling is now performed by the shared "Application Hot Lead" workflow defined in [paradigm-ghl-workflow-pattern.md §8](paradigm-ghl-workflow-pattern.md).
+
+When a contact clicks any "Apply for 3x3OS" CTA in the email sequences below (or submits the apply landing page), the `hp-application` tag is applied. That tag triggers the shared workflow, which:
+
+1. Applies `hot-lead`
+2. Pauses the active HP nurture sequence
+3. Moves contact into the relevant pipeline at "Application Received"
+4. Sends internal alert to ari@ + jay@paradigmconsulting.io
+5. Escalates with SLA reminder if no human contact within 1 business day
+
+**Apply-link convention:** Every "Apply for 3x3OS" CTA below should be tracked with link tag `Apply-3x3OS-Link`. The Goal Step on each email sequence below adds the `hp-application` tag (NOT the legacy `applied-3x3os` tag) when this link is clicked. <!-- TODO: confirm given pattern v 2026-05-17 — confirm CTA links route to a page that fires the `hp-application` tag -->
+
+---
+
 ## EMAIL SEQUENCES
 
 All sequences share the same structural pattern:
 - 5 emails per sequence
-- From: Matt | Founder, Paradigm Consulting
+- From: Matt | Founder, Paradigm Consulting <matt@paradigmconsulting.io>
 - Goal Step on each: Contact clicks tracked link tagged "Apply-3x3OS-Link"
-  - On goal: Add tag `applied-3x3os`, remove tag `email-sequence-active`, move pipeline to Application Link Clicked, stop workflow
+  - On goal: Add tag `hp-application`, remove tag `email-sequence-active`, stop workflow. (Shared "Application Hot Lead" workflow per pattern doc §8 takes it from here — including any pipeline stage move and internal alerts. Do NOT move pipeline stages from inside this nurture workflow.)
 - After Email 5: Wait 3 days → Add tag `sequence-completed` → Remove tag `email-sequence-active` → If pipeline still at New Lead or Email Sequence Active, move to Nurture - Long Term
 
 ---
@@ -214,11 +249,17 @@ All sequences share the same structural pattern:
 
 #### Email 1 — Send immediately
 
+**Suppression check (REQUIRED — see [paradigm-ghl-workflow-pattern.md §5](paradigm-ghl-workflow-pattern.md)):**
+
+Before sending this email, check the contact for the `paradigm-welcomed` tag:
+- IF contact does NOT have tag `paradigm-welcomed` → send the warm-welcome variant below AND apply tag `paradigm-welcomed`
+- ELSE → send the result-only variant (a shortened version without the "intro to Paradigm" paragraphs)
+
 **Subject:** Your friction-point results, {{contact.first_name}}
 **Preview:** Your score flagged compliance as the primary constraint. Here is what that means.
-**From:** Matt | Founder, Paradigm Consulting
+**From:** Matt | Founder, Paradigm Consulting <matt@paradigmconsulting.io>
 
-**Body:**
+**Body (warm-welcome variant — first touch):**
 
 {{contact.first_name}},
 
@@ -239,13 +280,31 @@ Founder, Paradigm Consulting
 
 **[CTA Button: Learn About Our Compliance Approach — link to paradigmconsulting.io]**
 
+---
+
+**Body (result-only variant — subsequent touch, contact already has `paradigm-welcomed` tag):**
+
+{{contact.first_name}},
+
+Your friction-point quiz routed you to Tier 1 — Compliance. Score: {{contact.hp_paradigm_score}} / 100.
+
+The biggest source of friction in your business right now is structural exposure in your compliance infrastructure. Missing contracts, undocumented financial controls, absent privacy policies, incomplete HR documentation — gaps that compound silently until they don't.
+
+I'll walk you through what installed compliance infrastructure looks like — and why it has to come before growth, not after — in the next few emails.
+
+Reply if anything in the result surprised you.
+
+Matt
+
+**[CTA Button: Learn About Our Compliance Approach — link to paradigmconsulting.io]**
+
 #### Wait 2 days
 
 #### Email 2
 
 **Subject:** The compliance gap most founders ignore
 **Preview:** It is not the obvious one. It is the one that feels like it can wait.
-**From:** Matt | Founder, Paradigm Consulting
+**From:** Matt | Founder, Paradigm Consulting <matt@paradigmconsulting.io>
 
 **Body:**
 
@@ -271,7 +330,7 @@ Matt
 
 **Subject:** Why compliance before growth is not conservative — it is strategic
 **Preview:** Every growth initiative built on compliance gaps carries hidden costs.
-**From:** Matt | Founder, Paradigm Consulting
+**From:** Matt | Founder, Paradigm Consulting <matt@paradigmconsulting.io>
 
 **Body:**
 
@@ -297,7 +356,7 @@ Matt
 
 **Subject:** What a compliance-first 90 days actually looks like
 **Preview:** Not paperwork. Not checklists. Operational infrastructure.
-**From:** Matt | Founder, Paradigm Consulting
+**From:** Matt | Founder, Paradigm Consulting <matt@paradigmconsulting.io>
 
 **Body:**
 
@@ -325,7 +384,7 @@ Matt
 
 **Subject:** Last note on your friction-point results
 **Preview:** The compliance gaps do not resolve themselves.
-**From:** Matt | Founder, Paradigm Consulting
+**From:** Matt | Founder, Paradigm Consulting <matt@paradigmconsulting.io>
 
 **Body:**
 
@@ -353,11 +412,17 @@ Matt
 
 #### Email 1 — Send immediately
 
+**Suppression check (REQUIRED — see [paradigm-ghl-workflow-pattern.md §5](paradigm-ghl-workflow-pattern.md)):**
+
+Before sending this email, check the contact for the `paradigm-welcomed` tag:
+- IF contact does NOT have tag `paradigm-welcomed` → send the warm-welcome variant below AND apply tag `paradigm-welcomed`
+- ELSE → send the result-only variant (a shortened version without the "intro to Paradigm" paragraphs)
+
 **Subject:** Your friction-point results, {{contact.first_name}}
 **Preview:** Your score flagged culture as the primary constraint. Here is what that means.
-**From:** Matt | Founder, Paradigm Consulting
+**From:** Matt | Founder, Paradigm Consulting <matt@paradigmconsulting.io>
 
-**Body:**
+**Body (warm-welcome variant — first touch):**
 
 {{contact.first_name}},
 
@@ -378,13 +443,31 @@ Founder, Paradigm Consulting
 
 **[CTA Button: Learn About Our Culture Approach — link to paradigmconsulting.io]**
 
+---
+
+**Body (result-only variant — subsequent touch, contact already has `paradigm-welcomed` tag):**
+
+{{contact.first_name}},
+
+Your friction-point quiz routed you to Tier 2 — Culture. Score: {{contact.hp_paradigm_score}} / 100.
+
+The biggest source of friction in your business right now is how your team operates — decisions that require your approval when they should not, onboarding that takes twice as long as it should, a team that cannot function at full capacity when you step away.
+
+Not personality problems. Infrastructure problems. I'll walk you through what installed culture infrastructure looks like over the next few emails.
+
+Reply if anything in the result resonated.
+
+Matt
+
+**[CTA Button: Learn About Our Culture Approach — link to paradigmconsulting.io]**
+
 #### Wait 2 days
 
 #### Email 2
 
 **Subject:** The real cost of founder-dependent culture
 **Preview:** It is not burnout. It is the revenue ceiling you cannot see.
-**From:** Matt | Founder, Paradigm Consulting
+**From:** Matt | Founder, Paradigm Consulting <matt@paradigmconsulting.io>
 
 **Body:**
 
@@ -412,7 +495,7 @@ Matt
 
 **Subject:** Why hiring does not fix culture friction
 **Preview:** More people on a broken operating system just creates more friction.
-**From:** Matt | Founder, Paradigm Consulting
+**From:** Matt | Founder, Paradigm Consulting <matt@paradigmconsulting.io>
 
 **Body:**
 
@@ -438,7 +521,7 @@ Matt
 
 **Subject:** What a culture-first 90 days actually looks like
 **Preview:** Decision authority. Communication frameworks. Operational independence.
-**From:** Matt | Founder, Paradigm Consulting
+**From:** Matt | Founder, Paradigm Consulting <matt@paradigmconsulting.io>
 
 **Body:**
 
@@ -464,7 +547,7 @@ Matt
 
 **Subject:** Last note on your friction-point results
 **Preview:** The team's ceiling does not raise itself.
-**From:** Matt | Founder, Paradigm Consulting
+**From:** Matt | Founder, Paradigm Consulting <matt@paradigmconsulting.io>
 
 **Body:**
 
@@ -492,11 +575,17 @@ Matt
 
 #### Email 1 — Send immediately
 
+**Suppression check (REQUIRED — see [paradigm-ghl-workflow-pattern.md §5](paradigm-ghl-workflow-pattern.md)):**
+
+Before sending this email, check the contact for the `paradigm-welcomed` tag:
+- IF contact does NOT have tag `paradigm-welcomed` → send the warm-welcome variant below AND apply tag `paradigm-welcomed`
+- ELSE → send the result-only variant (a shortened version without the "intro to Paradigm" paragraphs)
+
 **Subject:** Your friction-point results, {{contact.first_name}}
 **Preview:** Your score flagged technology as the primary constraint. Here is what that means.
-**From:** Matt | Founder, Paradigm Consulting
+**From:** Matt | Founder, Paradigm Consulting <matt@paradigmconsulting.io>
 
-**Body:**
+**Body (warm-welcome variant — first touch):**
 
 {{contact.first_name}},
 
@@ -517,13 +606,31 @@ Founder, Paradigm Consulting
 
 **[CTA Button: Learn About Our Technology Approach — link to paradigmconsulting.io]**
 
+---
+
+**Body (result-only variant — subsequent touch, contact already has `paradigm-welcomed` tag):**
+
+{{contact.first_name}},
+
+Your friction-point quiz routed you to Tier 3 — Technology. Score: {{contact.hp_paradigm_score}} / 100.
+
+Your biggest source of friction is systems architecture — fragmented tools, manual handoffs, data living in five places that don't agree. Often looks like a people problem; it's a systems problem.
+
+I'll walk you through what installed technology infrastructure looks like — not a tool collection, an integrated operating system — over the next few emails.
+
+Reply if the result resonated.
+
+Matt
+
+**[CTA Button: Learn About Our Technology Approach — link to paradigmconsulting.io]**
+
 #### Wait 2 days
 
 #### Email 2
 
 **Subject:** Why more tools make the problem worse
 **Preview:** The issue is not which tools you use. It is how they connect.
-**From:** Matt | Founder, Paradigm Consulting
+**From:** Matt | Founder, Paradigm Consulting <matt@paradigmconsulting.io>
 
 **Body:**
 
@@ -549,7 +656,7 @@ Matt
 
 **Subject:** The automation that matters vs. the automation that wastes money
 **Preview:** Not all automation is equal. Most of it is premature.
-**From:** Matt | Founder, Paradigm Consulting
+**From:** Matt | Founder, Paradigm Consulting <matt@paradigmconsulting.io>
 
 **Body:**
 
@@ -577,7 +684,7 @@ Matt
 
 **Subject:** What a technology-first 90 days actually looks like
 **Preview:** Consolidate. Connect. Automate. In that order.
-**From:** Matt | Founder, Paradigm Consulting
+**From:** Matt | Founder, Paradigm Consulting <matt@paradigmconsulting.io>
 
 **Body:**
 
@@ -603,7 +710,7 @@ Matt
 
 **Subject:** Last note on your friction-point results
 **Preview:** The systems do not fix themselves.
-**From:** Matt | Founder, Paradigm Consulting
+**From:** Matt | Founder, Paradigm Consulting <matt@paradigmconsulting.io>
 
 **Body:**
 
@@ -627,49 +734,53 @@ Matt
 
 ## SMART LIST SUGGESTIONS
 
-Create these saved filters in GHL for ongoing lead management:
+Create these saved filters in GHL for ongoing lead management (per pattern doc §10 naming convention):
 
 | List Name | Filter |
 |---|---|
-| HP — All Homepage Leads | Tag = `homepage-lead` |
-| HP — Tier 1 Compliance | Tag = `homepage-lead` AND Tag = `tier-1-compliance` |
-| HP — Tier 2 Culture | Tag = `homepage-lead` AND Tag = `tier-2-culture` |
-| HP — Tier 3 Technology | Tag = `homepage-lead` AND Tag = `tier-3-technology` |
-| HP — Active Sequences | Tag = `email-sequence-active` AND Tag = `homepage-lead` |
-| HP — Compliance Risk Flagged | Tag = `homepage-lead` AND hp_compliance_risk = "true" |
-| HP — Marketing Risk Flagged | Tag = `homepage-lead` AND hp_marketing_risk = "true" |
-| HP — Hard Tier 3 | Tag = `homepage-lead` AND hp_hard_tier3 = "true" |
-| HP — Sequence Completed Not Applied | Tag = `sequence-completed` AND Tag = `homepage-lead` AND Tag `applied-3x3os` does NOT exist |
-| HP — Applied | Tag = `applied-3x3os` AND Tag = `homepage-lead` |
-| HP — High Score Low Engagement | hp_paradigm_score >= 70 AND Tag = `homepage-lead` AND Tag `email-sequence-active` does NOT exist AND Tag `applied-3x3os` does NOT exist |
+| hp-leads-all | Tag = `hp-lead` |
+| hp-tier-1-compliance | Tag = `hp-lead` AND Tag = `tier-1-compliance` |
+| hp-tier-2-culture | Tag = `hp-lead` AND Tag = `tier-2-culture` |
+| hp-tier-3-technology | Tag = `hp-lead` AND Tag = `tier-3-technology` |
+| hp-active-sequences | Tag = `email-sequence-active` AND Tag = `hp-lead` |
+| hp-compliance-risk-flagged | Tag = `hp-lead` AND hp_compliance_risk = "true" |
+| hp-marketing-risk-flagged | Tag = `hp-lead` AND hp_marketing_risk = "true" |
+| hp-hard-tier-3 | Tag = `hp-lead` AND hp_hard_tier3 = "true" |
+| hp-sequence-completed-no-application | Tag = `sequence-completed` AND Tag = `hp-lead` AND Tag `hp-application` does NOT exist |
+| hp-applications | Tag = `hp-application` AND Tag = `hp-lead` |
+| hp-high-score-low-engagement | hp_paradigm_score >= 70 AND Tag = `hp-lead` AND Tag `email-sequence-active` does NOT exist AND Tag `hp-application` does NOT exist |
 
 ---
 
 ## TESTING CHECKLIST
 
-- [ ] Submit test lead with assigned_tier = "1" → confirm:
-  - Contact created with all HP_ fields mapped correctly
-  - Tag `homepage-lead` applied
+- [ ] Submit test lead with assigned_tier = 1 → confirm:
+  - Contact created with all HP_ fields mapped correctly (including `hp_business_name`)
+  - Standard `Company` field written only on first submission (re-submit confirms first-write-wins)
+  - First Name and Phone NOT overwritten on re-submission if already populated
+  - Tag `hp-lead` applied
   - Tag `tier-1-compliance` applied
-  - Pipeline stage set to New Lead
+  - Pipeline stage set to New Lead in Paradigm Leads
   - Enrolled in HP — Tier 1 Compliance Sequence
   - Tag `email-sequence-active` applied
-  - Internal notification email received with correct data
+  - Internal notification email received by BOTH ari@ AND jay@paradigmconsulting.io with correct data
   - Email 1 sends immediately with correct merge fields
-- [ ] Submit test lead with assigned_tier = "2" → confirm:
+  - Welcome-suppression: first-touch contact gets warm-welcome variant AND `paradigm-welcomed` tag is applied
+  - Welcome-suppression: contact with `paradigm-welcomed` already applied gets result-only variant
+- [ ] Submit test lead with assigned_tier = 2 → confirm:
   - Tag `tier-2-culture` applied
   - Enrolled in HP — Tier 2 Culture Sequence
-- [ ] Submit test lead with assigned_tier = "3" → confirm:
+- [ ] Submit test lead with assigned_tier = 3 → confirm:
   - Tag `tier-3-technology` applied
   - Enrolled in HP — Tier 3 Technology Sequence
 - [ ] Submit test lead with hard_tier3 = true → confirm routed to Tier 3
 - [ ] Submit test lead with compliance_risk = true → confirm field stored correctly
-- [ ] Submit duplicate email → confirm contact updated (not duplicated)
+- [ ] Submit duplicate email → confirm contact updated (not duplicated), First Name + Phone preserved, `Company` not overwritten
 - [ ] Submit with filled company_url honeypot → confirm submission silently rejected
 - [ ] Click "Apply-3x3OS-Link" tracked link in test email → confirm:
-  - Tag `applied-3x3os` added
+  - Tag `hp-application` added
   - Tag `email-sequence-active` removed
-  - Pipeline moves to Application Link Clicked
+  - Shared "Application Hot Lead" workflow (pattern doc §8) fires: `hot-lead` tag added, pipeline moved, internal alert sent to both ari@ and jay@
   - Email sequence stops
 - [ ] Let sequence complete all 5 emails without clicking apply → confirm:
   - Tag `sequence-completed` added
