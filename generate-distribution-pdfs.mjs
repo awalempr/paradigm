@@ -15,10 +15,11 @@ const md = new Remarkable('full', {
 
 // Targets: [inputMarkdownPath, outputPdfPath]
 const targets = [
-  ['compliance-spine-risk-map-ghl-build.md', 'compliance-spine-risk-map-ghl-build.pdf'],
-  ['distribution/01-podcast-outreach.md',    'distribution/01-podcast-outreach.pdf'],
-  ['distribution/02-guest-content.md',       'distribution/02-guest-content.pdf'],
-  ['distribution/03-directories.md',         'distribution/03-directories.pdf'],
+  ['compliance-spine-risk-map-ghl-build.md',   'compliance-spine-risk-map-ghl-build.pdf'],
+  ['compliance-spine-risk-map-ghl-mapping.md', 'compliance-spine-risk-map-ghl-mapping.pdf'],
+  ['distribution/01-podcast-outreach.md',      'distribution/01-podcast-outreach.pdf'],
+  ['distribution/02-guest-content.md',         'distribution/02-guest-content.pdf'],
+  ['distribution/03-directories.md',           'distribution/03-directories.pdf'],
 ];
 
 const CSS = `

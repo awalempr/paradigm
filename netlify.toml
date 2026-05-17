@@ -19,6 +19,18 @@
   force = true
 
 [[redirects]]
+  from = "/compliance-spine-risk-map-ghl-mapping.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/compliance-spine-risk-map-ghl-mapping.pdf"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
   from = "/distribution/*"
   to = "/404.html"
   status = 404
