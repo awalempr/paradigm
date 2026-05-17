@@ -2,6 +2,88 @@
   publish = "."
   functions = "netlify/functions"
 
+# Block public access to internal build docs, distribution playbooks,
+# provisioning scripts, and dev utilities. .netlifyignore alone has
+# proven unreliable for files already in the CDN, so we hard-404 the
+# paths as belt-and-suspenders.
+[[redirects]]
+  from = "/compliance-spine-risk-map-ghl-build.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/compliance-spine-risk-map-ghl-build.pdf"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/distribution/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/scripts/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/generate-distribution-pdfs.mjs"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/screenshot.mjs"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/serve.mjs"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/footer-shot.mjs"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/tab-shot.mjs"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/CLAUDE.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/claude.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/FEI-GHL-Build-Instructions.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/FEI-GHL-Build-Instructions.pdf"
+  to = "/404.html"
+  status = 404
+  force = true
+
 # Pretty URL: strip .html extension
 [[redirects]]
   from = "/founder-exposure-index"
