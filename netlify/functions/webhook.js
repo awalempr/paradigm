@@ -15,7 +15,7 @@ const WEBHOOK_MAP = {
   'founder-bottleneck-eliminator-apply':   process.env.WEBHOOK_FOUNDER_BOTTLENECK_ELIMINATOR,
   'compliance-spine':                      process.env.WEBHOOK_COMPLIANCE_SPINE,
   'compliance-spine-apply':                process.env.WEBHOOK_COMPLIANCE_SPINE,
-  'compliance-spine-risk-map':             process.env.WEBHOOK_COMPLIANCE_SPINE,
+  'compliance-spine-risk-map':             process.env.WEBHOOK_COMPLIANCE_SPINE_RISK_MAP,
   'leverage-engine':                       process.env.WEBHOOK_LEVERAGE_ENGINE,
   'leverage-engine-apply':                 process.env.WEBHOOK_LEVERAGE_ENGINE,
   'system-architecture-audit':             process.env.WEBHOOK_SYSTEM_ARCHITECTURE_AUDIT,
