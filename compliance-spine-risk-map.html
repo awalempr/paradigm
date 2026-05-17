@@ -285,6 +285,29 @@
     .form-success p { font-size: 14px; color: var(--muted); margin: 0; }
     .honeypot { position: absolute; left: -9999px; opacity: 0; height: 0; width: 0; overflow: hidden; }
 
+    /* Stakes section — what's at risk in dollars */
+    .stakes-intro { max-width: 760px; margin-bottom: 56px; }
+    .stakes-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    @media (max-width: 820px) { .stakes-grid { grid-template-columns: 1fr; } }
+    .stake-card { position: relative; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 36px 32px 32px; overflow: hidden; transition: border-color 0.25s, transform 0.25s; }
+    .stake-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .stake-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--red) 0%, var(--amber) 60%, rgba(255,179,0,0) 100%); opacity: 0.9; }
+    .stake-tag { font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 18px; display: inline-flex; align-items: center; gap: 10px; }
+    .stake-tag::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--red); box-shadow: 0 0 10px rgba(231,76,60,0.55); }
+    .stake-num { font-family: 'Ranade', sans-serif; font-weight: 500; font-size: clamp(36px, 4.6vw, 52px); letter-spacing: -0.025em; color: var(--fg); line-height: 1.02; margin-bottom: 14px; }
+    .stake-label { font-size: 15px; color: var(--fg); line-height: 1.5; font-weight: 500; margin-bottom: 10px; max-width: 480px; }
+    .stake-detail { font-size: 13px; color: var(--muted); line-height: 1.6; margin: 0; max-width: 480px; }
+    .stakes-foot { margin-top: 36px; font-size: 13px; color: var(--muted-dim); max-width: 760px; line-height: 1.65; padding: 18px 22px; border-left: 2px solid var(--accent); background: rgba(12,140,233,0.04); border-radius: 0 8px 8px 0; }
+    .stakes-foot strong { color: var(--fg); font-weight: 600; }
+
+    /* Findings list (under Ari's bio) */
+    .findings { margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--border-light); }
+    .findings .find-head { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin: 0 0 16px; font-family: 'Figtree', sans-serif; }
+    .findings ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+    .findings li { position: relative; padding-left: 26px; font-size: 13.5px; line-height: 1.6; color: var(--muted); max-width: 620px; }
+    .findings li::before { content: ""; position: absolute; left: 0; top: 9px; width: 14px; height: 1px; background: var(--accent); }
+    .findings li strong { color: var(--fg); font-weight: 600; }
+
     footer { padding: 48px 0; border-top: 1px solid var(--border); font-size: 13px; color: var(--muted-dim); text-align: center; }
     footer a { color: var(--muted); }
     footer p { max-width: none; margin: 0; }
@@ -343,27 +366,38 @@
 
 <section class="content">
   <div class="container">
-    <span class="eyebrow">Why this exists</span>
-    <h2>Compliance gaps don't reveal themselves on a Tuesday. They reveal themselves when a regulator calls.</h2>
-    <p>Most scaling service businesses know their compliance posture has gaps. What they don't know is which gaps matter, which gaps are quietly compounding, and what an outside regulator would surface first. The Risk Map is the fastest way to get expert eyes on the operation without committing to a full engagement.</p>
+    <span class="eyebrow">What's at stake</span>
+    <h2>Compliance exposure surfaces as a number on a settlement.</h2>
+    <p class="stakes-intro">When operators ask why the Risk Map exists, the honest answer is that compliance gaps don't stay hypothetical. They surface as a settlement, a license suspension that halts revenue, or a deal that walks during diligence. The Risk Map is built to put those numbers on the table before someone else does &mdash; while the cost of closing them is still finite.</p>
 
-    <div class="pain-grid">
-      <div class="pain-card">
-        <div class="pain-card-num">01 · States</div>
-        <h3>Multi-State Exposure</h3>
-        <p>Every state you operate in adds a layer of producer or contractor licensing, anti-rebating rules, disclosure requirements, and worker classification standards. Most operations cannot answer where they are clean and where they are exposed.</p>
+    <div class="stakes-grid">
+      <div class="stake-card">
+        <span class="stake-tag">FTC Enforcement</span>
+        <div class="stake-num">$7M&ndash;$200M</div>
+        <p class="stake-label">Range of FTC consent orders in recent direct-sales enforcement actions.</p>
+        <p class="stake-detail">Settlements often arrive bundled with restitution and a multi-year compliance monitor. Documentation gaps and income-claim language are the most common triggers.</p>
       </div>
-      <div class="pain-card">
-        <div class="pain-card-num">02 · Federal</div>
-        <h3>FTC and DOL Surface</h3>
-        <p>ROSCA, FTC Section 5, DOL classification rules, and recordkeeping requirements apply across most categories of recurring service revenue. A single complaint can cascade into a multi-month investigation if the documentation isn't ready.</p>
+      <div class="stake-card">
+        <span class="stake-tag">Rep Misclassification</span>
+        <div class="stake-num">$5M&ndash;$50M</div>
+        <p class="stake-label">Typical settlement range for a misclassified-rep class action.</p>
+        <p class="stake-detail">The 2024 DOL standard expanded the test. Operations built before it now sit closer to the wrong side of the line than most founders realize.</p>
       </div>
-      <div class="pain-card">
-        <div class="pain-card-num">03 · Speed</div>
-        <h3>You Need a Read in Two Weeks</h3>
-        <p>A full compliance engagement is the right answer for many operations. But you can't commit to a full engagement until you know where the exposure actually is. The Risk Map closes that gap on a defined two-week clock.</p>
+      <div class="stake-card">
+        <span class="stake-tag">Multi-State Licensing</span>
+        <div class="stake-num">$5K&ndash;$50K</div>
+        <p class="stake-label">Per state, per day, for unlicensed operation in licensing-required states.</p>
+        <p class="stake-detail">Compounds across rep count and time. A 90-day gap across six states is rarely a five-figure problem by the time it surfaces in a regulator's review.</p>
+      </div>
+      <div class="stake-card">
+        <span class="stake-tag">Exit Diligence</span>
+        <div class="stake-num">0.5&ndash;1.5x EBITDA</div>
+        <p class="stake-label">Standard valuation discount when compliance infrastructure is undocumented at diligence.</p>
+        <p class="stake-detail">Buyers do not negotiate this discount. They apply it after their diligence team flags the gaps, and it almost always exceeds the cost of closing the gaps proactively.</p>
       </div>
     </div>
+
+    <p class="stakes-foot"><strong>The Risk Map closes that information gap in 14 days.</strong> It surfaces which categories carry the exposure, which gaps an outside regulator or buyer would find first, and what the cost of closing each one actually looks like &mdash; before any of those parties get the chance to find them.</p>
   </div>
 </section>
 
@@ -435,7 +469,17 @@
         <h3>Ari Barton</h3>
         <div class="expert-title">COO &amp; Compliance Lead</div>
         <p>ROSCA framework specialist, multi-state licensing architect, and the operator who has structured compliance for over $2.5 billion in sales volume across insurance, direct sales, solar, and service-business categories. Engagements cover frameworks running across 200,000+ distributors and reps.</p>
-        <a href="/team#ari-barton" class="expert-link">Read full bio →</a>
+
+        <div class="findings">
+          <div class="find-head">What the Risk Map typically surfaces</div>
+          <ul>
+            <li><strong>Multi-state licensing gaps</strong> that would have triggered six-figure remediation costs if a state DOI had surfaced them first &mdash; usually closable in 30&ndash;60 days once they're identified.</li>
+            <li><strong>Income-claim language exposures</strong> resolvable with $20K&ndash;$40K disclosure updates that would have otherwise escalated to an FTC inquiry under current enforcement posture.</li>
+            <li><strong>Rep classification structures</strong> that diligence teams flag in M&amp;A, applying a 0.5&ndash;1.5x EBITDA discount before negotiations begin &mdash; far in excess of the cost to restructure proactively.</li>
+          </ul>
+        </div>
+
+        <a href="/team#ari-barton" class="expert-link" style="margin-top: 22px; display: inline-block;">Read full bio →</a>
       </div>
     </div>
   </div>
