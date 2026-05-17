@@ -15,11 +15,25 @@ const md = new Remarkable('full', {
 
 // Targets: [inputMarkdownPath, outputPdfPath]
 const targets = [
-  ['compliance-spine-risk-map-ghl-build.md',   'compliance-spine-risk-map-ghl-build.pdf'],
-  ['compliance-spine-risk-map-ghl-mapping.md', 'compliance-spine-risk-map-ghl-mapping.pdf'],
-  ['distribution/01-podcast-outreach.md',      'distribution/01-podcast-outreach.pdf'],
-  ['distribution/02-guest-content.md',         'distribution/02-guest-content.pdf'],
-  ['distribution/03-directories.md',           'distribution/03-directories.pdf'],
+  // Canonical pattern doc (source of truth for all GHL workflow builds)
+  ['paradigm-ghl-workflow-pattern.md',            'paradigm-ghl-workflow-pattern.pdf'],
+  // Per-source GHL build docs (all conform to the pattern doc above)
+  ['compliance-spine-risk-map-ghl-build.md',      'compliance-spine-risk-map-ghl-build.pdf'],
+  ['compliance-spine-risk-map-ghl-mapping.md',    'compliance-spine-risk-map-ghl-mapping.pdf'],
+  ['compliance-spine-ghl-build.md',               'compliance-spine-ghl-build.pdf'],
+  ['culture-maturity-audit-ghl-build.md',         'culture-maturity-audit-ghl-build.pdf'],
+  ['founder-exposure-index-ghl-build.md',         'founder-exposure-index-ghl-build.pdf'],
+  ['founder-bottleneck-eliminator-ghl-build.md',  'founder-bottleneck-eliminator-ghl-build.pdf'],
+  ['leverage-engine-ghl-build.md',                'leverage-engine-ghl-build.pdf'],
+  ['system-architecture-audit-ghl-build.md',      'system-architecture-audit-ghl-build.pdf'],
+  ['12-month-culture-calendar-ghl-build.md',      '12-month-culture-calendar-ghl-build.pdf'],
+  ['mastermind-waitlist-ghl-build.md',            'mastermind-waitlist-ghl-build.pdf'],
+  ['events-speaker-request-ghl-build.md',         'events-speaker-request-ghl-build.pdf'],
+  ['homepage-contact-ghl-build.md',               'homepage-contact-ghl-build.pdf'],
+  // Distribution playbooks
+  ['distribution/01-podcast-outreach.md',         'distribution/01-podcast-outreach.pdf'],
+  ['distribution/02-guest-content.md',            'distribution/02-guest-content.pdf'],
+  ['distribution/03-directories.md',              'distribution/03-directories.pdf'],
 ];
 
 const CSS = `

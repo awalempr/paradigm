@@ -30,6 +30,139 @@
   status = 404
   force = true
 
+# Internal GHL build docs (canonical pattern + 9 per-source) — never public
+[[redirects]]
+  from = "/paradigm-ghl-workflow-pattern.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/paradigm-ghl-workflow-pattern.pdf"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/compliance-spine-ghl-build.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/compliance-spine-ghl-build.pdf"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/culture-maturity-audit-ghl-build.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/culture-maturity-audit-ghl-build.pdf"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/founder-exposure-index-ghl-build.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/founder-exposure-index-ghl-build.pdf"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/founder-bottleneck-eliminator-ghl-build.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/founder-bottleneck-eliminator-ghl-build.pdf"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/leverage-engine-ghl-build.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/leverage-engine-ghl-build.pdf"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/system-architecture-audit-ghl-build.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/system-architecture-audit-ghl-build.pdf"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/12-month-culture-calendar-ghl-build.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/12-month-culture-calendar-ghl-build.pdf"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/mastermind-waitlist-ghl-build.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/mastermind-waitlist-ghl-build.pdf"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/events-speaker-request-ghl-build.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/events-speaker-request-ghl-build.pdf"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/homepage-contact-ghl-build.md"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/homepage-contact-ghl-build.pdf"
+  to = "/404.html"
+  status = 404
+  force = true
+
 [[redirects]]
   from = "/distribution/*"
   to = "/404.html"
