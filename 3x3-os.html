@@ -337,6 +337,20 @@
     /* Section pill (matches homepage convention) */
     .section-pill { display: inline-flex; align-items: center; padding: 6px 16px; border: 1px solid var(--border); border-radius: 100px; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 28px; }
 
+    /* Center section headers (pill + headline + lede) across all content sections */
+    section.content > .container > .section-pill,
+    section.content > .container-narrow > .section-pill {
+      display: flex; width: fit-content; margin-left: auto; margin-right: auto;
+    }
+    section.content > .container > .sb-headline,
+    section.content > .container-narrow > .sb-headline {
+      text-align: center; margin-left: auto; margin-right: auto; max-width: 1040px;
+    }
+    section.content > .container > .sb-lede,
+    section.content > .container-narrow > .sb-lede {
+      text-align: center; margin-left: auto; margin-right: auto; max-width: 720px;
+    }
+
     /* Apple-scale stacked headlines (use throughout new sections) */
     .sb-headline { font-family: 'Ranade', sans-serif; font-weight: 500; font-size: clamp(40px, 7vw, 76px); text-transform: uppercase; letter-spacing: -0.025em; line-height: 0.95; color: var(--fg); margin: 0; }
     .sb-headline em { font-style: normal; background: linear-gradient(180deg, var(--accent) 0%, rgba(12,140,233,0.65) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
@@ -786,8 +800,8 @@
 
 <section class="content" id="faq">
   <div class="container-narrow">
-    <span class="eyebrow">Common questions</span>
-    <h2>What operators ask before booking.</h2>
+    <span class="section-pill">Common questions</span>
+    <h2 class="sb-headline">What operators<br>ask before booking.</h2>
 
     <div class="faq-list">
       <details class="faq-item">
