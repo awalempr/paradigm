@@ -423,15 +423,28 @@
     .cta-transitional { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; color: var(--muted); border: 1px solid var(--border-light); padding: 13px 26px; border-radius: 100px; background: transparent; cursor: pointer; transition: color 0.25s, border-color 0.25s, background 0.25s; display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
     .cta-transitional:hover { color: var(--fg); border-color: var(--accent); background: rgba(12,140,233,0.05); opacity: 1; }
 
-    /* Hero (narrative/Apple-style — single column, no price card) */
-    .hero-narrative { padding: 64px 0 96px; }
-    @media (max-width: 720px) { .hero-narrative { padding: 32px 0 56px; } }
-    .hero-narrative .sb-headline { max-width: 980px; margin-top: 0; }
-    .hero-narrative .sb-lede { max-width: 640px; }
-    .hero-cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 24px 28px; margin-top: 40px; }
-    @media (max-width: 720px) { .hero-cta-row { gap: 18px; } }
+    /* Hero (Apple-style centered with pyramid anchor) */
+    .hero-narrative { padding: 80px 0 120px; text-align: center; position: relative; overflow: hidden; }
+    @media (max-width: 720px) { .hero-narrative { padding: 40px 0 64px; } }
+    .hero-narrative::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(900px 500px at 50% 100%, rgba(12,140,233,0.10), transparent 60%); z-index: 0; }
+    .hero-narrative > .container { position: relative; z-index: 1; }
+    .hero-narrative .section-pill { margin-left: auto; margin-right: auto; }
+    .hero-narrative .sb-headline { max-width: 1040px; margin: 0 auto; }
+    .hero-narrative .sb-lede { max-width: 640px; margin: 32px auto 0; }
+    .hero-cta-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 18px 28px; margin-top: 44px; }
     .hero-price-hint { font-size: 13px; color: var(--muted); letter-spacing: 0.02em; line-height: 1.45; }
     .hero-price-hint strong { color: var(--fg); font-weight: 600; }
+    .hero-pyramid { margin: 88px auto 0; display: flex; justify-content: center; position: relative; max-width: 520px; }
+    .hero-pyramid::before { content: ""; position: absolute; left: 50%; bottom: -20px; transform: translateX(-50%); width: 70%; height: 40px; background: radial-gradient(ellipse at center, rgba(12,140,233,0.22), transparent 70%); filter: blur(20px); z-index: -1; }
+    .hero-pyramid img { width: 100%; max-width: 460px; height: auto; display: block; filter: drop-shadow(0 30px 80px rgba(0,0,0,0.55)) drop-shadow(0 0 60px rgba(12,140,233,0.10)); animation: pyramid-float 6s ease-in-out infinite; }
+    @media (max-width: 720px) { .hero-pyramid { margin-top: 56px; } .hero-pyramid img { max-width: 280px; } }
+    @keyframes pyramid-float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-14px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-pyramid img { animation: none; }
+    }
 
     /* Findings list (under Ari's bio) */
     .findings { margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--border-light); }
@@ -466,21 +479,15 @@
 
 <header class="hero hero-narrative">
   <div class="container">
-    <nav class="breadcrumb" aria-label="Breadcrumb">
-      <a href="/">Paradigm</a>
-      <span class="breadcrumb-sep">/</span>
-      <span>3x3 OS Self-Paced Audit</span>
-    </nav>
 
     <span class="section-pill">3x3 OS &middot; Self-Paced Audit</span>
 
     <h1 class="sb-headline">
-      Founder in the room<br>
-      is not a<br>
-      <em>business model.</em>
+      Founder in the room is not<br>
+      <em>a business model.</em>
     </h1>
 
-    <p class="sb-lede">Install the 3x3 OS. The complete framework on video &mdash; Culture, Compliance, Technology &mdash; plus a personalized written audit produced by Ari Barton and a 60-minute review call. Self-paced. Operators who run the install typically pull 20+ hours a week off their plate in the first 90 days.</p>
+    <p class="sb-lede">Install the 3x3 OS &mdash; the complete framework on video, plus a personalized written audit from Ari Barton and a 60-minute review call. Self-paced. Operators who run the install typically pull 20+ hours a week off their plate in the first 90 days.</p>
 
     <div class="hero-cta-row">
       <a href="#book" class="btn-primary">
@@ -488,6 +495,10 @@
         <span class="arrow"><svg viewBox="0 0 10 10" fill="none"><path d="M2 8L8 2M8 2H3M8 2V7" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </a>
       <span class="hero-price-hint">From <strong>$5,000</strong> &middot; Credited toward a full Paradigm engagement</span>
+    </div>
+
+    <div class="hero-pyramid" aria-hidden="true">
+      <img src="brand_assets/optimized/3x3-hover-v3-512.webp" alt="The 3x3 OS framework: Culture, Technology, and Compliance stacked as a pyramid" loading="eager" width="460" height="460">
     </div>
   </div>
 </header>
