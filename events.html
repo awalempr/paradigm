@@ -2136,24 +2136,7 @@
       <div class="mastermind-callouts fade-up">
         <div class="mastermind-callout">Monthly strategic calls with operators and their teams.</div>
         <div class="mastermind-callout">Full access to the 3x3 OS self-diagnosis framework.</div>
-        <div class="mastermind-callout"><span id="spotsCallout">Opens at 100 members. Not before.</span></div>
-      </div>
-
-      <div class="waitlist-meter fade-up" id="waitlistMeter" style="display:none;">
-        <div class="meter-ring">
-          <svg viewBox="0 0 96 96">
-            <circle class="meter-ring-bg" cx="48" cy="48" r="42"/>
-            <circle class="meter-ring-fill" id="meterFill" cx="48" cy="48" r="42"/>
-          </svg>
-          <div class="meter-number">
-            <span class="meter-count" id="meterCount">--</span>
-            <span class="meter-label-small">Spots Left</span>
-          </div>
-        </div>
-        <div class="meter-text">
-          <div class="meter-headline" id="meterHeadline">Counting down to launch</div>
-          <div class="meter-sub" id="meterSub">The room opens when we hit 100. Claim your spot before it's gone.</div>
-        </div>
+        <div class="mastermind-callout">Limited to 100 attendees.</div>
       </div>
 
       <div class="fade-up">
@@ -2528,57 +2511,6 @@
         dropdown.classList.remove('open');
       }
     });
-  })();
-
-  // ── LIVE SPOTS COUNTER + RING ──
-  (function() {
-    var circumference = 2 * Math.PI * 42; // r=42
-    fetch('/api/waitlist-count')
-      .then(function(r) { return r.json(); })
-      .then(function(data) {
-        if (typeof data.remaining !== 'number') return;
-        var remaining = data.remaining;
-        var count = data.count || 0;
-        var pct = count / data.cap;
-
-        // Update callout text
-        var el = document.getElementById('spotsCallout');
-        if (el) {
-          el.textContent = remaining <= 0
-            ? 'The room is full. Join the overflow list.'
-            : remaining + ' of 100 spots remaining.';
-        }
-
-        // Show and animate the ring
-        var meter = document.getElementById('waitlistMeter');
-        var fill = document.getElementById('meterFill');
-        var countEl = document.getElementById('meterCount');
-        var headline = document.getElementById('meterHeadline');
-        var sub = document.getElementById('meterSub');
-        if (!meter || !fill || !countEl) return;
-
-        meter.style.display = 'flex';
-        countEl.textContent = remaining;
-
-        if (remaining <= 0) {
-          headline.textContent = 'The room is full';
-          sub.textContent = 'Join the overflow list to be first in line if a spot opens.';
-        } else if (remaining <= 10) {
-          headline.textContent = 'Almost there';
-          sub.textContent = 'Only ' + remaining + ' spots left. Don\'t wait on this one.';
-        } else if (remaining <= 50) {
-          headline.textContent = 'Filling up';
-          sub.textContent = count + ' operators in. The room opens at 100.';
-        }
-
-        // Animate the arc fill after a short delay
-        setTimeout(function() {
-          fill.style.strokeDashoffset = circumference * (1 - pct);
-        }, 300);
-      })
-      .catch(function() {
-        // Silently fail — meter stays hidden, callout keeps static text
-      });
   })();
 
   // ── WAITLIST FORM HANDLER ──

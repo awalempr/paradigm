@@ -1,7 +1,5 @@
 {
   "dependencies": {
-    "@upstash/ratelimit": "^2.0.8",
-    "@upstash/redis": "^1.37.0",
     "markdown-pdf": "^11.0.0",
     "puppeteer": "^24.38.0"
   }

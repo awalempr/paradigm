@@ -1,9 +1,6 @@
 // Netlify serverless function — proxies webhook calls to GHL
 // Keeps webhook URLs and location ID server-side only
 
-const { Ratelimit } = require('@upstash/ratelimit');
-const { Redis } = require('@upstash/redis');
-
 const WEBHOOK_MAP = {
   '12-month-culture-calendar':             process.env.WEBHOOK_CULTURE_CALENDAR,
   '12-month-culture-calendar-apply':       process.env.WEBHOOK_CULTURE_CALENDAR,
@@ -145,35 +142,10 @@ function validateFields(source, data) {
 }
 
 // --- Rate Limiting ---
-// Upstash-backed persistent rate limiting (survives cold starts)
-// Falls back to basic in-memory limiting if Upstash is not configured
+// In-memory rate limiter (per-Lambda-instance, resets on cold start).
+// A coordinated attacker hitting different warm starts could exceed the
+// per-IP+source cap, but for typical form-spam this is sufficient.
 
-let globalLimiter = null;  // Per-IP: 20 requests per 60s across all sources
-let sourceLimiter = null;  // Per-IP+source: 5 requests per 60s
-
-if (process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN) {
-  // Persistent rate limiting via Upstash Redis
-  const redis = new Redis({
-    url: process.env.UPSTASH_REDIS_REST_URL,
-    token: process.env.UPSTASH_REDIS_REST_TOKEN,
-  });
-
-  globalLimiter = new Ratelimit({
-    redis,
-    prefix: 'rl:global',
-    limiter: Ratelimit.slidingWindow(20, '60 s'),
-  });
-
-  sourceLimiter = new Ratelimit({
-    redis,
-    prefix: 'rl:source',
-    limiter: Ratelimit.slidingWindow(5, '60 s'),
-  });
-} else {
-  console.warn('[webhook] UPSTASH_REDIS_REST_URL or UPSTASH_REDIS_REST_TOKEN not set — falling back to in-memory rate limiting (not distributed, resets on cold start)');
-}
-
-// Fallback in-memory rate limiter (used when Upstash is not configured)
 const memoryMap = new Map();
 const MEMORY_RATE_MS = 2000;
 
@@ -196,32 +168,6 @@ function getClientIp(event) {
 }
 
 async function checkRateLimit(ip, source) {
-  // Upstash rate limiting (persistent, distributed)
-  if (globalLimiter && sourceLimiter) {
-    try {
-      const [globalResult, sourceResult] = await Promise.all([
-        globalLimiter.limit(ip),
-        sourceLimiter.limit(ip + ':' + source),
-      ]);
-
-      if (!globalResult.success || !sourceResult.success) {
-        const retryAfter = Math.max(
-          globalResult.reset - Date.now(),
-          sourceResult.reset - Date.now(),
-          0
-        );
-        return { limited: true, retryAfter: Math.ceil(retryAfter / 1000) };
-      }
-      return { limited: false };
-    } catch (err) {
-      // Upstash unreachable (DNS failure, auth error, network issue).
-      // Don't fail the whole submission — fall through to in-memory rate
-      // limiting so forms keep working while Upstash is investigated.
-      console.error('Upstash rate limit check failed, falling back to in-memory:', err && err.message);
-    }
-  }
-
-  // Fallback: in-memory rate limiting
   if (isMemoryLimited(ip + ':' + source)) {
     return { limited: true, retryAfter: 2 };
   }
@@ -300,17 +246,6 @@ exports.handler = async (event) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(cleanPayload),
     });
-
-    // Increment waitlist counter on successful mastermind-waitlist submission
-    if (response.ok && source === 'mastermind-waitlist') {
-      try {
-        const counterRedis = new Redis({
-          url: process.env.UPSTASH_REDIS_REST_URL,
-          token: process.env.UPSTASH_REDIS_REST_TOKEN,
-        });
-        await counterRedis.incr('mastermind-waitlist-count');
-      } catch (_) { /* non-blocking */ }
-    }
 
     return {
       statusCode: response.ok ? 200 : 502,
