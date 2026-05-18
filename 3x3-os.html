@@ -338,7 +338,7 @@
     .section-pill { display: inline-flex; align-items: center; padding: 6px 16px; border: 1px solid var(--border); border-radius: 100px; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 28px; }
 
     /* Apple-scale stacked headlines (use throughout new sections) */
-    .sb-headline { font-family: 'Ranade', sans-serif; font-weight: 500; font-size: clamp(40px, 7vw, 76px); letter-spacing: -0.03em; line-height: 0.95; color: var(--fg); margin: 0; }
+    .sb-headline { font-family: 'Ranade', sans-serif; font-weight: 500; font-size: clamp(40px, 7vw, 76px); text-transform: uppercase; letter-spacing: -0.025em; line-height: 0.95; color: var(--fg); margin: 0; }
     .sb-headline em { font-style: normal; background: linear-gradient(180deg, var(--accent) 0%, rgba(12,140,233,0.65) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
     .sb-lede { font-size: clamp(17px, 1.6vw, 20px); line-height: 1.55; color: var(--muted); max-width: 720px; margin-top: 28px; }
 
@@ -379,6 +379,26 @@
     .vision-cell.is-before h4 { color: var(--muted); }
     .vision-cell.is-after h4 { color: var(--fg); }
     .vision-cell p { font-size: 14px; line-height: 1.65; color: var(--muted); margin: 0; }
+
+    /* Vision: capability list (what you'll be able to do after install) */
+    .vision-capabilities { margin: 56px 0 0; }
+    .vision-cap-label { font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin: 0 0 26px; display: inline-flex; align-items: center; gap: 10px; }
+    .vision-cap-label::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px rgba(12,140,233,0.55); }
+    .vision-cap-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 56px; border-top: 1px solid var(--border); }
+    @media (max-width: 820px) { .vision-cap-list { grid-template-columns: 1fr; gap: 0; } }
+    .vision-cap-list li { display: flex; align-items: flex-start; gap: 16px; font-size: 16px; line-height: 1.5; color: var(--fg); font-weight: 500; padding: 18px 0; border-bottom: 1px solid var(--border); letter-spacing: -0.005em; }
+    .vision-cap-list li::before { content: ""; flex-shrink: 0; margin-top: 10px; width: 16px; height: 1px; background: var(--accent); }
+
+    /* Vision: real-outcome testimonial (Monique) */
+    .vision-quote { margin: 56px 0 0; padding: 48px 48px 40px; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; position: relative; overflow: hidden; }
+    @media (max-width: 720px) { .vision-quote { padding: 36px 32px 32px; } }
+    .vision-quote::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent) 0%, rgba(12,140,233,0) 65%); }
+    .vision-quote-stat { font-family: 'Ranade', sans-serif; font-weight: 500; font-size: clamp(40px, 5.4vw, 64px); letter-spacing: -0.03em; line-height: 1; color: var(--fg); margin: 0 0 10px; }
+    .vision-quote-stat-label { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin: 0 0 30px; font-weight: 600; display: block; }
+    .vision-quote-text { font-family: 'Ranade', sans-serif; font-weight: 400; font-size: clamp(18px, 1.9vw, 22px); line-height: 1.45; color: var(--fg); margin: 0 0 24px; max-width: 820px; font-style: italic; letter-spacing: -0.005em; }
+    .vision-quote-author { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; font-size: 13px; letter-spacing: 0.02em; }
+    .vision-quote-author-name { color: var(--fg); font-weight: 600; }
+    .vision-quote-author-role { color: var(--muted); }
 
     /* OFFER SECTION — extracted price card moment */
     .offer-block { display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px; align-items: center; margin-top: 56px; padding: 56px; background: var(--surface); border: 1px solid var(--border); border-radius: 24px; position: relative; overflow: hidden; }
@@ -455,12 +475,12 @@
     <span class="section-pill">3x3 OS &middot; Self-Paced Audit</span>
 
     <h1 class="sb-headline">
-      Your business should<br>
-      run when you don&rsquo;t.<br>
-      <em>Install the 3x3 OS.</em>
+      Founder in the room<br>
+      is not a<br>
+      <em>business model.</em>
     </h1>
 
-    <p class="sb-lede">The complete 3x3 OS framework on video &mdash; Culture, Compliance, and Technology &mdash; plus a personalized written audit produced by Ari Barton from your completed workbook, and a 60-minute review call. Move at your own pace.</p>
+    <p class="sb-lede">Install the 3x3 OS. The complete framework on video &mdash; Culture, Compliance, Technology &mdash; plus a personalized written audit produced by Ari Barton and a 60-minute review call. Self-paced. Operators who run the install typically pull 20+ hours a week off their plate in the first 90 days.</p>
 
     <div class="hero-cta-row">
       <a href="#book" class="btn-primary">
@@ -622,7 +642,31 @@
   <div class="container">
     <span class="section-pill">The vision</span>
     <h2 class="sb-headline">90 days later, the business<br>runs without you in the room.</h2>
-    <p class="sb-lede">Most founders feel the shift inside the first 30 days of working through the framework. By 90 days, the operating changes have compounded into something you can see on the calendar, in the team&rsquo;s decisions, and in how the business gets priced.</p>
+    <p class="sb-lede">Most founders feel the shift inside the first 30 days. By 90 days, the operating changes compound into something you can see on the calendar, in the team&rsquo;s decisions, and in how the business gets priced.</p>
+
+    <!-- Real outcome from a past engagement (Monique Owens) -->
+    <div class="vision-quote">
+      <div class="vision-quote-stat">25 hrs / week</div>
+      <span class="vision-quote-stat-label">Back to the founder &middot; in 90 days</span>
+      <blockquote class="vision-quote-text">&ldquo;As owners we were at maximum capacity. Paradigm built the systems so the business runs operations without me on top of every task. We saved 25 hours a week and we were able to focus on scale.&rdquo;</blockquote>
+      <div class="vision-quote-author">
+        <span class="vision-quote-author-name">Monique Owens</span>
+        <span class="vision-quote-author-role">Founder &middot; Caregiving Solutions</span>
+      </div>
+    </div>
+
+    <!-- Capability list — what you'll be able to do -->
+    <div class="vision-capabilities">
+      <div class="vision-cap-label">After 90 days you&rsquo;ll be able to</div>
+      <ul class="vision-cap-list">
+        <li>Take a real two-week trip without the phone going off every day</li>
+        <li>Hand a buyer, board, or counsel a documented operating system in writing</li>
+        <li>Onboard a senior hire from existing documentation alone &mdash; no months of shadowing</li>
+        <li>Pull the recurring decisions draining your week off your plate, permanently</li>
+        <li>Know exactly which three actions move the business forward this quarter</li>
+        <li>Stop being the bottleneck on hires, clients, and ops simultaneously</li>
+      </ul>
+    </div>
 
     <div class="vision-grid">
       <div class="vision-cell is-before">
