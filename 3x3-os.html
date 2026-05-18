@@ -332,6 +332,87 @@
     .stakes-foot { margin-top: 36px; font-size: 13px; color: var(--muted-dim); max-width: 760px; line-height: 1.65; padding: 18px 22px; border-left: 2px solid var(--accent); background: rgba(12,140,233,0.04); border-radius: 0 8px 8px 0; }
     .stakes-foot strong { color: var(--fg); font-weight: 600; }
 
+    /* ---- StoryBrand redesign additions ---- */
+
+    /* Section pill (matches homepage convention) */
+    .section-pill { display: inline-flex; align-items: center; padding: 6px 16px; border: 1px solid var(--border); border-radius: 100px; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 28px; }
+
+    /* Apple-scale stacked headlines (use throughout new sections) */
+    .sb-headline { font-family: 'Ranade', sans-serif; font-weight: 500; font-size: clamp(40px, 7vw, 76px); letter-spacing: -0.03em; line-height: 0.95; color: var(--fg); margin: 0; }
+    .sb-headline em { font-style: normal; background: linear-gradient(180deg, var(--accent) 0%, rgba(12,140,233,0.65) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .sb-lede { font-size: clamp(17px, 1.6vw, 20px); line-height: 1.55; color: var(--muted); max-width: 720px; margin-top: 28px; }
+
+    /* Inline stat highlight (e.g., 12-15x, $223B) */
+    .sb-stat { font-family: 'Ranade', sans-serif; font-weight: 600; color: var(--fg); letter-spacing: -0.01em; background: linear-gradient(180deg, transparent 60%, rgba(12,140,233,0.18) 60%); padding: 0 3px; }
+
+    /* PROBLEM SECTION — three-level pain (external / internal / philosophical) */
+    .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 56px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    @media (max-width: 920px) { .problem-grid { grid-template-columns: 1fr; } }
+    .problem-card { position: relative; padding: 44px 36px 40px; border-right: 1px solid var(--border); transition: background 0.25s; overflow: hidden; }
+    .problem-card:last-child { border-right: none; }
+    @media (max-width: 920px) { .problem-card { border-right: none; border-bottom: 1px solid var(--border); } .problem-card:last-child { border-bottom: none; } }
+    .problem-card:hover { background: rgba(255,255,255,0.015); }
+    .problem-card-ghost { position: absolute; top: 22px; right: 26px; font-family: 'Ranade', sans-serif; font-weight: 600; font-size: 96px; line-height: 1; letter-spacing: -0.03em; color: rgba(255,255,255,0.04); pointer-events: none; transition: color 0.25s; }
+    .problem-card:hover .problem-card-ghost { color: rgba(12,140,233,0.10); }
+    .problem-card-meta { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; display: inline-flex; align-items: center; gap: 8px; position: relative; z-index: 1; }
+    .problem-card-meta::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px rgba(12,140,233,0.55); }
+    .problem-card-title { font-family: 'Ranade', sans-serif; font-weight: 500; font-size: 24px; letter-spacing: -0.015em; line-height: 1.15; color: var(--fg); margin: 0 0 18px; max-width: 290px; position: relative; z-index: 1; }
+    .problem-card-desc { font-size: 14px; line-height: 1.7; color: var(--muted); margin: 0 0 18px; position: relative; z-index: 1; }
+    .problem-card-cite { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted-dim); margin: 0; position: relative; z-index: 1; }
+    .problem-closing { margin-top: 64px; text-align: center; }
+    .problem-closing-rule { display: flex; align-items: center; justify-content: center; gap: 14px; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted-dim); margin-bottom: 24px; }
+    .problem-closing-rule::before, .problem-closing-rule::after { content: ""; flex: 0 0 48px; height: 1px; background: var(--border); }
+    .problem-closing-text { font-family: 'Ranade', sans-serif; font-weight: 500; font-size: clamp(22px, 3vw, 32px); letter-spacing: -0.02em; line-height: 1.3; color: var(--fg); margin: 0 auto; max-width: 720px; }
+    .problem-closing-text em { font-style: italic; color: var(--accent); }
+
+    /* SUCCESS VISION SECTION — before / after grid */
+    .vision-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; margin-top: 48px; }
+    @media (max-width: 820px) { .vision-grid { grid-template-columns: 1fr; } }
+    .vision-cell { padding: 38px 34px; background: var(--bg); transition: background 0.25s; }
+    .vision-cell:hover { background: var(--surface); }
+    .vision-cell-meta { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 16px; display: inline-flex; align-items: center; gap: 10px; }
+    .vision-cell.is-before .vision-cell-meta { color: var(--muted-dim); }
+    .vision-cell.is-before .vision-cell-meta::before { content: ""; width: 14px; height: 1px; background: var(--muted-dim); }
+    .vision-cell.is-after .vision-cell-meta { color: var(--accent); }
+    .vision-cell.is-after .vision-cell-meta::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px rgba(12,140,233,0.55); }
+    .vision-cell h4 { font-family: 'Ranade', sans-serif; font-weight: 500; font-size: 20px; letter-spacing: -0.01em; line-height: 1.25; margin: 0 0 12px; }
+    .vision-cell.is-before h4 { color: var(--muted); }
+    .vision-cell.is-after h4 { color: var(--fg); }
+    .vision-cell p { font-size: 14px; line-height: 1.65; color: var(--muted); margin: 0; }
+
+    /* OFFER SECTION — extracted price card moment */
+    .offer-block { display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px; align-items: center; margin-top: 56px; padding: 56px; background: var(--surface); border: 1px solid var(--border); border-radius: 24px; position: relative; overflow: hidden; }
+    .offer-block::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent) 0%, rgba(12,140,233,0) 70%); }
+    @media (max-width: 920px) { .offer-block { grid-template-columns: 1fr; padding: 40px 32px; gap: 36px; } }
+    .offer-headline { font-family: 'Ranade', sans-serif; font-weight: 500; font-size: clamp(28px, 3.5vw, 40px); letter-spacing: -0.02em; line-height: 1.1; margin: 0 0 18px; color: var(--fg); }
+    .offer-sub { font-size: 15px; line-height: 1.6; color: var(--muted); margin: 0 0 26px; }
+    .offer-includes-label { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted-dim); margin: 0 0 14px; font-weight: 600; }
+    .offer-includes { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+    .offer-includes li { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; line-height: 1.55; color: var(--fg); }
+    .offer-includes li::before { content: ""; flex-shrink: 0; margin-top: 7px; width: 14px; height: 1px; background: var(--accent); }
+    .offer-price-card { text-align: center; padding: 40px 32px; background: var(--bg); border: 1px solid var(--border-light); border-radius: 18px; }
+    .offer-price-label { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin: 0 0 14px; display: block; font-weight: 600; }
+    .offer-price-num { font-family: 'Ranade', sans-serif; font-weight: 500; font-size: clamp(56px, 7vw, 80px); letter-spacing: -0.04em; line-height: 1; color: var(--fg); margin: 0 0 10px; }
+    .offer-price-num .price-currency { font-size: 0.5em; vertical-align: 0.65em; font-weight: 500; margin-right: 4px; color: var(--muted); }
+    .offer-price-foot { font-size: 12px; color: var(--muted-dim); margin: 0 0 24px; line-height: 1.55; }
+    .offer-price-card .btn-primary { width: 100%; max-width: none; }
+
+    /* CTA pair — direct + transitional (Final CTA) */
+    .cta-pair { display: flex; flex-direction: column; gap: 16px; align-items: center; margin-top: 20px; }
+    .cta-pair .btn-primary { max-width: 480px; width: 100%; }
+    .cta-transitional { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; color: var(--muted); border: 1px solid var(--border-light); padding: 13px 26px; border-radius: 100px; background: transparent; cursor: pointer; transition: color 0.25s, border-color 0.25s, background 0.25s; display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
+    .cta-transitional:hover { color: var(--fg); border-color: var(--accent); background: rgba(12,140,233,0.05); opacity: 1; }
+
+    /* Hero (narrative/Apple-style — single column, no price card) */
+    .hero-narrative { padding: 64px 0 96px; }
+    @media (max-width: 720px) { .hero-narrative { padding: 32px 0 56px; } }
+    .hero-narrative .sb-headline { max-width: 980px; margin-top: 0; }
+    .hero-narrative .sb-lede { max-width: 640px; }
+    .hero-cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 24px 28px; margin-top: 40px; }
+    @media (max-width: 720px) { .hero-cta-row { gap: 18px; } }
+    .hero-price-hint { font-size: 13px; color: var(--muted); letter-spacing: 0.02em; line-height: 1.45; }
+    .hero-price-hint strong { color: var(--fg); font-weight: 600; }
+
     /* Findings list (under Ari's bio) */
     .findings { margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--border-light); }
     .findings .find-head { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin: 0 0 16px; font-family: 'Figtree', sans-serif; }
@@ -363,30 +444,236 @@
   </div>
 </nav>
 
-<header class="hero">
+<header class="hero hero-narrative">
   <div class="container">
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="/">Paradigm</a>
       <span class="breadcrumb-sep">/</span>
       <span>3x3 OS Self-Paced Audit</span>
     </nav>
-    <div class="hero-grid">
-      <div>
-        <span class="hero-eyebrow">Self-Paced · Audit + Video Library</span>
-        <h1>Install the <em>3x3 OS</em> in your business. Move from founder-dependent to leader-independent.</h1>
-        <p class="hero-sub">The complete 3x3 OS framework on video &mdash; Culture, Compliance, and Technology &mdash; plus a personalized written audit produced by Ari Barton and a 60-minute review call. Self-paced. Credited toward a full Paradigm engagement if you continue.</p>
+
+    <span class="section-pill">3x3 OS &middot; Self-Paced Audit</span>
+
+    <h1 class="sb-headline">
+      Your business should<br>
+      run when you don&rsquo;t.<br>
+      <em>Install the 3x3 OS.</em>
+    </h1>
+
+    <p class="sb-lede">The complete 3x3 OS framework on video &mdash; Culture, Compliance, and Technology &mdash; plus a personalized written audit produced by Ari Barton from your completed workbook, and a 60-minute review call. Move at your own pace.</p>
+
+    <div class="hero-cta-row">
+      <a href="#book" class="btn-primary">
+        <span class="btn-label">Get instant access</span>
+        <span class="arrow"><svg viewBox="0 0 10 10" fill="none"><path d="M2 8L8 2M8 2H3M8 2V7" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a>
+      <span class="hero-price-hint">From <strong>$5,000</strong> &middot; Credited toward a full Paradigm engagement</span>
+    </div>
+  </div>
+</header>
+
+<section class="content">
+  <div class="container">
+    <span class="section-pill">The Problem</span>
+    <h2 class="sb-headline">Founder-dependent businesses<br>don&rsquo;t scale. They <em>stall.</em></h2>
+    <p class="sb-lede">Three things go wrong before the revenue chart does. By the time the chart shows it, the business has already been bleeding for eighteen months. Founders who break through install structure before instinct fails them.</p>
+
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-card-ghost">01</div>
+        <div class="problem-card-meta">External</div>
+        <h3 class="problem-card-title">Your team can&rsquo;t move without you.</h3>
+        <p class="problem-card-desc">Every meaningful decision waits for your input. Hires, clients, ops &mdash; the queue forms at your door. Across <span class="sb-stat">200,000+</span> distributors and reps Paradigm has structured frameworks for, the same pattern repeats: when culture and process live in the founder&rsquo;s head, the team can&rsquo;t operate without permission.</p>
+        <p class="problem-card-cite">Pattern from Paradigm engagements</p>
       </div>
-      <div class="price-card">
-        <div class="price-tag">3x3 OS Self-Paced Audit</div>
-        <div class="price-num"><span class="price-currency">$</span>5,000</div>
-        <div class="price-foot">Self-paced. Credited toward a full Paradigm engagement within 90 days.</div>
-        <ul class="price-includes">
-          <li><span>Full 3x3 OS video library (lifetime access)</span></li>
-          <li><span>Structured self-diagnosis workbook</span></li>
-          <li><span>Written 9-category audit by Ari Barton</span></li>
-          <li><span>Top 3 priority actions with cost estimates</span></li>
-          <li><span>60-min review call with Ari</span></li>
+      <div class="problem-card">
+        <div class="problem-card-ghost">02</div>
+        <div class="problem-card-meta">Internal</div>
+        <h3 class="problem-card-title">You&rsquo;re tired of being the operating system.</h3>
+        <p class="problem-card-desc">You haven&rsquo;t taken a real vacation in years. Weekends bleed into work. The thing that used to energize you now feels like a tax on your attention. The cost isn&rsquo;t just yours &mdash; it compounds onto the team, the family, and the version of the business you&rsquo;re trying to build.</p>
+        <p class="problem-card-cite">The conversation every founder has at $5M</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-card-ghost">03</div>
+        <div class="problem-card-meta">Philosophical</div>
+        <h3 class="problem-card-title">Businesses worth owning run without their founders.</h3>
+        <p class="problem-card-desc">Buyers price founder-dependent businesses at a <span class="sb-stat">3&ndash;5x</span> EBITDA discount &mdash; sometimes refusing to buy them at all. A company that requires its founder to operate isn&rsquo;t an asset, it&rsquo;s a job with extra liability. The gap between the two is everything you&rsquo;ve been building toward.</p>
+        <p class="problem-card-cite">Standard PE diligence convention</p>
+      </div>
+    </div>
+
+    <div class="problem-closing">
+      <div class="problem-closing-rule">The pattern</div>
+      <p class="problem-closing-text">Founders scale revenue before they scale structure.<br>That&rsquo;s where the business <em>breaks.</em></p>
+    </div>
+  </div>
+</section>
+
+<section class="content">
+  <div class="container">
+    <span class="section-pill">What it costs to ignore</span>
+    <h2 class="sb-headline">If you don&rsquo;t install structure,<br>one of these <em>finds you.</em></h2>
+    <p class="sb-lede">Founder-led businesses scale on energy and instinct until that stops working &mdash; usually somewhere between $2M and $10M. What follows is one of four outcomes. The 3x3 OS Self-Paced Audit is built to surface which one you&rsquo;re walking into before it surfaces you.</p>
+
+    <div class="stakes-grid">
+      <div class="stake-card">
+        <span class="stake-tag">Founder Dependency</span>
+        <div class="stake-num">$0</div>
+        <p class="stake-label">What the business is worth on the day you stop showing up.</p>
+        <p class="stake-detail">If the operation requires you in the room to make decisions, hold accountability, or keep the team aligned, the company is not an asset &mdash; it is a job. Buyers price it that way. So does your nervous system.</p>
+      </div>
+      <div class="stake-card">
+        <span class="stake-tag">Valuation Ceiling</span>
+        <div class="stake-num">5x &rarr; 12&ndash;15x</div>
+        <p class="stake-label">Multiple expansion gap between founder-dependent and system-operated businesses.</p>
+        <p class="stake-detail">Service businesses without documented infrastructure cap out at 4x&ndash;5x EBITDA at exit. The same business with culture, compliance, and technology systems installed clears 12x&ndash;15x. The gap is operational, not financial.</p>
+      </div>
+      <div class="stake-card">
+        <span class="stake-tag">Compliance Exposure</span>
+        <div class="stake-num">$7M&ndash;$200M</div>
+        <p class="stake-label">Range of FTC consent orders in recent service-business enforcement actions.</p>
+        <p class="stake-detail">Income-claim language, ROSCA gaps, rep classification, multi-state licensing &mdash; each one resolvable in 30 to 60 days if surfaced early, each one a six-figure remediation once a regulator gets there first.</p>
+      </div>
+      <div class="stake-card">
+        <span class="stake-tag">Culture Collapse</span>
+        <div class="stake-num">60&ndash;80%</div>
+        <p class="stake-label">Turnover rate in service-business roles where culture lives in the founder's head.</p>
+        <p class="stake-detail">When culture is undocumented, every new hire is a guess and every senior departure resets the operating norms. Top-line growth becomes impossible because the team can't hold what the founder built.</p>
+      </div>
+    </div>
+
+    <p class="stakes-foot"><strong>Chaos &rarr; compounding infrastructure. Founder-dependent &rarr; leader-independent. 5x valuation ceiling &rarr; 12&ndash;15x post-install.</strong> The Self-Paced Audit is how founders see which of those transitions they are closest to making &mdash; and which pillar is currently blocking the next one.</p>
+  </div>
+</section>
+
+<!-- THE GUIDE — three cofounders -->
+<section class="content">
+  <div class="container">
+    <span class="section-pill">The guide</span>
+    <h2 class="sb-headline">Three operators.<br>The same team that runs<br>Paradigm&rsquo;s <em>$50K+ engagements.</em></h2>
+    <p class="sb-lede">The video library is filmed by Matt Rosa and Jay Awal &mdash; the operators who teach the framework on every full engagement. The written audit is produced personally by Ari Barton from your submitted workbook. No templated worksheets, no junior staff in the loop.</p>
+
+    <div class="founders-grid">
+      <div class="founder-card">
+        <div class="founder-card-photo">
+          <img src="brand_assets/optimized/matt-512.jpg" alt="Matt Rosa, Co-founder and CEO at Paradigm Consulting" loading="lazy">
+        </div>
+        <div class="founder-card-meta">Co-host &middot; Video Library</div>
+        <h3 class="founder-card-name">Matt Rosa</h3>
+        <div class="founder-card-title">Co-founder &middot; CEO &amp; Culture Catalyst</div>
+        <p class="founder-card-bio">Built culture systems alongside founders running $5M-to-$50M sales operations and has structured frameworks for more than 200,000 distributors and reps. The thesis: culture is not vibes, it is operational infrastructure.</p>
+        <a href="/team#matt-rosa" class="founder-card-link">Read full bio &rarr;</a>
+      </div>
+
+      <div class="founder-card">
+        <div class="founder-card-photo">
+          <img src="brand_assets/optimized/ari-512.jpg" alt="Ari Barton, Co-founder and COO at Paradigm Consulting" loading="lazy">
+        </div>
+        <div class="founder-card-meta">Produces Your Audit</div>
+        <h3 class="founder-card-name">Ari Barton</h3>
+        <div class="founder-card-title">Co-founder &middot; COO &amp; Compliance Lead</div>
+        <p class="founder-card-bio">ROSCA framework specialist and multi-state licensing architect. Structured compliance for over $2.5 billion in sales volume across insurance, direct sales, solar, and service-business categories. Produces every Self-Paced Audit personally and runs the 60-minute review call.</p>
+        <a href="/team#ari-barton" class="founder-card-link">Read full bio &rarr;</a>
+      </div>
+
+      <div class="founder-card">
+        <div class="founder-card-photo">
+          <img src="brand_assets/optimized/jay-512.jpg" alt="Jay Awal, Co-founder and President at Paradigm Consulting" loading="lazy">
+        </div>
+        <div class="founder-card-meta">Co-host &middot; Video Library</div>
+        <h3 class="founder-card-name">Jay Awal</h3>
+        <div class="founder-card-title">Co-founder &middot; President &amp; CTO</div>
+        <p class="founder-card-bio">Systems architecture specialist and the engineer behind every agentic workflow Paradigm has shipped. Builds the operating layer over the tools service businesses already pay for &mdash; the same approach that anchors the Technology module.</p>
+        <a href="/team#jay-awal" class="founder-card-link">Read full bio &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE PLAN — 3 simple steps (Access / Audit / Act) -->
+<section class="content">
+  <div class="container">
+    <span class="section-pill">The plan</span>
+    <h2 class="sb-headline">Three steps. No discovery call.<br>No scheduled cohort.</h2>
+    <p class="sb-lede">You move through the modules at your own pace, submit the workbook when you&rsquo;re ready, and Ari produces the written audit. The review call is the only thing on your calendar.</p>
+
+    <div class="process-flow">
+      <div class="process-step" data-num="01">
+        <div class="process-step-meta"><span>Day 0</span><span>Access &middot; Instant</span></div>
+        <h4>Access the framework</h4>
+        <p>The complete 3x3 OS video library and the self-diagnosis workbook land in your inbox within minutes of purchase. Start with whichever pillar matches the friction in your business right now &mdash; no fixed order, no calendar pressure.</p>
+      </div>
+      <div class="process-step" data-num="02">
+        <div class="process-step-meta"><span>Self-paced</span><span>Audit &middot; ~2&ndash;4 weeks typical</span></div>
+        <h4>Watch the videos. Score yourself.</h4>
+        <p>Work through the modules on your timeline, filling the workbook as you go. Most founders finish over 2&ndash;4 weeks &mdash; the same 90 minutes a week they&rsquo;re already spending on the wrong problems. The workbook forces the specificity that makes the personalized audit useful.</p>
+      </div>
+      <div class="process-step" data-num="03">
+        <div class="process-step-meta"><span>After you submit</span><span>Act &middot; Audit + review call</span></div>
+        <h4>Get Ari&rsquo;s written audit and review call.</h4>
+        <p>Ari produces a written 9-category audit personally from your submitted workbook &mdash; ratings, findings, the top three priority actions, cost-of-inaction estimates &mdash; then walks you through it on a 60-minute review call. You leave with a document you can hand to a co-founder, investor, or counsel.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUCCESS VISION — what the business looks like post-install -->
+<section class="content">
+  <div class="container">
+    <span class="section-pill">The vision</span>
+    <h2 class="sb-headline">90 days later, the business<br>runs without you in the room.</h2>
+    <p class="sb-lede">Most founders feel the shift inside the first 30 days of working through the framework. By 90 days, the operating changes have compounded into something you can see on the calendar, in the team&rsquo;s decisions, and in how the business gets priced.</p>
+
+    <div class="vision-grid">
+      <div class="vision-cell is-before">
+        <div class="vision-cell-meta">Before</div>
+        <h4>You are the company&rsquo;s operating system.</h4>
+        <p>Every decision queues at your door. The team can&rsquo;t move without you. Vacations get cut short. Weekend phones aren&rsquo;t off. The business depends on your attention to function.</p>
+      </div>
+      <div class="vision-cell is-after">
+        <div class="vision-cell-meta">After install</div>
+        <h4>The system runs the operation. You run the company.</h4>
+        <p>Decisions get made at the layer where the work happens. The team holds the standards because the standards are documented, not implied. You spend your time on the work only you can do.</p>
+      </div>
+      <div class="vision-cell is-before">
+        <div class="vision-cell-meta">Before</div>
+        <h4>Buyers price you at a discount.</h4>
+        <p>Diligence teams flag founder-dependency early. Multiples cap at 4&ndash;5x EBITDA. Some buyers won&rsquo;t even open conversations on businesses where the founder is the operating layer.</p>
+      </div>
+      <div class="vision-cell is-after">
+        <div class="vision-cell-meta">After install</div>
+        <h4>The business prices like an asset.</h4>
+        <p>Documented systems, defensible compliance, and infrastructure independent of the founder &mdash; what diligence teams actually look for. Multiple expansion to <strong>12&ndash;15x</strong> isn&rsquo;t a stretch; it&rsquo;s what installed companies trade at.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE OFFER — extracted price card + bundle clarity -->
+<section class="content">
+  <div class="container">
+    <span class="section-pill">The offer</span>
+    <h2 class="sb-headline">Everything you need<br>to install the <em>3x3 OS.</em></h2>
+    <p class="sb-lede">One price. Lifetime access to the framework. A personalized written audit from Ari. A review call to translate findings into actions. Credited toward a full Paradigm engagement if you continue.</p>
+
+    <div class="offer-block">
+      <div>
+        <h3 class="offer-headline">The Self-Paced Audit, bundled.</h3>
+        <p class="offer-sub">The same framework Paradigm installs in $50K+ engagements, scoped down so you can move at your own pace &mdash; with the white-glove audit and review call still produced by Ari directly.</p>
+        <p class="offer-includes-label">Included</p>
+        <ul class="offer-includes">
+          <li>Lifetime access to the full 3x3 OS video library (Culture, Compliance, Technology)</li>
+          <li>Structured self-diagnosis workbook, yours to keep</li>
+          <li>Written 9-category audit produced personally by Ari Barton</li>
+          <li>Top three priority actions with cost-of-inaction estimates</li>
+          <li>60-minute review call with Ari</li>
+          <li>Engagement credit: full fee applied to any Paradigm engagement booked within 90 days</li>
         </ul>
+      </div>
+      <div class="offer-price-card">
+        <span class="offer-price-label">One-time</span>
+        <div class="offer-price-num"><span class="price-currency">$</span>5,000</div>
+        <p class="offer-price-foot">Self-paced. No scheduled cohort. Lifetime access.</p>
         <a href="#book" class="btn-primary">
           <span class="btn-label">Get instant access</span>
           <span class="arrow"><svg viewBox="0 0 10 10" fill="none"><path d="M2 8L8 2M8 2H3M8 2V7" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
@@ -394,13 +681,14 @@
       </div>
     </div>
   </div>
-</header>
+</section>
 
+<!-- THE FRAMEWORK — three pillar modules (moved from earlier position) -->
 <section class="content">
   <div class="container">
-    <span class="eyebrow">The framework on video</span>
-    <h2>Three pillars. One operating system. Recorded by the operators who built it.</h2>
-    <p class="pillar-intro">The 3x3 OS is what Paradigm installs in full 12-month engagements. The Self-Paced Audit gives you the same framework on video so you can identify the highest-leverage moves in your business yourself &mdash; with a personalized written audit from Ari at the end to confirm what you found and surface what you missed.</p>
+    <span class="section-pill">The framework on video</span>
+    <h2 class="sb-headline">Three pillars.<br>One operating system.</h2>
+    <p class="sb-lede">Recorded by Paradigm co-founders Jay Awal and Matt Rosa. The same modules Paradigm walks founders through in full 12-month engagements &mdash; on video, on your timeline.</p>
 
     <div class="pillar-grid">
       <div class="pillar-card">
@@ -436,141 +724,7 @@
 
     <div class="pillar-foot">
       <div class="pillar-foot-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></div>
-      <p><strong>Lifetime access.</strong> Filmed by Paradigm co-founders Jay Awal and Matt Rosa. The same framework that installs alongside founders in our $50K+ engagements &mdash; on video, on your timeline.</p>
-    </div>
-  </div>
-</section>
-
-<section class="content">
-  <div class="container">
-    <span class="eyebrow">What's at stake</span>
-    <h2>Most service businesses hit a ceiling at $5M. The ones who break through install infrastructure.</h2>
-    <p class="stakes-intro">Founder-led businesses scale on energy and instinct until the moment that stops working &mdash; usually somewhere between $2M and $10M. What follows is one of four outcomes, and the 3x3 OS is built to surface which one you are walking into before it surfaces you.</p>
-
-    <div class="stakes-grid">
-      <div class="stake-card">
-        <span class="stake-tag">Founder Dependency</span>
-        <div class="stake-num">$0</div>
-        <p class="stake-label">What the business is worth on the day you stop showing up.</p>
-        <p class="stake-detail">If the operation requires you in the room to make decisions, hold accountability, or keep the team aligned, the company is not an asset &mdash; it is a job. Buyers price it that way. So does your nervous system.</p>
-      </div>
-      <div class="stake-card">
-        <span class="stake-tag">Valuation Ceiling</span>
-        <div class="stake-num">5x &rarr; 12&ndash;15x</div>
-        <p class="stake-label">Multiple expansion gap between founder-dependent and system-operated businesses.</p>
-        <p class="stake-detail">Service businesses without documented infrastructure cap out at 4x&ndash;5x EBITDA at exit. The same business with culture, compliance, and technology systems installed clears 12x&ndash;15x. The gap is operational, not financial.</p>
-      </div>
-      <div class="stake-card">
-        <span class="stake-tag">Compliance Exposure</span>
-        <div class="stake-num">$7M&ndash;$200M</div>
-        <p class="stake-label">Range of FTC consent orders in recent service-business enforcement actions.</p>
-        <p class="stake-detail">Income-claim language, ROSCA gaps, rep classification, multi-state licensing &mdash; each one resolvable in 30 to 60 days if surfaced early, each one a six-figure remediation once a regulator gets there first.</p>
-      </div>
-      <div class="stake-card">
-        <span class="stake-tag">Culture Collapse</span>
-        <div class="stake-num">60&ndash;80%</div>
-        <p class="stake-label">Turnover rate in service-business roles where culture lives in the founder's head.</p>
-        <p class="stake-detail">When culture is undocumented, every new hire is a guess and every senior departure resets the operating norms. Top-line growth becomes impossible because the team can't hold what the founder built.</p>
-      </div>
-    </div>
-
-    <p class="stakes-foot"><strong>Chaos &rarr; compounding infrastructure. Founder-dependent &rarr; leader-independent. 5x valuation ceiling &rarr; 12&ndash;15x post-install.</strong> The Self-Paced Audit is how founders see which of those transitions they are closest to making &mdash; and which pillar is currently blocking the next one.</p>
-  </div>
-</section>
-
-<section class="content">
-  <div class="container">
-    <span class="eyebrow">What you get</span>
-    <h2>Self-paced framework, then a written audit from a human who has seen this 200 times.</h2>
-    <p>Most courses end with a certificate. Most consulting engagements end with a deck. The Self-Paced Audit ends with a document you can hand to a co-founder, an investor, or outside counsel &mdash; produced by an operator who has structured frameworks for over $2.5 billion in sales volume, not a templated PDF.</p>
-
-    <div class="deliv-grid">
-      <div class="deliv-card">
-        <h4>The 3x3 OS Video Library</h4>
-        <p>The complete framework on video across all three pillars: Culture, Compliance, and Technology. Filmed by Paradigm's co-founders. Lifetime access &mdash; watch on your timeline, revisit when your business outgrows the current state.</p>
-      </div>
-      <div class="deliv-card">
-        <h4>Self-Diagnosis Workbook</h4>
-        <p>A structured workbook you fill out as you work through the modules. Forces specificity on where each pillar currently stands in your business. The output is the input Ari uses to produce your personalized audit.</p>
-      </div>
-      <div class="deliv-card">
-        <h4>Written 9-Category Audit</h4>
-        <p>Ari Barton reviews your completed workbook and produces a written 9-category audit of your business: three pillars times three risk surfaces. Each cell gets a rating, a finding, and the top three priority actions with cost-of-inaction estimates.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="content">
-  <div class="container">
-    <span class="eyebrow">How it runs</span>
-    <h2>Self-paced, then personalized.</h2>
-    <p>No scheduled cohort, no pressure on your calendar. You move through the modules at your own pace, fill the workbook as you go, and when you submit it Ari produces the written audit and books the review call.</p>
-
-    <div class="process-flow">
-      <div class="process-step" data-num="01">
-        <div class="process-step-meta"><span>Day 0</span><span>Instant on purchase</span></div>
-        <h4>Access to the video library + workbook</h4>
-        <p>The complete 3x3 OS video library and the self-diagnosis workbook land in your inbox within minutes of purchase. Start with whichever pillar matches the friction in your business right now. No fixed order.</p>
-      </div>
-      <div class="process-step" data-num="02">
-        <div class="process-step-meta"><span>Self-paced</span><span>~6&ndash;10 hours total</span></div>
-        <h4>Work through the modules</h4>
-        <p>Watch the videos on your timeline, fill the workbook section by section as you go. Most founders finish over 2&ndash;4 weeks, treating it as the weekly 90 minutes they already spend on the wrong problems.</p>
-      </div>
-      <div class="process-step" data-num="03">
-        <div class="process-step-meta"><span>~7&ndash;10 days after submit</span><span>Written deliverable</span></div>
-        <h4>Audit produced by Ari</h4>
-        <p>You submit the completed workbook. Ari produces the written 9-category audit personally: ratings, findings, top three priority actions, cost-of-inaction estimates. It lands in your inbox before the review call so the conversation is informed.</p>
-      </div>
-      <div class="process-step" data-num="04">
-        <div class="process-step-meta"><span>Scheduled with you</span><span>60 minutes live</span></div>
-        <h4>Review call with Ari</h4>
-        <p>A 60-minute walkthrough of the written audit. Open Q&amp;A on findings, recommended actions, and what a follow-on Paradigm engagement would or would not solve. Clean exit if you are done; conversion path if you want to keep going.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="content">
-  <div class="container">
-    <span class="eyebrow">Who delivers it</span>
-    <h2>Three operators. The same team that runs Paradigm's $50K+ engagements.</h2>
-    <p>The video library is filmed by Matt Rosa and Jay Awal &mdash; the operators who teach the framework on every full engagement. The written audit is produced personally by Ari Barton from your submitted workbook. No templated worksheets, no junior staff in the loop.</p>
-
-    <div class="founders-grid">
-      <div class="founder-card">
-        <div class="founder-card-photo">
-          <img src="brand_assets/optimized/matt-512.jpg" alt="Matt Rosa, Co-founder and CEO at Paradigm Consulting" loading="lazy">
-        </div>
-        <div class="founder-card-meta">Co-host &middot; Video Library</div>
-        <h3 class="founder-card-name">Matt Rosa</h3>
-        <div class="founder-card-title">Co-founder &middot; CEO &amp; Culture Catalyst</div>
-        <p class="founder-card-bio">Built culture systems alongside founders running $5M-to-$50M sales operations and has structured frameworks for more than 200,000 distributors and reps. The thesis: culture is not vibes, it is operational infrastructure.</p>
-        <a href="/team#matt-rosa" class="founder-card-link">Read full bio &rarr;</a>
-      </div>
-
-      <div class="founder-card">
-        <div class="founder-card-photo">
-          <img src="brand_assets/optimized/ari-512.jpg" alt="Ari Barton, Co-founder and COO at Paradigm Consulting" loading="lazy">
-        </div>
-        <div class="founder-card-meta">Produces Your Audit</div>
-        <h3 class="founder-card-name">Ari Barton</h3>
-        <div class="founder-card-title">Co-founder &middot; COO &amp; Compliance Lead</div>
-        <p class="founder-card-bio">ROSCA framework specialist and multi-state licensing architect. Structured compliance for over $2.5 billion in sales volume across insurance, direct sales, solar, and service-business categories. Produces every Self-Paced Audit personally and runs the 60-minute review call.</p>
-        <a href="/team#ari-barton" class="founder-card-link">Read full bio &rarr;</a>
-      </div>
-
-      <div class="founder-card">
-        <div class="founder-card-photo">
-          <img src="brand_assets/optimized/jay-512.jpg" alt="Jay Awal, Co-founder and President at Paradigm Consulting" loading="lazy">
-        </div>
-        <div class="founder-card-meta">Co-host &middot; Video Library</div>
-        <h3 class="founder-card-name">Jay Awal</h3>
-        <div class="founder-card-title">Co-founder &middot; President &amp; CTO</div>
-        <p class="founder-card-bio">Systems architecture specialist and the engineer behind every agentic workflow Paradigm has shipped. Builds the operating layer over the tools service businesses already pay for &mdash; the same approach that anchors the Technology module.</p>
-        <a href="/team#jay-awal" class="founder-card-link">Read full bio &rarr;</a>
-      </div>
+      <p><strong>Lifetime access.</strong> The same framework that installs alongside founders in our $50K+ engagements &mdash; on video, on your timeline.</p>
     </div>
   </div>
 </section>
@@ -621,9 +775,9 @@
 
 <section class="final-cta" id="book">
   <div class="container-narrow">
-    <span class="final-cta-eyebrow">Get instant access</span>
-    <h2>Install the 3x3 OS in your business. Start today.</h2>
-    <p>Drop your details and Ari's team will send your access link and workbook within one business day. $5,000, credited toward a full Paradigm engagement if you continue.</p>
+    <span class="final-cta-eyebrow">Start the install</span>
+    <h2>Stop being the operating system.<br>Install the <em>3x3 OS</em> instead.</h2>
+    <p>Drop your details and Ari's team will send the payment link, your access to the video library, and the workbook within one business day. $5,000, credited toward a full Paradigm engagement if you continue.</p>
 
     <form id="riskMapForm" class="inquiry-form" autocomplete="on" novalidate>
       <input type="text" class="form-input" id="rmName" placeholder="Full name" autocomplete="name" maxlength="120" required>
@@ -644,6 +798,12 @@
     <div class="form-success" id="rmSuccess" role="status" aria-live="polite">
       <h3>Request received.</h3>
       <p>Ari's team will be in touch within one business day with the payment link, your access to the video library, and the workbook. Check your email.</p>
+    </div>
+
+    <div class="cta-pair" style="margin-top: 36px;">
+      <a href="/#framework" class="cta-transitional">
+        Not ready? See the full 3x3 OS framework &rarr;
+      </a>
     </div>
   </div>
 </section>
