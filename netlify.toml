@@ -357,15 +357,28 @@
   status = 301
   force = true
 
-# Compliance Spine Risk Map (paid productized offer)
+# 3x3 OS Self-Paced Audit (paid productized offer, formerly "Compliance Spine Risk Map")
 [[redirects]]
-  from = "/compliance-spine-risk-map"
-  to = "/compliance-spine-risk-map.html"
+  from = "/3x3-os"
+  to = "/3x3-os.html"
   status = 200
 
 [[redirects]]
+  from = "/3x3-os.html"
+  to = "/3x3-os"
+  status = 301
+  force = true
+
+# Old URL kept as 301 to preserve backlinks
+[[redirects]]
+  from = "/compliance-spine-risk-map"
+  to = "/3x3-os"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/compliance-spine-risk-map.html"
-  to = "/compliance-spine-risk-map"
+  to = "/3x3-os"
   status = 301
   force = true
 
